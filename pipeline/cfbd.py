@@ -171,6 +171,12 @@ import json
 CACHE_PATH = "docs/data/cfbd_snapshot.json"
 MAX_AGE_HOURS = 8
 
+# Bump whenever a cached entry gains or changes a field. An entry written by an
+# older version is stale no matter how recent it is: without this, adding SP+
+# ratings meant every run inside the 8-hour window kept serving an entry that
+# predated them, and the new field silently stayed empty.
+CACHE_SCHEMA = 2
+
 
 def _now() -> datetime.datetime:
     return datetime.datetime.now(datetime.timezone.utc)
@@ -192,7 +198,10 @@ def save_cache(cache: dict, path: str = CACHE_PATH) -> None:
 
 
 def _fresh(cache: dict, key: str, max_age_hours: float) -> bool:
-    stamp = (cache.get(key) or {}).get("fetched_at")
+    entry = cache.get(key) or {}
+    if entry.get("schema") != CACHE_SCHEMA:
+        return False                        # written by an older shape
+    stamp = entry.get("fetched_at")
     if not stamp:
         return False
     try:
@@ -228,7 +237,8 @@ def cached_week(season: int, week: int, path: str = CACHE_PATH,
     # and let the page say so rather than failing the whole run.
     sp = fetch_sp_ratings(season) or entry.get("sp", {})
 
-    cache[key] = {"fetched_at": _now().isoformat(), "games": games, "lines": lines, "sp": sp}
+    cache[key] = {"schema": CACHE_SCHEMA, "fetched_at": _now().isoformat(),
+                  "games": games, "lines": lines, "sp": sp}
     # Keep the file small: only the most recent few weeks are ever needed.
     for stale in sorted(cache.keys())[:-4]:
         cache.pop(stale, None)

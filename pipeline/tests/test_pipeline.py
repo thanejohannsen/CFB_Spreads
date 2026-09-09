@@ -62,6 +62,40 @@ class TestMatching(unittest.TestCase):
         self.assertEqual(len(unmatched), 1)
 
 
+class TestCfbdCache(unittest.TestCase):
+    def setUp(self):
+        self.path = os.path.join(tempfile.mkdtemp(), "cache.json")
+
+    def test_entry_from_an_older_shape_is_stale(self):
+        """A cached entry missing fields the current code expects must be
+        refetched however recent it is. Without this, adding SP+ ratings meant
+        every run inside the 8-hour window served an entry that predated them."""
+        from pipeline import cfbd
+        cfbd.save_cache({"2026-2": {
+            "fetched_at": datetime.datetime.now(UTC).isoformat(),
+            "games": [], "lines": [],          # no "schema", no "sp"
+        }}, self.path)
+        self.assertFalse(cfbd._fresh(cfbd.load_cache(self.path), "2026-2", 8))
+
+    def test_current_shape_is_fresh(self):
+        from pipeline import cfbd
+        cfbd.save_cache({"2026-2": {
+            "schema": cfbd.CACHE_SCHEMA,
+            "fetched_at": datetime.datetime.now(UTC).isoformat(),
+            "games": [], "lines": [], "sp": {},
+        }}, self.path)
+        self.assertTrue(cfbd._fresh(cfbd.load_cache(self.path), "2026-2", 8))
+
+    def test_old_entry_expires_on_age_too(self):
+        from pipeline import cfbd
+        old = datetime.datetime.now(UTC) - datetime.timedelta(hours=9)
+        cfbd.save_cache({"2026-2": {
+            "schema": cfbd.CACHE_SCHEMA, "fetched_at": old.isoformat(),
+            "games": [], "lines": [], "sp": {},
+        }}, self.path)
+        self.assertFalse(cfbd._fresh(cfbd.load_cache(self.path), "2026-2", 8))
+
+
 class TestWeeks(unittest.TestCase):
     def test_week_key_is_the_saturday(self):
         for day in range(7, 13):                      # Mon 7th .. Sat 12th Sept 2026
