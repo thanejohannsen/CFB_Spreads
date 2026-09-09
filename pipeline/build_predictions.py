@@ -12,7 +12,8 @@ import json
 import os
 import sys
 
-from . import cfbd, config, kalshi, liquidity, moneyline, select_slate, weeks
+from . import (cfbd, combine, config, kalshi, liquidity, moneyline,
+               select_slate, sp_plus, weeks)
 from .margin_model import read_market
 from .match_games import match_all
 from .predict import evaluate
@@ -32,15 +33,17 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
 
     season = now.year if now.month >= 8 else now.year - 1
     games, lines, unmatched = [], [], []
+    sp_ratings: dict = {}
     week = None
 
     if cfbd.available():
         week = cfbd.current_week(season)
         if week:
-            games, lines, refreshed = cfbd.cached_week(season, week)
+            games, lines, sp_ratings, refreshed = cfbd.cached_week(season, week)
             if verbose:
                 source = "refreshed" if refreshed else "from cache"
-                print(f"cfbd: week {week}, {len(games)} games, {len(lines)} with lines ({source})")
+                print(f"cfbd: week {week}, {len(games)} games, {len(lines)} with lines, "
+                      f"{len(sp_ratings)} SP+ ratings ({source})")
     elif verbose:
         print("cfbd: no CFBD_API_KEY set; Kalshi-only mode (manual spreads still work)")
 
@@ -56,6 +59,7 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
         quotes = {}
 
     matches, unmatched = match_all(slate, games, lines)
+    sp_index = sp_plus.index_ratings(sp_ratings)
     # With no CFBD data at all, "unmatched" would list the whole slate, which is
     # noise rather than a signal that the alias map needs fixing.
     if not games and not lines:
@@ -68,11 +72,45 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
         quality = liquidity.grade(read)
 
         vegas = match.home_favored_by
-        blend = liquidity.shrink(read, vegas) if not read.rejected else liquidity.shrink(read, None)
-        pick = evaluate(read, quality, blend, vegas, ladder.home_team, ladder.away_team)
-
         key = ladder.event_ticker.replace(f"{config.KALSHI_SERIES}-", "")
         cross = moneyline.cross_check(read, quotes.get(key))
+
+        # Three independent estimates of the same quantity: how many points the
+        # home team gives. Each carries its own precision, in points.
+        projection = sp_plus.project(
+            sp_index, ladder.home_team, ladder.away_team,
+            neutral_site=bool((match.game or {}).get("neutral_site")),
+        )
+        sig_ladder = combine.ladder_signal(read)
+        sig_ml = combine.moneyline_signal(cross)
+        sig_sp = combine.sp_plus_signal(projection)
+
+        # The master uses the two Kalshi markets only; SP+ is a lens.
+        master = combine.master_composite(sig_ladder, sig_ml)
+        band = None if read.rejected else (read.margin_low, read.margin_high)
+
+        blend = liquidity.shrink(read, vegas) if not read.rejected else liquidity.shrink(read, None)
+        # Shrink the composite toward the line, using its own precision. The
+        # weight depends only on the composite's sigma, so the page can redo
+        # this for any hand-typed line without re-deriving anything.
+        master_shrink = (liquidity.weight_for_band((master.sigma or 0.0) * 2.0)
+                         if master.margin is not None else 1.0)
+        master_margin = master.margin
+        if master_margin is not None and vegas is not None:
+            master_margin = master_shrink * master.margin + (1 - master_shrink) * vegas
+
+        picks = {
+            "master": evaluate(master_margin, vegas, ladder.home_team, ladder.away_team,
+                               mode="master", read=read, quality=quality, band=band,
+                               unavailable=read.rejected or "no Kalshi signal",
+                               blend_label=master.describe()).to_dict(),
+        }
+        picks["master"]["strategy_version"] = config.STRATEGY_VERSION
+        for sig in (sig_ladder, sig_ml, sig_sp):
+            picks[sig.key] = evaluate(sig.margin, vegas, ladder.home_team, ladder.away_team,
+                                      mode="lens", read=read,
+                                      unavailable=sig.note).to_dict()
+        pick = picks["master"]
 
         # An exact kickoff only exists when CFBD matched the game.  Kalshi's
         # close_time is a settlement deadline that can land days after the game,
@@ -132,7 +170,19 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
                 "step": 1.0,
                 "table": [] if read.rejected else read.table(),
             },
-            "pick": pick.to_dict(),
+            "pick": pick,                      # legacy alias for the master pick
+            "picks": picks,
+            "signals": [sig.to_dict() for sig in (sig_ladder, sig_ml, sig_sp)],
+            "master": master.to_dict(),
+            "master_margin": None if master_margin is None else round(master_margin, 2),
+            "master_shrink_weight": round(master_shrink, 4),
+            "sp_plus": None if projection is None else {
+                "home_favored_by": round(projection.home_favored_by, 2),
+                "home_rating": round(projection.home_rating, 2),
+                "away_rating": round(projection.away_rating, 2),
+                "home_field": projection.home_field,
+                "neutral_site": projection.neutral_site,
+            },
             "moneyline": cross.to_dict() if cross else None,
         })
 
@@ -146,6 +196,8 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
         "week_key": weeks.week_key(reference),
         "decision_deadline": weeks.decision_deadline(reference).isoformat(),
         "cfbd_available": cfbd.available(),
+        "sp_plus_available": bool(sp_index),
+        "strategy_version": config.STRATEGY_VERSION,
         "top_n": top_n or config.TOP_N,
         "slate_size": len(out_games),
         "unmatched": unmatched,
@@ -175,9 +227,10 @@ def main() -> int:
     tiers: dict[str, int] = {}
     for g in payload["games"]:
         tiers[g["tier"]] = tiers.get(g["tier"], 0) + 1
-    picks = sum(1 for g in payload["games"] if g["pick"]["side"])
-    print(f"\nslate: {payload['slate_size']} games  tiers: {dict(sorted(tiers.items()))}  "
-          f"actionable picks: {picks}")
+    print(f"\nslate: {payload['slate_size']} games  tiers: {dict(sorted(tiers.items()))}")
+    for lens in ("master", "kalshi_spread", "kalshi_ml", "sp_plus"):
+        n = sum(1 for g in payload["games"] if (g["picks"].get(lens) or {}).get("side"))
+        print(f"  {lens:<14} {n:>3} picks")
     if payload["unmatched"]:
         print(f"unmatched against CFBD ({len(payload['unmatched'])}): "
               f"{', '.join(payload['unmatched'][:5])}")

@@ -102,6 +102,7 @@ def fetch_games(year: int, week: int, season_type: str = "regular") -> list[dict
             "away_team": _field(g, "awayTeam", "away_team"),
             "start_date": _field(g, "startDate", "start_date"),
             "completed": bool(_field(g, "completed", default=False)),
+            "neutral_site": bool(_field(g, "neutralSite", "neutral_site", default=False)),
             "home_points": hp,
             "away_points": ap,
             "home_margin": (float(hp) - float(ap)) if hp is not None and ap is not None else None,
@@ -204,28 +205,32 @@ def _fresh(cache: dict, key: str, max_age_hours: float) -> bool:
 
 
 def cached_week(season: int, week: int, path: str = CACHE_PATH,
-                max_age_hours: float = MAX_AGE_HOURS) -> tuple[list, list, bool]:
-    """Games and lines for a week, refetched only when the cache has aged out.
+                max_age_hours: float = MAX_AGE_HOURS) -> tuple[list, list, dict, bool]:
+    """Games, lines and SP+ ratings for a week, refetched when the cache ages out.
 
-    Returns (games, lines, refreshed).  On a fetch failure the previous cached
-    values are returned rather than nothing, so one bad call cannot blank the
-    Vegas column on the page.
+    Returns (games, lines, sp_ratings, refreshed).  On a fetch failure the
+    previous cached values are returned rather than nothing, so one bad call
+    cannot blank the Vegas column on the page.
     """
     cache = load_cache(path)
     key = f"{season}-{week}"
     entry = cache.get(key) or {}
 
     if _fresh(cache, key, max_age_hours):
-        return entry.get("games", []), entry.get("lines", []), False
+        return entry.get("games", []), entry.get("lines", []), entry.get("sp", {}), False
 
     try:
         games, lines = fetch_games(season, week), fetch_lines(season, week)
     except Exception:                                       # noqa: BLE001
-        return entry.get("games", []), entry.get("lines", []), False
+        return entry.get("games", []), entry.get("lines", []), entry.get("sp", {}), False
 
-    cache[key] = {"fetched_at": _now().isoformat(), "games": games, "lines": lines}
+    # SP+ is a lens, not the main event: if it fails, keep whatever was cached
+    # and let the page say so rather than failing the whole run.
+    sp = fetch_sp_ratings(season) or entry.get("sp", {})
+
+    cache[key] = {"fetched_at": _now().isoformat(), "games": games, "lines": lines, "sp": sp}
     # Keep the file small: only the most recent few weeks are ever needed.
     for stale in sorted(cache.keys())[:-4]:
         cache.pop(stale, None)
     save_cache(cache, path)
-    return games, lines, True
+    return games, lines, sp, True

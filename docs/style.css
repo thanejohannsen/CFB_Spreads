@@ -91,6 +91,22 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
 .acc-metric .v { font-size: 22px; font-weight: 650; font-variant-numeric: tabular-nums; }
 .acc-lock { margin-left: auto; font-size: 12px; color: var(--muted); text-align: right; }
 
+.acc-table { display: grid; gap: 2px; padding-top: 12px; }
+.acc-tr {
+  display: grid;
+  grid-template-columns: minmax(150px, 2fr) 80px 80px 52px;
+  gap: 8px;
+  align-items: baseline;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.acc-tr.head { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding-bottom: 0; }
+.acc-tr.master { background: color-mix(in srgb, var(--accent) 9%, transparent); font-weight: 620; }
+.acc-td { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.acc-td.name { font-family: inherit; }
+.acc-td.muted { color: var(--muted); }
+
 .acc-rows { display: grid; gap: 10px; padding-top: 12px; }
 .acc-row { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: baseline; font-size: 13px; }
 .acc-row .label { color: var(--muted); min-width: 120px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
@@ -184,6 +200,21 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
 .tier.C { color: var(--tierC); }
 .tier.D { color: var(--tierD); }
 
+.signals { display: grid; gap: 3px; margin: 12px 0 4px; }
+.sig {
+  display: grid;
+  grid-template-columns: minmax(120px, 1.4fr) minmax(90px, 1fr) 80px 110px;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 12.5px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ink) 3%, transparent);
+}
+.sig-name { color: var(--muted); }
+.sig-val { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.sig-sd, .sig-w { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
 .g-nums {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
@@ -249,6 +280,12 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
 
 .foot { margin: 28px auto 48px; font-size: 13px; color: var(--ink); }
 .foot p { margin: 0 0 10px; max-width: 68ch; }
+
+@media (max-width: 700px) {
+  .sig { grid-template-columns: 1fr auto; row-gap: 2px; }
+  .sig-sd, .sig-w { grid-column: span 1; }
+  .acc-tr { grid-template-columns: 1fr 62px 62px 44px; font-size: 12px; }
+}
 
 @media (max-width: 560px) {
   .g-meta { margin-left: 0; width: 100%; }

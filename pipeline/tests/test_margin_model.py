@@ -180,11 +180,15 @@ class TestShrinkage(unittest.TestCase):
 
 
 class TestPickRules(unittest.TestCase):
-    def _pick(self, line, **kwargs):
+    def _pick(self, line, mode="master", **kwargs):
         read = read_market(parse_ladder(logistic_event(**kwargs)))
         quality = liquidity.grade(read)
         blend = liquidity.shrink(read, line)
-        return predict.evaluate(read, quality, blend, line, "Boston College", "Rutgers")
+        band = None if read.rejected else (read.margin_low, read.margin_high)
+        return predict.evaluate(blend.margin if not read.rejected else None, line,
+                                "Boston College", "Rutgers", mode=mode, read=read,
+                                quality=quality, band=band,
+                                unavailable=read.rejected)
 
     def test_line_inside_band_is_no_play(self):
         read = read_market(parse_ladder(logistic_event(true_margin=3.0, width=0.01)))
@@ -225,9 +229,36 @@ class TestPickRules(unittest.TestCase):
 
     def test_missing_line_is_not_a_pick(self):
         read = read_market(parse_ladder(logistic_event()))
-        pick = predict.evaluate(read, liquidity.grade(read),
-                                liquidity.shrink(read, None), None, "BC", "RUTG")
+        pick = predict.evaluate(read.implied_margin, None, "BC", "RUTG",
+                                read=read, quality=liquidity.grade(read))
         self.assertIsNone(pick.side)
+
+    def test_lens_mode_skips_the_band_test(self):
+        """A lens exists to measure whether its signal carries information, so
+        it must not be filtered through the master's safety rules."""
+        read = read_market(parse_ladder(logistic_event(true_margin=3.0, width=0.01, oi=20000)))
+        line = round(read.implied_margin - 1.4, 2)
+        master = self._pick(line, width=0.01, oi=20000)
+        lens = predict.evaluate(read.implied_margin, line, "Boston College", "Rutgers",
+                                mode="lens", read=read)
+        self.assertEqual(lens.side, "home")
+        self.assertIsNotNone(lens.estimate)
+        # master shrinks toward the line, so its edge is strictly smaller
+        self.assertLess(abs(master.edge), abs(lens.edge))
+
+    def test_lens_still_honours_the_vig_floor(self):
+        read = read_market(parse_ladder(logistic_event(true_margin=3.0, width=0.01)))
+        pick = predict.evaluate(read.implied_margin, round(read.implied_margin - 0.3, 2),
+                                "BC", "RUTG", mode="lens", read=read)
+        self.assertIsNone(pick.side)
+        self.assertIn("inside the vig", pick.reason)
+
+    def test_lens_works_without_a_ladder(self):
+        """SP+ can still pick on a game whose Kalshi market is unreadable; the
+        cover probability is left blank rather than invented."""
+        pick = predict.evaluate(9.0, 3.5, "BC", "RUTG", mode="lens", read=None)
+        self.assertEqual(pick.side, "home")
+        self.assertIsNone(pick.p_cover)
 
 
 class TestMoneylineCrossCheck(unittest.TestCase):

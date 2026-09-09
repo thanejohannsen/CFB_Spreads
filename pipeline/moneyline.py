@@ -161,11 +161,25 @@ class CrossCheck:
     ml_win_prob: float              # P(home wins) from the moneyline market
     spread_margin: float            # ladder median margin, home perspective
     ml_margin: Optional[float]      # margin the moneyline is pricing
+    ml_margin_low: Optional[float]  # same, from the moneyline's bid
+    ml_margin_high: Optional[float] # same, from its ask
     divergence_pts: Optional[float]
     divergence_prob: float
     ml_open_interest: float
     significant: bool
     note: str
+
+    @property
+    def ml_band(self) -> Optional[float]:
+        """The moneyline's own bid/ask, expressed in spread points.
+
+        This is what makes the two Kalshi signals comparable: a 1c-wide
+        moneyline quote is worth very different amounts of spread depending on
+        how far the game's spread sits from margin zero.
+        """
+        if self.ml_margin_low is None or self.ml_margin_high is None:
+            return None
+        return abs(self.ml_margin_high - self.ml_margin_low)
 
     def to_dict(self) -> dict:
         return {
@@ -175,6 +189,9 @@ class CrossCheck:
             "ml_odds": american_odds(self.ml_win_prob),
             "spread_margin": round(self.spread_margin, 2),
             "ml_margin": None if self.ml_margin is None else round(self.ml_margin, 2),
+            "ml_margin_low": None if self.ml_margin_low is None else round(self.ml_margin_low, 2),
+            "ml_margin_high": None if self.ml_margin_high is None else round(self.ml_margin_high, 2),
+            "ml_band": None if self.ml_band is None else round(self.ml_band, 2),
             "divergence_pts": None if self.divergence_pts is None else round(self.divergence_pts, 2),
             "divergence_prob": round(self.divergence_prob, 4),
             "ml_open_interest": round(self.ml_open_interest),
@@ -195,8 +212,8 @@ def cross_check(read: MarketRead, quote: Optional[MoneylineQuote]) -> Optional[C
 
     if not (MIN_PROB <= ml_prob <= MAX_PROB and MIN_PROB <= spread_prob <= MAX_PROB):
         return CrossCheck(
-            spread_prob, ml_prob, read.implied_margin, None, None, divergence_prob,
-            quote.open_interest, False,
+            spread_prob, ml_prob, read.implied_margin, None, None, None, None,
+            divergence_prob, quote.open_interest, False,
             "One side is priced near certainty; a points-equivalent comparison "
             "is not meaningful here.",
         )
@@ -209,6 +226,13 @@ def cross_check(read: MarketRead, quote: Optional[MoneylineQuote]) -> Optional[C
         return None
     ml_margin = read.implied_margin - shift_point
     divergence_pts = ml_margin - read.implied_margin
+
+    # Push the moneyline's own bid and ask through the same conversion, so its
+    # precision is expressed on the spread scale rather than as cents.
+    lo_q = read.curve_mid.quantile(quote.home_prob_low)
+    hi_q = read.curve_mid.quantile(quote.home_prob_high)
+    ml_low = None if lo_q is None else read.implied_margin - lo_q
+    ml_high = None if hi_q is None else read.implied_margin - hi_q
 
     # Only call it significant once it clears both markets' own uncertainty.
     ml_band_pts = abs(quote.band) * _points_per_prob(read)
@@ -224,7 +248,7 @@ def cross_check(read: MarketRead, quote: Optional[MoneylineQuote]) -> Optional[C
     if extrapolated and significant:
         significant = False
         return CrossCheck(
-            spread_prob, ml_prob, read.implied_margin, ml_margin,
+            spread_prob, ml_prob, read.implied_margin, ml_margin, ml_low, ml_high,
             divergence_pts, divergence_prob, quote.open_interest, False,
             f"Moneyline implies {_fmt(ml_margin, read.ladder)}, beyond the "
             f"{lo:+.0f} to {hi:+.0f} range the ladder's strikes actually cover - "
@@ -242,8 +266,8 @@ def cross_check(read: MarketRead, quote: Optional[MoneylineQuote]) -> Optional[C
                 f"({abs(divergence_pts):.1f}pt gap).")
 
     return CrossCheck(spread_prob, ml_prob, read.implied_margin, ml_margin,
-                      divergence_pts, divergence_prob, quote.open_interest,
-                      significant, note)
+                      ml_low, ml_high, divergence_pts, divergence_prob,
+                      quote.open_interest, significant, note)
 
 
 def _points_per_prob(read: MarketRead) -> float:

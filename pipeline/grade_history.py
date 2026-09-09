@@ -26,6 +26,29 @@ UTC = datetime.timezone.utc
 
 EDGE_BUCKETS = [("<1pt", 0.0, 1.0), ("1-3pts", 1.0, 3.0), (">3pts", 3.0, float("inf"))]
 
+# One record per tab. The three lens definitions never change, so those records
+# stay comparable all season no matter how the master is re-tuned.
+LENSES = [
+    ("master", "Master"),
+    ("kalshi_spread", "Kalshi Spread vs Vegas Spread"),
+    ("kalshi_ml", "Kalshi ML vs Spread"),
+    ("sp_plus", "SP+ vs Vegas Spread"),
+]
+
+
+def _picks(snapshot: Optional[dict]) -> dict:
+    """All four picks from a snapshot, tolerating the pre-lens schema.
+
+    Snapshots written before the lens tabs existed carry a single `pick`, which
+    was the master pick. Reading it as such keeps those locked weeks in the
+    record instead of discarding or rewriting them."""
+    if not snapshot:
+        return {}
+    if snapshot.get("picks"):
+        return snapshot["picks"]
+    legacy = snapshot.get("pick")
+    return {"master": legacy} if legacy else {}
+
 
 # --------------------------------------------------------------------------
 # Snapshot storage
@@ -67,7 +90,9 @@ def _snapshot(game: dict, at: datetime.datetime) -> dict:
         "fraction_traded": game.get("fraction_traded"),
         "kalshi_weight": game.get("kalshi_weight"),
         "vegas_home_favored_by": game.get("vegas_home_favored_by"),
-        "pick": game.get("pick"),
+        "master_margin": game.get("master_margin"),
+        "picks": game.get("picks"),
+        "pick": game.get("pick"),          # legacy alias for the master pick
     }
 
 
@@ -108,11 +133,10 @@ def record(payload: dict, history_dir: str = None, now: datetime.datetime = None
 # Grading
 # --------------------------------------------------------------------------
 
-def _graded(snapshot: Optional[dict], home_margin: float) -> Optional[bool]:
-    """Did this snapshot's pick cover?  None when it made no pick or pushed."""
-    if not snapshot:
-        return None
-    pick = snapshot.get("pick") or {}
+def _graded(snapshot: Optional[dict], home_margin: float,
+            lens: str = "master") -> Optional[bool]:
+    """Did this lens's pick cover?  None when it made no pick or pushed."""
+    pick = (_picks(snapshot) or {}).get(lens) or {}
     side, line = pick.get("side"), pick.get("line")
     if side is None or line is None:
         return None
@@ -132,6 +156,13 @@ def apply_results(week: dict, results: dict[str, float]) -> dict:
             "home_margin": margin,
             "decision_correct": _graded(entry.get("decision"), margin),
             "closing_correct": _graded(entry.get("closing"), margin),
+            "lenses": {
+                key: {
+                    "decision_correct": _graded(entry.get("decision"), margin, key),
+                    "closing_correct": _graded(entry.get("closing"), margin, key),
+                }
+                for key, _ in LENSES
+            },
         }
     return week
 
@@ -175,10 +206,14 @@ def grade_week(week_key: str, season: int, history_dir: str = None) -> Optional[
 # Scoreboard
 # --------------------------------------------------------------------------
 
-def _tally(entries: list[dict], lock: str) -> dict:
+def _tally(entries: list[dict], lock: str, lens: str = "master") -> dict:
     wins = losses = 0
     for e in entries:
-        ok = (e.get("result") or {}).get(f"{lock}_correct")
+        result = e.get("result") or {}
+        if lens == "master":
+            ok = result.get(f"{lock}_correct")
+        else:
+            ok = ((result.get("lenses") or {}).get(lens) or {}).get(f"{lock}_correct")
         if ok is True:
             wins += 1
         elif ok is False:
@@ -203,9 +238,12 @@ def summarize(history_dir: str = None) -> dict:
         entries = [e for e in week.get("games", {}).values() if e.get("result")]
         if not entries:
             continue
-        graded_weeks.append({"week_key": week["week_key"],
-                             "decision": _tally(entries, "decision"),
-                             "closing": _tally(entries, "closing")})
+        graded_weeks.append({
+            "week_key": week["week_key"],
+            "decision": _tally(entries, "decision"),
+            "closing": _tally(entries, "closing"),
+            "lenses": {k: _tally(entries, "decision", k) for k, _ in LENSES},
+        })
         all_entries.extend(entries)
 
     by_tier, by_edge = {}, {}
@@ -216,7 +254,7 @@ def summarize(history_dir: str = None) -> dict:
         if tier:
             by_tier.setdefault(tier, []).append(e)
 
-        pick = d.get("pick") or {}
+        pick = (_picks(d) or {}).get("master") or {}
         if pick.get("side") and pick.get("edge") is not None:
             magnitude = abs(float(pick["edge"]))
             for label, lo, hi in EDGE_BUCKETS:
@@ -226,7 +264,8 @@ def summarize(history_dir: str = None) -> dict:
 
         if d.get("blended_margin") is not None and c.get("blended_margin") is not None:
             drifts.append(abs(float(c["blended_margin"]) - float(d["blended_margin"])))
-            agreements.append((d.get("pick") or {}).get("side") == (c.get("pick") or {}).get("side"))
+            agreements.append(((_picks(d) or {}).get("master") or {}).get("side")
+                              == ((_picks(c) or {}).get("master") or {}).get("side"))
 
     drifts.sort()
     return {
@@ -235,6 +274,16 @@ def summarize(history_dir: str = None) -> dict:
         "last_week": graded_weeks[-1] if graded_weeks else None,
         "season": {"decision": _tally(all_entries, "decision"),
                    "closing": _tally(all_entries, "closing")},
+        "lenses": [
+            {"key": key, "label": label,
+             "season": _tally(all_entries, "decision", key),
+             "last_week": (graded_weeks[-1]["lenses"].get(key) if graded_weeks else None)}
+            for key, label in LENSES
+        ],
+        "strategy_versions": sorted({
+            ((_picks(e.get("decision")) or {}).get("master") or {}).get("strategy_version")
+            for e in all_entries
+        } - {None}),
         "by_tier": {k: _tally(v, "decision") for k, v in sorted(by_tier.items())},
         "by_edge": {label: _tally(by_edge.get(label, []), "decision")
                     for label, _, _ in EDGE_BUCKETS},

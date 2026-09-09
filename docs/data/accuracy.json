@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-09T20:32:12.052808+00:00",
+ "generated_at": "2026-09-09T20:33:20.559499+00:00",
  "weeks": [],
  "last_week": null,
  "season": {
@@ -16,6 +16,53 @@
    "pct": null
   }
  },
+ "lenses": [
+  {
+   "key": "master",
+   "label": "Master",
+   "season": {
+    "wins": 0,
+    "losses": 0,
+    "total": 0,
+    "pct": null
+   },
+   "last_week": null
+  },
+  {
+   "key": "kalshi_spread",
+   "label": "Kalshi Spread vs Vegas Spread",
+   "season": {
+    "wins": 0,
+    "losses": 0,
+    "total": 0,
+    "pct": null
+   },
+   "last_week": null
+  },
+  {
+   "key": "kalshi_ml",
+   "label": "Kalshi ML vs Spread",
+   "season": {
+    "wins": 0,
+    "losses": 0,
+    "total": 0,
+    "pct": null
+   },
+   "last_week": null
+  },
+  {
+   "key": "sp_plus",
+   "label": "SP+ vs Vegas Spread",
+   "season": {
+    "wins": 0,
+    "losses": 0,
+    "total": 0,
+    "pct": null
+   },
+   "last_week": null
+  }
+ ],
+ "strategy_versions": [],
  "by_tier": {},
  "by_edge": {
   "<1pt": {

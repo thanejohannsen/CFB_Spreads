@@ -26,8 +26,10 @@
 </section>
 
 <nav class="wrap tabs" role="tablist">
-  <button class="tab active" data-tab="spreads" role="tab" aria-selected="true">Spreads</button>
-  <button class="tab" data-tab="moneyline" role="tab" aria-selected="false">Moneyline cross-check</button>
+  <button class="tab active" data-tab="master" role="tab" aria-selected="true">Master</button>
+  <button class="tab" data-tab="kalshi_spread" role="tab" aria-selected="false">Kalshi Spread vs Vegas Spread</button>
+  <button class="tab" data-tab="kalshi_ml" role="tab" aria-selected="false">Kalshi ML vs Spread</button>
+  <button class="tab" data-tab="sp_plus" role="tab" aria-selected="false">SP+ vs Vegas Spread</button>
 </nav>
 
 <section class="wrap controls">
@@ -61,6 +63,12 @@
   markets on each game. Each price is a probability, so the ladder is a full margin-of-victory
   distribution — the chance a side covers any number is read straight off the market rather than from
   a power rating.</p>
+  <p><strong>Four tabs, four records.</strong> <em>Master</em> is the tool&rsquo;s official pick and the
+  one whose record counts. The other three each show a single comparison and keep their own separate
+  record, using a looser rule &mdash; any edge over a point, with none of the master&rsquo;s safety
+  checks &mdash; because the point of a lens is to measure whether that signal carries information at
+  all. Their definitions never change, so after a few weeks they show which signal is actually
+  carrying the result.</p>
   <p><strong>The band matters more than the number.</strong> Deriving the implied spread twice, once
   from bids and once from asks, gives the market’s own uncertainty. When a line sits inside that band,
   the apparent edge is smaller than the noise it was measured against, and the tool says

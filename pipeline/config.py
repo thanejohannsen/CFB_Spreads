@@ -6,6 +6,30 @@ decision point, not at the kickoff liquidity peak.  See README for the
 measurements behind each number.
 """
 
+# =========================================================== TUNABLE =======
+# Everything in this block is a judgement call rather than a measurement.
+# Change these to re-tune the tool; everything else is derived from data.
+#
+# Bump STRATEGY_VERSION whenever the master pick's formula changes.  It is
+# stamped into each locked pick so a mid-season change can be split out of the
+# record instead of silently blending two different rule sets.  The three lens
+# records need no version: their definitions never change.
+STRATEGY_VERSION = "v1"
+
+# SP+ (Bill Connelly, ESPN) is a neutral-field points-above-average rating, so
+# a matchup spread is the rating difference plus home-field advantage.
+HOME_FIELD_ADVANTAGE = 2.5      # points; 0 at a neutral site
+
+# Assumed standard error of an SP+ spread, in points.  Only used to present
+# SP+ uncertainty -- SP+ is deliberately NOT part of the master pick, because
+# it grades around 52-54% against the spread, which is not distinguishable
+# from the 52.4% break-even a -110 line demands.  It gets its own tab and its
+# own record, and can earn a place in the master later if that record supports
+# it.
+SP_PLUS_SIGMA = 3.0
+
+# ===========================================================================
+
 # ---------------------------------------------------------------- scope ----
 
 # How many games to model each week, ranked by total open interest across the

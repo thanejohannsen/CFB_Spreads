@@ -81,6 +81,12 @@ class TestWeeks(unittest.TestCase):
         self.assertLessEqual(weeks.decision_deadline(kickoff), kickoff)
 
 
+def _pick(side, line, margin):
+    return {"side": side, "team": "x", "line": line, "estimate": margin,
+            "edge": margin - line, "p_cover": 0.6, "p_push": 0.0,
+            "confidence": "solid" if side else "no-play", "reason": ""}
+
+
 def _payload(margin, line, side, kickoff, game_id="G1"):
     return {
         "week_key": "2026-09-12", "season": 2026,
@@ -91,9 +97,16 @@ def _payload(margin, line, side, kickoff, game_id="G1"):
             "blended_margin": margin, "band": 0.3, "margin_low": margin - 0.15,
             "margin_high": margin + 0.15, "tier": "A", "open_interest": 20000,
             "fraction_traded": 0.9, "kalshi_weight": 1.0,
-            "vegas_home_favored_by": line,
-            "pick": {"side": side, "team": "x", "line": line, "edge": margin - line,
-                     "p_cover": 0.6, "p_push": 0.0, "confidence": "solid", "reason": ""},
+            "vegas_home_favored_by": line, "master_margin": margin,
+            "pick": _pick(side, line, margin),
+            "picks": {
+                "master": _pick(side, line, margin),
+                # the ladder lens deliberately takes the OTHER side here, so the
+                # test can prove the four records are graded independently
+                "kalshi_spread": _pick("away" if side == "home" else "home", line, margin),
+                "kalshi_ml": _pick(side, line, margin),
+                "sp_plus": _pick(None, line, margin),
+            },
         }],
     }
 
@@ -139,6 +152,40 @@ class TestLockingAndGrading(unittest.TestCase):
         graded = grade_history.apply_results(dict(week), {"G1": 3.0})
         self.assertIsNone(graded["games"]["G1"]["result"]["decision_correct"],
                           "an exact push is neither a win nor a loss")
+
+    def test_each_lens_is_graded_independently(self):
+        self._record(5.0, datetime.datetime(2026, 9, 9, 12, 0, tzinfo=UTC))
+        week = grade_history.load_week("2026-09-12", self.dir)
+        graded = grade_history.apply_results(week, {"G1": 10.0})
+        lenses = graded["games"]["G1"]["result"]["lenses"]
+        self.assertTrue(lenses["master"]["decision_correct"])
+        self.assertFalse(lenses["kalshi_spread"]["decision_correct"],
+                         "the opposing lens pick must grade the other way")
+        self.assertTrue(lenses["kalshi_ml"]["decision_correct"])
+        self.assertIsNone(lenses["sp_plus"]["decision_correct"],
+                          "a lens that made no pick has no result")
+
+        grade_history.save_week(graded, self.dir)
+        summary = grade_history.summarize(self.dir)
+        by_key = {l["key"]: l["season"] for l in summary["lenses"]}
+        self.assertEqual(by_key["master"]["wins"], 1)
+        self.assertEqual(by_key["kalshi_spread"]["losses"], 1)
+        self.assertEqual(by_key["sp_plus"]["total"], 0)
+
+    def test_legacy_snapshot_without_lenses_still_grades(self):
+        """The history file written before the lens tabs existed carries a single
+        `pick`, which was the master pick. It must survive, not be discarded."""
+        legacy = {"week_key": "2026-09-12", "games": {"OLD": {
+            "title": "t", "home_team": "Boston College", "away_team": "Rutgers",
+            "kickoff": self.kickoff.isoformat(),
+            "decision": {"at": "2026-09-09T12:00:00+00:00", "tier": "A",
+                         "pick": _pick("home", 3.0, 5.0)},
+        }}}
+        grade_history.save_week(legacy, self.dir)
+        week = grade_history.load_week("2026-09-12", self.dir)
+        graded = grade_history.apply_results(week, {"OLD": 10.0})
+        self.assertTrue(graded["games"]["OLD"]["result"]["decision_correct"])
+        self.assertTrue(graded["games"]["OLD"]["result"]["lenses"]["master"]["decision_correct"])
 
     def test_summary_excludes_ungraded_and_no_play_games(self):
         grade_history.record(_payload(5.0, 3.0, None, self.kickoff, "NOPLAY"),

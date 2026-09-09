@@ -70,6 +70,55 @@ The record is still locked at **Thursday noon ET** — the moment you actually d
 snapshot is taken at kickoff purely to measure drift. Over a season that answers "does a Wednesday
 read hold up?" with evidence instead of assumption.
 
+## Four tabs, four records
+
+**Master** is the tool's official pick. It combines the two Kalshi signals by **measured precision**,
+per game — each market's own bid/ask converted onto the spread scale, so the sharper one carries the
+blend:
+
+```
+σ_ladder = ladder band / 2
+σ_ml     = (spread implied by the ML's ask − by its bid) / 2
+combo    = precision-weighted average,  w = 1/σ²
+```
+
+Which one wins depends on the game, and that is the point. On **Arizona St. vs Texas A&M** the ladder
+pins the spread to ±0.15 pts while the moneyline manages only ±0.42, so the ladder takes 88% and an
+apparent 1-point conflict collapses to a 0.2-point one. On a near pick'em like **Mississippi St. vs
+Minnesota** it inverts and the moneyline takes 73%. The reason is structural: the moneyline is quoted
+at margin zero, so on a lopsided game its estimate has to be dragged along the curve to reach the
+spread, amplifying its error, while the ladder has real traded strikes sitting at the number itself.
+Measured across a slate the ladder's share ranged 26%–99%.
+
+The combined uncertainty is **floored at the sharper input** rather than using `1/√(Σw)`. Inverse-
+variance weighting assumes independent errors; these are the same exchange and largely the same
+traders, so the textbook formula would report the blend as sharper than either input. Averaging the
+estimates is right; claiming the variance shrank is not.
+
+The other three tabs are **lenses** — one signal each, judged on its own:
+
+| Tab | Estimate |
+|---|---|
+| Kalshi Spread vs Vegas Spread | the ladder's median |
+| Kalshi ML vs Spread | the moneyline converted to a spread |
+| SP+ vs Vegas Spread | (SP+ home − SP+ away) + 2.5 home field |
+
+Lenses use a deliberately looser rule: pick whenever the edge clears a point, with no band test, no
+tier gate and no shrinkage toward the line. A lens exists to measure whether its signal carries
+information at all, so filtering it through the master's safety rules — or pulling it toward the very
+line it is being graded against — would destroy the thing being measured.
+
+**Each tab keeps its own record.** The three lens definitions never change, so those rows stay
+comparable all season however the master is re-tuned, and after a few weeks they show which signal is
+actually carrying the result. Only the master can shift meaning underneath you, so each locked master
+pick carries a `strategy_version` stamp; if the formula ever changes mid-season the row can be split
+at that point instead of silently blending two rule sets.
+
+SP+ is **not** part of the master. It grades around 52–54% against the spread, which is not
+distinguishable from the 52.4% break-even a −110 line demands, so letting it move a number backed by
+hundreds of thousands of contracts would add noise. It keeps its own tab and record and can be
+promoted later if that record earns it.
+
 ## Moneyline cross-check
 
 Ties are impossible, so the ladder already contains a win probability: `P(home wins) = S(0)`. Kalshi
