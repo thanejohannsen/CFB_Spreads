@@ -3,7 +3,7 @@
   "KXNCAAFSPREAD-26SEP10FAMUMIA": {
    "away_team": "Florida A&M",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.72,
     "blended_margin": 56.53,
     "fraction_traded": 1.0,
@@ -26,7 +26,7 @@
     "vegas_home_favored_by": 56.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.72,
     "blended_margin": 56.53,
     "fraction_traded": 1.0,
@@ -55,7 +55,7 @@
   "KXNCAAFSPREAD-26SEP11MIZZKU": {
    "away_team": "Missouri",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.28,
     "blended_margin": -5.64,
     "fraction_traded": 0.935,
@@ -63,22 +63,22 @@
     "kalshi_weight": 0.966,
     "margin_high": -5.5,
     "margin_low": -5.78,
-    "open_interest": 135534,
+    "open_interest": 135585,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": -0.14497696329080778,
      "line": -5.5,
      "p_cover": 0.505,
      "p_push": 0.0,
-     "reason": "Market implies Missouri -5.6; line is Missouri -5.5. At that number the market gives Missouri a 50% chance to cover. Edge 0.1 pts. Blend: 97% Kalshi / 3% Vegas prior. Take Missouri -5.5.",
-     "side": "away",
-     "team": "Missouri"
+     "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": -5.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.28,
     "blended_margin": -5.64,
     "fraction_traded": 0.935,
@@ -86,16 +86,16 @@
     "kalshi_weight": 0.966,
     "margin_high": -5.5,
     "margin_low": -5.78,
-    "open_interest": 135534,
+    "open_interest": 135585,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": -0.14497696329080778,
      "line": -5.5,
      "p_cover": 0.505,
      "p_push": 0.0,
-     "reason": "Market implies Missouri -5.6; line is Missouri -5.5. At that number the market gives Missouri a 50% chance to cover. Edge 0.1 pts. Blend: 97% Kalshi / 3% Vegas prior. Take Missouri -5.5.",
-     "side": "away",
-     "team": "Missouri"
+     "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": -5.5
@@ -107,22 +107,22 @@
   "KXNCAAFSPREAD-26SEP11RUTGBC": {
    "away_team": "Rutgers",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.18,
-    "blended_margin": 3.05,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.14,
+    "blended_margin": 3.02,
     "fraction_traded": 0.586,
-    "implied_margin": 3.05,
-    "kalshi_weight": 0.985,
-    "margin_high": 3.14,
+    "implied_margin": 3.03,
+    "kalshi_weight": 0.991,
+    "margin_high": 3.1,
     "margin_low": 2.96,
     "open_interest": 9809,
     "pick": {
      "confidence": "no-play",
-     "edge": 0.049029753897327666,
+     "edge": 0.02478697949150943,
      "line": 3.0,
      "p_cover": 0.45999999999999996,
-     "p_push": 0.09000000000000008,
-     "reason": "Line sits inside the market's own 0.2pt uncertainty band (+3.0 to +3.1); no edge worth acting on.",
+     "p_push": 0.08500000000000008,
+     "reason": "Line sits inside the market's own 0.1pt uncertainty band (+3.0 to +3.1); no edge worth acting on.",
      "side": null,
      "team": null
     },
@@ -130,22 +130,22 @@
     "vegas_home_favored_by": 3.0
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.18,
-    "blended_margin": 3.05,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.14,
+    "blended_margin": 3.02,
     "fraction_traded": 0.586,
-    "implied_margin": 3.05,
-    "kalshi_weight": 0.985,
-    "margin_high": 3.14,
+    "implied_margin": 3.03,
+    "kalshi_weight": 0.991,
+    "margin_high": 3.1,
     "margin_low": 2.96,
     "open_interest": 9809,
     "pick": {
      "confidence": "no-play",
-     "edge": 0.049029753897327666,
+     "edge": 0.02478697949150943,
      "line": 3.0,
      "p_cover": 0.45999999999999996,
-     "p_push": 0.09000000000000008,
-     "reason": "Line sits inside the market's own 0.2pt uncertainty band (+3.0 to +3.1); no edge worth acting on.",
+     "p_push": 0.08500000000000008,
+     "reason": "Line sits inside the market's own 0.1pt uncertainty band (+3.0 to +3.1); no edge worth acting on.",
      "side": null,
      "team": null
     },
@@ -159,7 +159,7 @@
   "KXNCAAFSPREAD-26SEP12ALAUK": {
    "away_team": "Alabama",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.39,
     "blended_margin": -10.3,
     "fraction_traded": 0.742,
@@ -167,22 +167,22 @@
     "kalshi_weight": 0.937,
     "margin_high": -10.11,
     "margin_low": -10.5,
-    "open_interest": 30697,
+    "open_interest": 30778,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": 0.2024944468190668,
      "line": -10.5,
      "p_cover": 0.51,
      "p_push": 0.0,
-     "reason": "Market implies Alabama -10.3; line is Alabama -10.5. At that number the market gives Kentucky a 51% chance to cover. Edge 0.2 pts. Blend: 94% Kalshi / 6% Vegas prior. Take Kentucky +10.5.",
-     "side": "home",
-     "team": "Kentucky"
+     "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": -10.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.39,
     "blended_margin": -10.3,
     "fraction_traded": 0.742,
@@ -190,16 +190,16 @@
     "kalshi_weight": 0.937,
     "margin_high": -10.11,
     "margin_low": -10.5,
-    "open_interest": 30697,
+    "open_interest": 30778,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": 0.2024944468190668,
      "line": -10.5,
      "p_cover": 0.51,
      "p_push": 0.0,
-     "reason": "Market implies Alabama -10.3; line is Alabama -10.5. At that number the market gives Kentucky a 51% chance to cover. Edge 0.2 pts. Blend: 94% Kalshi / 6% Vegas prior. Take Kentucky +10.5.",
-     "side": "home",
-     "team": "Kentucky"
+     "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": -10.5
@@ -211,7 +211,7 @@
   "KXNCAAFSPREAD-26SEP12APPECU": {
    "away_team": "Appalachian St.",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.18,
     "blended_margin": 7.09,
     "fraction_traded": 0.516,
@@ -234,7 +234,7 @@
     "vegas_home_favored_by": 7.0
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.18,
     "blended_margin": 7.09,
     "fraction_traded": 0.516,
@@ -263,7 +263,7 @@
   "KXNCAAFSPREAD-26SEP12ARIZBYU": {
    "away_team": "Arizona",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.29,
     "blended_margin": 7.63,
     "fraction_traded": 0.742,
@@ -273,20 +273,20 @@
     "margin_low": 7.5,
     "open_interest": 15504,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": 0.13191521309170273,
      "line": 7.5,
      "p_cover": 0.505,
      "p_push": 0.0,
-     "reason": "Market implies BYU -7.6; line is BYU -7.5. At that number the market gives BYU a 50% chance to cover. Edge 0.1 pts. Blend: 96% Kalshi / 4% Vegas prior. Take BYU -7.5.",
-     "side": "home",
-     "team": "BYU"
+     "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": 7.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.29,
     "blended_margin": 7.63,
     "fraction_traded": 0.742,
@@ -296,14 +296,14 @@
     "margin_low": 7.5,
     "open_interest": 15504,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": 0.13191521309170273,
      "line": 7.5,
      "p_cover": 0.505,
      "p_push": 0.0,
-     "reason": "Market implies BYU -7.6; line is BYU -7.5. At that number the market gives BYU a 50% chance to cover. Edge 0.1 pts. Blend: 96% Kalshi / 4% Vegas prior. Take BYU -7.5.",
-     "side": "home",
-     "team": "BYU"
+     "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": 7.5
@@ -315,49 +315,49 @@
   "KXNCAAFSPREAD-26SEP12ARKUTAH": {
    "away_team": "Arkansas",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.36,
-    "blended_margin": 12.73,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.69,
+    "blended_margin": 12.84,
     "fraction_traded": 0.677,
-    "implied_margin": 12.74,
-    "kalshi_weight": 0.946,
-    "margin_high": 12.92,
+    "implied_margin": 12.91,
+    "kalshi_weight": 0.827,
+    "margin_high": 13.24,
     "margin_low": 12.56,
     "open_interest": 25938,
     "pick": {
-     "confidence": "lean",
-     "edge": 0.2272769079788297,
+     "confidence": "no-play",
+     "edge": 0.33801199443752417,
      "line": 12.5,
-     "p_cover": 0.505625,
+     "p_cover": 0.50875,
      "p_push": 0.0,
-     "reason": "Market implies Utah -12.7; line is Utah -12.5. At that number the market gives Utah a 51% chance to cover. Edge 0.2 pts. Blend: 95% Kalshi / 5% Vegas prior. Take Utah -12.5.",
-     "side": "home",
-     "team": "Utah"
+     "reason": "Market and line agree to within 0.3 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
-    "tier": "A",
+    "tier": "B",
     "vegas_home_favored_by": 12.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.36,
-    "blended_margin": 12.73,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.69,
+    "blended_margin": 12.84,
     "fraction_traded": 0.677,
-    "implied_margin": 12.74,
-    "kalshi_weight": 0.946,
-    "margin_high": 12.92,
+    "implied_margin": 12.91,
+    "kalshi_weight": 0.827,
+    "margin_high": 13.24,
     "margin_low": 12.56,
     "open_interest": 25938,
     "pick": {
-     "confidence": "lean",
-     "edge": 0.2272769079788297,
+     "confidence": "no-play",
+     "edge": 0.33801199443752417,
      "line": 12.5,
-     "p_cover": 0.505625,
+     "p_cover": 0.50875,
      "p_push": 0.0,
-     "reason": "Market implies Utah -12.7; line is Utah -12.5. At that number the market gives Utah a 51% chance to cover. Edge 0.2 pts. Blend: 95% Kalshi / 5% Vegas prior. Take Utah -12.5.",
-     "side": "home",
-     "team": "Utah"
+     "reason": "Market and line agree to within 0.3 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
-    "tier": "A",
+    "tier": "B",
     "vegas_home_favored_by": 12.5
    },
    "home_team": "Utah",
@@ -367,47 +367,47 @@
   "KXNCAAFSPREAD-26SEP12ASUTXAM": {
    "away_team": "Arizona St.",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.19,
-    "blended_margin": 14.1,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.14,
+    "blended_margin": 14.07,
     "fraction_traded": 0.806,
-    "implied_margin": 14.1,
-    "kalshi_weight": 0.985,
-    "margin_high": 14.19,
+    "implied_margin": 14.07,
+    "kalshi_weight": 0.991,
+    "margin_high": 14.14,
     "margin_low": 14.0,
-    "open_interest": 23136,
+    "open_interest": 23149,
     "pick": {
-     "confidence": "lean",
-     "edge": -0.3950139755445221,
+     "confidence": "no-play",
+     "edge": -0.42646401750639384,
      "line": 14.5,
      "p_cover": 0.525,
      "p_push": 0.0,
-     "reason": "Market implies Texas A&M -14.1; line is Texas A&M -14.5. At that number the market gives Arizona St. a 52% chance to cover. Edge 0.4 pts. Blend: 98% Kalshi / 2% Vegas prior. Take Arizona St. +14.5.",
-     "side": "away",
-     "team": "Arizona St."
+     "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": 14.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.19,
-    "blended_margin": 14.1,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.14,
+    "blended_margin": 14.07,
     "fraction_traded": 0.806,
-    "implied_margin": 14.1,
-    "kalshi_weight": 0.985,
-    "margin_high": 14.19,
+    "implied_margin": 14.07,
+    "kalshi_weight": 0.991,
+    "margin_high": 14.14,
     "margin_low": 14.0,
-    "open_interest": 23136,
+    "open_interest": 23149,
     "pick": {
-     "confidence": "lean",
-     "edge": -0.3950139755445221,
+     "confidence": "no-play",
+     "edge": -0.42646401750639384,
      "line": 14.5,
      "p_cover": 0.525,
      "p_push": 0.0,
-     "reason": "Market implies Texas A&M -14.1; line is Texas A&M -14.5. At that number the market gives Arizona St. a 52% chance to cover. Edge 0.4 pts. Blend: 98% Kalshi / 2% Vegas prior. Take Arizona St. +14.5.",
-     "side": "away",
-     "team": "Arizona St."
+     "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": 14.5
@@ -419,47 +419,47 @@
   "KXNCAAFSPREAD-26SEP12BUFFFIU": {
    "away_team": "Buffalo",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.12,
-    "blended_margin": 10.06,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.07,
+    "blended_margin": 10.09,
     "fraction_traded": 0.161,
-    "implied_margin": 10.06,
-    "kalshi_weight": 0.994,
-    "margin_high": 10.11,
-    "margin_low": 10.0,
+    "implied_margin": 10.08,
+    "kalshi_weight": 0.996,
+    "margin_high": 10.12,
+    "margin_low": 10.05,
     "open_interest": 12020,
     "pick": {
-     "confidence": "lean",
-     "edge": -0.4358670636178985,
+     "confidence": "no-play",
+     "edge": -0.41337597834984763,
      "line": 10.5,
      "p_cover": 0.525,
      "p_push": 0.0,
-     "reason": "Market implies Florida International -10.1; line is Florida International -10.5. At that number the market gives Buffalo a 52% chance to cover. Edge 0.4 pts. Blend: 99% Kalshi / 1% Vegas prior. Take Buffalo +10.5.",
-     "side": "away",
-     "team": "Buffalo"
+     "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "C",
     "vegas_home_favored_by": 10.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.12,
-    "blended_margin": 10.06,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.07,
+    "blended_margin": 10.09,
     "fraction_traded": 0.161,
-    "implied_margin": 10.06,
-    "kalshi_weight": 0.994,
-    "margin_high": 10.11,
-    "margin_low": 10.0,
+    "implied_margin": 10.08,
+    "kalshi_weight": 0.996,
+    "margin_high": 10.12,
+    "margin_low": 10.05,
     "open_interest": 12020,
     "pick": {
-     "confidence": "lean",
-     "edge": -0.4358670636178985,
+     "confidence": "no-play",
+     "edge": -0.41337597834984763,
      "line": 10.5,
      "p_cover": 0.525,
      "p_push": 0.0,
-     "reason": "Market implies Florida International -10.1; line is Florida International -10.5. At that number the market gives Buffalo a 52% chance to cover. Edge 0.4 pts. Blend: 99% Kalshi / 1% Vegas prior. Take Buffalo +10.5.",
-     "side": "away",
-     "team": "Buffalo"
+     "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "C",
     "vegas_home_favored_by": 10.5
@@ -471,7 +471,7 @@
   "KXNCAAFSPREAD-26SEP12CALSYR": {
    "away_team": "California",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.19,
     "blended_margin": 3.25,
     "fraction_traded": 0.885,
@@ -481,20 +481,20 @@
     "margin_low": 3.17,
     "open_interest": 27845,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": -0.24587913605099443,
      "line": 3.5,
      "p_cover": 0.52,
      "p_push": 0.0,
-     "reason": "Market implies Syracuse -3.3; line is Syracuse -3.5. At that number the market gives California a 52% chance to cover. Edge 0.2 pts. Blend: 98% Kalshi / 2% Vegas prior. Take California +3.5.",
-     "side": "away",
-     "team": "California"
+     "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": 3.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.19,
     "blended_margin": 3.25,
     "fraction_traded": 0.885,
@@ -504,14 +504,14 @@
     "margin_low": 3.17,
     "open_interest": 27845,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": -0.24587913605099443,
      "line": 3.5,
      "p_cover": 0.52,
      "p_push": 0.0,
-     "reason": "Market implies Syracuse -3.3; line is Syracuse -3.5. At that number the market gives California a 52% chance to cover. Edge 0.2 pts. Blend: 98% Kalshi / 2% Vegas prior. Take California +3.5.",
-     "side": "away",
-     "team": "California"
+     "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": 3.5
@@ -523,7 +523,7 @@
   "KXNCAAFSPREAD-26SEP12ISUIOWA": {
    "away_team": "Iowa St.",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.19,
     "blended_margin": 14.03,
     "fraction_traded": 0.71,
@@ -531,7 +531,7 @@
     "kalshi_weight": 0.984,
     "margin_high": 14.14,
     "margin_low": 13.94,
-    "open_interest": 10258,
+    "open_interest": 10266,
     "pick": {
      "confidence": "no-play",
      "edge": 0.03201961352961824,
@@ -546,7 +546,7 @@
     "vegas_home_favored_by": 14.0
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.19,
     "blended_margin": 14.03,
     "fraction_traded": 0.71,
@@ -554,7 +554,7 @@
     "kalshi_weight": 0.984,
     "margin_high": 14.14,
     "margin_low": 13.94,
-    "open_interest": 10258,
+    "open_interest": 10266,
     "pick": {
      "confidence": "no-play",
      "edge": 0.03201961352961824,
@@ -575,7 +575,7 @@
   "KXNCAAFSPREAD-26SEP12LTLSU": {
    "away_team": "Louisiana Tech",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.47,
     "blended_margin": 35.98,
     "fraction_traded": 0.85,
@@ -585,20 +585,20 @@
     "margin_low": 35.83,
     "open_interest": 23727,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": 0.4810873371467821,
      "line": 35.5,
      "p_cover": 0.515,
      "p_push": 0.0,
-     "reason": "Market implies LSU -36.0; line is LSU -35.5. At that number the market gives LSU a 52% chance to cover. Edge 0.5 pts. Blend: 91% Kalshi / 9% Vegas prior. Take LSU -35.5.",
-     "side": "home",
-     "team": "LSU"
+     "reason": "Market and line agree to within 0.5 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": 35.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.47,
     "blended_margin": 35.98,
     "fraction_traded": 0.85,
@@ -608,14 +608,14 @@
     "margin_low": 35.83,
     "open_interest": 23727,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": 0.4810873371467821,
      "line": 35.5,
      "p_cover": 0.515,
      "p_push": 0.0,
-     "reason": "Market implies LSU -36.0; line is LSU -35.5. At that number the market gives LSU a 52% chance to cover. Edge 0.5 pts. Blend: 91% Kalshi / 9% Vegas prior. Take LSU -35.5.",
-     "side": "home",
-     "team": "LSU"
+     "reason": "Market and line agree to within 0.5 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": 35.5
@@ -627,7 +627,7 @@
   "KXNCAAFSPREAD-26SEP12MDCONN": {
    "away_team": "Maryland",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.55,
     "blended_margin": -12.55,
     "fraction_traded": 0.323,
@@ -637,20 +637,20 @@
     "margin_low": -12.87,
     "open_interest": 9780,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": -0.5486102828481396,
      "line": -12.0,
      "p_cover": 0.501875,
      "p_push": 0.013125000000000053,
-     "reason": "Market implies Maryland -12.5; line is Maryland -12.0. At that number the market gives Maryland a 50% chance to cover. Edge 0.5 pts. Blend: 88% Kalshi / 12% Vegas prior. Take Maryland -12.0.",
-     "side": "away",
-     "team": "Maryland"
+     "reason": "Market and line agree to within 0.5 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "B",
     "vegas_home_favored_by": -12.0
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.55,
     "blended_margin": -12.55,
     "fraction_traded": 0.323,
@@ -660,14 +660,14 @@
     "margin_low": -12.87,
     "open_interest": 9780,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": -0.5486102828481396,
      "line": -12.0,
      "p_cover": 0.501875,
      "p_push": 0.013125000000000053,
-     "reason": "Market implies Maryland -12.5; line is Maryland -12.0. At that number the market gives Maryland a 50% chance to cover. Edge 0.5 pts. Blend: 88% Kalshi / 12% Vegas prior. Take Maryland -12.0.",
-     "side": "away",
-     "team": "Maryland"
+     "reason": "Market and line agree to within 0.5 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "B",
     "vegas_home_favored_by": -12.0
@@ -679,47 +679,47 @@
   "KXNCAAFSPREAD-26SEP12MEMBSU": {
    "away_team": "Memphis",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.77,
-    "blended_margin": 8.93,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.78,
+    "blended_margin": 8.95,
     "fraction_traded": 0.323,
-    "implied_margin": 8.78,
-    "kalshi_weight": 0.793,
-    "margin_high": 9.08,
+    "implied_margin": 8.8,
+    "kalshi_weight": 0.786,
+    "margin_high": 9.09,
     "margin_low": 8.31,
     "open_interest": 17178,
     "pick": {
-     "confidence": "lean",
-     "edge": -0.5744973366197037,
+     "confidence": "no-play",
+     "edge": -0.5500183689194973,
      "line": 9.5,
      "p_cover": 0.515,
      "p_push": 0.0,
-     "reason": "Market implies Boise St. -8.9; line is Boise St. -9.5. At that number the market gives Memphis a 52% chance to cover. Edge 0.6 pts. Blend: 79% Kalshi / 21% Vegas prior. Take Memphis +9.5.",
-     "side": "away",
-     "team": "Memphis"
+     "reason": "Market and line agree to within 0.6 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "B",
     "vegas_home_favored_by": 9.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.77,
-    "blended_margin": 8.93,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.78,
+    "blended_margin": 8.95,
     "fraction_traded": 0.323,
-    "implied_margin": 8.78,
-    "kalshi_weight": 0.793,
-    "margin_high": 9.08,
+    "implied_margin": 8.8,
+    "kalshi_weight": 0.786,
+    "margin_high": 9.09,
     "margin_low": 8.31,
     "open_interest": 17178,
     "pick": {
-     "confidence": "lean",
-     "edge": -0.5744973366197037,
+     "confidence": "no-play",
+     "edge": -0.5500183689194973,
      "line": 9.5,
      "p_cover": 0.515,
      "p_push": 0.0,
-     "reason": "Market implies Boise St. -8.9; line is Boise St. -9.5. At that number the market gives Memphis a 52% chance to cover. Edge 0.6 pts. Blend: 79% Kalshi / 21% Vegas prior. Take Memphis +9.5.",
-     "side": "away",
-     "team": "Memphis"
+     "reason": "Market and line agree to within 0.6 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "B",
     "vegas_home_favored_by": 9.5
@@ -731,7 +731,7 @@
   "KXNCAAFSPREAD-26SEP12MSSTMINN": {
    "away_team": "Mississippi St.",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.94,
     "blended_margin": 0.82,
     "fraction_traded": 1.0,
@@ -739,22 +739,22 @@
     "kalshi_weight": 0.719,
     "margin_high": 1.05,
     "margin_low": 0.11,
-    "open_interest": 42153,
+    "open_interest": 42165,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": -0.6763356080521447,
      "line": 1.5,
      "p_cover": 0.52,
      "p_push": 0.0,
-     "reason": "Market implies Minnesota -0.8; line is Minnesota -1.5. At that number the market gives Mississippi St. a 52% chance to cover. Edge 0.7 pts. Blend: 72% Kalshi / 28% Vegas prior. Take Mississippi St. +1.5.",
-     "side": "away",
-     "team": "Mississippi St."
+     "reason": "Market and line agree to within 0.7 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "B",
     "vegas_home_favored_by": 1.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.94,
     "blended_margin": 0.82,
     "fraction_traded": 1.0,
@@ -762,16 +762,16 @@
     "kalshi_weight": 0.719,
     "margin_high": 1.05,
     "margin_low": 0.11,
-    "open_interest": 42153,
+    "open_interest": 42165,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": -0.6763356080521447,
      "line": 1.5,
      "p_cover": 0.52,
      "p_push": 0.0,
-     "reason": "Market implies Minnesota -0.8; line is Minnesota -1.5. At that number the market gives Mississippi St. a 52% chance to cover. Edge 0.7 pts. Blend: 72% Kalshi / 28% Vegas prior. Take Mississippi St. +1.5.",
-     "side": "away",
-     "team": "Mississippi St."
+     "reason": "Market and line agree to within 0.7 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "B",
     "vegas_home_favored_by": 1.5
@@ -783,7 +783,7 @@
   "KXNCAAFSPREAD-26SEP12MTUMRSH": {
    "away_team": "Middle Tennessee",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.42,
     "blended_margin": 13.5,
     "fraction_traded": 0.148,
@@ -806,7 +806,7 @@
     "vegas_home_favored_by": 13.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.42,
     "blended_margin": 13.5,
     "fraction_traded": 0.148,
@@ -835,20 +835,20 @@
   "KXNCAAFSPREAD-26SEP12ODUVT": {
    "away_team": "Old Dominion",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.88,
-    "blended_margin": 19.71,
+    "blended_margin": 19.72,
     "fraction_traded": 0.677,
-    "implied_margin": 19.79,
-    "kalshi_weight": 0.743,
+    "implied_margin": 19.8,
+    "kalshi_weight": 0.742,
     "margin_high": 20.24,
     "margin_low": 19.36,
-    "open_interest": 13715,
+    "open_interest": 13725,
     "pick": {
      "confidence": "no-play",
-     "edge": 0.2130812294279849,
+     "edge": 0.22049884487914184,
      "line": 19.5,
-     "p_cover": 0.5081481481481481,
+     "p_cover": 0.5087037037037037,
      "p_push": 0.0,
      "reason": "Line sits inside the market's own 0.9pt uncertainty band (+19.4 to +20.2); no edge worth acting on.",
      "side": null,
@@ -858,20 +858,20 @@
     "vegas_home_favored_by": 19.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.88,
-    "blended_margin": 19.71,
+    "blended_margin": 19.72,
     "fraction_traded": 0.677,
-    "implied_margin": 19.79,
-    "kalshi_weight": 0.743,
+    "implied_margin": 19.8,
+    "kalshi_weight": 0.742,
     "margin_high": 20.24,
     "margin_low": 19.36,
-    "open_interest": 13715,
+    "open_interest": 13725,
     "pick": {
      "confidence": "no-play",
-     "edge": 0.2130812294279849,
+     "edge": 0.22049884487914184,
      "line": 19.5,
-     "p_cover": 0.5081481481481481,
+     "p_cover": 0.5087037037037037,
      "p_push": 0.0,
      "reason": "Line sits inside the market's own 0.9pt uncertainty band (+19.4 to +20.2); no edge worth acting on.",
      "side": null,
@@ -887,7 +887,7 @@
   "KXNCAAFSPREAD-26SEP12OKLAMICH": {
    "away_team": "Oklahoma",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.4,
     "blended_margin": -5.67,
     "fraction_traded": 0.962,
@@ -895,7 +895,7 @@
     "kalshi_weight": 0.935,
     "margin_high": -5.5,
     "margin_low": -5.9,
-    "open_interest": 395245,
+    "open_interest": 395425,
     "pick": {
      "confidence": "no-play",
      "edge": -0.17321008906012914,
@@ -910,7 +910,7 @@
     "vegas_home_favored_by": -5.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.4,
     "blended_margin": -5.67,
     "fraction_traded": 0.962,
@@ -918,7 +918,7 @@
     "kalshi_weight": 0.935,
     "margin_high": -5.5,
     "margin_low": -5.9,
-    "open_interest": 395245,
+    "open_interest": 395425,
     "pick": {
      "confidence": "no-play",
      "edge": -0.17321008906012914,
@@ -939,7 +939,7 @@
   "KXNCAAFSPREAD-26SEP12OREOKST": {
    "away_team": "Oregon",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.3,
     "blended_margin": -23.32,
     "fraction_traded": 0.889,
@@ -947,22 +947,22 @@
     "kalshi_weight": 0.961,
     "margin_high": -23.2,
     "margin_low": -23.5,
-    "open_interest": 69839,
+    "open_interest": 69842,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": -0.8153707865113979,
      "line": -22.5,
      "p_cover": 0.5206250000000001,
      "p_push": 0.0,
-     "reason": "Market implies Oregon -23.3; line is Oregon -22.5. At that number the market gives Oregon a 52% chance to cover. Edge 0.8 pts. Blend: 96% Kalshi / 4% Vegas prior. Take Oregon -22.5.",
-     "side": "away",
-     "team": "Oregon"
+     "reason": "Market and line agree to within 0.8 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": -22.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.3,
     "blended_margin": -23.32,
     "fraction_traded": 0.889,
@@ -970,16 +970,16 @@
     "kalshi_weight": 0.961,
     "margin_high": -23.2,
     "margin_low": -23.5,
-    "open_interest": 69839,
+    "open_interest": 69842,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": -0.8153707865113979,
      "line": -22.5,
      "p_cover": 0.5206250000000001,
      "p_push": 0.0,
-     "reason": "Market implies Oregon -23.3; line is Oregon -22.5. At that number the market gives Oregon a 52% chance to cover. Edge 0.8 pts. Blend: 96% Kalshi / 4% Vegas prior. Take Oregon -22.5.",
-     "side": "away",
-     "team": "Oregon"
+     "reason": "Market and line agree to within 0.8 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": -22.5
@@ -991,18 +991,18 @@
   "KXNCAAFSPREAD-26SEP12OSUTEX": {
    "away_team": "Ohio St.",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.65,
-    "blended_margin": 1.88,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.69,
+    "blended_margin": 1.9,
     "fraction_traded": 0.846,
-    "implied_margin": 1.86,
-    "kalshi_weight": 0.84,
-    "margin_high": 2.15,
+    "implied_margin": 1.88,
+    "kalshi_weight": 0.825,
+    "margin_high": 2.19,
     "margin_low": 1.5,
-    "open_interest": 41625,
+    "open_interest": 41726,
     "pick": {
      "confidence": "no-play",
-     "edge": -0.11529858997734066,
+     "edge": -0.09881053567820786,
      "line": 2.0,
      "p_cover": 0.495,
      "p_push": 0.020000000000000018,
@@ -1014,18 +1014,18 @@
     "vegas_home_favored_by": 2.0
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.65,
-    "blended_margin": 1.88,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.69,
+    "blended_margin": 1.9,
     "fraction_traded": 0.846,
-    "implied_margin": 1.86,
-    "kalshi_weight": 0.84,
-    "margin_high": 2.15,
+    "implied_margin": 1.88,
+    "kalshi_weight": 0.825,
+    "margin_high": 2.19,
     "margin_low": 1.5,
-    "open_interest": 41625,
+    "open_interest": 41726,
     "pick": {
      "confidence": "no-play",
-     "edge": -0.11529858997734066,
+     "edge": -0.09881053567820786,
      "line": 2.0,
      "p_cover": 0.495,
      "p_push": 0.020000000000000018,
@@ -1043,18 +1043,18 @@
   "KXNCAAFSPREAD-26SEP12PSUTEM": {
    "away_team": "Penn St.",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.16,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.17,
     "blended_margin": -24.0,
     "fraction_traded": 0.75,
     "implied_margin": -24.0,
-    "kalshi_weight": 0.989,
+    "kalshi_weight": 0.988,
     "margin_high": -23.92,
-    "margin_low": -24.08,
+    "margin_low": -24.09,
     "open_interest": 22348,
     "pick": {
      "confidence": "no-play",
-     "edge": -0.003607521882962317,
+     "edge": -0.0036037471049112924,
      "line": -24.0,
      "p_cover": 0.475,
      "p_push": 0.050000000000000044,
@@ -1066,18 +1066,18 @@
     "vegas_home_favored_by": -24.0
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.16,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.17,
     "blended_margin": -24.0,
     "fraction_traded": 0.75,
     "implied_margin": -24.0,
-    "kalshi_weight": 0.989,
+    "kalshi_weight": 0.988,
     "margin_high": -23.92,
-    "margin_low": -24.08,
+    "margin_low": -24.09,
     "open_interest": 22348,
     "pick": {
      "confidence": "no-play",
-     "edge": -0.003607521882962317,
+     "edge": -0.0036037471049112924,
      "line": -24.0,
      "p_cover": 0.475,
      "p_push": 0.050000000000000044,
@@ -1095,7 +1095,7 @@
   "KXNCAAFSPREAD-26SEP12SDSUUCLA": {
    "away_team": "San Diego St.",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.59,
     "blended_margin": 12.23,
     "fraction_traded": 0.387,
@@ -1105,20 +1105,20 @@
     "margin_low": 11.87,
     "open_interest": 12470,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": -0.2686410230068752,
      "line": 12.5,
      "p_cover": 0.51,
      "p_push": 0.0,
-     "reason": "Market implies UCLA -12.2; line is UCLA -12.5. At that number the market gives San Diego St. a 51% chance to cover. Edge 0.3 pts. Blend: 87% Kalshi / 13% Vegas prior. Take San Diego St. +12.5.",
-     "side": "away",
-     "team": "San Diego St."
+     "reason": "Market and line agree to within 0.3 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "B",
     "vegas_home_favored_by": 12.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.59,
     "blended_margin": 12.23,
     "fraction_traded": 0.387,
@@ -1128,14 +1128,14 @@
     "margin_low": 11.87,
     "open_interest": 12470,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": -0.2686410230068752,
      "line": 12.5,
      "p_cover": 0.51,
      "p_push": 0.0,
-     "reason": "Market implies UCLA -12.2; line is UCLA -12.5. At that number the market gives San Diego St. a 51% chance to cover. Edge 0.3 pts. Blend: 87% Kalshi / 13% Vegas prior. Take San Diego St. +12.5.",
-     "side": "away",
-     "team": "San Diego St."
+     "reason": "Market and line agree to within 0.3 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "B",
     "vegas_home_favored_by": 12.5
@@ -1147,22 +1147,22 @@
   "KXNCAAFSPREAD-26SEP12TENNGT": {
    "away_team": "Tennessee",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.41,
-    "blended_margin": -12.52,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.25,
+    "blended_margin": -12.42,
     "fraction_traded": 0.806,
-    "implied_margin": -12.52,
-    "kalshi_weight": 0.931,
+    "implied_margin": -12.42,
+    "kalshi_weight": 0.974,
     "margin_high": -12.29,
-    "margin_low": -12.7,
-    "open_interest": 27597,
+    "margin_low": -12.54,
+    "open_interest": 27608,
     "pick": {
      "confidence": "no-play",
-     "edge": -0.02081120079180465,
+     "edge": 0.0784410529500299,
      "line": -12.5,
-     "p_cover": 0.5007878235027721,
+     "p_cover": 0.5025000000000001,
      "p_push": 0.0,
-     "reason": "Line sits inside the market's own 0.4pt uncertainty band (-12.7 to -12.3); no edge worth acting on.",
+     "reason": "Line sits inside the market's own 0.2pt uncertainty band (-12.5 to -12.3); no edge worth acting on.",
      "side": null,
      "team": null
     },
@@ -1170,22 +1170,22 @@
     "vegas_home_favored_by": -12.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.41,
-    "blended_margin": -12.52,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.25,
+    "blended_margin": -12.42,
     "fraction_traded": 0.806,
-    "implied_margin": -12.52,
-    "kalshi_weight": 0.931,
+    "implied_margin": -12.42,
+    "kalshi_weight": 0.974,
     "margin_high": -12.29,
-    "margin_low": -12.7,
-    "open_interest": 27597,
+    "margin_low": -12.54,
+    "open_interest": 27608,
     "pick": {
      "confidence": "no-play",
-     "edge": -0.02081120079180465,
+     "edge": 0.0784410529500299,
      "line": -12.5,
-     "p_cover": 0.5007878235027721,
+     "p_cover": 0.5025000000000001,
      "p_push": 0.0,
-     "reason": "Line sits inside the market's own 0.4pt uncertainty band (-12.7 to -12.3); no edge worth acting on.",
+     "reason": "Line sits inside the market's own 0.2pt uncertainty band (-12.5 to -12.3); no edge worth acting on.",
      "side": null,
      "team": null
     },
@@ -1199,7 +1199,7 @@
   "KXNCAAFSPREAD-26SEP12TTUORST": {
    "away_team": "Texas Tech",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.13,
     "blended_margin": -26.26,
     "fraction_traded": 0.667,
@@ -1209,20 +1209,20 @@
     "margin_low": -26.41,
     "open_interest": 12742,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": 0.23945066951646155,
      "line": -26.5,
      "p_cover": 0.5081481481481481,
      "p_push": 0.0,
-     "reason": "Market implies Texas Tech -26.3; line is Texas Tech -26.5. At that number the market gives Oregon St. a 51% chance to cover. Edge 0.2 pts. Blend: 99% Kalshi / 1% Vegas prior. Take Oregon St. +26.5.",
-     "side": "home",
-     "team": "Oregon St."
+     "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": -26.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.13,
     "blended_margin": -26.26,
     "fraction_traded": 0.667,
@@ -1232,14 +1232,14 @@
     "margin_low": -26.41,
     "open_interest": 12742,
     "pick": {
-     "confidence": "lean",
+     "confidence": "no-play",
      "edge": 0.23945066951646155,
      "line": -26.5,
      "p_cover": 0.5081481481481481,
      "p_push": 0.0,
-     "reason": "Market implies Texas Tech -26.3; line is Texas Tech -26.5. At that number the market gives Oregon St. a 51% chance to cover. Edge 0.2 pts. Blend: 99% Kalshi / 1% Vegas prior. Take Oregon St. +26.5.",
-     "side": "home",
-     "team": "Oregon St."
+     "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": -26.5
@@ -1251,7 +1251,7 @@
   "KXNCAAFSPREAD-26SEP12ULLUSC": {
    "away_team": "Louisiana",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.77,
     "blended_margin": 30.92,
     "fraction_traded": 0.762,
@@ -1274,7 +1274,7 @@
     "vegas_home_favored_by": 31.0
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.77,
     "blended_margin": 30.92,
     "fraction_traded": 0.762,
@@ -1303,22 +1303,22 @@
   "KXNCAAFSPREAD-26SEP12UNLVUNT": {
    "away_team": "UNLV",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.36,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.35,
     "blended_margin": -3.5,
     "fraction_traded": 0.29,
     "implied_margin": -3.5,
-    "kalshi_weight": 0.944,
-    "margin_high": -3.33,
+    "kalshi_weight": 0.949,
+    "margin_high": -3.35,
     "margin_low": -3.69,
     "open_interest": 15161,
     "pick": {
      "confidence": "no-play",
-     "edge": -2.6382603968144736e-07,
+     "edge": -2.6522246843185826e-07,
      "line": -3.5,
      "p_cover": 0.5,
      "p_push": 0.0,
-     "reason": "Line sits inside the market's own 0.4pt uncertainty band (-3.7 to -3.3); no edge worth acting on.",
+     "reason": "Line sits inside the market's own 0.3pt uncertainty band (-3.7 to -3.3); no edge worth acting on.",
      "side": null,
      "team": null
     },
@@ -1326,22 +1326,22 @@
     "vegas_home_favored_by": -3.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.36,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.35,
     "blended_margin": -3.5,
     "fraction_traded": 0.29,
     "implied_margin": -3.5,
-    "kalshi_weight": 0.944,
-    "margin_high": -3.33,
+    "kalshi_weight": 0.949,
+    "margin_high": -3.35,
     "margin_low": -3.69,
     "open_interest": 15161,
     "pick": {
      "confidence": "no-play",
-     "edge": -2.6382603968144736e-07,
+     "edge": -2.6522246843185826e-07,
      "line": -3.5,
      "p_cover": 0.5,
      "p_push": 0.0,
-     "reason": "Line sits inside the market's own 0.4pt uncertainty band (-3.7 to -3.3); no edge worth acting on.",
+     "reason": "Line sits inside the market's own 0.3pt uncertainty band (-3.7 to -3.3); no edge worth acting on.",
      "side": null,
      "team": null
     },
@@ -1355,7 +1355,7 @@
   "KXNCAAFSPREAD-26SEP12USFARMY": {
    "away_team": "South Florida",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.27,
     "blended_margin": 3.5,
     "fraction_traded": 0.231,
@@ -1378,7 +1378,7 @@
     "vegas_home_favored_by": 3.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.27,
     "blended_margin": 3.5,
     "fraction_traded": 0.231,
@@ -1407,47 +1407,47 @@
   "KXNCAAFSPREAD-26SEP12WAKEPUR": {
    "away_team": "Wake Forest",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.18,
     "blended_margin": -2.87,
-    "fraction_traded": 0.31,
+    "fraction_traded": 0.345,
     "implied_margin": -2.87,
     "kalshi_weight": 0.986,
     "margin_high": -2.77,
     "margin_low": -2.95,
-    "open_interest": 21049,
+    "open_interest": 21052,
     "pick": {
-     "confidence": "lean",
-     "edge": 0.12664124025621204,
+     "confidence": "no-play",
+     "edge": 0.12664136121248948,
      "line": -3.0,
      "p_cover": 0.47,
      "p_push": 0.08499999999999996,
-     "reason": "Market implies Wake Forest -2.9; line is Wake Forest -3.0. At that number the market gives Purdue a 47% chance to cover. Edge 0.1 pts. Blend: 99% Kalshi / 1% Vegas prior. Take Purdue +3.0.",
-     "side": "home",
-     "team": "Purdue"
+     "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "B",
     "vegas_home_favored_by": -3.0
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.18,
     "blended_margin": -2.87,
-    "fraction_traded": 0.31,
+    "fraction_traded": 0.345,
     "implied_margin": -2.87,
     "kalshi_weight": 0.986,
     "margin_high": -2.77,
     "margin_low": -2.95,
-    "open_interest": 21049,
+    "open_interest": 21052,
     "pick": {
-     "confidence": "lean",
-     "edge": 0.12664124025621204,
+     "confidence": "no-play",
+     "edge": 0.12664136121248948,
      "line": -3.0,
      "p_cover": 0.47,
      "p_push": 0.08499999999999996,
-     "reason": "Market implies Wake Forest -2.9; line is Wake Forest -3.0. At that number the market gives Purdue a 47% chance to cover. Edge 0.1 pts. Blend: 99% Kalshi / 1% Vegas prior. Take Purdue +3.0.",
-     "side": "home",
-     "team": "Purdue"
+     "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "B",
     "vegas_home_favored_by": -3.0
@@ -1459,7 +1459,7 @@
   "KXNCAAFSPREAD-26SEP12WEBCOLO": {
    "away_team": "Weber St.",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.47,
     "blended_margin": 34.86,
     "fraction_traded": 0.526,
@@ -1467,7 +1467,7 @@
     "kalshi_weight": 1.0,
     "margin_high": 35.22,
     "margin_low": 34.75,
-    "open_interest": 11742,
+    "open_interest": 11743,
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
@@ -1482,7 +1482,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
+    "at": "2026-09-09T16:34:25.216459+00:00",
     "band": 0.47,
     "blended_margin": 34.86,
     "fraction_traded": 0.526,
@@ -1490,7 +1490,7 @@
     "kalshi_weight": 1.0,
     "margin_high": 35.22,
     "margin_low": 34.75,
-    "open_interest": 11742,
+    "open_interest": 11743,
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
@@ -1511,47 +1511,47 @@
   "KXNCAAFSPREAD-26SEP12WKUUGA": {
    "away_team": "Western Kentucky",
    "closing": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.41,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.47,
     "blended_margin": 41.31,
     "fraction_traded": 0.824,
     "implied_margin": 41.29,
-    "kalshi_weight": 0.931,
+    "kalshi_weight": 0.909,
     "margin_high": 41.5,
-    "margin_low": 41.09,
-    "open_interest": 13344,
+    "margin_low": 41.03,
+    "open_interest": 13365,
     "pick": {
-     "confidence": "lean",
-     "edge": -0.1928749629976636,
+     "confidence": "no-play",
+     "edge": -0.19023695033722277,
      "line": 41.5,
      "p_cover": 0.505,
      "p_push": 0.0,
-     "reason": "Market implies Georgia -41.3; line is Georgia -41.5. At that number the market gives Western Kentucky a 50% chance to cover. Edge 0.2 pts. Blend: 93% Kalshi / 7% Vegas prior. Take Western Kentucky +41.5.",
-     "side": "away",
-     "team": "Western Kentucky"
+     "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": 41.5
    },
    "decision": {
-    "at": "2026-09-09T16:29:36.780001+00:00",
-    "band": 0.41,
+    "at": "2026-09-09T16:34:25.216459+00:00",
+    "band": 0.47,
     "blended_margin": 41.31,
     "fraction_traded": 0.824,
     "implied_margin": 41.29,
-    "kalshi_weight": 0.931,
+    "kalshi_weight": 0.909,
     "margin_high": 41.5,
-    "margin_low": 41.09,
-    "open_interest": 13344,
+    "margin_low": 41.03,
+    "open_interest": 13365,
     "pick": {
-     "confidence": "lean",
-     "edge": -0.1928749629976636,
+     "confidence": "no-play",
+     "edge": -0.19023695033722277,
      "line": 41.5,
      "p_cover": 0.505,
      "p_push": 0.0,
-     "reason": "Market implies Georgia -41.3; line is Georgia -41.5. At that number the market gives Western Kentucky a 50% chance to cover. Edge 0.2 pts. Blend: 93% Kalshi / 7% Vegas prior. Take Western Kentucky +41.5.",
-     "side": "away",
-     "team": "Western Kentucky"
+     "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "team": null
     },
     "tier": "A",
     "vegas_home_favored_by": 41.5
