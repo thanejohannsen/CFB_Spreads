@@ -37,6 +37,26 @@ MAX_STRIKE_DISTANCE = 3.0
 # Catches all four junk games in the measured snapshot (4.7 / 12 / 17.6 / 21.1).
 MAX_TRADEABLE_BAND = 2.0
 
+# Smallest edge worth calling a pick, in points.
+#
+# The band test alone is not enough. Within the top 30 the ladders are tight
+# enough that bands run 0.1-0.4 pts, so a 0.2pt "edge" clears the band while
+# being economically meaningless. Two independent reasons it is noise:
+# spreads are quoted in half-points, so an edge under half a point cannot even
+# be expressed as a different bet; and near a typical CFB number a point of
+# spread is worth roughly 2.4% of win probability, which is about exactly the
+# 52.4% break-even a -110 line demands. One point of edge is therefore the
+# rough break-even against vig, before any model error at all.
+#
+# Measured against a live slate this is what separates an honest board from a
+# flattering one: on a week where Kalshi and Vegas agreed to within 0.8 pts on
+# every Tier A game, the band test alone still produced 16 "picks".
+MIN_EDGE_POINTS = 1.0
+
+# Edge magnitude (points) at which a pick stops being a lean.
+EDGE_SOLID = 2.0
+EDGE_STRONG = 3.5
+
 # ------------------------------------------------------- quality tiers ----
 # (band_max, min_open_interest, min_fraction_traded)
 TIERS = {

@@ -199,6 +199,24 @@ class TestPickRules(unittest.TestCase):
         self.assertEqual(pick.confidence, "no-signal")
         self.assertIn("Insufficient market", pick.reason)
 
+    def test_tiny_edge_outside_the_band_is_still_no_play(self):
+        """The band and the vig floor catch different failures. A tight ladder
+        can clear the band with a 0.2pt edge that is economically meaningless;
+        measured live, the band test alone passed 16 such picks in one week."""
+        read = read_market(parse_ladder(logistic_event(true_margin=3.0, width=0.01, oi=20000)))
+        self.assertLess(read.band, 0.5)                 # band would not catch it
+        line = round(read.implied_margin - 0.4, 2)
+        self.assertFalse(read.margin_low <= line <= read.margin_high)
+        pick = self._pick(line, width=0.01, oi=20000)
+        self.assertIsNone(pick.side)
+        self.assertEqual(pick.confidence, "no-play")
+        self.assertIn("inside the vig", pick.reason)
+
+    def test_edge_just_over_the_floor_does_produce_a_pick(self):
+        read = read_market(parse_ladder(logistic_event(true_margin=3.0, width=0.01, oi=20000)))
+        pick = self._pick(round(read.implied_margin - 1.6, 2), width=0.01, oi=20000)
+        self.assertEqual(pick.side, "home")
+
     def test_clear_disagreement_produces_a_side(self):
         pick = self._pick(-6.5, true_margin=3.0, width=0.01, oi=20000)
         self.assertEqual(pick.side, "home")

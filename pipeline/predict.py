@@ -57,7 +57,17 @@ def evaluate(read: MarketRead, quality: Quality, blend: Blend,
                     f"band ({read.margin_low:+.1f} to {read.margin_high:+.1f}); "
                     "no edge worth acting on.")
 
-    # 3. The curve must actually be pinned down where it is being read.
+    # 3. An edge smaller than the vig is not an edge. Checked after the band
+    #    test because the two catch different failures: the band catches an
+    #    unreadable market, this catches a perfectly readable one that simply
+    #    agrees with Vegas.
+    if abs(edge) < config.MIN_EDGE_POINTS:
+        return Pick(None, None, line, edge, probs.best, probs.push, "no-play",
+                    f"Market and line agree to within {abs(edge):.1f} pts. "
+                    f"Anything under {config.MIN_EDGE_POINTS:.0f} pt is inside the "
+                    "vig, so there is nothing to bet here.")
+
+    # 4. The curve must actually be pinned down where it is being read.
     distance = read.strike_distance(line)
     unpinned = distance > config.MAX_STRIKE_DISTANCE
 
@@ -66,9 +76,9 @@ def evaluate(read: MarketRead, quality: Quality, blend: Blend,
     p_cover = probs.home if side == "home" else probs.away
 
     magnitude = abs(edge)
-    if unpinned or magnitude < 1.0:
+    if unpinned or magnitude < config.EDGE_SOLID:
         confidence = "lean"
-    elif magnitude < 2.5:
+    elif magnitude < config.EDGE_STRONG:
         confidence = "solid"
     else:
         confidence = "strong"

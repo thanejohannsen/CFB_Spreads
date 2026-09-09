@@ -237,6 +237,14 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
   border: 1px solid currentColor; border-radius: 5px; padding: 2px 7px;
 }
 
+.summary { font-size: 13.5px; line-height: 1.6; border-left: 3px solid var(--warn); }
+.summary strong { color: var(--ink); }
+.linky {
+  appearance: none; background: none; border: 0; padding: 0;
+  font: inherit; font-weight: 600; color: var(--accent); cursor: pointer;
+  text-decoration: underline; text-underline-offset: 2px;
+}
+
 .empty { color: var(--muted); text-align: center; padding: 40px 0; }
 
 .foot { margin: 28px auto 48px; font-size: 13px; color: var(--ink); }

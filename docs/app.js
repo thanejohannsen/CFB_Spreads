@@ -8,6 +8,9 @@
 'use strict';
 
 const MAX_STRIKE_DISTANCE = 3.0;   // pipeline/config.py
+const MIN_EDGE_POINTS = 1.0;       // an edge under a point is inside the vig
+const EDGE_SOLID = 2.0;
+const EDGE_STRONG = 3.5;
 const STORAGE_KEY = 'cfb-spreads:manual-lines:v1';
 
 const state = {
@@ -110,6 +113,14 @@ function evaluate(game, line) {
                    + 'no edge worth acting on.' };
   }
 
+  if (Math.abs(edge) < MIN_EDGE_POINTS) {
+    return { side: null, team: null, line, edge, p_cover: Math.max(probs.home, probs.away),
+             p_push: probs.push, confidence: 'no-play',
+             reason: `Market and line agree to within ${Math.abs(edge).toFixed(1)} pts. `
+                   + `Anything under ${MIN_EDGE_POINTS} pt is inside the vig, so there is `
+                   + 'nothing to bet here.' };
+  }
+
   const distance = strikeDistance(game, line);
   const unpinned = distance > MAX_STRIKE_DISTANCE;
   const side = edge > 0 ? 'home' : 'away';
@@ -117,7 +128,7 @@ function evaluate(game, line) {
   const pCover = side === 'home' ? probs.home : probs.away;
   const magnitude = Math.abs(edge);
 
-  let confidence = magnitude < 1.0 || unpinned ? 'lean' : (magnitude < 2.5 ? 'solid' : 'strong');
+  let confidence = magnitude < EDGE_SOLID || unpinned ? 'lean' : (magnitude < EDGE_STRONG ? 'solid' : 'strong');
   if (game.tier === 'C') confidence = 'lean';
 
   let reason = `Market implies ${marginText(blended, game)}; line is ${marginText(line, game)}. `
@@ -293,9 +304,53 @@ function render() {
   board.textContent = '';
   const games = visibleGames();
   document.getElementById('empty').hidden = games.length > 0;
+
+  const summary = boardSummary();
+  if (summary) board.append(summary);
+
   for (const g of games) {
     board.append(state.tab === 'moneyline' ? moneylineCard(g) : spreadCard(g));
   }
+}
+
+/** A board of thirty "No play" cards should say why, not leave you scrolling. */
+function boardSummary() {
+  const all = state.data.games;
+
+  if (state.tab === 'moneyline') {
+    const n = all.filter((g) => g.moneyline && g.moneyline.significant).length;
+    if (n) return null;
+    const box = el('div', 'panel summary');
+    box.append(el('strong', '', 'No moneyline divergences this week. '));
+    box.append(document.createTextNode(
+      "Kalshi's spread ladders and its own moneyline markets agree on every game in the slate."));
+    return box;
+  }
+
+  const priced = all.filter((g) => lineFor(g) !== null);
+  const picks = priced.filter((g) => evaluate(g, lineFor(g)).side !== null);
+  if (picks.length || !priced.length) return null;
+
+  const edges = priced.map((g) => Math.abs(evaluate(g, lineFor(g)).edge));
+  const worst = Math.max(...edges);
+  const diverged = all.filter((g) => g.moneyline && g.moneyline.significant).length;
+
+  const box = el('div', 'panel summary');
+  box.append(el('strong', '', 'Nothing clears the threshold this week. '));
+  box.append(document.createTextNode(
+    `Across ${priced.length} priced games the market and the line never disagree by more than `
+    + `${worst.toFixed(1)} pts, and anything under ${MIN_EDGE_POINTS} pt is inside the vig. `
+    + 'Two efficient markets agreeing is the normal case, not a failure — '
+    + 'a board full of thin "edges" would be the thing to distrust.'));
+  if (diverged) {
+    box.append(document.createTextNode(' '));
+    const link = el('button', 'linky',
+      `${diverged} moneyline divergence${diverged === 1 ? '' : 's'} did show up though →`);
+    link.type = 'button';
+    link.addEventListener('click', () => document.querySelector('.tab[data-tab=moneyline]').click());
+    box.append(link);
+  }
+  return box;
 }
 
 function gameHead(game) {
