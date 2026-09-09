@@ -1,0 +1,47 @@
+{
+ "generated_at": "2026-09-09T16:10:58.055717+00:00",
+ "weeks": [],
+ "last_week": null,
+ "season": {
+  "decision": {
+   "wins": 0,
+   "losses": 0,
+   "total": 0,
+   "pct": null
+  },
+  "closing": {
+   "wins": 0,
+   "losses": 0,
+   "total": 0,
+   "pct": null
+  }
+ },
+ "by_tier": {},
+ "by_edge": {
+  "<1pt": {
+   "wins": 0,
+   "losses": 0,
+   "total": 0,
+   "pct": null
+  },
+  "1-3pts": {
+   "wins": 0,
+   "losses": 0,
+   "total": 0,
+   "pct": null
+  },
+  ">3pts": {
+   "wins": 0,
+   "losses": 0,
+   "total": 0,
+   "pct": null
+  }
+ },
+ "drift": {
+  "median": null,
+  "samples": 0,
+  "same_pick": 0,
+  "same_pick_total": 0
+ },
+ "graded_games": 0
+}

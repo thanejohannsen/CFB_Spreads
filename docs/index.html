@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CFB Spreads — Kalshi-implied</title>
+<meta name="description" content="College football spread predictions from Kalshi prediction-market data.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏈</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="titlebar">
+      <h1>CFB Spreads</h1>
+      <div class="freshness">
+        <span id="generated" class="muted">loading…</span>
+        <span id="deadline" class="deadline"></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="wrap">
+  <div id="accuracy" class="panel accuracy" aria-live="polite"></div>
+</section>
+
+<nav class="wrap tabs" role="tablist">
+  <button class="tab active" data-tab="spreads" role="tab" aria-selected="true">Spreads</button>
+  <button class="tab" data-tab="moneyline" role="tab" aria-selected="false">Moneyline cross-check</button>
+</nav>
+
+<section class="wrap controls">
+  <input id="search" type="search" placeholder="Search teams…" autocomplete="off" aria-label="Search teams">
+  <label class="ctl">Min tier
+    <select id="tier">
+      <option value="D">All</option>
+      <option value="C" selected>C and up</option>
+      <option value="B">B and up</option>
+      <option value="A">A only</option>
+    </select>
+  </label>
+  <label class="ctl">Sort
+    <select id="sort">
+      <option value="edge">Biggest edge</option>
+      <option value="oi">Most popular</option>
+      <option value="kickoff">Kickoff</option>
+      <option value="divergence">ML divergence</option>
+    </select>
+  </label>
+  <label class="ctl checkbox"><input type="checkbox" id="picksonly"> Actionable only</label>
+</section>
+
+<main class="wrap">
+  <div id="board"></div>
+  <p id="empty" class="empty" hidden>No games match those filters.</p>
+</main>
+
+<footer class="wrap foot">
+  <p><strong>How this works.</strong> Kalshi quotes a two-sided ladder of “team wins by over X.5 points”
+  markets on each game. Each price is a probability, so the ladder is a full margin-of-victory
+  distribution — the chance a side covers any number is read straight off the market rather than from
+  a power rating.</p>
+  <p><strong>The band matters more than the number.</strong> Deriving the implied spread twice, once
+  from bids and once from asks, gives the market’s own uncertainty. When a line sits inside that band,
+  the apparent edge is smaller than the noise it was measured against, and the tool says
+  <em>No play</em> rather than inventing a pick.</p>
+  <p class="muted">Kalshi and Vegas are both reasonably efficient markets. Real edges are small and
+  often explained by liquidity. This is a screening tool, not a guarantee — the graded record above is
+  the honest test of whether it is worth anything.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

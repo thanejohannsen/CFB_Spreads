@@ -1,0 +1,61 @@
+name: Update predictions
+
+on:
+  schedule:
+    # Times are UTC. Eastern is UTC-4 during the football season.
+    - cron: '5 */3 * * *'        # baseline refresh
+    - cron: '*/30 0-2 * * 4'     # Wed 20:00-22:30 ET - decision window opens
+    - cron: '*/30 3-18 * * 4'    # Thu 00:00-14:00 ET - picks are due in here
+    - cron: '0 16-23 * * 5,6'    # Fri/Sat afternoons - closing snapshots
+    - cron: '0 0-6 * * 0,6'      # late kickoffs rolling past midnight UTC
+  workflow_dispatch:
+
+# Never let two runs write the repo at once; a later run supersedes an
+# in-flight one rather than racing it to the same commit.
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # The pipeline is deliberately stdlib-only, so there is nothing to
+      # install and no upstream release can break a scheduled run.
+
+      - name: Run tests
+        run: python -m unittest discover -s pipeline/tests -t . -v
+
+      - name: Build predictions
+        env:
+          CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+        run: python -m pipeline.update
+
+      - name: Commit data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data
+          if git diff --staged --quiet; then
+            echo "no data changes"
+            exit 0
+          fi
+          git commit -m "data: refresh predictions $(date -u +'%Y-%m-%d %H:%M UTC')"
+          # A concurrent run may have pushed since checkout; rebase rather than fail.
+          for attempt in 1 2 3 4; do
+            if git push; then exit 0; fi
+            echo "push failed, rebasing (attempt $attempt)"
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            sleep $((2 ** attempt))
+          done
+          echo "could not push after 4 attempts" >&2
+          exit 1
