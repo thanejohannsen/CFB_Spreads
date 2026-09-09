@@ -2,7 +2,12 @@ name: CI
 
 on:
   push:
-    branches-ignore: [main]
+    # The updater commits only under docs/data, as often as every 20 minutes
+    # through the decision window. Those commits change no code, so running the
+    # suite (and its live Kalshi dry run) on them would be hundreds of pointless
+    # runs a month against a rate-limited API.
+    paths-ignore:
+      - 'docs/data/**'
   pull_request:
 
 jobs:

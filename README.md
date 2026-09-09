@@ -99,7 +99,12 @@ that a fraction of a point of noise turns into several points of apparent edge.
 2. Add it as a repository secret named **`CFBD_API_KEY`**
    (Settings → Secrets and variables → Actions). It is only ever read inside GitHub Actions and is
    never shipped to the browser.
-3. Enable Pages: Settings → Pages → Source → **GitHub Actions**.
+3. Enable Pages: Settings → Pages → Source → **Deploy from a branch**, branch
+   `claude/optimistic-edison-hkp7v2`, folder **`/docs`**.
+
+The site is published by GitHub's own branch builder, so there is no Pages workflow in this repo —
+every commit the updater pushes republishes the site automatically. `docs/.nojekyll` turns off Jekyll
+processing, which a branch deploy would otherwise apply.
 
 Without a key everything still runs — Kalshi needs no authentication — you just enter the ten spreads
 by hand on the page instead of getting them automatically.
@@ -137,6 +142,17 @@ The heavy math stays in Python. Each game ships a dense survival table on the ha
 typing a spread on the page is a table lookup rather than a re-fit. `docs/app.js` mirrors
 `pipeline/predict.py` so a hand-entered line is judged by the same rules that grade the record;
 the rule set is kept small so that stays true.
+
+### Scheduled updates
+
+`.github/workflows/update-data.yml` refreshes the data on a cron and commits it back to the branch.
+GitHub only runs scheduled workflows on a repository's **default branch**, so the branch the cron
+runs on, the branch it commits to, and the branch Pages serves all have to be the same one — they
+are. If you ever rename or change the default branch, repoint Settings → Pages to match, or the site
+will quietly freeze at its last update while the workflow keeps succeeding elsewhere.
+
+CI deliberately skips commits that touch only `docs/data`, so the automated refreshes do not each
+trigger a test run.
 
 ### API budget
 

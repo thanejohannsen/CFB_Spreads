@@ -50,9 +50,11 @@ jobs:
             exit 0
           fi
           git commit -m "data: refresh predictions $(date -u +'%Y-%m-%d %H:%M UTC')"
+          # Push explicitly rather than relying on checkout having configured an
+          # upstream. Also correct for a branch name containing a slash.
           # A concurrent run may have pushed since checkout; rebase rather than fail.
           for attempt in 1 2 3 4; do
-            if git push; then exit 0; fi
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then exit 0; fi
             echo "push failed, rebasing (attempt $attempt)"
             git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
             sleep $((2 ** attempt))
