@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-12T03:25:08.781764+00:00",
+ "generated_at": "2026-09-12T07:33:23.821662+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -29,15 +29,15 @@
      "pct": null
     },
     "kalshi_ml": {
-     "wins": 0,
+     "wins": 1,
      "losses": 0,
-     "total": 0,
-     "pct": null
+     "total": 1,
+     "pct": 1.0
     },
     "sp_plus": {
      "wins": 0,
-     "losses": 1,
-     "total": 1,
+     "losses": 2,
+     "total": 2,
      "pct": 0.0
     }
    }
@@ -71,15 +71,15 @@
     "pct": null
    },
    "kalshi_ml": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    },
    "sp_plus": {
     "wins": 0,
-    "losses": 1,
-    "total": 1,
+    "losses": 2,
+    "total": 2,
     "pct": 0.0
    }
   }
@@ -135,16 +135,16 @@
    "key": "kalshi_ml",
    "label": "Kalshi ML vs Spread",
    "season": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    },
    "last_week": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    }
   },
   {
@@ -152,14 +152,14 @@
    "label": "SP+ vs Vegas Spread",
    "season": {
     "wins": 0,
-    "losses": 1,
-    "total": 1,
+    "losses": 2,
+    "total": 2,
     "pct": 0.0
    },
    "last_week": {
     "wins": 0,
-    "losses": 1,
-    "total": 1,
+    "losses": 2,
+    "total": 2,
     "pct": 0.0
    }
   }
@@ -197,9 +197,9 @@
  },
  "drift": {
   "median": 0.35,
-  "samples": 2,
-  "same_pick": 2,
-  "same_pick_total": 2
+  "samples": 3,
+  "same_pick": 3,
+  "same_pick_total": 3
  },
- "graded_games": 4
+ "graded_games": 6
 }
