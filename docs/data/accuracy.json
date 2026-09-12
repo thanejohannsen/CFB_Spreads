@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-12T18:05:22.517080+00:00",
+ "generated_at": "2026-09-12T20:14:53.890384+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -29,16 +29,16 @@
      "pct": null
     },
     "kalshi_ml": {
-     "wins": 1,
+     "wins": 2,
      "losses": 0,
-     "total": 1,
+     "total": 2,
      "pct": 1.0
     },
     "sp_plus": {
-     "wins": 0,
-     "losses": 2,
-     "total": 2,
-     "pct": 0.0
+     "wins": 6,
+     "losses": 4,
+     "total": 10,
+     "pct": 0.6
     }
    }
   }
@@ -71,16 +71,16 @@
     "pct": null
    },
    "kalshi_ml": {
-    "wins": 1,
+    "wins": 2,
     "losses": 0,
-    "total": 1,
+    "total": 2,
     "pct": 1.0
    },
    "sp_plus": {
-    "wins": 0,
-    "losses": 2,
-    "total": 2,
-    "pct": 0.0
+    "wins": 6,
+    "losses": 4,
+    "total": 10,
+    "pct": 0.6
    }
   }
  },
@@ -135,15 +135,15 @@
    "key": "kalshi_ml",
    "label": "Kalshi ML vs Spread",
    "season": {
-    "wins": 1,
+    "wins": 2,
     "losses": 0,
-    "total": 1,
+    "total": 2,
     "pct": 1.0
    },
    "last_week": {
-    "wins": 1,
+    "wins": 2,
     "losses": 0,
-    "total": 1,
+    "total": 2,
     "pct": 1.0
    }
   },
@@ -151,16 +151,16 @@
    "key": "sp_plus",
    "label": "SP+ vs Vegas Spread",
    "season": {
-    "wins": 0,
-    "losses": 2,
-    "total": 2,
-    "pct": 0.0
+    "wins": 6,
+    "losses": 4,
+    "total": 10,
+    "pct": 0.6
    },
    "last_week": {
-    "wins": 0,
-    "losses": 2,
-    "total": 2,
-    "pct": 0.0
+    "wins": 6,
+    "losses": 4,
+    "total": 10,
+    "pct": 0.6
    }
   }
  ],
@@ -169,6 +169,18 @@
  ],
  "by_tier": {
   "A": {
+   "wins": 0,
+   "losses": 0,
+   "total": 0,
+   "pct": null
+  },
+  "B": {
+   "wins": 0,
+   "losses": 0,
+   "total": 0,
+   "pct": null
+  },
+  "C": {
    "wins": 0,
    "losses": 0,
    "total": 0,
@@ -197,9 +209,9 @@
  },
  "drift": {
   "median": 0.35,
-  "samples": 3,
-  "same_pick": 3,
-  "same_pick_total": 3
+  "samples": 11,
+  "same_pick": 11,
+  "same_pick_total": 11
  },
- "graded_games": 6
+ "graded_games": 19
 }
