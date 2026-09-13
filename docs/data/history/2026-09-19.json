@@ -76,7 +76,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 2.53,
     "blended_margin": 9.89,
     "dollar_volume": 4227,
@@ -136,13 +136,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 9.899999999999999,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -151,7 +151,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 2.53,
     "blended_margin": 9.89,
     "dollar_volume": 4227,
@@ -211,13 +211,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 9.899999999999999,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -305,7 +305,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 0.83,
     "blended_margin": 9.38,
     "dollar_volume": 17858,
@@ -365,13 +365,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 14.899999999999999,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -380,7 +380,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 0.83,
     "blended_margin": 9.38,
     "dollar_volume": 17858,
@@ -440,13 +440,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 14.899999999999999,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -534,7 +534,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 2.33,
     "blended_margin": -23.71,
     "dollar_volume": 23959,
@@ -594,13 +594,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -20.599999999999998,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -609,7 +609,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 2.33,
     "blended_margin": -23.71,
     "dollar_volume": 23959,
@@ -669,13 +669,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -20.599999999999998,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -915,22 +915,22 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
-    "band": 2.0,
-    "blended_margin": -5.6,
-    "dollar_volume": 1894,
+    "at": "2026-09-13T18:35:26.788978+00:00",
+    "band": 1.0,
+    "blended_margin": -5.77,
+    "dollar_volume": 1918,
     "fraction_traded": 0.172,
-    "implied_margin": -5.6,
+    "implied_margin": -5.77,
     "kalshi_weight": 1.0,
-    "margin_high": -4.5,
+    "margin_high": -5.5,
     "margin_low": -6.5,
-    "master_margin": -3.97,
+    "master_margin": -4.92,
     "minutes_before_kickoff": 8665,
     "open_interest": 2703,
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
-     "estimate": -3.9688882150636173,
+     "estimate": -4.922252717297008,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -943,7 +943,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -3.7049484252929688,
+      "estimate": -4.246324133127928,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -954,7 +954,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -5.600000144913793,
+      "estimate": -5.769547400996089,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -965,7 +965,7 @@
      "master": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -3.9688882150636173,
+      "estimate": -4.922252717297008,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -975,13 +975,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 1.3000000000000007,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -990,22 +990,22 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
-    "band": 2.0,
-    "blended_margin": -5.6,
-    "dollar_volume": 1894,
+    "at": "2026-09-13T18:35:26.788978+00:00",
+    "band": 1.0,
+    "blended_margin": -5.77,
+    "dollar_volume": 1918,
     "fraction_traded": 0.172,
-    "implied_margin": -5.6,
+    "implied_margin": -5.77,
     "kalshi_weight": 1.0,
-    "margin_high": -4.5,
+    "margin_high": -5.5,
     "margin_low": -6.5,
-    "master_margin": -3.97,
+    "master_margin": -4.92,
     "minutes_before_kickoff": 8665,
     "open_interest": 2703,
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
-     "estimate": -3.9688882150636173,
+     "estimate": -4.922252717297008,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -1018,7 +1018,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -3.7049484252929688,
+      "estimate": -4.246324133127928,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -1029,7 +1029,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -5.600000144913793,
+      "estimate": -5.769547400996089,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -1040,7 +1040,7 @@
      "master": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -3.9688882150636173,
+      "estimate": -4.922252717297008,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -1050,13 +1050,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 1.3000000000000007,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -1144,7 +1144,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 1041,
@@ -1204,13 +1204,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 18.4,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -1219,7 +1219,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 1041,
@@ -1279,13 +1279,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 18.4,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -1373,10 +1373,10 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 2627,
+    "dollar_volume": 2635,
     "fraction_traded": 0.192,
     "implied_margin": null,
     "kalshi_weight": 1.0,
@@ -1433,13 +1433,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -21.8,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -1448,10 +1448,10 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 2627,
+    "dollar_volume": 2635,
     "fraction_traded": 0.192,
     "implied_margin": null,
     "kalshi_weight": 1.0,
@@ -1508,13 +1508,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -21.8,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -1754,7 +1754,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 0.1,
     "blended_margin": 3.08,
     "dollar_volume": 1282,
@@ -1814,13 +1814,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 8.2,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -1829,7 +1829,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 0.1,
     "blended_margin": 3.08,
     "dollar_volume": 1282,
@@ -1889,13 +1889,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 8.2,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -2135,7 +2135,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 0.07,
     "blended_margin": 6.97,
     "dollar_volume": 2780,
@@ -2195,13 +2195,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 3.8000000000000007,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -2210,7 +2210,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 0.07,
     "blended_margin": 6.97,
     "dollar_volume": 2780,
@@ -2270,13 +2270,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 3.8000000000000007,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -2364,22 +2364,22 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 2.33,
-    "blended_margin": -2.84,
-    "dollar_volume": 9220,
+    "blended_margin": -2.75,
+    "dollar_volume": 9216,
     "fraction_traded": 0.207,
-    "implied_margin": -2.84,
+    "implied_margin": -2.75,
     "kalshi_weight": 1.0,
     "margin_high": -2.5,
     "margin_low": -4.83,
-    "master_margin": -3.32,
+    "master_margin": -3.24,
     "minutes_before_kickoff": 8665,
     "open_interest": 783,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
-     "estimate": -3.319731643644829,
+     "estimate": -3.2366796962650017,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -2392,7 +2392,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -4.581782087683678,
+      "estimate": -4.492177784442902,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -2403,7 +2403,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -2.839604463428259,
+      "estimate": -2.750000160187483,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -2414,7 +2414,7 @@
      "master": {
       "confidence": "no-signal",
       "edge": 0.0,
-      "estimate": -3.319731643644829,
+      "estimate": -3.2366796962650017,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -2424,13 +2424,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -9.100000000000001,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -2439,22 +2439,22 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 2.33,
-    "blended_margin": -2.84,
-    "dollar_volume": 9220,
+    "blended_margin": -2.75,
+    "dollar_volume": 9216,
     "fraction_traded": 0.207,
-    "implied_margin": -2.84,
+    "implied_margin": -2.75,
     "kalshi_weight": 1.0,
     "margin_high": -2.5,
     "margin_low": -4.83,
-    "master_margin": -3.32,
+    "master_margin": -3.24,
     "minutes_before_kickoff": 8665,
     "open_interest": 783,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
-     "estimate": -3.319731643644829,
+     "estimate": -3.2366796962650017,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -2467,7 +2467,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -4.581782087683678,
+      "estimate": -4.492177784442902,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -2478,7 +2478,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -2.839604463428259,
+      "estimate": -2.750000160187483,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -2489,7 +2489,7 @@
      "master": {
       "confidence": "no-signal",
       "edge": 0.0,
-      "estimate": -3.319731643644829,
+      "estimate": -3.2366796962650017,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -2499,13 +2499,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -9.100000000000001,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -2593,7 +2593,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 2.89,
     "blended_margin": 18.95,
     "dollar_volume": 10536,
@@ -2653,13 +2653,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 15.6,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -2668,7 +2668,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 2.89,
     "blended_margin": 18.95,
     "dollar_volume": 10536,
@@ -2728,13 +2728,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 15.6,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -2901,7 +2901,7 @@
   "KXNCAAFSPREAD-26SEP19KENNTENN": {
    "away_team": "Kennesaw St.",
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 16273,
@@ -2961,13 +2961,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 29.799999999999997,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -2976,7 +2976,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 16273,
@@ -3036,13 +3036,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 29.799999999999997,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -3130,7 +3130,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 21448,
@@ -3190,13 +3190,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 60.0,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -3205,7 +3205,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 21448,
@@ -3265,13 +3265,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 60.0,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -3359,22 +3359,22 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
-    "band": 0.15,
-    "blended_margin": -2.73,
-    "dollar_volume": 180969,
+    "at": "2026-09-13T18:35:26.788978+00:00",
+    "band": 0.25,
+    "blended_margin": -2.78,
+    "dollar_volume": 180994,
     "fraction_traded": 0.621,
-    "implied_margin": -2.73,
+    "implied_margin": -2.78,
     "kalshi_weight": 1.0,
     "margin_high": -2.71,
-    "margin_low": -2.87,
-    "master_margin": -2.85,
+    "margin_low": -2.96,
+    "master_margin": -2.97,
     "minutes_before_kickoff": 8665,
     "open_interest": 17655,
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
-     "estimate": -2.8542067859045193,
+     "estimate": -2.9737151182220565,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -3387,7 +3387,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -3.9147010818123817,
+      "estimate": -3.968869559466839,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -3398,7 +3398,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -2.726994890719652,
+      "estimate": -2.7770390771329403,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -3409,7 +3409,7 @@
      "master": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -2.8542067859045193,
+      "estimate": -2.9737151182220565,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -3419,13 +3419,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -7.5,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -3434,22 +3434,22 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
-    "band": 0.15,
-    "blended_margin": -2.73,
-    "dollar_volume": 180969,
+    "at": "2026-09-13T18:35:26.788978+00:00",
+    "band": 0.25,
+    "blended_margin": -2.78,
+    "dollar_volume": 180994,
     "fraction_traded": 0.621,
-    "implied_margin": -2.73,
+    "implied_margin": -2.78,
     "kalshi_weight": 1.0,
     "margin_high": -2.71,
-    "margin_low": -2.87,
-    "master_margin": -2.85,
+    "margin_low": -2.96,
+    "master_margin": -2.97,
     "minutes_before_kickoff": 8665,
     "open_interest": 17655,
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
-     "estimate": -2.8542067859045193,
+     "estimate": -2.9737151182220565,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -3462,7 +3462,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -3.9147010818123817,
+      "estimate": -3.968869559466839,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -3473,7 +3473,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -2.726994890719652,
+      "estimate": -2.7770390771329403,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -3484,7 +3484,7 @@
      "master": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -2.8542067859045193,
+      "estimate": -2.9737151182220565,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -3494,13 +3494,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -7.5,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -3740,22 +3740,22 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
-    "band": 0.7,
-    "blended_margin": 3.61,
-    "dollar_volume": 19265,
+    "at": "2026-09-13T18:35:26.788978+00:00",
+    "band": 0.86,
+    "blended_margin": 3.5,
+    "dollar_volume": 19262,
     "fraction_traded": 0.69,
-    "implied_margin": 3.61,
+    "implied_margin": 3.5,
     "kalshi_weight": 1.0,
     "margin_high": 3.98,
-    "margin_low": 3.28,
-    "master_margin": 4.15,
+    "margin_low": 3.13,
+    "master_margin": 4.08,
     "minutes_before_kickoff": 8665,
     "open_interest": 2804,
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
-     "estimate": 4.147412109767564,
+     "estimate": 4.08471451656575,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -3768,7 +3768,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 4.339377708733082,
+      "estimate": 4.225849337875843,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -3779,7 +3779,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 3.6135285682976246,
+      "estimate": 3.500000197440386,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -3790,7 +3790,7 @@
      "master": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 4.147412109767564,
+      "estimate": 4.08471451656575,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -3800,13 +3800,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 9.799999999999999,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -3815,22 +3815,22 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
-    "band": 0.7,
-    "blended_margin": 3.61,
-    "dollar_volume": 19265,
+    "at": "2026-09-13T18:35:26.788978+00:00",
+    "band": 0.86,
+    "blended_margin": 3.5,
+    "dollar_volume": 19262,
     "fraction_traded": 0.69,
-    "implied_margin": 3.61,
+    "implied_margin": 3.5,
     "kalshi_weight": 1.0,
     "margin_high": 3.98,
-    "margin_low": 3.28,
-    "master_margin": 4.15,
+    "margin_low": 3.13,
+    "master_margin": 4.08,
     "minutes_before_kickoff": 8665,
     "open_interest": 2804,
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
-     "estimate": 4.147412109767564,
+     "estimate": 4.08471451656575,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -3843,7 +3843,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 4.339377708733082,
+      "estimate": 4.225849337875843,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -3854,7 +3854,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 3.6135285682976246,
+      "estimate": 3.500000197440386,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -3865,7 +3865,7 @@
      "master": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 4.147412109767564,
+      "estimate": 4.08471451656575,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -3875,13 +3875,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 9.799999999999999,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -3969,7 +3969,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 2.6,
     "blended_margin": 29.14,
     "dollar_volume": 16334,
@@ -4029,13 +4029,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 28.3,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -4044,7 +4044,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 2.6,
     "blended_margin": 29.14,
     "dollar_volume": 16334,
@@ -4104,13 +4104,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 28.3,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -4350,10 +4350,10 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 1.8,
     "blended_margin": 14.17,
-    "dollar_volume": 2196,
+    "dollar_volume": 2189,
     "fraction_traded": 0.094,
     "implied_margin": 14.17,
     "kalshi_weight": 1.0,
@@ -4365,7 +4365,7 @@
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
-     "estimate": 14.26672948116395,
+     "estimate": 14.267697767621573,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -4378,7 +4378,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 20.78326392918825,
+      "estimate": 20.78441246598959,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -4389,7 +4389,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 14.166666943579912,
+      "estimate": 14.16781548038125,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -4400,7 +4400,7 @@
      "master": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 14.26672948116395,
+      "estimate": 14.267697767621573,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -4410,13 +4410,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 10.5,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -4425,10 +4425,10 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 1.8,
     "blended_margin": 14.17,
-    "dollar_volume": 2196,
+    "dollar_volume": 2189,
     "fraction_traded": 0.094,
     "implied_margin": 14.17,
     "kalshi_weight": 1.0,
@@ -4440,7 +4440,7 @@
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
-     "estimate": 14.26672948116395,
+     "estimate": 14.267697767621573,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -4453,7 +4453,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 20.78326392918825,
+      "estimate": 20.78441246598959,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -4464,7 +4464,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 14.166666943579912,
+      "estimate": 14.16781548038125,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -4475,7 +4475,7 @@
      "master": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 14.26672948116395,
+      "estimate": 14.267697767621573,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -4485,13 +4485,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 10.5,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -4579,22 +4579,22 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 5.62,
     "blended_margin": 2.22,
-    "dollar_volume": 4803,
+    "dollar_volume": 4780,
     "fraction_traded": 0.385,
     "implied_margin": 2.22,
     "kalshi_weight": 1.0,
     "margin_high": 2.5,
     "margin_low": -3.12,
-    "master_margin": 2.02,
+    "master_margin": 1.88,
     "minutes_before_kickoff": 8665,
     "open_interest": 399,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
-     "estimate": 2.022043504455196,
+     "estimate": 1.8810392572160592,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -4607,7 +4607,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 1.8955177925527096,
+      "estimate": 1.61895115301013,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -4629,7 +4629,7 @@
      "master": {
       "confidence": "no-signal",
       "edge": 0.0,
-      "estimate": 2.022043504455196,
+      "estimate": 1.8810392572160592,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -4639,13 +4639,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 1.4000000000000004,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -4654,22 +4654,22 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 5.62,
     "blended_margin": 2.22,
-    "dollar_volume": 4803,
+    "dollar_volume": 4780,
     "fraction_traded": 0.385,
     "implied_margin": 2.22,
     "kalshi_weight": 1.0,
     "margin_high": 2.5,
     "margin_low": -3.12,
-    "master_margin": 2.02,
+    "master_margin": 1.88,
     "minutes_before_kickoff": 8665,
     "open_interest": 399,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
-     "estimate": 2.022043504455196,
+     "estimate": 1.8810392572160592,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -4682,7 +4682,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 1.8955177925527096,
+      "estimate": 1.61895115301013,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -4704,7 +4704,7 @@
      "master": {
       "confidence": "no-signal",
       "edge": 0.0,
-      "estimate": 2.022043504455196,
+      "estimate": 1.8810392572160592,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -4714,13 +4714,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 1.4000000000000004,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -4808,7 +4808,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 4.57,
     "blended_margin": 9.86,
     "dollar_volume": 660,
@@ -4868,13 +4868,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 13.8,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -4883,7 +4883,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 4.57,
     "blended_margin": 9.86,
     "dollar_volume": 660,
@@ -4943,13 +4943,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 13.8,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -5037,7 +5037,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 2.24,
     "blended_margin": 3.62,
     "dollar_volume": 1157,
@@ -5097,13 +5097,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -2.0,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -5112,7 +5112,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 2.24,
     "blended_margin": 3.62,
     "dollar_volume": 1157,
@@ -5172,13 +5172,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -2.0,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -5266,7 +5266,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 1439,
@@ -5326,13 +5326,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 22.6,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -5341,7 +5341,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 1439,
@@ -5401,13 +5401,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 22.6,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -5495,7 +5495,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 2.39,
     "blended_margin": -25.5,
     "dollar_volume": 27452,
@@ -5555,13 +5555,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -22.9,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -5570,7 +5570,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 2.39,
     "blended_margin": -25.5,
     "dollar_volume": 27452,
@@ -5630,13 +5630,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -22.9,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -5724,10 +5724,10 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 1.36,
     "blended_margin": 14.73,
-    "dollar_volume": 2447,
+    "dollar_volume": 2456,
     "fraction_traded": 0.594,
     "implied_margin": 14.73,
     "kalshi_weight": 1.0,
@@ -5784,13 +5784,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 17.9,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -5799,10 +5799,10 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 1.36,
     "blended_margin": 14.73,
-    "dollar_volume": 2447,
+    "dollar_volume": 2456,
     "fraction_traded": 0.594,
     "implied_margin": 14.73,
     "kalshi_weight": 1.0,
@@ -5859,13 +5859,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 17.9,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -5953,22 +5953,22 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 1.61,
     "blended_margin": 4.85,
-    "dollar_volume": 22516,
+    "dollar_volume": 22517,
     "fraction_traded": 0.448,
     "implied_margin": 4.85,
     "kalshi_weight": 1.0,
     "margin_high": 5.11,
     "margin_low": 3.5,
-    "master_margin": 3.84,
+    "master_margin": 3.82,
     "minutes_before_kickoff": 8665,
     "open_interest": 4800,
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
-     "estimate": 3.8354982519598217,
+     "estimate": 3.82477947936043,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -5981,7 +5981,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 3.800208196043968,
+      "estimate": 3.7897995561361313,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -6003,7 +6003,7 @@
      "master": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 3.8354982519598217,
+      "estimate": 3.82477947936043,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -6013,13 +6013,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 1.9000000000000004,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -6028,22 +6028,22 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 1.61,
     "blended_margin": 4.85,
-    "dollar_volume": 22516,
+    "dollar_volume": 22517,
     "fraction_traded": 0.448,
     "implied_margin": 4.85,
     "kalshi_weight": 1.0,
     "margin_high": 5.11,
     "margin_low": 3.5,
-    "master_margin": 3.84,
+    "master_margin": 3.82,
     "minutes_before_kickoff": 8665,
     "open_interest": 4800,
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
-     "estimate": 3.8354982519598217,
+     "estimate": 3.82477947936043,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -6056,7 +6056,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 3.800208196043968,
+      "estimate": 3.7897995561361313,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -6078,7 +6078,7 @@
      "master": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 3.8354982519598217,
+      "estimate": 3.82477947936043,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -6088,13 +6088,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 1.9000000000000004,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -6109,7 +6109,7 @@
   "KXNCAAFSPREAD-26SEP19UNMOKLA": {
    "away_team": "New Mexico",
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 3324,
@@ -6169,13 +6169,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 19.799999999999997,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -6184,7 +6184,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 3324,
@@ -6244,13 +6244,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 19.799999999999997,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -6338,7 +6338,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 4004,
@@ -6398,13 +6398,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 7.8999999999999995,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -6413,7 +6413,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 4004,
@@ -6473,13 +6473,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 7.8999999999999995,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -6567,7 +6567,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 8501,
@@ -6627,13 +6627,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 27.0,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -6642,7 +6642,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 8501,
@@ -6702,13 +6702,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 27.0,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -6796,10 +6796,10 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 5.2,
     "blended_margin": 31.23,
-    "dollar_volume": 69182,
+    "dollar_volume": 69186,
     "fraction_traded": 0.6,
     "implied_margin": 31.23,
     "kalshi_weight": 1.0,
@@ -6856,13 +6856,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 25.0,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -6871,10 +6871,10 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 5.2,
     "blended_margin": 31.23,
-    "dollar_volume": 69182,
+    "dollar_volume": 69186,
     "fraction_traded": 0.6,
     "implied_margin": 31.23,
     "kalshi_weight": 1.0,
@@ -6931,13 +6931,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 25.0,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -7025,22 +7025,22 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 1.51,
     "blended_margin": -2.97,
-    "dollar_volume": 4875,
+    "dollar_volume": 4871,
     "fraction_traded": 0.308,
     "implied_margin": -2.97,
     "kalshi_weight": 1.0,
     "margin_high": -1.99,
     "margin_low": -3.5,
-    "master_margin": -2.62,
+    "master_margin": -2.41,
     "minutes_before_kickoff": 8665,
     "open_interest": 2042,
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
-     "estimate": -2.615450455003553,
+     "estimate": -2.4107686985297287,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -7053,7 +7053,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -2.0624462999403477,
+      "estimate": -2.2146241441369057,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -7075,7 +7075,7 @@
      "master": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -2.615450455003553,
+      "estimate": -2.4107686985297287,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -7085,13 +7085,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -0.8000000000000007,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -7100,22 +7100,22 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 1.51,
     "blended_margin": -2.97,
-    "dollar_volume": 4875,
+    "dollar_volume": 4871,
     "fraction_traded": 0.308,
     "implied_margin": -2.97,
     "kalshi_weight": 1.0,
     "margin_high": -1.99,
     "margin_low": -3.5,
-    "master_margin": -2.62,
+    "master_margin": -2.41,
     "minutes_before_kickoff": 8665,
     "open_interest": 2042,
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
-     "estimate": -2.615450455003553,
+     "estimate": -2.4107686985297287,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -7128,7 +7128,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -2.0624462999403477,
+      "estimate": -2.2146241441369057,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -7150,7 +7150,7 @@
      "master": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -2.615450455003553,
+      "estimate": -2.4107686985297287,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -7160,13 +7160,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -0.8000000000000007,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -7254,7 +7254,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 31028,
@@ -7314,13 +7314,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 39.7,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -7329,7 +7329,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 31028,
@@ -7389,13 +7389,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 39.7,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -7483,7 +7483,7 @@
     "vegas_home_favored_by": null
    },
    "decision": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 4.73,
     "blended_margin": 9.92,
     "dollar_volume": 1746,
@@ -7543,13 +7543,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 18.4,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
@@ -7558,7 +7558,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-09-13T18:34:50.209243+00:00",
+    "at": "2026-09-13T18:35:26.788978+00:00",
     "band": 4.73,
     "blended_margin": 9.92,
     "dollar_volume": 1746,
@@ -7618,13 +7618,13 @@
       "team": null
      },
      "sp_plus": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 18.4,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no SP+ rating for one of these teams.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      }
