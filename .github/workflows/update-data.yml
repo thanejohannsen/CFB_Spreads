@@ -6,8 +6,14 @@ on:
     - cron: '5 */3 * * *'        # baseline refresh
     - cron: '*/30 0-2 * * 4'     # Wed 20:00-22:30 ET - decision window opens
     - cron: '*/30 3-18 * * 4'    # Thu 00:00-14:00 ET - picks are due in here
-    - cron: '0 16-23 * * 5,6'    # Fri/Sat afternoons - closing snapshots
-    - cron: '0 0-6 * * 0,6'      # late kickoffs rolling past midnight UTC
+    # Game windows every 30 minutes. The headline record locks an hour before
+    # each kickoff, so the snapshot has to land close to it: hourly runs could
+    # leave the lock up to two hours stale, which is exactly the window where
+    # Kalshi volume arrives. Thursday starts at 19:00 to avoid overlapping the
+    # decision-window cron above.
+    - cron: '*/30 19-23 * * 4'     # Thu evening kickoffs
+    - cron: '*/30 16-23 * * 5,6'   # Fri/Sat afternoon and evening kickoffs
+    - cron: '*/30 0-7 * * 5,6,0'   # late kickoffs rolling past midnight UTC
   workflow_dispatch:
 
 # Never let two runs write the repo at once; a later run supersedes an

@@ -49,6 +49,42 @@ through.
 **When the Vegas line falls inside that band, the tool says _No play_.** The apparent edge is
 smaller than the noise it was measured against. A band over 2 points means no pick at all.
 
+## Two clocks, and S tier
+
+The headline record locks **an hour before each kickoff**, because that is when Kalshi's volume
+actually arrives. Measured from the tool's own stored snapshots, open interest grew a **median of
+80%** between the Thursday lock and kickoff:
+
+| Game | Thu noon | Near kickoff | Growth |
+|---|---|---|---|
+| Rutgers vs Boston College | 18,230 | 860,036 | **+4,618%** |
+| Missouri vs Kansas | 151,953 | 928,723 | +511% |
+| Oklahoma vs Michigan | 474,576 | 723,511 | +52% |
+
+Be clear about what that measures: it is the method at its sharpest, **not the picks you could
+actually submit** on a Wednesday night. The Thursday-noon record is still kept, one click down, with
+a matching S/A row so the two are comparable — same games, same filter, only the clock differs, so
+any gap reads as timing rather than as the effect of dropping B and C tier games.
+
+More volume did not always mean a *tighter* market: Missouri/Kansas went from a 0.30 band to 0.56 and
+Ohio St./Texas 0.40 to 0.80, both dropping A to B. Tier is therefore judged at whichever lock is
+being graded, never inherited.
+
+**S tier** marks the handful of games each week carrying serious money: combined spread + moneyline
+dollar volume of **$500k or more**, and A's band and traded bars as well, so volume alone cannot
+promote a loose market. Four of 239 games cleared it on a measured Saturday; the spread ladder alone
+topped out at $447k, which is why the threshold counts both markets. Dollar volume is contracts
+traded × price — Kalshi settles each contract at $0 or $1, so counting notional would roughly double
+the figure.
+
+Each locked snapshot records **how stale it is** (`minutes_before_kickoff`). A missed cron run leaves
+the lock older than intended, and without the gap a stale lock is indistinguishable from a fresh one.
+
+**Clicking any record** expands the individual picks behind it — the pick, the line it was made
+against, the tier and edge at that lock, and the final margin. That last pair is the point: a tally
+cannot tell you whether a losing week was bad calls or good calls losing on the number. Ungraded
+picks appear as pending, so the current week is visible before it is history.
+
 ## Does the Wednesday deadline hurt?
 
 Less than you would think, because liquidity concentrates in exactly the games worth picking.

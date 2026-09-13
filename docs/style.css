@@ -9,6 +9,7 @@
   --good: #0f7b45;
   --bad: #b42318;
   --warn: #9a5b00;
+  --tierS: #7c3aed;
   --tierA: #0f7b45;
   --tierB: #1d4ed8;
   --tierC: #9a5b00;
@@ -28,6 +29,7 @@
     --good: #3fb950;
     --bad: #f85149;
     --warn: #d29922;
+    --tierS: #a78bfa;
     --tierA: #3fb950;
     --tierB: #6f9bff;
     --tierC: #d29922;
@@ -101,11 +103,59 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
   border-radius: 6px;
   font-size: 13px;
 }
+.acc-tr.clickable {
+  appearance: none;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: 13px;
+  color: inherit;
+  border: 0;
+  cursor: pointer;
+}
+.acc-tr.clickable:hover { background: color-mix(in srgb, var(--ink) 5%, transparent); }
+.caret { color: var(--muted); font-size: 10px; }
+
 .acc-tr.head { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding-bottom: 0; }
 .acc-tr.master { background: color-mix(in srgb, var(--accent) 9%, transparent); font-weight: 620; }
 .acc-td { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 .acc-td.name { font-family: inherit; }
 .acc-td.muted { color: var(--muted); }
+
+/* ------------------------------------------------------- pick history -- */
+
+.picks {
+  display: grid;
+  gap: 1px;
+  margin: 2px 0 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+.picks-note { font-size: 11.5px; color: var(--muted); padding: 2px 2px 8px; }
+.picks-empty { font-size: 12.5px; color: var(--muted); padding: 6px 2px; }
+
+.pick {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  gap: 10px;
+  align-items: baseline;
+  padding: 7px 4px;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+}
+.pick:first-of-type { border-top: 0; }
+.pick-date { color: var(--muted); font-family: var(--mono); font-size: 11px; }
+.pick-main { display: grid; gap: 2px; min-width: 0; }
+.pick-game { font-weight: 600; }
+.pick-call { font-family: var(--mono); color: var(--accent); }
+.pick-meta { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+.pick-out { display: grid; gap: 2px; justify-items: end; text-align: right; }
+.pick-res { font-size: 10.5px; font-weight: 700; letter-spacing: .05em; }
+.pick-res.win { color: var(--good); }
+.pick-res.loss { color: var(--bad); }
+.pick-res.push, .pick-res.pending { color: var(--muted); }
+.pick-margin { font-size: 11px; color: var(--muted); font-family: var(--mono); }
 
 .acc-rows { display: grid; gap: 10px; padding-top: 12px; }
 .acc-row { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: baseline; font-size: 13px; }
@@ -195,6 +245,7 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
   padding: 2px 7px;
   border: 1px solid currentColor;
 }
+.tier.S { color: var(--tierS); background: color-mix(in srgb, var(--tierS) 12%, transparent); }
 .tier.A { color: var(--tierA); }
 .tier.B { color: var(--tierB); }
 .tier.C { color: var(--tierC); }
@@ -285,6 +336,8 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
   .sig { grid-template-columns: 1fr auto; row-gap: 2px; }
   .sig-sd, .sig-w { grid-column: span 1; }
   .acc-tr { grid-template-columns: 1fr 62px 62px 44px; font-size: 12px; }
+  .pick { grid-template-columns: 44px 1fr; row-gap: 4px; }
+  .pick-out { grid-column: 2; justify-items: start; text-align: left; }
 }
 
 @media (max-width: 560px) {

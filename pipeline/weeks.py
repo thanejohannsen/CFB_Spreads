@@ -37,6 +37,16 @@ def week_key(when: datetime.datetime) -> str:
     return week_saturday(when).isoformat()
 
 
+def final_lock(kickoff: datetime.datetime) -> datetime.datetime:
+    """One hour before kickoff -- the headline record's lock.
+
+    Kalshi's volume arrives late: open interest grew a median of 80% between
+    the Thursday lock and kickoff, and as much as 4,618% on one game. This is
+    the market at its most informative, which is a different question from what
+    could actually have been submitted on Wednesday night."""
+    return kickoff - datetime.timedelta(hours=config.FINAL_LOCK_HOURS_BEFORE)
+
+
 def decision_deadline(kickoff: datetime.datetime) -> datetime.datetime:
     """Thursday noon ET of that game's week, or kickoff if it comes first."""
     saturday = week_saturday(kickoff)

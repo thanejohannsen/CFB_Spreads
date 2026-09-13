@@ -39,6 +39,17 @@ class Strike:
     ask: float
     open_interest: float
     last_price: float
+    volume: float = 0.0
+
+    @property
+    def dollar_volume(self) -> float:
+        """Money actually traded on this strike: contracts x price.
+
+        Kalshi settles each contract at $0 or $1, so a contract changing hands
+        at 50c moved 50c, not a dollar. Counting notional would roughly double
+        the figure."""
+        price = self.mid if 0 < self.mid < 1 else (self.last_price or 0.0)
+        return self.volume * price
 
     @property
     def width(self) -> float:
@@ -102,6 +113,11 @@ class Ladder:
     @property
     def total_open_interest(self) -> float:
         return sum(s.open_interest for s in self.strikes)
+
+    @property
+    def dollar_volume(self) -> float:
+        """Money traded across the whole ladder."""
+        return sum(s.dollar_volume for s in self.strikes)
 
     @property
     def fraction_traded(self) -> float:
@@ -173,6 +189,7 @@ def parse_ladder(event: dict) -> Optional[Ladder]:
             ask=ask,
             open_interest=_num(m.get("open_interest_fp")) or 0.0,
             last_price=_num(m.get("last_price_dollars")) or 0.0,
+            volume=_num(m.get("volume_fp")) or 0.0,
         ))
 
     if not strikes or not (1 <= len(abbrev_to_team) <= 2):

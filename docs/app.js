@@ -29,6 +29,8 @@ const state = {
   sort: 'edge',
   picksOnly: false,
   manual: loadManual(),
+  picks: null,          // picks.json, fetched only when a record is expanded
+  expanded: null,       // which record's pick list is open
 };
 
 /* ------------------------------------------------------------- storage -- */
@@ -228,55 +230,77 @@ function el(tag, cls, text) {
 
 /* ------------------------------------------------------------- accuracy */
 
+const LOCK_NOTE = {
+  final: 'locked 1h before kickoff, when Kalshi volume peaks',
+  decision: 'locked Thursday noon ET — the picks you could actually submit',
+};
+
+async function loadPicks() {
+  if (state.picks) return state.picks;
+  try {
+    state.picks = await fetch('data/picks.json', { cache: 'no-store' }).then((r) => r.json());
+  } catch (e) {
+    state.picks = { entries: [] };
+  }
+  return state.picks;
+}
+
 function renderAccuracy() {
   const box = document.getElementById('accuracy');
   box.textContent = '';
   const a = state.accuracy;
   const graded = a && a.graded_games ? a.graded_games : 0;
+  const records = (a && a.records) || [];
+  const headline = records.find((r) => r.key === 'headline');
 
-  if (!graded) {
-    const head = el('div', 'acc-head');
+  const head = el('div', 'acc-head');
+  if (!graded || !headline) {
     head.append(metric('Record', '—', 'no graded games yet'));
     box.append(head);
     box.append(el('p', 'acc-empty',
-      'No games have been graded yet. Each tab keeps its own record, locked at Thursday noon ET '
-      + 'and graded once finals land — so this fills in after the first completed week, '
-      + 'deliberately empty rather than showing an untested number.'));
+      'No games have been graded yet. Each record locks on its own clock and is graded once finals '
+      + 'land, so this fills in after the first completed week — deliberately empty rather than '
+      + 'showing an untested number.'));
     return;
   }
 
-  const head = el('div', 'acc-head');
-  head.append(metric('Season, master', recordText(a.season.decision),
-                     a.season.decision.pct !== null ? `${(a.season.decision.pct * 100).toFixed(0)}%` : ''));
+  head.append(metric(headline.label, recordText(headline.season),
+                     headline.season.pct !== null ? `${(headline.season.pct * 100).toFixed(0)}%` : ''));
   if (a.drift && a.drift.median !== null) {
-    head.append(metric('Wed → close drift', `${a.drift.median.toFixed(1)} pts`,
+    head.append(metric('Thu → final drift', `${a.drift.median.toFixed(1)} pts`,
                        `same pick ${a.drift.same_pick}/${a.drift.same_pick_total}`));
   }
   const lock = el('div', 'acc-lock');
-  lock.append(el('div', '', 'Locked at Thursday noon ET'));
+  lock.append(el('div', '', LOCK_NOTE.final));
   lock.append(el('div', '', `${graded} graded games`));
-  if (a.strategy_versions && a.strategy_versions.length > 1) {
-    lock.append(el('div', '', `master formula changed: ${a.strategy_versions.join(' → ')}`));
-  }
   head.append(lock);
   box.append(head);
 
-  // One row per tab. The three lens definitions never change, so these stay
-  // comparable all season however the master is re-tuned.
   const table = el('div', 'acc-table');
   const hdr = el('div', 'acc-tr head');
-  hdr.append(el('span', 'acc-td name', ''), el('span', 'acc-td', 'Last week'),
+  hdr.append(el('span', 'acc-td name', 'Record'), el('span', 'acc-td', 'Last week'),
              el('span', 'acc-td', 'Season'), el('span', 'acc-td', ''));
   table.append(hdr);
 
-  for (const lens of a.lenses || []) {
-    const row = el('div', `acc-tr${lens.key === 'master' ? ' master' : ''}`);
-    row.append(el('span', 'acc-td name', lens.label));
-    row.append(el('span', 'acc-td', lens.last_week ? recordText(lens.last_week) : '—'));
-    row.append(el('span', 'acc-td', recordText(lens.season)));
+  for (const rec of records) {
+    const row = el('button', `acc-tr clickable${rec.key === 'headline' ? ' master' : ''}`);
+    row.type = 'button';
+    row.setAttribute('aria-expanded', String(state.expanded === rec.key));
+    const name = el('span', 'acc-td name');
+    name.append(el('span', 'caret', state.expanded === rec.key ? '▾' : '▸'));
+    name.append(document.createTextNode(' ' + rec.label));
+    row.append(name);
+    row.append(el('span', 'acc-td', rec.last_week ? recordText(rec.last_week) : '—'));
+    row.append(el('span', 'acc-td', recordText(rec.season)));
     row.append(el('span', 'acc-td muted',
-      lens.season.pct !== null ? `${(lens.season.pct * 100).toFixed(0)}%` : ''));
+      rec.season.pct !== null ? `${(rec.season.pct * 100).toFixed(0)}%` : ''));
+    row.addEventListener('click', async () => {
+      state.expanded = state.expanded === rec.key ? null : rec.key;
+      if (state.expanded) await loadPicks();
+      renderAccuracy();
+    });
     table.append(row);
+    if (state.expanded === rec.key) table.append(pickList(rec));
   }
   box.append(table);
 
@@ -284,6 +308,66 @@ function renderAccuracy() {
   rows.append(chipRow('Master by edge', a.by_edge));
   rows.append(chipRow('Master by tier', a.by_tier));
   box.append(rows);
+}
+
+/** The individual picks behind one record. */
+function pickList(rec) {
+  const wrap = el('div', 'picks');
+  const entries = ((state.picks && state.picks.entries) || []).filter((e) => e.record === rec.key);
+
+  const note = el('div', 'picks-note');
+  note.append(document.createTextNode(LOCK_NOTE[rec.lock] || ''));
+  if (rec.tiers) note.append(document.createTextNode(` · ${rec.tiers.join('/')} tier only`));
+  wrap.append(note);
+
+  if (!entries.length) {
+    wrap.append(el('div', 'picks-empty', 'No picks recorded for this record yet.'));
+    return wrap;
+  }
+
+  for (const e of entries) {
+    const row = el('div', `pick pick-${e.result}`);
+    const when = e.kickoff ? new Date(e.kickoff) : null;
+    row.append(el('span', 'pick-date',
+      when && !isNaN(when) ? when.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : ''));
+
+    const main = el('span', 'pick-main');
+    main.append(el('span', 'pick-game', e.game || ''));
+    const call = el('span', 'pick-call',
+      `${e.team} ${fmtBet(e.line, e.side)} · ${e.confidence}`);
+    main.append(call);
+
+    const bits = [];
+    if (e.tier) bits.push(`tier ${e.tier}`);
+    if (e.edge !== null && e.edge !== undefined) bits.push(`edge ${fmtSigned(e.edge)}`);
+    if (e.p_cover) bits.push(`${(e.p_cover * 100).toFixed(0)}% to cover`);
+    if (e.minutes_before_kickoff !== null && e.minutes_before_kickoff !== undefined) {
+      bits.push(`locked ${e.minutes_before_kickoff}m out`);
+    }
+    main.append(el('span', 'pick-meta', bits.join(' · ')));
+    row.append(main);
+
+    const out = el('span', 'pick-out');
+    if (e.result === 'pending') {
+      out.append(el('span', 'pick-res pending', 'PENDING'));
+    } else {
+      out.append(el('span', 'pick-res ' + e.result, e.result.toUpperCase()));
+      if (e.home_margin !== null && e.home_margin !== undefined) {
+        out.append(el('span', 'pick-margin', marginResult(e)));
+      }
+    }
+    row.append(out);
+    wrap.append(row);
+  }
+  return wrap;
+}
+
+/** "Miss St by 25" — the actual outcome, next to the number it was bet against. */
+function marginResult(e) {
+  const m = e.home_margin;
+  if (m === 0) return 'tie';
+  const winner = m > 0 ? e.home_team : e.away_team;
+  return `${winner} by ${Math.abs(m)}`;
 }
 
 function metric(k, v, sub) {
@@ -315,7 +399,7 @@ function chipRow(label, groups) {
 
 /* ---------------------------------------------------------------- board */
 
-const TIER_ORDER = { A: 0, B: 1, C: 2, D: 3 };
+const TIER_ORDER = { S: 0, A: 1, B: 2, C: 3, D: 4 };
 
 function visibleGames() {
   const q = state.search.trim().toLowerCase();

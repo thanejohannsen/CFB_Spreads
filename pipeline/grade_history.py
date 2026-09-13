@@ -28,11 +28,38 @@ EDGE_BUCKETS = [("<1pt", 0.0, 1.0), ("1-3pts", 1.0, 3.0), (">3pts", 3.0, float("
 
 # One record per tab. The three lens definitions never change, so those records
 # stay comparable all season no matter how the master is re-tuned.
+def _lock(entry: dict, name: str) -> Optional[dict]:
+    """Fetch a lock, tolerating the pre-T-1h schema.
+
+    The second lock used to sit at kickoff and was called `closing`. Reading it
+    as `final` keeps already-locked weeks in the record rather than dropping
+    them when the schema moved."""
+    if name == "final" and not entry.get("final"):
+        return entry.get("closing")
+    return entry.get(name)
+
+
 LENSES = [
     ("master", "Master"),
     ("kalshi_spread", "Kalshi Spread vs Vegas Spread"),
     ("kalshi_ml", "Kalshi ML vs Spread"),
     ("sp_plus", "SP+ vs Vegas Spread"),
+]
+
+# Every record the page can show, as (key, label, lock, lens, tier filter).
+#
+# The headline is the master at the T-1h lock, restricted to the tiers worth
+# acting on. The two Thursday rows sit behind it: the all-tier one is the record
+# as it has always been kept, and the S/A one is the control -- same games, same
+# filter, only the clock differs -- so any gap between headline and Thursday can
+# be read as timing rather than confounded with dropping B and C tier games.
+RECORDS = [
+    ("headline", "Final (T-1h) - S/A tier", "final", "master", config.HEADLINE_TIERS),
+    ("thursday_all", "Thursday noon - all tiers", "decision", "master", None),
+    ("thursday_sa", "Thursday noon - S/A tier", "decision", "master", config.HEADLINE_TIERS),
+] + [
+    (f"lens_{key}", label, "decision", key, None)
+    for key, label in LENSES if key != "master"
 ]
 
 
@@ -76,10 +103,20 @@ def save_week(week: dict, history_dir: str = None) -> str:
     return path
 
 
-def _snapshot(game: dict, at: datetime.datetime) -> dict:
+def _snapshot(game: dict, at: datetime.datetime,
+              kickoff: Optional[datetime.datetime] = None) -> dict:
     """The fields worth freezing; the full survival table is not one of them."""
+    minutes = None
+    if kickoff is not None:
+        minutes = round((kickoff - at).total_seconds() / 60)
     return {
         "at": at.isoformat(),
+        # How stale this lock is. A missed cron run means the snapshot may be
+        # much older than intended, and without recording the gap a stale lock
+        # is indistinguishable from a fresh one -- the record would quietly
+        # overstate what the market knew.
+        "minutes_before_kickoff": minutes,
+        "dollar_volume": game.get("dollar_volume"),
         "implied_margin": game.get("implied_margin"),
         "blended_margin": game.get("blended_margin"),
         "band": game.get("band"),
@@ -122,9 +159,9 @@ def record(payload: dict, history_dir: str = None, now: datetime.datetime = None
             continue
 
         if now < weeks.decision_deadline(kickoff):
-            entry["decision"] = _snapshot(game, now)
-        if now < kickoff:
-            entry["closing"] = _snapshot(game, now)
+            entry["decision"] = _snapshot(game, now, kickoff)
+        if now < weeks.final_lock(kickoff):
+            entry["final"] = _snapshot(game, now, kickoff)
 
     return save_week(week, history_dir)
 
@@ -154,12 +191,12 @@ def apply_results(week: dict, results: dict[str, float]) -> dict:
             continue
         entry["result"] = {
             "home_margin": margin,
-            "decision_correct": _graded(entry.get("decision"), margin),
-            "closing_correct": _graded(entry.get("closing"), margin),
+            "decision_correct": _graded(_lock(entry, "decision"), margin),
+            "final_correct": _graded(_lock(entry, "final"), margin),
             "lenses": {
                 key: {
-                    "decision_correct": _graded(entry.get("decision"), margin, key),
-                    "closing_correct": _graded(entry.get("closing"), margin, key),
+                    "decision_correct": _graded(_lock(entry, "decision"), margin, key),
+                    "final_correct": _graded(_lock(entry, "final"), margin, key),
                 }
                 for key, _ in LENSES
             },
@@ -206,14 +243,41 @@ def grade_week(week_key: str, season: int, history_dir: str = None) -> Optional[
 # Scoreboard
 # --------------------------------------------------------------------------
 
-def _tally(entries: list[dict], lock: str, lens: str = "master") -> dict:
+def _outcome(entry: dict, lock: str, lens: str) -> Optional[bool]:
+    result = entry.get("result") or {}
+    if lens == "master":
+        return result.get(f"{lock}_correct")
+    return ((result.get("lenses") or {}).get(lens) or {}).get(f"{lock}_correct")
+
+
+def _in_scope(entry: dict, lock: str, tiers) -> bool:
+    """Tier is judged at the lock in question, not inherited from another one.
+
+    A game's tier moves: with volume piling in late, Missouri/Kansas went from a
+    0.30 band to 0.56 and dropped A to B between the two locks. Filtering on the
+    tier recorded at the lock being graded is the only reading that matches what
+    the record claims to measure."""
+    if not tiers:
+        return True
+    return ((_lock(entry, lock) or {}).get("tier")) in tiers
+
+
+def _load_weeks(history_dir: str) -> list[dict]:
+    out = []
+    if os.path.isdir(history_dir):
+        for name in sorted(os.listdir(history_dir)):
+            if name.endswith(".json"):
+                with open(os.path.join(history_dir, name), encoding="utf-8") as fh:
+                    out.append(json.load(fh))
+    return out
+
+
+def _tally(entries: list[dict], lock: str, lens: str = "master", tiers=None) -> dict:
     wins = losses = 0
     for e in entries:
-        result = e.get("result") or {}
-        if lens == "master":
-            ok = result.get(f"{lock}_correct")
-        else:
-            ok = ((result.get("lenses") or {}).get(lens) or {}).get(f"{lock}_correct")
+        if not _in_scope(e, lock, tiers):
+            continue
+        ok = _outcome(e, lock, lens)
         if ok is True:
             wins += 1
         elif ok is False:
@@ -226,12 +290,7 @@ def _tally(entries: list[dict], lock: str, lens: str = "master") -> dict:
 def summarize(history_dir: str = None) -> dict:
     """Build the stacked scoreboard the page leads with."""
     history_dir = history_dir or config.HISTORY_DIR
-    weeks_data = []
-    if os.path.isdir(history_dir):
-        for name in sorted(os.listdir(history_dir)):
-            if name.endswith(".json"):
-                with open(os.path.join(history_dir, name), encoding="utf-8") as fh:
-                    weeks_data.append(json.load(fh))
+    weeks_data = _load_weeks(history_dir)
 
     graded_weeks, all_entries = [], []
     for week in weeks_data:
@@ -241,15 +300,16 @@ def summarize(history_dir: str = None) -> dict:
         graded_weeks.append({
             "week_key": week["week_key"],
             "decision": _tally(entries, "decision"),
-            "closing": _tally(entries, "closing"),
-            "lenses": {k: _tally(entries, "decision", k) for k, _ in LENSES},
+            "final": _tally(entries, "final"),
+            "records": {key: _tally(entries, lock, lens, tiers)
+                        for key, _, lock, lens, tiers in RECORDS},
         })
         all_entries.extend(entries)
 
     by_tier, by_edge = {}, {}
     drifts, agreements = [], []
     for e in all_entries:
-        d, c = e.get("decision") or {}, e.get("closing") or {}
+        d, c = _lock(e, "decision") or {}, _lock(e, "final") or {}
         tier = d.get("tier")
         if tier:
             by_tier.setdefault(tier, []).append(e)
@@ -273,11 +333,20 @@ def summarize(history_dir: str = None) -> dict:
         "weeks": graded_weeks,
         "last_week": graded_weeks[-1] if graded_weeks else None,
         "season": {"decision": _tally(all_entries, "decision"),
-                   "closing": _tally(all_entries, "closing")},
+                   "final": _tally(all_entries, "final")},
+        "records": [
+            {"key": key, "label": label, "lock": lock, "lens": lens,
+             "tiers": list(tiers) if tiers else None,
+             "season": _tally(all_entries, lock, lens, tiers),
+             "last_week": (graded_weeks[-1]["records"].get(key) if graded_weeks else None)}
+            for key, label, lock, lens, tiers in RECORDS
+        ],
         "lenses": [
             {"key": key, "label": label,
              "season": _tally(all_entries, "decision", key),
-             "last_week": (graded_weeks[-1]["lenses"].get(key) if graded_weeks else None)}
+             "last_week": (graded_weeks[-1]["records"].get(f"lens_{key}")
+                           if graded_weeks and key != "master" else
+                           (graded_weeks[-1]["records"].get("thursday_all") if graded_weeks else None))}
             for key, label in LENSES
         ],
         "strategy_versions": sorted({
@@ -295,6 +364,77 @@ def summarize(history_dir: str = None) -> dict:
         },
         "graded_games": len(all_entries),
     }
+
+
+# --------------------------------------------------------------------------
+# Pick log
+# --------------------------------------------------------------------------
+
+def pick_log(history_dir: str = None) -> dict:
+    """Every individual pick behind every record, newest first.
+
+    A tally on its own cannot tell you whether a losing week was bad calls or
+    good calls that lost on the number, so each entry carries the line it was
+    made against next to the final margin. Ungraded picks are included and
+    marked pending -- otherwise the current week only appears in hindsight,
+    which is when the log is least useful.
+    """
+    history_dir = history_dir or config.HISTORY_DIR
+    entries = []
+
+    for week in _load_weeks(history_dir):
+        for game in week.get("games", {}).values():
+            result = game.get("result") or {}
+            margin = result.get("home_margin")
+
+            for key, _label, lock, lens, tiers in RECORDS:
+                snap = _lock(game, lock)
+                if not snap or not _in_scope(game, lock, tiers):
+                    continue
+                pick = (_picks(snap) or {}).get(lens) or {}
+                if not pick.get("side"):
+                    continue
+
+                if margin is None:
+                    outcome = "pending"
+                else:
+                    ok = _outcome(game, lock, lens)
+                    outcome = "win" if ok is True else ("loss" if ok is False else "push")
+
+                entries.append({
+                    "record": key,
+                    "week": week.get("week_key"),
+                    "game": game.get("title"),
+                    "home_team": game.get("home_team"),
+                    "away_team": game.get("away_team"),
+                    "kickoff": game.get("kickoff"),
+                    "tier": snap.get("tier"),
+                    "side": pick.get("side"),
+                    "team": pick.get("team"),
+                    "line": pick.get("line"),
+                    "estimate": pick.get("estimate"),
+                    "edge": round(float(pick["edge"]), 2) if pick.get("edge") is not None else None,
+                    "p_cover": pick.get("p_cover"),
+                    "confidence": pick.get("confidence"),
+                    "locked_at": snap.get("at"),
+                    "minutes_before_kickoff": snap.get("minutes_before_kickoff"),
+                    "dollar_volume": snap.get("dollar_volume"),
+                    "home_margin": margin,
+                    "result": outcome,
+                })
+
+    entries.sort(key=lambda e: (e.get("kickoff") or "", e.get("game") or ""), reverse=True)
+    return {"generated_at": datetime.datetime.now(UTC).isoformat(), "entries": entries}
+
+
+def write_picks(log: dict, data_dir: str = None) -> str:
+    data_dir = data_dir or config.DATA_DIR
+    os.makedirs(data_dir, exist_ok=True)
+    path = os.path.join(data_dir, "picks.json")
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(log, fh, separators=(",", ":"))
+        fh.write("\n")
+    return path
 
 
 def write_summary(summary: dict, data_dir: str = None) -> str:

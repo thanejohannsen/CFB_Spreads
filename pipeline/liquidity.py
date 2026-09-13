@@ -32,15 +32,25 @@ class Quality:
     fraction_traded: float
     usable_strikes: int
     reasons: list[str]
+    dollar_volume: float = 0.0
 
     @property
     def tradeable(self) -> bool:
-        return self.tier in ("A", "B", "C")
+        return self.tier in ("S", "A", "B", "C")
+
+    @property
+    def headline(self) -> bool:
+        """Good enough for the headline record."""
+        return self.tier in config.HEADLINE_TIERS
 
 
-def grade(read: MarketRead) -> Quality:
-    """Assign a quality tier from the uncertainty band, open interest and
-    how much of the ladder has actually traded."""
+def grade(read: MarketRead, dollar_volume: float = 0.0) -> Quality:
+    """Assign a quality tier from the uncertainty band, open interest, how much
+    of the ladder has traded, and the money on the game.
+
+    `dollar_volume` is the combined spread + moneyline figure; the ladder alone
+    never reaches the S threshold, so passing only the ladder's own volume would
+    make that tier unreachable."""
     ladder = read.ladder
     oi = ladder.total_open_interest
     traded = ladder.fraction_traded
@@ -48,7 +58,7 @@ def grade(read: MarketRead) -> Quality:
 
     if read.rejected:
         return Quality("D", config.TIER_D["label"], float("inf"), oi, traded,
-                       read.usable_strikes, [read.rejected])
+                       read.usable_strikes, [read.rejected], dollar_volume)
 
     band = read.band
 
@@ -58,15 +68,22 @@ def grade(read: MarketRead) -> Quality:
         reasons.append(f"only {oi:,.0f} open interest")
     if reasons:
         return Quality("D", config.TIER_D["label"], band, oi, traded,
-                       read.usable_strikes, reasons)
+                       read.usable_strikes, reasons, dollar_volume)
 
     for tier in ("A", "B", "C"):
         t = config.TIERS[tier]
         if band <= t["band"] and oi >= t["oi"] and traded >= t["traded"]:
-            return Quality(tier, t["label"], band, oi, traded, read.usable_strikes, [])
+            # S is A plus serious money. Requiring A's bars as well means a
+            # heavily traded game with a loose band cannot outrank a tight one;
+            # in practice the volume gate is the binding constraint.
+            if tier == "A" and dollar_volume >= config.S_TIER_DOLLAR_VOLUME:
+                tier, t = "S", config.TIER_S
+            return Quality(tier, t["label"], band, oi, traded,
+                           read.usable_strikes, [], dollar_volume)
 
     # Inside the tradeable band but short of C's floors.
-    return Quality("C", config.TIERS["C"]["label"], band, oi, traded, read.usable_strikes, [])
+    return Quality("C", config.TIERS["C"]["label"], band, oi, traded,
+                   read.usable_strikes, [], dollar_volume)
 
 
 # --------------------------------------------------------------------------

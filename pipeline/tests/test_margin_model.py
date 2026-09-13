@@ -153,6 +153,29 @@ class TestTiering(unittest.TestCase):
     def test_thin_ladder_falls_below_tier_a(self):
         self.assertIn(self._grade(width=0.06, oi=600, traded=False).tier, ("B", "C", "D"))
 
+    def test_s_tier_needs_volume_and_quality(self):
+        """S is A plus serious money. Requiring A's bars as well stops a heavily
+        traded game with a loose band outranking a tight one."""
+        tight = read_market(parse_ladder(logistic_event(width=0.01, oi=20000)))
+        self.assertEqual(liquidity.grade(tight, 0).tier, "A")
+        self.assertEqual(liquidity.grade(tight, config.S_TIER_DOLLAR_VOLUME).tier, "S")
+        self.assertEqual(liquidity.grade(tight, config.S_TIER_DOLLAR_VOLUME - 1).tier, "A")
+
+        loose = read_market(parse_ladder(logistic_event(width=0.06, oi=20000)))
+        self.assertNotEqual(liquidity.grade(loose, 5_000_000).tier, "S",
+                            "volume alone must not promote a loose band")
+
+    def test_dollar_volume_is_contracts_times_price(self):
+        """Kalshi settles each contract $0-$1, so a contract traded at 50c moved
+        50c. Counting notional would roughly double the figure."""
+        ladder = parse_ladder(logistic_event(width=0.01))
+        for s in ladder.strikes:
+            s.volume = 1000.0
+        expected = sum(1000.0 * s.mid for s in ladder.strikes)
+        self.assertAlmostEqual(ladder.dollar_volume, expected, places=6)
+        self.assertLess(ladder.dollar_volume, 1000.0 * len(ladder.strikes),
+                        "notional would be strictly larger")
+
     def test_zero_open_interest_is_tier_d(self):
         self.assertEqual(self._grade(width=0.01, oi=0.0, traded=False).tier, "D")
 

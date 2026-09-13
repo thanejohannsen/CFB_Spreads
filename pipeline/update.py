@@ -33,6 +33,8 @@ def main() -> int:
 
     summary = grade_history.summarize()
     print("wrote", grade_history.write_summary(summary))
+    log = grade_history.pick_log()
+    print("wrote", grade_history.write_picks(log), f"({len(log['entries'])} pick entries)")
 
     season = summary["season"]["decision"]
     print(f"record so far: {season['wins']}-{season['losses']} "

@@ -69,11 +69,12 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
     for match in matches:
         ladder = match.ladder
         read = read_market(ladder)
-        quality = liquidity.grade(read)
+        quote = quotes.get(ladder.event_ticker.replace(f"{config.KALSHI_SERIES}-", ""))
+        dollar_volume = ladder.dollar_volume + (quote.dollar_volume if quote else 0.0)
+        quality = liquidity.grade(read, dollar_volume)
 
         vegas = match.home_favored_by
-        key = ladder.event_ticker.replace(f"{config.KALSHI_SERIES}-", "")
-        cross = moneyline.cross_check(read, quotes.get(key))
+        cross = moneyline.cross_check(read, quote)
 
         # Three independent estimates of the same quantity: how many points the
         # home team gives. Each carries its own precision, in points.
@@ -138,6 +139,7 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
             "game_date": game_date,
             "one_sided": ladder.one_sided,
             "open_interest": round(ladder.total_open_interest),
+            "dollar_volume": round(dollar_volume),
             "fraction_traded": round(ladder.fraction_traded, 3),
             "median_width": round(ladder.median_width, 4),
             # Signed usable strike thresholds, so the page can reproduce the

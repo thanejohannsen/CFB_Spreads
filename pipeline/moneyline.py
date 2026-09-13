@@ -51,6 +51,7 @@ class MoneylineQuote:
     home_prob_low: float
     home_prob_high: float
     open_interest: float
+    dollar_volume: float = 0.0
 
     @property
     def band(self) -> float:
@@ -91,10 +92,14 @@ def fetch_quotes() -> dict[str, MoneylineQuote]:
             if bid is None or ask is None:
                 continue
             abbrev = re.sub(r"\d+$", "", m["ticker"].rsplit("-", 1)[-1])
+            mid = (bid + ask) / 2.0
+            volume = _num(m.get("volume_fp")) or 0.0
+            price = mid if 0 < mid < 1 else (_num(m.get("last_price_dollars")) or 0.0)
             sides[abbrev] = {
-                "bid": bid, "ask": ask, "mid": (bid + ask) / 2.0,
+                "bid": bid, "ask": ask, "mid": mid,
                 "team": (m.get("yes_sub_title") or "").strip(),
                 "oi": _num(m.get("open_interest_fp")) or 0.0,
+                "dollars": volume * price,
             }
         if len(sides) != 2:
             continue
@@ -118,6 +123,7 @@ def fetch_quotes() -> dict[str, MoneylineQuote]:
             home_prob_low=(home["bid"] / lo_total) if lo_total > 0 else home["bid"],
             home_prob_high=(home["ask"] / hi_total) if hi_total > 0 else home["ask"],
             open_interest=home["oi"] + away["oi"],
+            dollar_volume=home["dollars"] + away["dollars"],
         )
     return out
 

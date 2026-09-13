@@ -82,13 +82,28 @@ EDGE_SOLID = 2.0
 EDGE_STRONG = 3.5
 
 # ------------------------------------------------------- quality tiers ----
+
+# S tier: the handful of games each week carrying serious money. Measured over
+# 239 games, four cleared $500k of combined spread + moneyline dollar volume
+# (Oklahoma/Michigan $818k down to Ohio St./Texas $612k). The spread ladder
+# alone topped out at $447k, so a ladder-only rule would never fire.
+#
+# Dollar volume is contracts traded x price, not notional: Kalshi prices each
+# contract $0-$1, so counting them at face value would roughly double the
+# figure and misrepresent how much money actually changed hands.
+S_TIER_DOLLAR_VOLUME = 500_000
+
 # (band_max, min_open_interest, min_fraction_traded)
 TIERS = {
     "A": {"band": 0.5, "oi": 10_000, "traded": 0.60, "label": "Tradeable"},
     "B": {"band": 1.0, "oi": 2_000, "traded": 0.30, "label": "Usable"},
     "C": {"band": 2.0, "oi": 500, "traded": 0.00, "label": "Thin"},
 }
+TIER_S = {"label": "Deep"}
 TIER_D = {"label": "No signal"}
+
+# Tiers good enough for the headline record.
+HEADLINE_TIERS = ("S", "A")
 
 # Minimum open interest before a game is considered to have any signal at all.
 MIN_OPEN_INTEREST = 500
@@ -117,6 +132,11 @@ MARGIN_MAX = 70
 # record locks here, because this is the tool as actually used.
 DECISION_WEEKDAY = 3      # Thursday (Mon=0)
 DECISION_HOUR_ET = 12     # 12:00 ET
+
+# The second lock. Kalshi volume arrives late -- open interest grew a median of
+# 80% between the Thursday lock and kickoff, and in one case 4,618% -- so the
+# headline record is taken when the market is at its most informative.
+FINAL_LOCK_HOURS_BEFORE = 1.0
 
 # ---------------------------------------------------------------- paths ----
 

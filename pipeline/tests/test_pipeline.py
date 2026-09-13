@@ -96,6 +96,59 @@ class TestCfbdCache(unittest.TestCase):
         self.assertFalse(cfbd._fresh(cfbd.load_cache(self.path), "2026-2", 8))
 
 
+class TestRecordsAndPickLog(unittest.TestCase):
+    def setUp(self):
+        self.dir = tempfile.mkdtemp()
+        self.kickoff = datetime.datetime(2026, 9, 12, 23, 0, tzinfo=UTC)
+        self.early = datetime.datetime(2026, 9, 9, 12, 0, tzinfo=UTC)
+
+    def _store(self, game_id, tier, side="home"):
+        grade_history.record(_payload(5.0, 3.0, side, self.kickoff, game_id, tier),
+                             history_dir=self.dir, now=self.early)
+
+    def test_headline_counts_only_top_tier_picks(self):
+        self._store("TOP", "A")
+        self._store("MID", "B")
+        week = grade_history.load_week("2026-09-12", self.dir)
+        grade_history.save_week(
+            grade_history.apply_results(week, {"TOP": 10.0, "MID": 10.0}), self.dir)
+
+        summary = grade_history.summarize(self.dir)
+        by_key = {r["key"]: r["season"] for r in summary["records"]}
+        self.assertEqual(by_key["thursday_all"]["total"], 2)
+        self.assertEqual(by_key["thursday_sa"]["total"], 1,
+                         "the B-tier pick must not enter the S/A record")
+
+    def test_pick_log_matches_the_tally(self):
+        self._store("TOP", "A")
+        week = grade_history.load_week("2026-09-12", self.dir)
+        grade_history.save_week(grade_history.apply_results(week, {"TOP": 10.0}), self.dir)
+
+        summary = grade_history.summarize(self.dir)
+        log = grade_history.pick_log(self.dir)
+        for rec in summary["records"]:
+            t = rec["season"]
+            rows = [e for e in log["entries"]
+                    if e["record"] == rec["key"] and e["result"] != "pending"]
+            self.assertEqual(len(rows), t["wins"] + t["losses"],
+                             f"{rec['key']}: log rows must match the record it expands")
+
+    def test_ungraded_picks_appear_as_pending(self):
+        """Otherwise the current week only shows up in hindsight, which is when
+        the log is least useful."""
+        self._store("TOP", "A")
+        log = grade_history.pick_log(self.dir)
+        rows = [e for e in log["entries"] if e["record"] == "thursday_all"]
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["result"], "pending")
+        self.assertIsNone(rows[0]["home_margin"])
+
+    def test_no_play_games_never_enter_the_log(self):
+        self._store("NOPICK", "A", side=None)
+        log = grade_history.pick_log(self.dir)
+        self.assertEqual([e for e in log["entries"] if e["record"] == "thursday_all"], [])
+
+
 class TestWeeks(unittest.TestCase):
     def test_week_key_is_the_saturday(self):
         for day in range(7, 13):                      # Mon 7th .. Sat 12th Sept 2026
@@ -121,7 +174,7 @@ def _pick(side, line, margin):
             "confidence": "solid" if side else "no-play", "reason": ""}
 
 
-def _payload(margin, line, side, kickoff, game_id="G1"):
+def _payload(margin, line, side, kickoff, game_id="G1", tier="A"):
     return {
         "week_key": "2026-09-12", "season": 2026,
         "games": [{
@@ -129,7 +182,7 @@ def _payload(margin, line, side, kickoff, game_id="G1"):
             "home_team": "Boston College", "away_team": "Rutgers",
             "kickoff": kickoff.isoformat(), "implied_margin": margin,
             "blended_margin": margin, "band": 0.3, "margin_low": margin - 0.15,
-            "margin_high": margin + 0.15, "tier": "A", "open_interest": 20000,
+            "margin_high": margin + 0.15, "tier": tier, "open_interest": 20000,
             "fraction_traded": 0.9, "kalshi_weight": 1.0,
             "vegas_home_favored_by": line, "master_margin": margin,
             "pick": _pick(side, line, margin),
@@ -166,12 +219,34 @@ class TestLockingAndGrading(unittest.TestCase):
         entry = self._record(9.0, after)
         self.assertAlmostEqual(entry["decision"]["blended_margin"], 5.0,
                                msg="decision lock was overwritten after the deadline")
-        self.assertAlmostEqual(entry["closing"]["blended_margin"], 9.0)
+        self.assertAlmostEqual(entry["final"]["blended_margin"], 9.0)
 
-    def test_closing_lock_freezes_at_kickoff(self):
-        self._record(5.0, datetime.datetime(2026, 9, 11, 12, 0, tzinfo=UTC))
-        entry = self._record(30.0, self.kickoff + datetime.timedelta(hours=3))
-        self.assertAlmostEqual(entry["closing"]["blended_margin"], 5.0)
+    def test_final_lock_freezes_one_hour_before_kickoff(self):
+        """The headline lock sits at kickoff minus an hour, so a snapshot taken
+        inside that final hour must not overwrite it."""
+        entry = self._record(5.0, self.kickoff - datetime.timedelta(hours=3))
+        self.assertAlmostEqual(entry["final"]["blended_margin"], 5.0)
+        entry = self._record(30.0, self.kickoff - datetime.timedelta(minutes=30))
+        self.assertAlmostEqual(entry["final"]["blended_margin"], 5.0)
+
+    def test_final_lock_records_how_stale_it_is(self):
+        """A missed cron run leaves the lock older than intended; without the
+        gap a stale lock looks identical to a fresh one."""
+        entry = self._record(5.0, self.kickoff - datetime.timedelta(minutes=75))
+        self.assertEqual(entry["final"]["minutes_before_kickoff"], 75)
+
+    def test_legacy_closing_lock_is_read_as_final(self):
+        """The second lock used to sit at kickoff and be called `closing`."""
+        legacy = {"week_key": "2026-09-12", "games": {"OLD": {
+            "title": "t", "home_team": "Boston College", "away_team": "Rutgers",
+            "kickoff": self.kickoff.isoformat(),
+            "closing": {"at": "2026-09-12T22:00:00+00:00", "tier": "A",
+                        "pick": _pick("home", 3.0, 5.0)},
+        }}}
+        grade_history.save_week(legacy, self.dir)
+        graded = grade_history.apply_results(
+            grade_history.load_week("2026-09-12", self.dir), {"OLD": 10.0})
+        self.assertTrue(graded["games"]["OLD"]["result"]["final_correct"])
 
     def test_grading_marks_covers_and_pushes(self):
         self._record(5.0, datetime.datetime(2026, 9, 9, 12, 0, tzinfo=UTC))
