@@ -49,14 +49,16 @@ LENSES = [
 # Every record the page can show, as (key, label, lock, lens, tier filter).
 #
 # The headline is the master at the T-1h lock, restricted to the tiers worth
-# acting on. The two Thursday rows sit behind it: the all-tier one is the record
-# as it has always been kept, and the S/A one is the control -- same games, same
-# filter, only the clock differs -- so any gap between headline and Thursday can
-# be read as timing rather than confounded with dropping B and C tier games.
+# acting on; the Thursday row behind it keeps every tier.
+#
+# There was briefly an S/A-filtered Thursday row as a control, to separate the
+# effect of the clock from the effect of the tier filter. It was dropped because
+# it could never hold data: across the stored weeks the master picked 0 of 36
+# A-tier games, since a tight band is exactly when the line sits inside it and
+# the no-play rule reads no edge. A control with nothing in it is not a control.
 RECORDS = [
     ("headline", "Final (T-1h) - S/A tier", "final", "master", config.HEADLINE_TIERS),
-    ("thursday_all", "Thursday noon - all tiers", "decision", "master", None),
-    ("thursday_sa", "Thursday noon - S/A tier", "decision", "master", config.HEADLINE_TIERS),
+    ("thursday_all", "Thursday noon", "decision", "master", None),
 ] + [
     (f"lens_{key}", label, "decision", key, None)
     for key, label in LENSES if key != "master"

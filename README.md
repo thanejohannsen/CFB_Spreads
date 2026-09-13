@@ -62,9 +62,8 @@ actually arrives. Measured from the tool's own stored snapshots, open interest g
 | Oklahoma vs Michigan | 474,576 | 723,511 | +52% |
 
 Be clear about what that measures: it is the method at its sharpest, **not the picks you could
-actually submit** on a Wednesday night. The Thursday-noon record is still kept, one click down, with
-a matching S/A row so the two are comparable — same games, same filter, only the clock differs, so
-any gap reads as timing rather than as the effect of dropping B and C tier games.
+actually submit** on a Wednesday night. The Thursday-noon record is still kept, one click down,
+across every tier.
 
 More volume did not always mean a *tighter* market: Missouri/Kansas went from a 0.30 band to 0.56 and
 Ohio St./Texas 0.40 to 0.80, both dropping A to B. Tier is therefore judged at whichever lock is

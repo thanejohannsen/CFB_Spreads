@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-13T18:35:27.685215+00:00",
+ "generated_at": "2026-09-13T18:59:23.746389+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -27,12 +27,6 @@
      "losses": 0,
      "total": 1,
      "pct": 1.0
-    },
-    "thursday_sa": {
-     "wins": 0,
-     "losses": 0,
-     "total": 0,
-     "pct": null
     },
     "lens_kalshi_spread": {
      "wins": 1,
@@ -81,12 +75,6 @@
     "losses": 0,
     "total": 1,
     "pct": 1.0
-   },
-   "thursday_sa": {
-    "wins": 0,
-    "losses": 0,
-    "total": 0,
-    "pct": null
    },
    "lens_kalshi_spread": {
     "wins": 1,
@@ -147,7 +135,7 @@
   },
   {
    "key": "thursday_all",
-   "label": "Thursday noon - all tiers",
+   "label": "Thursday noon",
    "lock": "decision",
    "lens": "master",
    "tiers": null,
@@ -162,28 +150,6 @@
     "losses": 0,
     "total": 1,
     "pct": 1.0
-   }
-  },
-  {
-   "key": "thursday_sa",
-   "label": "Thursday noon - S/A tier",
-   "lock": "decision",
-   "lens": "master",
-   "tiers": [
-    "S",
-    "A"
-   ],
-   "season": {
-    "wins": 0,
-    "losses": 0,
-    "total": 0,
-    "pct": null
-   },
-   "last_week": {
-    "wins": 0,
-    "losses": 0,
-    "total": 0,
-    "pct": null
    }
   },
   {

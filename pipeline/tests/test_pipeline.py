@@ -107,6 +107,8 @@ class TestRecordsAndPickLog(unittest.TestCase):
                              history_dir=self.dir, now=self.early)
 
     def test_headline_counts_only_top_tier_picks(self):
+        """The tier filter lives on the headline now that the S/A Thursday row
+        is gone; Thursday keeps every tier."""
         self._store("TOP", "A")
         self._store("MID", "B")
         week = grade_history.load_week("2026-09-12", self.dir)
@@ -116,8 +118,9 @@ class TestRecordsAndPickLog(unittest.TestCase):
         summary = grade_history.summarize(self.dir)
         by_key = {r["key"]: r["season"] for r in summary["records"]}
         self.assertEqual(by_key["thursday_all"]["total"], 2)
-        self.assertEqual(by_key["thursday_sa"]["total"], 1,
-                         "the B-tier pick must not enter the S/A record")
+        self.assertEqual(by_key["headline"]["total"], 1,
+                         "the B-tier pick must not enter the S/A-filtered headline")
+        self.assertNotIn("thursday_sa", by_key)
 
     def test_pick_log_matches_the_tally(self):
         self._store("TOP", "A")
