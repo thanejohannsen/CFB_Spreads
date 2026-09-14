@@ -16,6 +16,29 @@ measurements behind each number.
 # records need no version: their definitions never change.
 STRATEGY_VERSION = "v1"
 
+# ------------------------------------------------- publication precision ----
+#
+# These are NOT cosmetic.  docs/app.js re-runs the pick rules over the JSON this
+# pipeline commits, so the page can only ever see values at the precision they
+# were written at.  If the pipeline decides from a full-precision float and then
+# publishes a rounded one, the two disagree whenever a number lands within half
+# a unit of the last decimal place of a threshold -- and the board then tells
+# you to pass on a game the record counts as a pick.
+#
+# The page is authoritative: build_predictions quantises to these before calling
+# evaluate, so both sides decide from identical numbers.  Changing one of these
+# changes which picks get made at boundaries.
+PUBLISH_MARGIN_DP = 2     # margins, bands and spreads, in points
+PUBLISH_WEIGHT_DP = 4     # shrink weights, dimensionless
+
+
+def publish(value, places: int = PUBLISH_MARGIN_DP):
+    """Round to the precision the value will be published at, passing None through.
+
+    Use for any number that both feeds a pick decision and lands in the JSON.
+    """
+    return None if value is None else round(value, places)
+
 # SP+ (Bill Connelly, ESPN) is a neutral-field points-above-average rating, so
 # a matchup spread is the rating difference plus home-field advantage.
 HOME_FIELD_ADVANTAGE = 2.5      # points; 0 at a neutral site

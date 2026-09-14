@@ -122,17 +122,30 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
 
         # The master uses the two Kalshi markets only; SP+ is a lens.
         master = combine.master_composite(sig_ladder, sig_ml)
-        band = None if read.rejected else (read.margin_low, read.margin_high)
+
+        # Everything below that feeds a pick decision is quantised to the
+        # precision it will be PUBLISHED at, before deciding. docs/app.js re-runs
+        # these same rules over the committed JSON and can only read what was
+        # written, so deciding from anything sharper is how the board and the
+        # record end up disagreeing about the same game. The page is
+        # authoritative; see config.publish.
+        band = None if read.rejected else (config.publish(read.margin_low),
+                                           config.publish(read.margin_high))
 
         blend = liquidity.shrink(read, vegas) if not read.rejected else liquidity.shrink(read, None)
         # Shrink the composite toward the line, using its own precision. The
         # weight depends only on the composite's sigma, so the page can redo
         # this for any hand-typed line without re-deriving anything.
-        master_shrink = (liquidity.weight_for_band((master.sigma or 0.0) * 2.0)
-                         if master.margin is not None else 1.0)
-        master_margin = master.margin
+        master_shrink = config.publish(
+            liquidity.weight_for_band((master.sigma or 0.0) * 2.0)
+            if master.margin is not None else 1.0,
+            config.PUBLISH_WEIGHT_DP)
+        # Mirror app.js:estimateFor exactly -- it blends the two published values
+        # and does not round the product, so neither do we. Identical IEEE-754
+        # operations on identical inputs make this bit-for-bit equal, not close.
+        master_margin = config.publish(master.margin)
         if master_margin is not None and vegas is not None:
-            master_margin = master_shrink * master.margin + (1 - master_shrink) * vegas
+            master_margin = master_shrink * master_margin + (1 - master_shrink) * vegas
 
         picks = {
             "master": evaluate(master_margin, vegas, ladder.home_team, ladder.away_team,
@@ -142,7 +155,10 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
         }
         picks["master"]["strategy_version"] = config.STRATEGY_VERSION
         for sig in (sig_ladder, sig_ml, sig_sp):
-            picks[sig.key] = evaluate(sig.margin, vegas, ladder.home_team, ladder.away_team,
+            # Signal.to_dict publishes the margin rounded; a lens must be graded
+            # on the number the page shows, same as the master.
+            picks[sig.key] = evaluate(config.publish(sig.margin), vegas,
+                                      ladder.home_team, ladder.away_team,
                                       mode="lens", read=read,
                                       unavailable=sig.note).to_dict()
         pick = picks["master"]
@@ -178,7 +194,9 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
             "median_width": round(ladder.median_width, 4),
             # Signed usable strike thresholds, so the page can reproduce the
             # "is the curve actually pinned down here?" check exactly rather
-            # than approximating it.
+            # than approximating it. No quantisation needed: same filter as
+            # MarketRead.strike_distance, and Kalshi quotes only on the .5 grid,
+            # so rounding to 1dp is lossless and both sides see one list.
             "strikes": [] if read.rejected else sorted(
                 round(st.threshold if st.abbrev == ladder.home_abbrev else -st.threshold, 1)
                 for st in ladder.usable_strikes()
@@ -188,9 +206,10 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
             "tier": quality.tier,
             "tier_label": quality.label,
             "tier_reasons": quality.reasons,
-            "implied_margin": None if read.rejected else round(read.implied_margin, 2),
-            "margin_low": None if read.rejected else round(read.margin_low, 2),
-            "margin_high": None if read.rejected else round(read.margin_high, 2),
+            "implied_margin": None if read.rejected else config.publish(read.implied_margin),
+            # The very values the band test above was decided on.
+            "margin_low": None if read.rejected else band[0],
+            "margin_high": None if read.rejected else band[1],
             "band": None if read.rejected else round(read.band, 2),
             "blended_margin": None if read.rejected else round(blend.margin, 2),
             "kalshi_weight": round(blend.kalshi_weight, 3),
@@ -210,8 +229,10 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
             "picks": picks,
             "signals": [sig.to_dict() for sig in (sig_ladder, sig_ml, sig_sp)],
             "master": master.to_dict(),
-            "master_margin": None if master_margin is None else round(master_margin, 2),
-            "master_shrink_weight": round(master_shrink, 4),
+            # Display and drift-tracking only -- app.js recomputes the estimate
+            # from master.margin and master_shrink_weight, exactly as above.
+            "master_margin": config.publish(master_margin),
+            "master_shrink_weight": master_shrink,
             "sp_plus": None if projection is None else {
                 "home_favored_by": round(projection.home_favored_by, 2),
                 "home_rating": round(projection.home_rating, 2),

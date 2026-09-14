@@ -220,6 +220,60 @@ class TestPickRules(unittest.TestCase):
         self.assertEqual(pick.confidence, "no-play")
         self.assertIn("uncertainty band", pick.reason)
 
+    def test_line_exactly_on_the_published_band_edge_is_no_play(self):
+        """The bug this pins, with the numbers it was found on.
+
+        Houston vs Texas Tech published a band of [7.12, 7.50] against a 7.5
+        line. The pipeline tested the line against the *unrounded* margin_high
+        (a hair under 7.5), fell through, and stored "lean, take Houston"; the
+        page could only read 7.50, found the line inside the band, and rendered
+        No play. The board told you to pass on a game the record counted.
+
+        Both sides must decide from the published number, and the band test is
+        inclusive, so a line sitting exactly on either edge is a no-play. The
+        cross-implementation check lives in tools/conformance.js, which replays
+        docs/app.js itself rather than adding a third copy of these rules."""
+        for line in (7.12, 7.5):
+            pick = predict.evaluate(8.61, line, "Houston", "Texas Tech",
+                                    mode="master", band=(7.12, 7.5))
+            self.assertIsNone(pick.side, f"line {line} sits on the band edge")
+            self.assertEqual(pick.confidence, "no-play")
+            self.assertIn("uncertainty band", pick.reason)
+
+    def test_just_outside_the_published_band_can_still_pick(self):
+        """The edge case only refuses *on* the boundary; a hair outside is live,
+        which is what makes deciding at the published precision matter."""
+        pick = predict.evaluate(8.61, 7.51, "Houston", "Texas Tech",
+                                mode="master", band=(7.12, 7.5))
+        self.assertEqual(pick.side, "home")
+
+    def test_edge_exactly_at_the_vig_floor_is_a_pick(self):
+        """`< MIN_EDGE_POINTS`, not `<=`. Pinned because app.js repeats the
+        comparison and an off-by-one-strictness there is invisible until a
+        number lands exactly on it."""
+        at_floor = predict.evaluate(10.0, 9.0, "Home", "Away", mode="lens")
+        self.assertEqual(at_floor.side, "home")
+        self.assertAlmostEqual(abs(at_floor.edge), config.MIN_EDGE_POINTS)
+
+        under = predict.evaluate(9.99, 9.0, "Home", "Away", mode="lens")
+        self.assertIsNone(under.side)
+        self.assertIn("inside the vig", under.reason)
+
+    def test_confidence_thresholds_are_exact_at_the_boundary(self):
+        """An edge of exactly EDGE_SOLID is solid, not lean; exactly
+        EDGE_STRONG is strong. Same strictness as app.js."""
+        solid = predict.evaluate(9.0 + config.EDGE_SOLID, 9.0, "Home", "Away", mode="lens")
+        self.assertEqual(solid.confidence, "solid")
+        strong = predict.evaluate(9.0 + config.EDGE_STRONG, 9.0, "Home", "Away", mode="lens")
+        self.assertEqual(strong.confidence, "strong")
+
+    def test_publish_quantises_to_the_precision_the_page_reads(self):
+        """config.publish is what keeps the two implementations in step: the
+        pipeline must decide from the number it writes, not a sharper one."""
+        self.assertEqual(config.publish(7.4999999), 7.5)
+        self.assertEqual(config.publish(0.98765, config.PUBLISH_WEIGHT_DP), 0.9877)
+        self.assertIsNone(config.publish(None))
+
     def test_unreadable_ladder_never_produces_a_pick(self):
         pick = self._pick(7.5, thresholds=[3.5, 7.5])
         self.assertIsNone(pick.side)
