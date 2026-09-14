@@ -637,6 +637,38 @@ function manualRow(game) {
 
 /* ----------------------------------------------------------------- init */
 
+/** Say so when the Vegas side of the data did not land.
+ *
+ * A whole slate failing to match used to be invisible: every card just read
+ * "No Vegas line available", which looks identical to a quiet week. The count
+ * sat in the JSON unread. */
+function renderDataWarning() {
+  const box = document.getElementById('datawarning');
+  box.textContent = '';
+  const d = state.data;
+  if (!d.cfbd_available) return;
+
+  const priced = d.matched_games;
+  if (priced === undefined || priced === null) return;
+  const total = d.slate_size || d.games.length;
+  if (priced >= Math.max(1, total * 0.5)) return;
+
+  const panel = el('div', 'panel warning');
+  panel.append(el('strong', '', priced === 0
+    ? 'No Vegas lines matched this week. '
+    : `Only ${priced} of ${total} games matched a Vegas line. `));
+
+  const bits = [];
+  if (d.cfb_week) bits.push(`CFBD was asked for week ${d.cfb_week}`);
+  if (d.slate_date) bits.push(`the slate is played ${d.slate_date}`);
+  panel.append(document.createTextNode(
+    (bits.length ? bits.join(' but ') + '. ' : '')
+    + 'Lines, edges and grading are unreliable until this is resolved — '
+    + 'the Kalshi numbers below are unaffected, and you can still enter '
+    + 'spreads by hand.'));
+  box.append(panel);
+}
+
 function renderHeader() {
   const d = state.data;
   const gen = new Date(d.generated_at);
@@ -697,6 +729,7 @@ async function main() {
     return;
   }
   renderHeader();
+  renderDataWarning();
   renderAccuracy();
   bind();
   render();

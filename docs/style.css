@@ -319,6 +319,15 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
   border: 1px solid currentColor; border-radius: 5px; padding: 2px 7px;
 }
 
+.warning {
+  margin: 16px 0 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  border-left: 3px solid var(--bad);
+  background: color-mix(in srgb, var(--bad) 7%, var(--panel));
+}
+.warning strong { color: var(--bad); }
+
 .summary { font-size: 13.5px; line-height: 1.6; border-left: 3px solid var(--warn); }
 .summary strong { color: var(--ink); }
 .linky {

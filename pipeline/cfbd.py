@@ -127,34 +127,6 @@ def fetch_sp_ratings(year: int) -> dict[str, float]:
     return out
 
 
-def current_week(year: int) -> Optional[int]:
-    """Which regular-season week we are in, from the CFBD calendar."""
-    import datetime
-    try:
-        cal = _get("/calendar", {"year": year})
-    except (HttpError, MissingKey):
-        return None
-    now = datetime.datetime.now(datetime.timezone.utc)
-    best = None
-    for entry in cal:
-        if (_field(entry, "seasonType", "season_type") or "regular") != "regular":
-            continue
-        last = _field(entry, "lastGameStart", "last_game_start", "endDate", "end_date")
-        week = _field(entry, "week")
-        if not last or week is None:
-            continue
-        try:
-            end = datetime.datetime.fromisoformat(str(last).replace("Z", "+00:00"))
-        except ValueError:
-            continue
-        if end.tzinfo is None:
-            end = end.replace(tzinfo=datetime.timezone.utc)
-        if now <= end + datetime.timedelta(days=1):
-            if best is None or week < best:
-                best = week
-    return best
-
-
 # --------------------------------------------------------------------------
 # Caching
 # --------------------------------------------------------------------------
@@ -211,6 +183,110 @@ def _fresh(cache: dict, key: str, max_age_hours: float) -> bool:
     if when.tzinfo is None:
         when = when.replace(tzinfo=datetime.timezone.utc)
     return (_now() - when).total_seconds() < max_age_hours * 3600
+
+
+def _parse_dt(value) -> Optional["datetime.datetime"]:
+    import datetime as _dt
+    if not value:
+        return None
+    try:
+        dt = _dt.datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return dt.replace(tzinfo=_dt.timezone.utc) if dt.tzinfo is None else dt
+
+
+def calendar_weeks(year: int, path: str = CACHE_PATH) -> list[dict]:
+    """Regular-season weeks with their date ranges.
+
+    Cached hard: a season's calendar does not change, and this used to be
+    fetched on every single run -- roughly 780 calls a month at the current
+    cadence, which on its own would have pushed the free tier over its 1,000
+    limit.
+    """
+    cache = load_cache(path)
+    key = f"calendar-{year}"
+    entry = cache.get(key) or {}
+    if entry.get("schema") == CACHE_SCHEMA and entry.get("weeks"):
+        return [{"week": w["week"], "start": _parse_dt(w["start"]), "end": _parse_dt(w["end"])}
+                for w in entry["weeks"]]
+
+    try:
+        raw = _get("/calendar", {"year": year})
+    except (HttpError, MissingKey):
+        return []
+
+    weeks = []
+    for e in raw:
+        if (_field(e, "seasonType", "season_type") or "regular") != "regular":
+            continue
+        week = _field(e, "week")
+        start = _parse_dt(_field(e, "firstGameStart", "first_game_start", "startDate", "start_date"))
+        end = _parse_dt(_field(e, "lastGameStart", "last_game_start", "endDate", "end_date"))
+        if week is None or start is None or end is None:
+            continue
+        weeks.append({"week": int(week), "start": start, "end": end})
+    weeks.sort(key=lambda w: w["week"])
+
+    if weeks:
+        cache[key] = {"schema": CACHE_SCHEMA, "fetched_at": _now().isoformat(),
+                      "weeks": [{"week": w["week"], "start": w["start"].isoformat(),
+                                 "end": w["end"].isoformat()} for w in weeks]}
+        save_cache(cache, path)
+    return weeks
+
+
+def week_for_date(year: int, target) -> Optional[int]:
+    """The CFBD week containing `target` (a date).
+
+    This deliberately asks "which week are these games in?" rather than "which
+    week is it now?".  Kalshi lists the upcoming slate days ahead while a CFBD
+    week runs through its own last game -- including the occasional Sunday or
+    Monday game -- so on a Monday the tool is modelling next Saturday while CFBD
+    still calls it last week.  Keying off the games themselves removes the
+    ambiguity: the week always follows what is actually on the board.
+    """
+    weeks = calendar_weeks(year)
+    if not weeks or target is None:
+        return None
+
+    for w in weeks:
+        if w["start"].date() <= target <= w["end"].date():
+            return w["week"]
+
+    # Between two weeks, or past the last one: take the nearest by start date so
+    # a gap in the calendar degrades to the closest week rather than to nothing.
+    return min(weeks, key=lambda w: abs((w["start"].date() - target).days))["week"]
+
+
+def cached_finals(season: int, week: int, path: str = CACHE_PATH,
+                  max_age_hours: float = MAX_AGE_HOURS) -> list:
+    """Final scores for a week, for grading.
+
+    Only /games, not lines or ratings -- grading needs none of those. Results
+    are immutable once every game has finished, so a settled week is fetched
+    once and never again; that is what keeps sweeping back over old weeks from
+    costing anything in the steady state.
+    """
+    cache = load_cache(path)
+    key = f"finals-{season}-{week}"
+    entry = cache.get(key) or {}
+
+    if entry.get("schema") == CACHE_SCHEMA:
+        if entry.get("complete") or _fresh(cache, key, max_age_hours):
+            return entry.get("games", [])
+
+    try:
+        games = fetch_games(season, week)
+    except Exception:                                       # noqa: BLE001
+        return entry.get("games", [])
+
+    cache[key] = {
+        "schema": CACHE_SCHEMA, "fetched_at": _now().isoformat(), "games": games,
+        "complete": bool(games) and all(g.get("completed") for g in games),
+    }
+    save_cache(cache, path)
+    return games
 
 
 def cached_week(season: int, week: int, path: str = CACHE_PATH,

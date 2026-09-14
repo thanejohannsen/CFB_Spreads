@@ -11,6 +11,7 @@ import datetime
 import json
 import os
 import sys
+from typing import Optional
 
 from . import (cfbd, combine, config, kalshi, liquidity, moneyline,
                select_slate, sp_plus, weeks)
@@ -19,6 +20,18 @@ from .match_games import match_all
 from .predict import evaluate
 
 UTC = datetime.timezone.utc
+
+
+def _slate_date(ladders) -> Optional[datetime.date]:
+    """The date most of the slate is played on.
+
+    A CFB week runs Tuesday to Monday, so a Thu/Fri/Sat slate sits inside one
+    week and the modal date names it unambiguously."""
+    import collections
+    dates = [l.game_date for l in ladders if l.game_date]
+    if not dates:
+        return None
+    return datetime.date.fromisoformat(collections.Counter(dates).most_common(1)[0][0])
 
 
 def build(top_n: int = None, verbose: bool = True) -> dict:
@@ -37,7 +50,8 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
     week = None
 
     if cfbd.available():
-        week = cfbd.current_week(season)
+        # Ask which week these games are in, not which week it is now.
+        week = cfbd.week_for_date(season, _slate_date(slate))
         if week:
             games, lines, sp_ratings, refreshed = cfbd.cached_week(season, week)
             if verbose:
@@ -59,6 +73,26 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
         quotes = {}
 
     matches, unmatched = match_all(slate, games, lines)
+    matched = sum(1 for m in matches if m.game or m.line)
+
+    # A zero-match means the week is wrong, not that the games are unknown.
+    # Calendars shift around byes and Week 0, so try either side before giving
+    # up -- this spends calls only on the path that is already broken.
+    if cfbd.available() and week and not matched and (games or lines):
+        for alt in (week + 1, week - 1):
+            if alt < 1:
+                continue
+            alt_games, alt_lines, alt_sp, _ = cfbd.cached_week(season, alt)
+            alt_matches, alt_unmatched = match_all(slate, alt_games, alt_lines)
+            if sum(1 for m in alt_matches if m.game or m.line):
+                if verbose:
+                    print(f"cfbd: week {week} matched nothing; using week {alt} instead")
+                week, games, lines = alt, alt_games, alt_lines
+                sp_ratings = alt_sp or sp_ratings
+                matches, unmatched = alt_matches, alt_unmatched
+                matched = sum(1 for m in matches if m.game or m.line)
+                break
+
     sp_index = sp_plus.index_ratings(sp_ratings)
     # With no CFBD data at all, "unmatched" would list the whole slate, which is
     # noise rather than a signal that the alias map needs fixing.
@@ -203,6 +237,8 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
         "top_n": top_n or config.TOP_N,
         "slate_size": len(out_games),
         "unmatched": unmatched,
+        "matched_games": matched,
+        "slate_date": (_slate_date(slate).isoformat() if _slate_date(slate) else None),
         "unparsed_events": unparsed,
         "games": out_games,
     }

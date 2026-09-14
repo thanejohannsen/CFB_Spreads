@@ -24,10 +24,10 @@ def main() -> int:
 
     if not args.skip_grade and cfbd.available():
         try:
-            graded = grade_history.grade_week(payload["week_key"], payload["season"])
-            if graded:
-                done = sum(1 for e in graded["games"].values() if e.get("result"))
-                print(f"graded {done} finished games in {payload['week_key']}")
+            # Sweep recent weeks, not just the current one: a final that lands
+            # after the week rolls over would otherwise never be picked up.
+            for week_key, done in grade_history.grade_recent(payload["season"]).items():
+                print(f"graded {done} finished games in {week_key}")
         except Exception as exc:                            # noqa: BLE001
             print(f"grading skipped: {exc}", file=sys.stderr)
 

@@ -152,6 +152,92 @@ class TestRecordsAndPickLog(unittest.TestCase):
         self.assertEqual([e for e in log["entries"] if e["record"] == "thursday_all"], [])
 
 
+class TestWeekSelection(unittest.TestCase):
+    """The week must follow the games, not the clock.
+
+    Kalshi lists the upcoming slate days ahead while a CFBD week runs through
+    its own last game, so "which week is it now?" returns the previous week on a
+    Monday -- which is exactly how a whole slate came back with no Vegas lines.
+    """
+
+    CAL = [
+        {"season": 2026, "seasonType": "regular", "week": 2,
+         "firstGameStart": "2026-09-08T00:00:00Z", "lastGameStart": "2026-09-14T23:00:00Z"},
+        {"season": 2026, "seasonType": "regular", "week": 3,
+         "firstGameStart": "2026-09-15T00:00:00Z", "lastGameStart": "2026-09-21T23:00:00Z"},
+        {"season": 2026, "seasonType": "postseason", "week": 1,
+         "firstGameStart": "2026-12-20T00:00:00Z", "lastGameStart": "2026-12-27T23:00:00Z"},
+    ]
+
+    def setUp(self):
+        from pipeline import cfbd
+        self.cfbd = cfbd
+        self.path = os.path.join(tempfile.mkdtemp(), "cache.json")
+        self._get = cfbd._get
+        cfbd._get = lambda path, params: self.CAL if path == "/calendar" else []
+        cfbd.calendar_weeks(2026, self.path)          # prime the cache
+
+    def tearDown(self):
+        self.cfbd._get = self._get
+
+    def test_week_follows_the_games(self):
+        self.assertEqual(
+            self.cfbd.week_for_date(2026, datetime.date(2026, 9, 19)), 3,
+            "a slate played Sep 19 belongs to week 3, whatever today is")
+
+    def test_monday_of_the_previous_week_still_resolves_forward(self):
+        """The exact failure: on Mon Sep 14 the old heuristic returned week 2
+        because week 2 ran through a Monday game, while the board already held
+        Sep 17-19 games."""
+        self.assertEqual(self.cfbd.week_for_date(2026, datetime.date(2026, 9, 14)), 2)
+        self.assertEqual(self.cfbd.week_for_date(2026, datetime.date(2026, 9, 17)), 3)
+
+    def test_postseason_weeks_are_ignored(self):
+        self.assertEqual(self.cfbd.week_for_date(2026, datetime.date(2026, 9, 16)), 3)
+
+    def test_date_outside_every_week_snaps_to_the_nearest(self):
+        self.assertEqual(self.cfbd.week_for_date(2026, datetime.date(2026, 8, 1)), 2)
+
+    def test_calendar_is_cached_rather_than_refetched(self):
+        """It used to be fetched every run -- around 780 calls a month at the
+        current cadence, which alone would breach the free tier."""
+        calls = []
+        self.cfbd._get = lambda path, params: (calls.append(path), self.CAL)[1]
+        self.cfbd.calendar_weeks(2026, self.path)
+        self.assertEqual(calls, [], "a cached calendar must not hit the API")
+
+
+class TestGradingSweep(unittest.TestCase):
+    def setUp(self):
+        self.dir = tempfile.mkdtemp()
+        self.now = datetime.datetime(2026, 9, 14, 12, 0, tzinfo=UTC)
+
+    def _week(self, week_key, kickoff, graded):
+        entry = {"title": "t", "home_team": "Boston College", "away_team": "Rutgers",
+                 "kickoff": kickoff.isoformat()}
+        if graded:
+            entry["result"] = {"home_margin": 7.0}
+        grade_history.save_week({"week_key": week_key, "games": {"G": entry}}, self.dir)
+        return grade_history.load_week(week_key, self.dir)
+
+    def test_week_with_played_but_ungraded_games_is_swept(self):
+        w = self._week("2026-09-12", datetime.datetime(2026, 9, 12, 23, tzinfo=UTC), False)
+        self.assertTrue(grade_history.needs_grading(w, now=self.now))
+
+    def test_fully_graded_week_is_left_alone(self):
+        w = self._week("2026-09-12", datetime.datetime(2026, 9, 12, 23, tzinfo=UTC), True)
+        self.assertFalse(grade_history.needs_grading(w, now=self.now))
+
+    def test_games_not_yet_played_are_not_swept(self):
+        w = self._week("2026-09-19", datetime.datetime(2026, 9, 19, 23, tzinfo=UTC), False)
+        self.assertFalse(grade_history.needs_grading(w, now=self.now))
+
+    def test_stale_week_is_abandoned(self):
+        """Some games never grade at all, so the sweep has to stop eventually."""
+        w = self._week("2026-07-04", datetime.datetime(2026, 7, 4, 23, tzinfo=UTC), False)
+        self.assertFalse(grade_history.needs_grading(w, now=self.now))
+
+
 class TestWeeks(unittest.TestCase):
     def test_week_key_is_the_saturday(self):
         for day in range(7, 13):                      # Mon 7th .. Sat 12th Sept 2026

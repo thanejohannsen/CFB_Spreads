@@ -214,13 +214,19 @@ def grade_week(week_key: str, season: int, history_dir: str = None) -> Optional[
     if not week.get("games"):
         return None
 
-    cfb_week = cfbd.current_week(season)
+    # Resolve the week from the week being graded, not from today. Grading a
+    # stored week must not depend on when the grading happens to run.
+    try:
+        saturday = datetime.date.fromisoformat(week_key)
+    except ValueError:
+        return None
+    cfb_week = cfbd.week_for_date(season, saturday)
     if cfb_week is None:
         return None
 
     from .match_games import normalize
     finals = {}
-    for g in cfbd.fetch_games(season, cfb_week):
+    for g in cfbd.cached_finals(season, cfb_week):
         if g.get("home_margin") is None or not g.get("completed"):
             continue
         finals[frozenset((normalize(g["home_team"]), normalize(g["away_team"])))] = g
@@ -239,6 +245,60 @@ def grade_week(week_key: str, season: int, history_dir: str = None) -> Optional[
     week = apply_results(week, results)
     save_week(week, history_dir)
     return week
+
+
+def needs_grading(week: dict, now: datetime.datetime = None,
+                  max_age_days: int = 21) -> bool:
+    """Whether a stored week still has results worth chasing.
+
+    Some games never grade -- FCS matchups CFBD does not carry, mostly -- so a
+    week is abandoned once it is `max_age_days` old rather than swept forever.
+    """
+    now = now or datetime.datetime.now(UTC)
+    try:
+        saturday = datetime.date.fromisoformat(week.get("week_key", ""))
+    except ValueError:
+        return False
+    if (now.date() - saturday).days > max_age_days:
+        return False
+
+    for entry in week.get("games", {}).values():
+        if entry.get("result"):
+            continue
+        kickoff = weeks.parse_ts(entry.get("kickoff"))
+        if kickoff and kickoff < now - datetime.timedelta(hours=6):
+            return True
+    return False
+
+
+def grade_recent(season: int, history_dir: str = None,
+                 max_age_days: int = 21) -> dict[str, int]:
+    """Grade every recent week that still has finished games without results.
+
+    Grading used to run only for the current week_key, so a final that landed
+    after the week rolled over was lost for good: 17 already-played games from
+    one week were stranded that way. Sweeping back picks them up, and settled
+    weeks stop being fetched once complete, so the steady state is unchanged.
+    """
+    history_dir = history_dir or config.HISTORY_DIR
+    graded: dict[str, int] = {}
+    if not cfbd.available() or not os.path.isdir(history_dir):
+        return graded
+
+    for name in sorted(os.listdir(history_dir), reverse=True):
+        if not name.endswith(".json"):
+            continue
+        week = load_week(name[:-5], history_dir)
+        if not needs_grading(week, max_age_days=max_age_days):
+            continue
+        try:
+            result = grade_week(week["week_key"], season, history_dir)
+        except Exception:                                   # noqa: BLE001
+            continue
+        if result:
+            graded[week["week_key"]] = sum(
+                1 for e in result["games"].values() if e.get("result"))
+    return graded
 
 
 # --------------------------------------------------------------------------
