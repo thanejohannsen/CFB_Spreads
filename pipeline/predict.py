@@ -52,6 +52,13 @@ def _no(line, estimate, edge, p_cover, p_push, confidence, reason) -> Pick:
     return Pick(None, None, line or 0.0, estimate, edge, p_cover, p_push, confidence, reason)
 
 
+def _sentence(text: str) -> str:
+    """One trailing period, not two. Some notes carry their own punctuation and
+    some do not; both get embedded in a sentence here."""
+    text = (text or "").strip()
+    return text if text.endswith((".", "!", "?")) else text + "."
+
+
 def evaluate(margin: Optional[float], line: Optional[float],
              home_team: str, away_team: str, *,
              mode: str = "master",
@@ -64,12 +71,14 @@ def evaluate(margin: Optional[float], line: Optional[float],
     # 1. No estimate at all.
     if margin is None:
         return _no(line, None, 0.0, None, 0.0, "no-signal",
-                   f"Insufficient market: {unavailable or 'no estimate available'}.")
+                   "Insufficient market: "
+                   + _sentence(unavailable or "no estimate available"))
 
     # 2. Master only: a ladder too thin to read produces no pick, ever.
     if mode == "master" and quality is not None and quality.tier == "D":
         why = "; ".join(quality.reasons) or "unreadable ladder"
-        return _no(line, margin, 0.0, None, 0.0, "no-signal", f"Insufficient market: {why}.")
+        return _no(line, margin, 0.0, None, 0.0, "no-signal",
+                   "Insufficient market: " + _sentence(why))
 
     if line is None:
         return _no(None, margin, 0.0, None, 0.0, "no-play",

@@ -1,7 +1,7 @@
 import math
 import unittest
 
-from pipeline import config, liquidity, moneyline, predict
+from pipeline import combine, config, liquidity, moneyline, predict
 from pipeline.margin_model import (
     cover_probabilities, pava_non_increasing, parse_ladder, read_market,
 )
@@ -378,6 +378,46 @@ class TestMoneylineCrossCheck(unittest.TestCase):
         check = moneyline.cross_check(self.read, self._quote(0.995))
         self.assertIsNone(check.ml_margin)
         self.assertFalse(check.significant)
+
+    def test_moneyline_below_the_ladder_floor_explains_itself(self):
+        """A heavy favourite can price its last two strikes at the same cents.
+        Two knots at one probability give no slope, so no upper tail is fitted
+        and the curve goes flat -- the ladder then cannot express any
+        probability below that value, and the conversion has nowhere to land.
+
+        Refusing is right; reporting it as a missing market is not. This is the
+        Georgia/Arkansas case: Kalshi quoted a moneyline with 48k open interest
+        while the page said "no comparable moneyline"."""
+        event = "KXNCAAFSPREAD-26SEP19UGAARK"
+        prices = {1.5: 0.925, 2.5: 0.925, 3.5: 0.915, 5.5: 0.895, 7.5: 0.87,
+                  10.5: 0.83, 14.5: 0.77, 17.5: 0.72, 21.5: 0.64, 28.5: 0.50,
+                  41.5: 0.28}
+        read = read_market(parse_ladder({
+            "event_ticker": event,
+            "title": "Georgia vs Arkansas: Spread",
+            "markets": [market(event, "UGA", "Georgia", t, p - 0.01, p + 0.01, 20000.0)
+                        for t, p in prices.items()],
+        }))
+        self.assertIsNone(read.rejected)
+        floor = read.curve_mid.at(read.curve_mid.xs[-1] + 60.0)
+        self.assertAlmostEqual(floor, 0.075, places=3)
+
+        check = moneyline.cross_check(read, self._quote(0.045))
+        self.assertIsNotNone(check, "a quote exists; this is not a missing market")
+        self.assertIsNone(check.ml_margin, "must not invent a margin from a tail")
+        self.assertFalse(check.significant)
+        self.assertIn("7.5% floor", check.note)
+        self.assertIn("Arkansas", check.note)
+
+        # And the signal must carry that reason rather than the generic default.
+        signal = combine.moneyline_signal(check)
+        self.assertIsNone(signal.margin)
+        self.assertNotEqual(signal.note, "no comparable moneyline")
+
+    def test_absent_market_still_reads_as_absent(self):
+        """The generic note keeps its meaning: it fires only with no quote."""
+        self.assertIsNone(moneyline.cross_check(self.read, None))
+        self.assertEqual(combine.moneyline_signal(None).note, "no comparable moneyline")
 
     def test_american_odds_conversion(self):
         self.assertEqual(moneyline.american_odds(0.50), -100)

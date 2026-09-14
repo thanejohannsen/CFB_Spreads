@@ -101,6 +101,12 @@ function strikeDistance(game, line) {
   return Math.min(...game.strikes.map((s) => Math.abs(s - line)));
 }
 
+/** One trailing period, not two -- mirrors predict._sentence. */
+function sentence(text) {
+  text = (text || '').trim();
+  return /[.!?]$/.test(text) ? text : text + '.';
+}
+
 function signalOf(game, key) {
   return (game.signals || []).find((s) => s.key === key) || null;
 }
@@ -131,12 +137,12 @@ function evaluate(game, line, lens) {
     const why = (sig && sig.note) || (game.tier_reasons && game.tier_reasons.join('; '))
                 || 'no estimate available';
     return { side: null, team: null, line: line || 0, estimate: null, edge: 0, p_cover: null,
-             p_push: 0, confidence: 'no-signal', reason: `Insufficient market: ${why}.` };
+             p_push: 0, confidence: 'no-signal', reason: `Insufficient market: ${sentence(why)}` };
   }
   if (isMaster && game.tier === 'D') {
     const why = (game.tier_reasons && game.tier_reasons.join('; ')) || 'unreadable ladder';
     return { side: null, team: null, line: line || 0, estimate, edge: 0, p_cover: null,
-             p_push: 0, confidence: 'no-signal', reason: `Insufficient market: ${why}.` };
+             p_push: 0, confidence: 'no-signal', reason: `Insufficient market: ${sentence(why)}` };
   }
   if (line === null || line === undefined || Number.isNaN(line)) {
     return { side: null, team: null, line: 0, estimate, edge: 0, p_cover: null, p_push: 0,
@@ -603,7 +609,15 @@ function divergenceRow(game) {
     wrap.append(numBlock('Disagreement', `${fmtSigned(m.divergence_pts)} pts`,
                          m.significant ? 'beyond both bands' : 'within both bands',
                          m.significant ? 'neg' : ''));
+  } else if (m.divergence_prob !== null && m.divergence_prob !== undefined) {
+    // The conversion to points failed, but the two markets still disagree.
+    // Show it in the units that survive rather than dropping the comparison,
+    // which is the whole point of this tab.
+    wrap.append(numBlock('Disagreement', `${fmtSigned(m.divergence_prob * 100)}%`,
+                         'win probability — no spread equivalent'));
   }
+  // Why a number is missing is worth as much as the number would have been.
+  if (m.ml_margin === null && m.note) wrap.append(el('p', 'ml-note', m.note));
   return wrap;
 }
 

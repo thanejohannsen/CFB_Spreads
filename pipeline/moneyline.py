@@ -229,7 +229,20 @@ def cross_check(read: MarketRead, quote: Optional[MoneylineQuote]) -> Optional[C
     # so the required shift is exactly -quantile(p_ml).
     shift_point = read.curve_mid.quantile(ml_prob)
     if shift_point is None:
-        return None
+        # The ladder cannot express this probability at any margin, so there is
+        # nowhere to land the moneyline. It happens when the strikes run out
+        # while still priced well away from zero: the last two quote the same
+        # cents, which leaves no slope to fit a tail from, and the curve goes
+        # flat at its final value. Refusing is right -- converting anyway would
+        # read a tail the market never quoted, the same thing the extrapolation
+        # guard below declines to do. But report it as what it is. A bare None
+        # here reaches the page as "no comparable moneyline", which blames a
+        # missing market for two markets disagreeing.
+        return CrossCheck(
+            spread_prob, ml_prob, read.implied_margin, None, None, None, None,
+            divergence_prob, quote.open_interest, False,
+            _unreachable_note(read, ml_prob),
+        )
     ml_margin = read.implied_margin - shift_point
     divergence_pts = ml_margin - read.implied_margin
 
@@ -286,6 +299,20 @@ def _points_per_prob(read: MarketRead) -> float:
     if hi is None or lo is None:
         return 30.0
     return abs(hi - lo) / 0.10
+
+
+def _unreachable_note(read: MarketRead, ml_prob: float) -> str:
+    """Name the probability the ladder bottoms (or tops) out at, and the gap."""
+    curve = read.curve_mid
+    floor = curve.at(curve.xs[-1] + 60.0)
+    ceiling = curve.at(curve.xs[0] - 60.0)
+    if ml_prob < floor:
+        bound = f"below the {floor * 100:.1f}% floor"
+    else:
+        bound = f"above the {ceiling * 100:.1f}% ceiling"
+    return (f"Moneyline prices {read.ladder.home_team} at {ml_prob * 100:.1f}%, "
+            f"{bound} the ladder's strikes reach, so it has no spread equivalent "
+            "here. The two markets disagree; only the conversion is impossible.")
 
 
 def _fmt(margin: float, ladder: Ladder) -> str:
