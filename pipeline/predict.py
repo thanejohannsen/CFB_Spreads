@@ -120,7 +120,14 @@ def evaluate(margin: Optional[float], line: Optional[float],
         confidence = "solid"
     else:
         confidence = "strong"
-    if mode == "master" and quality is not None and quality.tier == "C":
+
+    # A loose market cannot support a strong call however large the edge looks,
+    # because the edge was measured against a number the market itself is unsure
+    # of.  The page shows quality and strength as separate things, so a big edge
+    # reading "lean" would look like a contradiction unless the reason says why.
+    capped = (mode == "master" and quality is not None
+              and quality.tier == "C" and confidence != "lean")
+    if capped:
         confidence = "lean"
 
     reason = (f"Estimate {_margin_text(margin, home_team, away_team)}; "
@@ -130,6 +137,11 @@ def evaluate(margin: Optional[float], line: Optional[float],
     reason += f"Edge {magnitude:.1f} pts."
     if unpinned:
         reason += f" Nearest constraining strike is {read.strike_distance(line):.1f} pts away."
+    if capped:
+        # Deliberately not quoting the band: a game can land in C on thin open
+        # interest with a perfectly tight band, so "too loose" would be false.
+        reason += (" Capped at lean: a C-grade market cannot support a stronger "
+                   "call, whatever the edge.")
     if blend_label:
         reason += f" Blend: {blend_label}."
     reason += f" Take {team} {_format_line(line, side)}."

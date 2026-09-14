@@ -94,13 +94,20 @@ EDGE_STRONG = 3.5
 S_TIER_DOLLAR_VOLUME = 500_000
 
 # (band_max, min_open_interest, min_fraction_traded)
+#
+# The labels describe the *market*, not the bet.  Tier measures how precisely
+# Kalshi is quoting the game -- how tight the band is and how much money stands
+# behind it -- and says nothing about whether the resulting pick is any good.
+# Earlier wording ("Tradeable", "Usable") read as a verdict on the wager, which
+# is exactly the confusion the page now works to avoid: quality is the market,
+# strength (lean / solid / strong) is the call.
 TIERS = {
-    "A": {"band": 0.5, "oi": 10_000, "traded": 0.60, "label": "Tradeable"},
-    "B": {"band": 1.0, "oi": 2_000, "traded": 0.30, "label": "Usable"},
-    "C": {"band": 2.0, "oi": 500, "traded": 0.00, "label": "Thin"},
+    "A": {"band": 0.5, "oi": 10_000, "traded": 0.60, "label": "Tight market"},
+    "B": {"band": 1.0, "oi": 2_000, "traded": 0.30, "label": "Readable market"},
+    "C": {"band": 2.0, "oi": 500, "traded": 0.00, "label": "Loose market"},
 }
-TIER_S = {"label": "Deep"}
-TIER_D = {"label": "No signal"}
+TIER_S = {"label": "Deep market"}
+TIER_D = {"label": "Unreadable market"}
 
 # Tiers good enough for the headline record.
 HEADLINE_TIERS = ("S", "A")

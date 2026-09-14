@@ -57,7 +57,7 @@ LENSES = [
 # A-tier games, since a tight band is exactly when the line sits inside it and
 # the no-play rule reads no edge. A control with nothing in it is not a control.
 RECORDS = [
-    ("headline", "Final (T-1h) - S/A tier", "final", "master", config.HEADLINE_TIERS),
+    ("headline", "Final (T-1h) - S/A markets", "final", "master", config.HEADLINE_TIERS),
     ("thursday_all", "Thursday noon", "decision", "master", None),
 ] + [
     (f"lens_{key}", label, "decision", key, None)

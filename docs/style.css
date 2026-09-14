@@ -9,11 +9,14 @@
   --good: #0f7b45;
   --bad: #b42318;
   --warn: #9a5b00;
-  --tierS: #7c3aed;
-  --tierA: #0f7b45;
-  --tierB: #1d4ed8;
-  --tierC: #9a5b00;
-  --tierD: #6b7280;
+  /* Market quality: a neutral ramp, deliberately outside the accent hue, so
+     nothing describing the market can be read as a verdict on the pick.
+     S and A sit forward; C and D recede. */
+  --qS: #232935;
+  --qA: #3f4856;
+  --qB: #5f6874;
+  --qC: #7d8693;
+  --qD: #9aa2ad;
   --radius: 10px;
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 }
@@ -29,11 +32,11 @@
     --good: #3fb950;
     --bad: #f85149;
     --warn: #d29922;
-    --tierS: #a78bfa;
-    --tierA: #3fb950;
-    --tierB: #6f9bff;
-    --tierC: #d29922;
-    --tierD: #8b949e;
+    --qS: #e6edf3;
+    --qA: #c3ccd8;
+    --qB: #9aa4b2;
+    --qC: #7c8695;
+    --qD: #646e7c;
   }
 }
 
@@ -230,26 +233,49 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
   border-radius: var(--radius);
   padding: 14px 16px;
 }
-.game.actionable { border-left: 3px solid var(--accent); }
-.game.diverged { border-left: 3px solid var(--warn); }
+/* The left bar reports pick strength, so the board is scannable without
+   reading a word. No-play and no-signal cards stay unbarred. */
+.game.actionable { border-left: 3px solid color-mix(in srgb, var(--accent) 40%, transparent); }
+.game.str-solid { border-left-color: color-mix(in srgb, var(--accent) 70%, transparent); }
+.game.str-strong { border-left-color: var(--accent); }
 
 .g-head { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; }
 .g-title { font-weight: 640; font-size: 15px; }
 .g-meta { margin-left: auto; display: flex; gap: 10px; align-items: center; font-size: 12px; color: var(--muted); }
 
-.tier {
+.quality {
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .04em;
+  font-weight: 640;
+  letter-spacing: .02em;
   border-radius: 5px;
   padding: 2px 7px;
-  border: 1px solid currentColor;
+  white-space: nowrap;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
 }
-.tier.S { color: var(--tierS); background: color-mix(in srgb, var(--tierS) 12%, transparent); }
-.tier.A { color: var(--tierA); }
-.tier.B { color: var(--tierB); }
-.tier.C { color: var(--tierC); }
-.tier.D { color: var(--tierD); }
+.quality.S { color: var(--qS); background: color-mix(in srgb, var(--qS) 8%, transparent); font-weight: 700; }
+.quality.A { color: var(--qA); font-weight: 700; }
+.quality.B { color: var(--qB); }
+.quality.C { color: var(--qC); }
+.quality.D { color: var(--qD); }
+
+/* Pick strength: one hue, three escalating treatments. Reads as a ladder, so
+   'lean' never looks like a warning. --panel on the filled state inverts
+   correctly in both themes without a separate dark-mode rule. */
+.strength {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 750;
+  letter-spacing: .06em;
+  border-radius: 5px;
+  padding: 1px 6px;
+  margin-left: 7px;
+  white-space: nowrap;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+}
+.strength.solid { background: color-mix(in srgb, var(--accent) 15%, transparent); }
+.strength.strong { background: var(--accent); color: var(--panel); }
 
 .signals { display: grid; gap: 3px; margin: 12px 0 4px; }
 .sig {
@@ -283,7 +309,7 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
 .verdict .call { font-weight: 660; }
 .verdict.play .call { color: var(--accent); }
 .verdict.noplay .call { color: var(--muted); }
-.verdict.nosignal .call { color: var(--tierD); }
+.verdict.nosignal .call { color: var(--muted); }
 
 .manual { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; font-size: 12.5px; color: var(--muted); }
 .manual input {

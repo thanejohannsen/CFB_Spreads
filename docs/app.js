@@ -13,6 +13,18 @@ const EDGE_SOLID = 2.0;
 const EDGE_STRONG = 3.5;
 const STORAGE_KEY = 'cfb-spreads:manual-lines:v1';
 
+// Market quality, keyed by tier letter. Mirrors TIERS in pipeline/config.py.
+// Quality describes the *market* -- how precisely Kalshi is quoting this game.
+// lean/solid/strong describe the *pick*. They get two visual languages, a grey
+// ramp and the accent hue, so neither can be read as the other.
+const QUALITY = {
+  S: 'Deep market',
+  A: 'Tight market',
+  B: 'Readable market',
+  C: 'Loose market',
+  D: 'Unreadable market',
+};
+
 const LENSES = {
   master:        { label: 'Master',                        signal: null },
   kalshi_spread: { label: 'Kalshi Spread vs Vegas Spread',  signal: 'kalshi_spread' },
@@ -168,7 +180,13 @@ function evaluate(game, line, lens) {
   const magnitude = Math.abs(edge);
 
   let confidence = magnitude < EDGE_SOLID || unpinned ? 'lean' : (magnitude < EDGE_STRONG ? 'solid' : 'strong');
-  if (isMaster && game.tier === 'C') confidence = 'lean';
+
+  // A loose market cannot support a strong call however large the edge looks,
+  // because the edge was measured against a number the market itself is unsure
+  // of. Quality and strength read as separate things now, so a big edge showing
+  // 'lean' would look like a contradiction unless the reason says why.
+  const capped = isMaster && game.tier === 'C' && confidence !== 'lean';
+  if (capped) confidence = 'lean';
 
   let reason = `Estimate ${marginText(estimate, game)}; line is ${marginText(line, game)}. `;
   if (pCover !== null) {
@@ -176,6 +194,9 @@ function evaluate(game, line, lens) {
   }
   reason += `Edge ${magnitude.toFixed(1)} pts.`;
   if (unpinned) reason += ` Nearest constraining strike is ${distance.toFixed(1)} pts away.`;
+  if (capped) {
+    reason += ' Capped at lean: a C-grade market cannot support a stronger call, whatever the edge.';
+  }
   if (isMaster && game.master && game.master.label) reason += ` Blend: ${game.master.label}.`;
   reason += ` Take ${team} ${fmtBet(line, side)}.`;
 
@@ -183,6 +204,11 @@ function evaluate(game, line, lens) {
 }
 
 /* ------------------------------------------------------------ formatting */
+
+/** Pick strength, as an escalating badge: lean outlined, solid tinted, strong filled. */
+function strengthBadge(confidence) {
+  return el('span', `strength ${confidence}`, confidence.toUpperCase());
+}
 
 const fmtSigned = (v) => (v > 0 ? '+' : '') + v.toFixed(1);
 
@@ -306,7 +332,7 @@ function renderAccuracy() {
 
   const rows = el('div', 'acc-rows');
   rows.append(chipRow('Master by edge', a.by_edge));
-  rows.append(chipRow('Master by tier', a.by_tier));
+  rows.append(chipRow('Master by market quality', a.by_tier));
   box.append(rows);
 }
 
@@ -317,7 +343,7 @@ function pickList(rec) {
 
   const note = el('div', 'picks-note');
   note.append(document.createTextNode(LOCK_NOTE[rec.lock] || ''));
-  if (rec.tiers) note.append(document.createTextNode(` · ${rec.tiers.join('/')} tier only`));
+  if (rec.tiers) note.append(document.createTextNode(` · ${rec.tiers.join('/')} markets only`));
   wrap.append(note);
 
   if (!entries.length) {
@@ -333,12 +359,13 @@ function pickList(rec) {
 
     const main = el('span', 'pick-main');
     main.append(el('span', 'pick-game', e.game || ''));
-    const call = el('span', 'pick-call',
-      `${e.team} ${fmtBet(e.line, e.side)} · ${e.confidence}`);
+    const call = el('span', 'pick-call');
+    call.append(document.createTextNode(`${e.team} ${fmtBet(e.line, e.side)} `));
+    if (e.confidence) call.append(strengthBadge(e.confidence));
     main.append(call);
 
     const bits = [];
-    if (e.tier) bits.push(`tier ${e.tier}`);
+    if (e.tier) bits.push(QUALITY[e.tier] || `tier ${e.tier}`);
     if (e.edge !== null && e.edge !== undefined) bits.push(`edge ${fmtSigned(e.edge)}`);
     if (e.p_cover) bits.push(`${(e.p_cover * 100).toFixed(0)}% to cover`);
     if (e.minutes_before_kickoff !== null && e.minutes_before_kickoff !== undefined) {
@@ -480,7 +507,8 @@ function gameHead(game) {
   const head = el('div', 'g-head');
   head.append(el('span', 'g-title', game.title));
   const meta = el('div', 'g-meta');
-  meta.append(el('span', `tier ${game.tier}`, `${game.tier} · ${game.tier_label}`));
+  meta.append(el('span', `quality ${game.tier}`,
+                 `${game.tier} · ${game.tier_label || QUALITY[game.tier] || 'market'}`));
   meta.append(el('span', '', `${(game.open_interest / 1000).toFixed(0)}k OI`));
   const when = fmtKick(game);
   if (when) meta.append(el('span', '', when));
@@ -500,7 +528,7 @@ function numBlock(k, v, sub, cls) {
 function gameCard(game, lens) {
   const line = lineFor(game);
   const pick = evaluate(game, line, lens);
-  const card = el('div', `game${pick.side ? ' actionable' : ''}`);
+  const card = el('div', `game${pick.side ? ' actionable str-' + pick.confidence : ''}`);
   card.append(gameHead(game));
 
   if (lens === 'master') card.append(signalTable(game));
@@ -527,10 +555,13 @@ function gameCard(game, lens) {
 
   const cls = pick.confidence === 'no-signal' ? 'nosignal' : (pick.side ? 'play' : 'noplay');
   const verdict = el('div', `verdict ${cls}`);
-  const call = pick.side
-    ? `${pick.team} ${fmtBet(line, pick.side)} · ${pick.confidence}`
-    : (pick.confidence === 'no-signal' ? 'No signal' : 'No play');
-  verdict.append(el('span', 'call', call), document.createTextNode(' — ' + pick.reason));
+  if (pick.side) {
+    verdict.append(el('span', 'call', `${pick.team} ${fmtBet(line, pick.side)}`),
+                   strengthBadge(pick.confidence));
+  } else {
+    verdict.append(el('span', 'call', pick.confidence === 'no-signal' ? 'No signal' : 'No play'));
+  }
+  verdict.append(document.createTextNode(' — ' + pick.reason));
   card.append(verdict);
 
   card.append(manualRow(game));

@@ -35,13 +35,13 @@
 
 <section class="wrap controls">
   <input id="search" type="search" placeholder="Search teams…" autocomplete="off" aria-label="Search teams">
-  <label class="ctl">Min tier
+  <label class="ctl">Market quality
     <select id="tier">
-      <option value="D">All</option>
-      <option value="C" selected>C and up</option>
-      <option value="B">B and up</option>
-      <option value="A">A and up</option>
-      <option value="S">S only</option>
+      <option value="D">All markets</option>
+      <option value="C" selected>C &middot; Loose and up</option>
+      <option value="B">B &middot; Readable and up</option>
+      <option value="A">A &middot; Tight and up</option>
+      <option value="S">S &middot; Deep only</option>
     </select>
   </label>
   <label class="ctl">Sort
@@ -69,7 +69,14 @@
   when Kalshi&rsquo;s volume peaks &mdash; open interest grew a median of 80% between Thursday and
   kickoff, and on one game 4,618%. That measures the method at its sharpest, <em>not</em> the picks
   you could actually submit on Wednesday night; the Thursday&nbsp;noon record is still there, one
-  click down, across every tier. Click any record to see the individual picks behind it.</p>
+  click down, across every market. Click any record to see the individual picks behind it.</p>
+  <p><strong>Two different things, two different colours.</strong> The grey badge is
+  <em>market quality</em> &mdash; how precisely Kalshi is quoting that game, from
+  <em>S&nbsp;&middot;&nbsp;Deep market</em> down to <em>D&nbsp;&middot;&nbsp;Unreadable market</em>. It
+  describes the market, not the bet. The blue badge is <em>pick strength</em> &mdash;
+  <em>lean</em>, <em>solid</em>, <em>strong</em>, set by the size of the edge. A deep market can still
+  produce a lean, and a C-grade market is capped at lean however big the edge looks, because at that
+  grade the number the edge was measured against is not solid enough to bet harder on.</p>
   <p><strong>Four tabs, four records.</strong> <em>Master</em> is the tool&rsquo;s official pick and the
   one whose record counts. The other three each show a single comparison and keep their own separate
   record, using a looser rule &mdash; any edge over a point, with none of the master&rsquo;s safety

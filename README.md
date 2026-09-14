@@ -49,6 +49,37 @@ through.
 **When the Vegas line falls inside that band, the tool says _No play_.** The apparent edge is
 smaller than the noise it was measured against. A band over 2 points means no pick at all.
 
+## Market quality vs pick strength
+
+Two different things, and conflating them is the easiest way to misread the board, so they get two
+visual languages that cannot be mistaken for each other: quality is a **neutral grey ramp**, strength
+is the **accent hue** at three escalating treatments. Nothing about the market is ever coloured with
+the accent; nothing about the pick is ever grey.
+
+**Market quality** grades the *market* — how precisely Kalshi is quoting this game. It says nothing
+about whether the resulting bet is any good. Set by the band, open interest, share of the ladder
+traded, and (for S) dollar volume:
+
+| Grade | Reads | Band | Open interest | Traded | Dollar volume |
+|---|---|---|---|---|---|
+| **S** | Deep market | ≤ 0.5 pt | ≥ 10,000 | ≥ 60% | ≥ $500k |
+| **A** | Tight market | ≤ 0.5 pt | ≥ 10,000 | ≥ 60% | — |
+| **B** | Readable market | ≤ 1.0 pt | ≥ 2,000 | ≥ 30% | — |
+| **C** | Loose market | ≤ 2.0 pt | ≥ 500 | — | — |
+| **D** | Unreadable market | > 2.0 pt | < 500 | — | — |
+
+D is the refusal: over a 2-point band or under 500 open interest, the master makes no pick at all.
+
+**Pick strength** grades the *call*, from the size of the edge: **lean** under 2 pts, **solid** under
+3.5, **strong** above. A deep market can still produce a lean — that is the normal case, since a
+tight band is exactly when the line tends to sit inside it. A **C-grade market is capped at lean**
+however large the edge, because at that grade the number the edge was measured against is not solid
+enough to bet harder on; the card says so outright rather than leaving a big edge next to a quiet
+badge looking like a contradiction.
+
+Grades are stored as the **letter**, not the wording, so the labels can be reworded without touching
+a single graded record.
+
 ## Two clocks, and S tier
 
 The headline record locks **an hour before each kickoff**, because that is when Kalshi's volume
