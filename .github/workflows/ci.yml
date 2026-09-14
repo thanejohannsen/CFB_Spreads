@@ -22,3 +22,10 @@ jobs:
         run: python -m unittest discover -s pipeline/tests -t . -v
       - name: Pipeline dry run against the live Kalshi API
         run: python -m pipeline.build_predictions --dry-run
+
+      # docs/app.js re-runs the pick rules over the JSON the pipeline commits.
+      # Both sides claim to apply the same rules; this is the only thing that
+      # notices when they stop. Runs against the committed current.json, so it
+      # checks real numbers rather than a fixture that can be made to agree.
+      - name: Page and pipeline agree on every pick
+        run: node tools/conformance.js

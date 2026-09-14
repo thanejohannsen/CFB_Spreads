@@ -251,12 +251,23 @@ pipeline/
 docs/                 the Pages site (vanilla HTML/CSS/JS, no build step)
   data/current.json   this week's slate, with a dense survival table per game
   data/history/       immutable weekly snapshots, never rewritten
+tools/
+  conformance.js      fails CI if the page and the pipeline disagree on a pick
 ```
 
 The heavy math stays in Python. Each game ships a dense survival table on the half-integer grid, so
 typing a spread on the page is a table lookup rather than a re-fit. `docs/app.js` mirrors
 `pipeline/predict.py` so a hand-entered line is judged by the same rules that grade the record;
 the rule set is kept small so that stays true.
+
+**The page is authoritative, and CI proves it.** The page can only read numbers at the precision they
+were published at, so the pipeline decides at that precision too — `config.publish` quantises every
+value that feeds a pick before `evaluate` sees it. Skipping that step is not cosmetic: it once had
+the board rendering *No play* on a game the record was counting as a pick, because the line sat
+0.004 points outside an unrounded band and exactly on the published one. Asserting in a comment that
+two implementations agree is worth nothing unless something fails when they stop, so
+`tools/conformance.js` loads `docs/app.js` itself — not a copy of its logic — replays its `evaluate`
+over every game in `current.json`, and fails the build on any disagreement.
 
 ### Scheduled updates
 
