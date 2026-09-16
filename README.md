@@ -49,6 +49,33 @@ through.
 **When the Vegas line falls inside that band, the tool says _No play_.** The apparent edge is
 smaller than the noise it was measured against. A band over 2 points means no pick at all.
 
+## What the curve is good for, and what it is not
+
+The ladder pins the **centre** well. The median is a robust statistic over twenty-odd strikes, and
+the implied spread, the band and the tier all read it that way.
+
+Its **local slope** is a different matter, and for a while the tool trusted it. Adjacent strikes quote
+on 1c ticks and disagree by several cents for reasons that have nothing to do with football. Measured
+across one slate, the slope between neighbouring strikes ran from **1.5% to 10.0% of win probability
+per point** — the steepest implying a margin standard deviation of **4 points**, which no college
+football game has ever had. One game dropped 10c across a single point while its neighbours moved 1c.
+
+That mattered more than it looks. The slope is the exchange rate between points and probability, so
+it set the moneyline's sigma — and the composite weights signals by 1/sigma², squaring the error on
+its way into the master pick. The moneyline's share of the master swung on quote noise: 60% on one
+game that should have been 18%.
+
+So the scale is now fitted across **every usable strike at once** and shrunk toward a prior of 8.5
+(a margin SD of 15.4 points), which is what the college game actually produces. On a full slate the
+fitted scales land between 7.9 and 9.6 — 2.6% to 3.2% per point, against a 2.5–3.5% reference — and
+the sanity clamp never fires. Every probability↔points conversion goes through it: cover chance, the
+moneyline's implied spread, and its precision.
+
+Two things fell out of that. A logistic has no floor to run out of, so a moneyline priced past the
+last strike now converts instead of being discarded — and lands inside the traded strikes, where it
+is supported. And the page computes cover chance in closed form from a published centre and scale,
+so there is no table for it to interpolate differently from the pipeline.
+
 ## Market quality vs pick strength
 
 Two different things, and conflating them is the easiest way to misread the board, so they get two

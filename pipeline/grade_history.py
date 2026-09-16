@@ -135,6 +135,26 @@ def _snapshot(game: dict, at: datetime.datetime,
     }
 
 
+def _keeps_its_line(old: Optional[dict], new: dict) -> bool:
+    """Would this refresh blank out a line the existing lock already had?
+
+    A run without CFBD_API_KEY still reaches Kalshi, so it produces a complete
+    looking slate with `vegas_home_favored_by` None on every game -- and every
+    pick a no-play, since there is no line to disagree with. Rewriting a lock
+    with that erases the real line and the real picks behind it, and the week
+    then grades as though the tool never had an opinion. Observed locally: one
+    keyless run took a stored week from 30 priced locks to 0.
+
+    Refreshing only the Kalshi fields is not a fix either, because the picks in
+    the same snapshot were computed against the missing line. The whole lock
+    has to stay.
+    """
+    if not old:
+        return True
+    return not (old.get("vegas_home_favored_by") is not None
+                and new.get("vegas_home_favored_by") is None)
+
+
 def record(payload: dict, history_dir: str = None, now: datetime.datetime = None) -> str:
     """Fold the current slate into this week's history file.
 
@@ -143,6 +163,7 @@ def record(payload: dict, history_dir: str = None, now: datetime.datetime = None
     deadline" without needing to guess which run will be the last.
     """
     now = now or datetime.datetime.now(UTC)
+    skipped: list[str] = []
     week = load_week(payload["week_key"], history_dir)
     week.setdefault("season", payload.get("season"))
     week.setdefault("games", {})
@@ -160,10 +181,21 @@ def record(payload: dict, history_dir: str = None, now: datetime.datetime = None
         if kickoff is None:
             continue
 
-        if now < weeks.decision_deadline(kickoff):
-            entry["decision"] = _snapshot(game, now, kickoff)
-        if now < weeks.final_lock(kickoff):
-            entry["final"] = _snapshot(game, now, kickoff)
+        for name, moment in (("decision", weeks.decision_deadline(kickoff)),
+                             ("final", weeks.final_lock(kickoff))):
+            if now >= moment:
+                continue                       # frozen; never rewritten
+            fresh = _snapshot(game, now, kickoff)
+            if _keeps_its_line(entry.get(name), fresh):
+                entry[name] = fresh
+            else:
+                skipped.append(f"{game['title']} ({name})")
+
+    if skipped:
+        print(f"history: kept {len(skipped)} lock(s) rather than blank their Vegas line "
+              f"-- this run had no line for them (missing CFBD_API_KEY?)")
+        for s_ in skipped[:5]:
+            print(f"  kept {s_}")
 
     return save_week(week, history_dir)
 

@@ -3,7 +3,8 @@ import unittest
 
 from pipeline import combine, config, liquidity, moneyline, predict
 from pipeline.margin_model import (
-    cover_probabilities, pava_non_increasing, parse_ladder, read_market,
+    cover_probabilities, margin_quantile, margin_survival, pava_non_increasing,
+    parse_ladder, read_market,
 )
 from pipeline.tests.factories import logistic_event, market
 
@@ -100,28 +101,54 @@ class TestSurvivalCurve(unittest.TestCase):
 
 class TestCoverProbabilities(unittest.TestCase):
     def setUp(self):
-        self.curve = read_market(parse_ladder(logistic_event(true_margin=3.0))).curve_mid
+        self.read = read_market(parse_ladder(logistic_event(true_margin=3.0)))
+        self.center = self.read.implied_margin
+        self.scale = self.read.scale
+
+    def _p(self, line):
+        return cover_probabilities(self.center, self.scale, line)
 
     def test_half_point_line_has_no_push(self):
-        p = cover_probabilities(self.curve, 7.5)
+        p = self._p(7.5)
         self.assertEqual(p.push, 0.0)
         self.assertAlmostEqual(p.home + p.away, 1.0, places=6)
 
     def test_whole_number_line_has_push(self):
-        p = cover_probabilities(self.curve, 7.0)
+        p = self._p(7.0)
         self.assertGreater(p.push, 0.0)
         self.assertAlmostEqual(p.home + p.away + p.push, 1.0, places=6)
 
     def test_discrete_margins_treat_n_and_n_plus_half_alike(self):
         """P(margin > 7) and P(margin > 7.5) are the same event for integer
         margins, so covering -7 outright must match covering -7.5."""
-        whole = cover_probabilities(self.curve, 7.0)
-        half = cover_probabilities(self.curve, 7.5)
-        self.assertAlmostEqual(whole.home, half.home, places=6)
+        self.assertAlmostEqual(self._p(7.0).home, self._p(7.5).home, places=6)
 
     def test_line_at_median_is_a_coin_flip(self):
-        p = cover_probabilities(self.curve, 3.0)
+        p = self._p(3.0)
         self.assertAlmostEqual(p.home, p.away, delta=0.08)
+
+    def test_scale_sets_the_points_to_probability_exchange_rate(self):
+        """The bug this guards: probability per point used to come from the
+        local slope between two adjacent strikes, which is 1c-tick noise. Across
+        one slate that ran 1.5% to 10.0% per point, the steepest implying a
+        4-point margin SD. A fitted scale has to land near reality instead."""
+        per_point = self._p(self.center - 0.5).home - self._p(self.center + 0.5).home
+        self.assertGreater(per_point, 0.020, "a CFB point is worth more than 2%")
+        self.assertLess(per_point, 0.040, "and much less than the 10% the local slope claimed")
+        # 1/(4*scale) is the logistic density at its own median.
+        self.assertAlmostEqual(per_point, 1.0 / (4.0 * self.scale), places=3)
+
+    def test_quantile_inverts_the_survival_function(self):
+        for p in (0.10, 0.25, 0.50, 0.75, 0.90):
+            x = margin_quantile(self.center, self.scale, p)
+            self.assertAlmostEqual(margin_survival(self.center, self.scale, x), p, places=9)
+
+    def test_quantile_has_no_floor_to_run_out_of(self):
+        """The strike curve goes flat past its last strike, so a moneyline
+        priced beyond it had no spread equivalent at all. A logistic always
+        converts; whether to TRUST it is the strike-span check's job."""
+        self.assertIsNotNone(margin_quantile(self.center, self.scale, 0.001))
+        self.assertIsNone(margin_quantile(self.center, self.scale, 0.0))
 
 
 class TestStrikeFiltering(unittest.TestCase):
@@ -404,15 +431,26 @@ class TestMoneylineCrossCheck(unittest.TestCase):
 
         check = moneyline.cross_check(read, self._quote(0.045))
         self.assertIsNotNone(check, "a quote exists; this is not a missing market")
-        self.assertIsNone(check.ml_margin, "must not invent a margin from a tail")
-        self.assertFalse(check.significant)
-        self.assertIn("7.5% floor", check.note)
-        self.assertIn("Arkansas", check.note)
 
-        # And the signal must carry that reason rather than the generic default.
+        # Fitting a distribution removes the floor entirely, so the conversion
+        # now succeeds -- and lands inside the range the market actually quoted,
+        # which is what makes it trustworthy rather than a tail read.
+        self.assertIsNotNone(check.ml_margin)
+        lo, hi = read.strike_span()
+        self.assertTrue(lo - 1.0 <= check.ml_margin <= hi + 1.0,
+                        f"{check.ml_margin} should sit inside the traded strikes {lo}..{hi}")
         signal = combine.moneyline_signal(check)
-        self.assertIsNone(signal.margin)
-        self.assertNotEqual(signal.note, "no comparable moneyline")
+        self.assertIsNotNone(signal.margin, "a 48k-open-interest market must not be discarded")
+
+    def test_conversion_beyond_the_traded_strikes_is_not_called_significant(self):
+        """Removing the floor must not mean trusting the tail. A conversion
+        landing outside the strikes is still refused a significance flag."""
+        read = read_market(parse_ladder(logistic_event(true_margin=3.0, width=0.01, oi=20000)))
+        _lo, hi = read.strike_span()
+        check = moneyline.cross_check(read, self._quote(0.95))
+        self.assertGreater(check.ml_margin, hi)
+        self.assertFalse(check.significant)
+        self.assertIn("extrapolation", check.note)
 
     def test_absent_market_still_reads_as_absent(self):
         """The generic note keeps its meaning: it fires only with no quote."""

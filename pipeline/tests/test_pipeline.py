@@ -106,6 +106,47 @@ class TestRecordsAndPickLog(unittest.TestCase):
         grade_history.record(_payload(5.0, 3.0, side, self.kickoff, game_id, tier),
                              history_dir=self.dir, now=self.early)
 
+    def test_a_keyless_run_cannot_blank_a_stored_line(self):
+        """The bug: pipeline.update without CFBD_API_KEY still reaches Kalshi,
+        so it builds a full slate with no Vegas line and every pick a no-play.
+        That used to overwrite the week's locks, erasing the real line and the
+        real picks -- one local run took a stored week from 30 priced locks to
+        0, and the week would then grade as though the tool never had a view."""
+        grade_history.record(_payload(5.0, 3.0, "home", self.kickoff),
+                             history_dir=self.dir, now=self.early)
+        stored = grade_history.load_week("2026-09-12", self.dir)["games"]["G1"]
+        self.assertEqual(stored["decision"]["vegas_home_favored_by"], 3.0)
+        self.assertEqual(stored["decision"]["picks"]["master"]["side"], "home")
+
+        keyless = _payload(5.0, 3.0, "home", self.kickoff)
+        game = keyless["games"][0]
+        game["vegas_home_favored_by"] = None
+        blank = {"side": None, "team": None, "line": 0.0, "estimate": 5.0, "edge": 0.0,
+                 "p_cover": None, "p_push": 0.0, "confidence": "no-play",
+                 "reason": "No Vegas line available"}
+        game["pick"] = dict(blank)
+        game["picks"] = {k: dict(blank) for k in game["picks"]}
+        grade_history.record(keyless, history_dir=self.dir,
+                             now=self.early + datetime.timedelta(hours=1))
+
+        after = grade_history.load_week("2026-09-12", self.dir)["games"]["G1"]
+        self.assertEqual(after["decision"]["vegas_home_favored_by"], 3.0,
+                         "the keyless run must not blank the stored line")
+        self.assertEqual(after["decision"]["picks"]["master"]["side"], "home",
+                         "nor the picks made against it -- they were computed "
+                         "from the line that just went missing")
+
+    def test_an_ordinary_refresh_still_updates_the_lock(self):
+        """The guard must not freeze a lock that a healthy run should refresh."""
+        grade_history.record(_payload(5.0, 3.0, "home", self.kickoff),
+                             history_dir=self.dir, now=self.early)
+        grade_history.record(_payload(9.0, 6.5, "home", self.kickoff),
+                             history_dir=self.dir,
+                             now=self.early + datetime.timedelta(hours=1))
+        after = grade_history.load_week("2026-09-12", self.dir)["games"]["G1"]
+        self.assertEqual(after["decision"]["vegas_home_favored_by"], 6.5)
+        self.assertEqual(after["decision"]["master_margin"], 9.0)
+
     def test_headline_counts_only_top_tier_picks(self):
         """The tier filter lives on the headline now that the S/A Thursday row
         is gone; Thursday keeps every tier."""

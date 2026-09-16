@@ -86,13 +86,15 @@ def evaluate(margin: Optional[float], line: Optional[float],
 
     edge = margin - line
 
-    # P(cover) comes from the ladder's curve shifted so its median sits on this
-    # estimate. Without a readable ladder there is no distribution to read, so
-    # the pick still stands on the edge alone and the probability is left blank
-    # rather than invented.
+    # P(cover) puts the game's margin distribution on this estimate and reads
+    # the line off it. The spread of that distribution is fitted across the
+    # whole ladder rather than taken from the local slope at the number, which
+    # is quote noise -- see config.MARGIN_SCALE_PRIOR. Without a readable
+    # ladder there is no distribution, so the pick stands on the edge alone and
+    # the probability is left blank rather than invented.
     probs = None
     if read is not None and not read.rejected:
-        probs = cover_probabilities(read.curve_mid, line - (margin - read.implied_margin))
+        probs = cover_probabilities(margin, read.scale, line)
 
     p_push = probs.push if probs else 0.0
     best = probs.best if probs else None

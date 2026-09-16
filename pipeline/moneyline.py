@@ -32,7 +32,7 @@ from typing import Optional
 
 from . import config
 from .http import get_json
-from .margin_model import Ladder, MarketRead
+from .margin_model import Ladder, MarketRead, margin_quantile, margin_survival
 
 # Below/above these probabilities the points-equivalent conversion is unstable
 # and the comparison stops being informative.
@@ -211,8 +211,10 @@ def cross_check(read: MarketRead, quote: Optional[MoneylineQuote]) -> Optional[C
     if quote is None or read.rejected:
         return None
 
-    # Ties are impossible, so P(home wins) == P(margin > 0).
-    spread_prob = read.curve_mid.at(0.0)
+    # Ties are impossible, so P(home wins) == P(margin > 0). Read off the
+    # fitted distribution, not the strike curve: at a big number x=0 sits past
+    # the last strike, where the curve is a flat tail rather than market data.
+    spread_prob = margin_survival(read.implied_margin, read.scale, 0.0)
     ml_prob = quote.home_prob
     divergence_prob = ml_prob - spread_prob
 
@@ -227,17 +229,17 @@ def cross_check(read: MarketRead, quote: Optional[MoneylineQuote]) -> Optional[C
     # Shift the game's own margin distribution until P(margin > 0) matches the
     # moneyline, then read the new median.  quantile(p) is the x where S(x)=p,
     # so the required shift is exactly -quantile(p_ml).
-    shift_point = read.curve_mid.quantile(ml_prob)
+    shift_point = margin_quantile(read.implied_margin, read.scale, ml_prob)
     if shift_point is None:
-        # The ladder cannot express this probability at any margin, so there is
-        # nowhere to land the moneyline. It happens when the strikes run out
-        # while still priced well away from zero: the last two quote the same
-        # cents, which leaves no slope to fit a tail from, and the curve goes
-        # flat at its final value. Refusing is right -- converting anyway would
-        # read a tail the market never quoted, the same thing the extrapolation
-        # guard below declines to do. But report it as what it is. A bare None
-        # here reaches the page as "no comparable moneyline", which blames a
-        # missing market for two markets disagreeing.
+        # Defensive only. This used to fire whenever the strikes ran out while
+        # still priced away from zero: the curve went flat past its last strike
+        # and simply could not express the moneyline's probability, so a
+        # heavily traded market was discarded. Fitting a distribution instead
+        # of reading the curve removed that failure -- a logistic converts
+        # every probability, and ml_prob is already bounded above -- so this
+        # now needs a degenerate 0 or 1 quote to reach. Whether a conversion is
+        # TRUSTWORTHY is a different question, still answered by the
+        # strike-span check below.
         return CrossCheck(
             spread_prob, ml_prob, read.implied_margin, None, None, None, None,
             divergence_prob, quote.open_interest, False,
@@ -248,8 +250,8 @@ def cross_check(read: MarketRead, quote: Optional[MoneylineQuote]) -> Optional[C
 
     # Push the moneyline's own bid and ask through the same conversion, so its
     # precision is expressed on the spread scale rather than as cents.
-    lo_q = read.curve_mid.quantile(quote.home_prob_low)
-    hi_q = read.curve_mid.quantile(quote.home_prob_high)
+    lo_q = margin_quantile(read.implied_margin, read.scale, quote.home_prob_low)
+    hi_q = margin_quantile(read.implied_margin, read.scale, quote.home_prob_high)
     ml_low = None if lo_q is None else read.implied_margin - lo_q
     ml_high = None if hi_q is None else read.implied_margin - hi_q
 
@@ -290,29 +292,26 @@ def cross_check(read: MarketRead, quote: Optional[MoneylineQuote]) -> Optional[C
 
 
 def _points_per_prob(read: MarketRead) -> float:
-    """Local slope of margin with respect to win probability, in points.
+    """How many points one unit of win probability is worth, near the number.
 
-    Used to express the moneyline's bid/ask uncertainty on the same points
-    scale as the ladder's band, so the two are compared like for like.
+    Expresses the moneyline's bid/ask uncertainty on the same points scale as
+    the ladder's band so the two compare like for like. This is precisely the
+    exchange rate the local strike slope used to get wrong by up to 4x, and it
+    sets the moneyline's sigma -- which the composite weights as 1/sigma^2, so
+    the error was squared on its way into the master pick.
     """
-    hi, lo = read.curve_mid.quantile(0.45), read.curve_mid.quantile(0.55)
+    hi = margin_quantile(read.implied_margin, read.scale, 0.45)
+    lo = margin_quantile(read.implied_margin, read.scale, 0.55)
     if hi is None or lo is None:
         return 30.0
     return abs(hi - lo) / 0.10
 
 
 def _unreachable_note(read: MarketRead, ml_prob: float) -> str:
-    """Name the probability the ladder bottoms (or tops) out at, and the gap."""
-    curve = read.curve_mid
-    floor = curve.at(curve.xs[-1] + 60.0)
-    ceiling = curve.at(curve.xs[0] - 60.0)
-    if ml_prob < floor:
-        bound = f"below the {floor * 100:.1f}% floor"
-    else:
-        bound = f"above the {ceiling * 100:.1f}% ceiling"
+    """A quote that cannot be converted at all -- in practice, 0c or 100c."""
     return (f"Moneyline prices {read.ladder.home_team} at {ml_prob * 100:.1f}%, "
-            f"{bound} the ladder's strikes reach, so it has no spread equivalent "
-            "here. The two markets disagree; only the conversion is impossible.")
+            "which has no spread equivalent at any margin. The two markets "
+            "disagree; only the conversion is impossible.")
 
 
 def _fmt(margin: float, ladder: Ladder) -> str:

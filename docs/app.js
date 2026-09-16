@@ -63,31 +63,35 @@ function saveManual() {
 
 /* --------------------------------------------------------------- model -- */
 
-/** S(x) = P(home margin > x), from the half-integer grid the pipeline stores. */
-function survivalAt(game, x) {
-  const s = game.survival;
-  if (!s || !s.table.length) return null;
-  const idx = Math.round((x - s.first) / s.step);
-  if (idx < 0) return 1;
-  if (idx >= s.table.length) return 0;
-  return s.table[idx];
+/** P(margin > x) for a distribution centred on `center`. Mirrors
+ *  margin_model.margin_survival.
+ *
+ *  Closed form on two published numbers, which is the point: this used to read
+ *  the stored survival table by nearest index while the pipeline evaluated its
+ *  spline, so the same game's cover chance differed by up to 3.7 points between
+ *  the page and the record. There is now no table and no interpolation for the
+ *  two sides to disagree about. */
+function marginSurvival(center, scale, x) {
+  const z = (x - center) / Math.max(scale, 1e-9);
+  if (z > 40) return 0;
+  if (z < -40) return 1;
+  return 1 / (1 + Math.exp(z));
 }
 
 /** Mirrors margin_model.cover_probabilities. */
-function coverProbabilities(game, line) {
+function coverProbabilities(center, scale, line) {
+  if (center === null || center === undefined || !scale) return null;
   let home, away, push;
   if (Math.abs(line - Math.round(line)) < 1e-9) {
     // Margins are integers, so P(M > n) == P(M > n + 0.5); a whole number can push.
     const n = Math.round(line);
-    const above = survivalAt(game, n + 0.5);
-    const below = survivalAt(game, n - 0.5);
-    if (above === null || below === null) return null;
+    const above = marginSurvival(center, scale, n + 0.5);
+    const below = marginSurvival(center, scale, n - 0.5);
     home = above;
     push = Math.max(0, below - above);
     away = Math.max(0, 1 - below);
   } else {
-    home = survivalAt(game, line);
-    if (home === null) return null;
+    home = marginSurvival(center, scale, line);
     push = 0;
     away = Math.max(0, 1 - home);
   }
@@ -152,12 +156,14 @@ function evaluate(game, line, lens) {
 
   const edge = estimate - line;
 
-  // P(cover) reads the ladder's curve shifted so its median sits on this
-  // estimate. With no readable ladder there is no distribution, so the pick
-  // stands on the edge alone and the probability stays blank rather than made up.
+  // P(cover) puts the margin distribution on this estimate and reads the line
+  // off it. The spread comes from a scale fitted across the whole ladder, not
+  // the local slope at the number, which is 1c-tick noise. With no readable
+  // ladder there is no distribution, so the pick stands on the edge alone and
+  // the probability stays blank rather than made up.
   let probs = null;
-  if (game.implied_margin != null && game.survival && game.survival.table.length) {
-    probs = coverProbabilities(game, line - (estimate - game.implied_margin));
+  if (game.scale != null) {
+    probs = coverProbabilities(estimate, game.scale, line);
   }
   const pPush = probs ? probs.push : 0;
   const best = probs ? Math.max(probs.home, probs.away) : null;

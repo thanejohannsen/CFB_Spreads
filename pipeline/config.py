@@ -14,7 +14,14 @@ measurements behind each number.
 # stamped into each locked pick so a mid-season change can be split out of the
 # record instead of silently blending two different rule sets.  The three lens
 # records need no version: their definitions never change.
-STRATEGY_VERSION = "v1"
+# v2 (2026-09-16): every probability<->points conversion moved off the strike
+# curve's local slope onto a scale fitted across the whole ladder. The old
+# slope was 1c-tick noise -- it ran 1.5% to 10.0% per point across one slate --
+# and it set the moneyline's sigma, which the composite weights as 1/sigma^2.
+# On a single market snapshot the correction moved 17 of 30 moneyline lens
+# picks, one of them to the other side, so this is a formula change and not a
+# tidy-up. v1 rows stay separable in the record.
+STRATEGY_VERSION = "v2"
 
 # ------------------------------------------------- publication precision ----
 #
@@ -155,6 +162,32 @@ MIN_BAND_SIGMA = 0.10
 # CFB margins are integers; strikes sit on .5 boundaries.  Ties are impossible.
 MARGIN_MIN = -70
 MARGIN_MAX = 70
+
+# --------------------------------------------------- margin dispersion ----
+#
+# How far a game's margin scatters around the market's number, as a logistic
+# scale.  SD = scale * pi / sqrt(3), so 8.5 is an SD of 15.4 points -- squarely
+# in the 13-17 the college game actually produces.
+#
+# This must NOT be read off the local slope of the Kalshi curve.  Adjacent
+# strikes quote on 1c ticks and disagree by several cents for reasons that have
+# nothing to do with football: measured across one slate the local slope ran
+# from 1.5% to 10.0% of win probability per point, and the steepest implied a
+# margin SD of 4 points, which no college football game has ever had.  The
+# scale is fitted across every usable strike at once instead, which is stable,
+# and then shrunk toward this prior so a thin or one-sided ladder cannot invent
+# a shape out of three quotes.
+MARGIN_SCALE_PRIOR = 8.5
+
+# The prior counts for this many strikes' worth of information.  Fitted scales
+# on a full slate land between 7.6 and 10.9, so the shrinkage is insurance
+# against a degenerate ladder rather than the thing setting the answer.
+MARGIN_SCALE_PRIOR_STRIKES = 5.0
+
+# Hard sanity bounds: SD 10.9 to 21.8 points.  On a measured slate these never
+# bound -- if one starts firing, the fit is wrong, not the game.
+MARGIN_SCALE_MIN = 6.0
+MARGIN_SCALE_MAX = 12.0
 
 # ------------------------------------------------------------- timing ----
 

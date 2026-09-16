@@ -207,6 +207,10 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
             "tier_label": quality.label,
             "tier_reasons": quality.reasons,
             "implied_margin": None if read.rejected else config.publish(read.implied_margin),
+            # Logistic scale of the margin distribution. With this and a centre
+            # the page computes cover probability in closed form, identically to
+            # the pipeline -- no table, no interpolation to disagree about.
+            "scale": None if read.rejected else config.publish(read.scale),
             # The very values the band test above was decided on.
             "margin_low": None if read.rejected else band[0],
             "margin_high": None if read.rejected else band[1],

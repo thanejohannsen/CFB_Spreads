@@ -503,6 +503,48 @@ def _logistic(x: float, params: tuple[float, float]) -> float:
     return 1.0 / (1.0 + math.exp(z))
 
 
+def fit_margin_scale(knots: list[tuple[float, float]],
+                     median: float) -> tuple[float, float]:
+    """Logistic scale for the margin distribution, from every usable strike.
+
+    Returns (scale, information) where `information` counts how many strikes'
+    worth of signal the fit actually had -- a strike quoted near 50c pins the
+    scale, one quoted at 3c is mostly noise, so each is weighted 4*y*(1-y),
+    peaking at 1.0 for a coin-flip strike.
+
+    Fitting all the strikes at once is the whole point.  The slope between two
+    ADJACENT strikes is quote noise: on one measured slate that local slope ran
+    1.5% to 10.0% of win probability per point, the steepest implying a 4-point
+    margin SD.  Across the full ladder the same games fit 7.6 to 10.9 (SD 14 to
+    20), which is what college football actually does.
+
+    S(x) = 1/(1+exp((x-median)/s)), so logit(1-S) = (x-median)/s and the scale
+    is a weighted least-squares slope through the origin.
+    """
+    num = den = info = 0.0
+    for x, y in knots:
+        if not (0.05 < y < 0.95):
+            continue                       # tails carry almost no scale signal
+        z = math.log((1.0 - y) / y)
+        w = 4.0 * y * (1.0 - y)
+        num += w * z * (x - median)
+        den += w * z * z
+        info += w
+    if den <= 0.0:
+        return config.MARGIN_SCALE_PRIOR, 0.0
+    return num / den, info
+
+
+def shrunk_margin_scale(knots: list[tuple[float, float]], median: float) -> float:
+    """`fit_margin_scale` pulled toward the prior by how much signal it had."""
+    raw, info = fit_margin_scale(knots, median)
+    if raw <= 0.0:
+        raw, info = config.MARGIN_SCALE_PRIOR, 0.0
+    w = info / (info + config.MARGIN_SCALE_PRIOR_STRIKES)
+    blended = w * raw + (1.0 - w) * config.MARGIN_SCALE_PRIOR
+    return min(config.MARGIN_SCALE_MAX, max(config.MARGIN_SCALE_MIN, blended))
+
+
 def build_curve(ladder: Ladder, mode: str) -> Optional[SurvivalCurve]:
     pts = survival_points(ladder, mode)
     knots = pava_non_increasing(pts)
@@ -540,26 +582,65 @@ class CoverProbabilities:
         return max(self.home, self.away)
 
 
-def cover_probabilities(curve: SurvivalCurve, line: float) -> CoverProbabilities:
-    """P(home covers), P(away covers), P(push) for a home-perspective line."""
+def margin_survival(center: float, scale: float, x: float) -> float:
+    """P(margin > x) for a margin distribution centred on `center`.
+
+    Deliberately a smooth logistic rather than a read off the strike curve.
+    The curve pins the CENTRE well -- the median is a robust statistic over
+    twenty-odd strikes -- but its local slope is quote noise, and it is the
+    slope that sets every probability near the number.  See
+    config.MARGIN_SCALE_PRIOR for the measurements.
+
+    Being closed form also means docs/app.js computes exactly this from two
+    published numbers, instead of interpolating a table its own way.
+    """
+    z = (x - center) / max(scale, 1e-9)
+    if z > 40:
+        return 0.0
+    if z < -40:
+        return 1.0
+    return 1.0 / (1.0 + math.exp(z))
+
+
+def cover_probabilities(center: float, scale: float, line: float) -> CoverProbabilities:
+    """P(home covers), P(away covers), P(push) for a home-perspective line.
+
+    `center` is the fair margin being judged -- the master estimate, or a
+    lens's own number -- so the caller no longer has to shift a curve to move
+    the distribution onto its estimate.
+    """
     if abs(line - round(line)) < 1e-9:
         # A whole number can push.  Margins are integers, so
         # P(margin > n) == P(margin > n + 0.5) and P(margin == n) is the gap
         # between the two neighbouring half-point strikes.
         n = float(round(line))
-        above, below = curve.at(n + 0.5), curve.at(n - 0.5)
+        above = margin_survival(center, scale, n + 0.5)
+        below = margin_survival(center, scale, n - 0.5)
         home = above
         push = max(0.0, below - above)
         away = max(0.0, 1.0 - below)
     else:
-        home = curve.at(line)
+        home = margin_survival(center, scale, line)
         push = 0.0
         away = max(0.0, 1.0 - home)
 
     total = home + away + push
-    if total > 0:                          # renormalise against interpolation drift
+    if total > 0:                          # renormalise against rounding drift
         home, away, push = home / total, away / total, push / total
     return CoverProbabilities(line=line, home=home, away=away, push=push)
+
+
+def margin_quantile(center: float, scale: float, p: float) -> Optional[float]:
+    """The x where P(margin > x) = p.  Inverse of `margin_survival`.
+
+    Unlike the strike curve this is defined for every p in (0, 1): a logistic
+    has no floor to run out of, so a moneyline priced past the last strike
+    still converts.  Whether that conversion is TRUSTWORTHY is a separate
+    question, answered by the strike-span check in moneyline.cross_check.
+    """
+    if not 0.0 < p < 1.0:
+        return None
+    return center + scale * math.log((1.0 - p) / p)
 
 
 @dataclass
@@ -575,6 +656,10 @@ class MarketRead:
     margin_high: float
     usable_strikes: int
     total_strikes: int
+    # Logistic scale of the margin distribution, fitted across every usable
+    # strike and shrunk toward the prior.  Every probability<->points
+    # conversion goes through this rather than the curve's local slope.
+    scale: float = config.MARGIN_SCALE_PRIOR
     rejected: Optional[str] = None
     _table: list[float] = field(default_factory=list)
 
@@ -641,9 +726,15 @@ def read_market(ladder: Ladder) -> MarketRead:
     # The envelope edges can invert when both cross inside one strike interval.
     lo, hi = sorted((medians["low"], medians["high"]))
 
+    # SurvivalCurve keeps its PAVA knots, which are the monotonised strike
+    # observations -- exactly what the scale should be fitted to.
+    mid = curves["mid"]
+    scale = shrunk_margin_scale(list(zip(mid.xs, mid.ys)), medians["mid"])
+
     return MarketRead(
         ladder=ladder,
         curve_mid=curves["mid"], curve_low=curves["low"], curve_high=curves["high"],
         implied_margin=medians["mid"], margin_low=lo, margin_high=hi,
         usable_strikes=len(usable), total_strikes=len(ladder.strikes),
+        scale=scale,
     )
