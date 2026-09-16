@@ -11,6 +11,7 @@ const MAX_STRIKE_DISTANCE = 3.0;   // pipeline/config.py
 const MIN_EDGE_POINTS = 1.0;       // an edge under a point is inside the vig
 const EDGE_SOLID = 2.0;
 const EDGE_STRONG = 3.5;
+const SCALE_RESIDUAL_FLAG = 0.055;  // pipeline/config.py
 const STORAGE_KEY = 'cfb-spreads:manual-lines:v1';
 
 // Market quality, keyed by tier letter. Mirrors TIERS in pipeline/config.py.
@@ -528,11 +529,11 @@ function gameHead(game) {
   return head;
 }
 
-function numBlock(k, v, sub, cls) {
+function numBlock(k, v, sub, cls, flagSub) {
   const n = el('div', 'num');
   n.append(el('span', 'k', k));
   n.append(el('span', `v${cls ? ' ' + cls : ''}`, v));
-  if (sub) n.append(el('span', 'sub', sub));
+  if (sub) n.append(el('span', `sub${flagSub ? ' flagged' : ''}`, sub));
   return n;
 }
 
@@ -561,8 +562,14 @@ function gameCard(game, lens) {
     nums.append(numBlock('Cover chance', pct(pick.p_cover),
                          pick.p_push > 0.001 ? `push ${pct(pick.p_push)}` : ''));
   }
-  nums.append(numBlock('Ladder', `${game.usable_strikes}/${game.total_strikes}`,
-                       `${(game.fraction_traded * 100).toFixed(0)}% traded`));
+  // The fitted curve is two parameters standing in for a whole market. Say how
+  // far that stand-in sits from the strikes, so a badly shaped game is visible
+  // rather than buried. Every game deviates a little; only the worst are flagged.
+  const misfit = game.scale_residual;
+  let ladderSub = `${(game.fraction_traded * 100).toFixed(0)}% traded`;
+  if (misfit != null) ladderSub += ` · fit ${(misfit * 100).toFixed(1)}¢`;
+  nums.append(numBlock('Ladder', `${game.usable_strikes}/${game.total_strikes}`, ladderSub,
+                       '', misfit != null && misfit > SCALE_RESIDUAL_FLAG));
   card.append(nums);
 
   const cls = pick.confidence === 'no-signal' ? 'nosignal' : (pick.side ? 'play' : 'noplay');

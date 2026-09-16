@@ -74,7 +74,23 @@ moneyline's implied spread, and its precision.
 Two things fell out of that. A logistic has no floor to run out of, so a moneyline priced past the
 last strike now converts instead of being discarded — and lands inside the traded strikes, where it
 is supported. And the page computes cover chance in closed form from a published centre and scale,
-so there is no table for it to interpolate differently from the pipeline.
+so there is no table for it to interpolate differently from the pipeline. That retired the 140-value
+survival table each game used to ship purely so the browser could look the curve up; the payload is
+31% smaller without it.
+
+**Two parameters cannot describe every market, so each game also ships `scale_residual`** — the worst
+gap between the fitted curve and the strikes it came from, in probability. The threshold on it is
+calibrated rather than guessed. Feeding prices from an *exact* logistic through the same 1¢ tick
+rounding and bid/ask spread Kalshi applies yields a residual of 0.006: that is the machinery's own
+noise floor. Real ladders sit at a median of **0.037**, nearly six times higher, so college football
+margins genuinely are not logistic — the deviation is shape, not quote noise, and in half the games
+the worst miss sits right at the median rather than out in the tails.
+
+That is worth knowing rather than hiding. Near the number, 3¢ of probability is about a point of
+spread, so the cover chance and the moneyline conversion carry roughly that much model error. It is
+a large improvement on the local slope, which was wrong by up to 4× and unboundedly so on individual
+games, but it is not exact. Every card shows its own figure (`fit 3.7¢`), and the worst tenth —
+above 0.055 — are marked.
 
 ## Market quality vs pick strength
 

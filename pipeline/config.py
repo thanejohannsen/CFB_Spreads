@@ -189,6 +189,19 @@ MARGIN_SCALE_PRIOR_STRIKES = 5.0
 MARGIN_SCALE_MIN = 6.0
 MARGIN_SCALE_MAX = 12.0
 
+# Two parameters cannot describe every market, and the page should say when
+# they describe one badly.  `scale_residual` is the worst gap between the fitted
+# curve and the strikes, in probability.
+#
+# Calibrated rather than guessed.  Feeding prices from an EXACT logistic through
+# the same tick rounding and bid/ask spread Kalshi applies yields a residual of
+# 0.006 -- that is the machinery's own noise floor.  Real ladders sit at a
+# median of 0.037, nearly six times that, so college football margins genuinely
+# are not logistic; the deviation is shape, not quote noise.  Since every game
+# deviates, the flag marks the worst tenth (measured p90 = 0.054) rather than
+# pretending the typical game is a clean fit.
+SCALE_RESIDUAL_FLAG = 0.055
+
 # ------------------------------------------------------------- timing ----
 
 # Picks are due Wednesday night / Thursday morning.  The headline accuracy

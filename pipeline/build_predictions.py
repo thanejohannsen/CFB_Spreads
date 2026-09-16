@@ -211,6 +211,11 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
             # the page computes cover probability in closed form, identically to
             # the pipeline -- no table, no interpolation to disagree about.
             "scale": None if read.rejected else config.publish(read.scale),
+            # How far the fitted logistic sits from the strikes at its worst, in
+            # probability. Diagnostic: it gates nothing, it says when the two
+            # parameters above are a poor description of this particular market.
+            "scale_residual": None if read.rejected else config.publish(
+                read.scale_residual, config.PUBLISH_WEIGHT_DP),
             # The very values the band test above was decided on.
             "margin_low": None if read.rejected else band[0],
             "margin_high": None if read.rejected else band[1],
@@ -222,13 +227,6 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
             "blend_label": blend.describe(),
             "vegas_home_favored_by": vegas,
             "vegas_books": len((match.line or {}).get("books", []) or []),
-            "survival": {
-                # table[i] = P(home margin > first + i), on the half-integer
-                # grid where Kalshi actually quotes.
-                "first": config.MARGIN_MIN + 0.5,
-                "step": 1.0,
-                "table": [] if read.rejected else read.table(),
-            },
             "pick": pick,                      # legacy alias for the master pick
             "picks": picks,
             "signals": [sig.to_dict() for sig in (sig_ladder, sig_ml, sig_sp)],

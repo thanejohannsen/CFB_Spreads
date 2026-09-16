@@ -71,11 +71,33 @@ class TestSurvivalCurve(unittest.TestCase):
     def test_recovers_known_median(self):
         self.assertAlmostEqual(self.read.implied_margin, 3.0, delta=0.4)
 
-    def test_table_is_monotone_non_increasing(self):
-        table = self.read.table()
-        self.assertEqual(len(table), config.MARGIN_MAX - config.MARGIN_MIN)
-        for a, b in zip(table, table[1:]):
-            self.assertGreaterEqual(a, b)
+    def test_fitted_curve_tracks_the_strikes_it_came_from(self):
+        """The residual is the honesty check on a two-parameter summary. These
+        prices ARE logistic, so the fit must be near-exact; a real market that
+        is genuinely lopsided is what the number exists to flag."""
+        self.assertLess(self.read.scale_residual, 0.02)
+
+    def test_residual_separates_shape_from_quote_noise(self):
+        """Calibration for SCALE_RESIDUAL_FLAG. Prices from an exact logistic,
+        degraded only by Kalshi's 1c ticks and a realistic spread, must come
+        back near zero -- otherwise the residual is measuring the machinery and
+        a flag built on it would fire on nothing meaningful. Real ladders sit
+        about six times higher, which is how we know their shape is genuinely
+        not logistic."""
+        from pipeline.margin_model import margin_survival
+        from pipeline.tests.factories import market
+        ev = "KXNCAAFSPREAD-26SEP19SYNTH"
+        markets = []
+        for t in [1.5 + 2 * i for i in range(24)]:
+            p = 1.0 - margin_survival(-7.5, 8.8, -t)
+            p = min(0.97, max(0.03, p))
+            mid = round(p / 0.01) * 0.01                  # 1c ticks
+            markets.append(market(ev, "AWY", "Away", t, mid - 0.0075, mid + 0.0075, 20000.0))
+        read = read_market(parse_ladder(
+            {"event_ticker": ev, "title": "Away vs Home: Spread", "markets": markets}))
+        self.assertIsNone(read.rejected)
+        self.assertLess(read.scale_residual, config.SCALE_RESIDUAL_FLAG / 4,
+                        "an exactly logistic market must not look like a misfit")
 
     def test_tails_stay_in_range(self):
         self.assertGreater(self.read.curve_mid.at(-200.0), 0.99)

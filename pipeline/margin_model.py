@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import math
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 
 from . import config
@@ -419,21 +419,6 @@ class SurvivalCurve:
                 break
         return (lo + hi) / 2.0
 
-    def table(self, lo: int = config.MARGIN_MIN, hi: int = config.MARGIN_MAX) -> list[float]:
-        """Dense S(x) on the HALF-integer grid, for the browser to look up.
-
-        Margins are integers, so P(M > 7) and P(M > 7.5) are the same event and
-        must return the same number -- something a smooth curve evaluated at
-        both points will not do.  Half-integers are also exactly where Kalshi
-        quotes ("wins by over 7.5"), so every stored value sits on a real
-        market price rather than between two of them.
-        """
-        vals = [self.at(x + 0.5) for x in range(lo, hi)]
-        # Guarantee monotonicity survives rounding for the consumer.
-        for i in range(1, len(vals)):
-            vals[i] = min(vals[i], vals[i - 1])
-        return [round(max(0.0, min(1.0, v)), 5) for v in vals]
-
 
 def _bracket(xs: list[float], x: float) -> int:
     lo, hi = 0, len(xs) - 1
@@ -602,6 +587,26 @@ def margin_survival(center: float, scale: float, x: float) -> float:
     return 1.0 / (1.0 + math.exp(z))
 
 
+def margin_scale_residual(knots: list[tuple[float, float]],
+                          center: float, scale: float) -> float:
+    """Largest gap between the fitted logistic and the strikes it was fitted to.
+
+    The fitted scale is a two-parameter summary, and a logistic is symmetric.
+    Most games are described well by that; a genuinely lopsided one is not, and
+    this is the number that says which. Measured over the same 5c-95c window the
+    fit used, so it reports how well the answer describes the data it came from.
+
+    In probability, so it reads directly: 0.02 means the fitted curve is never
+    more than two cents from the market anywhere it was fitted.
+    """
+    worst = 0.0
+    for x, y in knots:
+        if not (0.05 < y < 0.95):
+            continue
+        worst = max(worst, abs(margin_survival(center, scale, x) - y))
+    return worst
+
+
 def cover_probabilities(center: float, scale: float, line: float) -> CoverProbabilities:
     """P(home covers), P(away covers), P(push) for a home-perspective line.
 
@@ -660,8 +665,10 @@ class MarketRead:
     # strike and shrunk toward the prior.  Every probability<->points
     # conversion goes through this rather than the curve's local slope.
     scale: float = config.MARGIN_SCALE_PRIOR
+    # How far the fitted logistic sits from the strikes, at its worst. Pure
+    # diagnostic -- it gates nothing, it just says when to distrust the shape.
+    scale_residual: float = 0.0
     rejected: Optional[str] = None
-    _table: list[float] = field(default_factory=list)
 
     @property
     def band(self) -> float:
@@ -697,12 +704,6 @@ class MarketRead:
         ]
         return (min(xs), max(xs)) if xs else (0.0, 0.0)
 
-    def table(self) -> list[float]:
-        if not self._table:
-            self._table = self.curve_mid.table()
-        return self._table
-
-
 def read_market(ladder: Ladder) -> MarketRead:
     """Build all three curves and the uncertainty band, or explain the refusal."""
     usable = ladder.usable_strikes()
@@ -729,7 +730,8 @@ def read_market(ladder: Ladder) -> MarketRead:
     # SurvivalCurve keeps its PAVA knots, which are the monotonised strike
     # observations -- exactly what the scale should be fitted to.
     mid = curves["mid"]
-    scale = shrunk_margin_scale(list(zip(mid.xs, mid.ys)), medians["mid"])
+    knots = list(zip(mid.xs, mid.ys))
+    scale = shrunk_margin_scale(knots, medians["mid"])
 
     return MarketRead(
         ladder=ladder,
@@ -737,4 +739,5 @@ def read_market(ladder: Ladder) -> MarketRead:
         implied_margin=medians["mid"], margin_low=lo, margin_high=hi,
         usable_strikes=len(usable), total_strikes=len(ladder.strikes),
         scale=scale,
+        scale_residual=margin_scale_residual(knots, medians["mid"], scale),
     )
