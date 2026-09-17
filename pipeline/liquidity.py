@@ -90,14 +90,27 @@ def grade(read: MarketRead, dollar_volume: float = 0.0) -> Quality:
 # Shrinkage
 # --------------------------------------------------------------------------
 
-def weight_for_band(band: float) -> float:
-    """Share of the estimate that a ladder with this band earns against the prior.
+def sigma_for_band(band: float) -> float:
+    """The standard error a band of this width implies, floored.
 
-    Depends only on the band, so the page can reproduce the blend for any line
+    A band runs from one edge of the market's uncertainty to the other, so the
+    distance from its centre out to an edge -- which is what a sigma is -- is
+    half of it.  Everything in the tool that turns an interval into a sigma
+    comes through here, so the ladder, the moneyline and the Vegas prior are all
+    weighted on the same definition.  combine.py halves the moneyline's band the
+    same way; before this existed, this module fed the whole band in as a sigma
+    and quietly gave the prior four times the weight it had earned.
+    """
+    return max(band / 2.0, config.MIN_BAND_SIGMA)
+
+
+def weight_for_sigma(sigma: float) -> float:
+    """Share of the estimate a Kalshi read this precise earns against the prior.
+
+    Depends only on the sigma, so the page can reproduce the blend for any line
     the user types without re-deriving anything.
     """
-    sigma = max(band, config.MIN_BAND_SIGMA)
-    w_kalshi = 1.0 / (sigma ** 2)
+    w_kalshi = 1.0 / (max(sigma, config.MIN_BAND_SIGMA) ** 2)
     return w_kalshi / (w_kalshi + 1.0 / (config.PRIOR_SIGMA ** 2))
 
 
@@ -133,8 +146,7 @@ def shrink(read: MarketRead, prior_margin: Optional[float],
     if prior_margin is None:
         return Blend(read.implied_margin, 1.0, None, None)
 
-    sigma_kalshi = max(read.band, config.MIN_BAND_SIGMA)
-    w_kalshi = 1.0 / (sigma_kalshi ** 2)
+    w_kalshi = 1.0 / (sigma_for_band(read.band) ** 2)
     w_prior = 1.0 / (config.PRIOR_SIGMA ** 2)
     total = w_kalshi + w_prior
 

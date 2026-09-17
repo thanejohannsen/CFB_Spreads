@@ -250,6 +250,28 @@ class TestShrinkage(unittest.TestCase):
         loose = liquidity.shrink(read_market(parse_ladder(logistic_event(width=0.14))), 20.0)
         self.assertLess(loose.kalshi_weight, tight.kalshi_weight)
 
+    def test_one_definition_of_sigma_everywhere(self):
+        """A band is an interval; a sigma is half of it. This module used to feed
+        the whole band in as a sigma while combine.py halved it, which handed the
+        Vegas prior four times the weight the algebra gives it -- 8.7% instead of
+        2.3% on a typical ladder. Both paths must agree."""
+        band = 0.4632
+        self.assertAlmostEqual(liquidity.sigma_for_band(band), band / 2.0, places=12)
+
+        # The blend, and the weight the page reproduces it from, come out of the
+        # same definition -- not one from the band and the other from the sigma.
+        read = read_market(parse_ladder(logistic_event(width=0.01, oi=20000)))
+        blend = liquidity.shrink(read, prior_margin=10.0)
+        self.assertAlmostEqual(
+            blend.kalshi_weight,
+            liquidity.weight_for_sigma(liquidity.sigma_for_band(read.band)),
+            places=12)
+
+        # And the floor guards the sigma, so a degenerate band cannot produce an
+        # infinite weight.
+        self.assertEqual(liquidity.sigma_for_band(0.0), config.MIN_BAND_SIGMA)
+        self.assertLess(liquidity.weight_for_sigma(0.0), 1.0)
+
 
 class TestPickRules(unittest.TestCase):
     def _pick(self, line, mode="master", **kwargs):

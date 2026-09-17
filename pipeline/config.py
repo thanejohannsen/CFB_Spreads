@@ -152,9 +152,10 @@ MIN_OPEN_INTEREST = 500
 # informative but not authoritative -- a Tier A ladder should dominate it.
 PRIOR_SIGMA = 1.5
 
-# Floor on the Kalshi band when computing precision weights, so a band of
-# exactly 0.0 (possible when bid and ask ladders cross the median in the same
-# interval) does not produce an infinite weight.
+# Floor on any sigma used in a precision weight, so a band of exactly 0.0
+# (possible when the bid and ask ladders cross the median in the same interval)
+# does not produce an infinite weight.  Applied to the sigma, never to the band
+# it came from -- see liquidity.sigma_for_band.
 MIN_BAND_SIGMA = 0.10
 
 # ------------------------------------------------------------ margins ----

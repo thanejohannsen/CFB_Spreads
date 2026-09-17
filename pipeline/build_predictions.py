@@ -137,7 +137,7 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
         # weight depends only on the composite's sigma, so the page can redo
         # this for any hand-typed line without re-deriving anything.
         master_shrink = config.publish(
-            liquidity.weight_for_band((master.sigma or 0.0) * 2.0)
+            liquidity.weight_for_sigma(master.sigma or 0.0)
             if master.margin is not None else 1.0,
             config.PUBLISH_WEIGHT_DP)
         # Mirror app.js:estimateFor exactly -- it blends the two published values
@@ -223,7 +223,8 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
             "blended_margin": None if read.rejected else round(blend.margin, 2),
             "kalshi_weight": round(blend.kalshi_weight, 3),
             "shrink_weight": None if read.rejected else round(
-                liquidity.weight_for_band(read.band), 4),
+                liquidity.weight_for_sigma(
+                    liquidity.sigma_for_band(read.band)), 4),
             "blend_label": blend.describe(),
             "vegas_home_favored_by": vegas,
             "vegas_books": len((match.line or {}).get("books", []) or []),
