@@ -1,0 +1,1691 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reading a Spread Ladder — CFB Spreads</title>
+<meta name="description" content="How the tool turns a Kalshi spread ladder into a fair number, a cover probability and a pick, worked end to end on one game.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏈</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --ground: #f6f7f5;
+    --panel: #ffffff;
+    --sunk: #eef1ee;
+    --ink: #16201f;
+    --muted: #5f6d6a;
+    --rule: #dde3df;
+    --accent: #0d6154;
+    --accent-soft: rgba(13, 97, 84, .09);
+    --flag: #8f4f16;
+    --flag-soft: rgba(143, 79, 22, .10);
+    --serif: "Spectral", Georgia, "Times New Roman", serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0e1312;
+      --panel: #151b1a;
+      --sunk: #1a2221;
+      --ink: #e4ebe8;
+      --muted: #91a29e;
+      --rule: #263130;
+      --accent: #58c3aa;
+      --accent-soft: rgba(88, 195, 170, .12);
+      --flag: #d4994f;
+      --flag-soft: rgba(212, 153, 79, .13);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0e1312;
+    --panel: #151b1a;
+    --sunk: #1a2221;
+    --ink: #e4ebe8;
+    --muted: #91a29e;
+    --rule: #263130;
+    --accent: #58c3aa;
+    --accent-soft: rgba(88, 195, 170, .12);
+    --flag: #d4994f;
+    --flag-soft: rgba(212, 153, 79, .13);
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.62;
+  }
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding-inline: 20px;
+    padding-block: 56px 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+  h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 600; letter-spacing: -.012em; }
+  h1 { font-size: 38px; line-height: 1.16; }
+  h2 { font-size: 25px; line-height: 1.25; }
+  h3 { font-size: 18px; line-height: 1.35; }
+  p { margin: 0; max-width: 68ch; }
+  a { color: var(--accent); }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .lede { font-size: 19px; color: var(--muted); font-style: italic; max-width: 62ch; }
+
+  header { display: flex; flex-direction: column; gap: 14px; }
+  section { display: flex; flex-direction: column; gap: 18px; }
+  .sec-head { display: flex; flex-direction: column; gap: 7px;
+              border-top: 2px solid var(--ink); padding-top: 14px; }
+
+  /* ---- inline math + figures ---- */
+  .m { font-family: var(--mono); font-size: .88em; font-variant-numeric: tabular-nums; }
+  .num { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: .9em; }
+
+  /* ---- the eight-stage spine: data really does flow in order ---- */
+  ol.stages { list-style: none; margin: 0; padding: 0;
+              display: flex; flex-direction: column; gap: 0; }
+  .stage { display: grid; grid-template-columns: 46px 1fr; gap: 0 18px;
+           padding-block: 22px; border-top: 1px solid var(--rule); }
+  .stage:first-child { border-top: 0; padding-top: 4px; }
+  .stage-n {
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    color: var(--accent); padding-top: 5px; letter-spacing: .04em;
+  }
+  .stage-body { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+
+  .calc {
+    background: var(--sunk);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 14px 16px;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.85;
+    font-variant-numeric: tabular-nums;
+    overflow-x: auto;
+  }
+  .calc .c { color: var(--muted); }
+  .calc .out { color: var(--accent); font-weight: 600; }
+
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  .scroller { overflow-x: auto; }
+  .scroller table { min-width: 460px; }
+  th, td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--rule);
+           font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  th { font-size: 11px; letter-spacing: .07em; text-transform: uppercase;
+       color: var(--muted); font-weight: 500; border-bottom-color: var(--ink); }
+  td:first-child, th:first-child { text-align: left; }
+  tr.rule-out td { color: var(--muted); }
+
+  .note {
+    border-left: 2px solid var(--flag);
+    background: var(--flag-soft);
+    padding: 13px 16px;
+    border-radius: 0 6px 6px 0;
+    font-size: 14.5px;
+  }
+  .note b { color: var(--flag); font-weight: 600; }
+
+  .verdict {
+    border: 1px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 16px 18px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .verdict .eyebrow { color: var(--accent); }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 620px) { .cols { grid-template-columns: 1fr; } }
+  .col { display: flex; flex-direction: column; gap: 9px; }
+  .col h3 { font-family: var(--mono); font-size: 12px; letter-spacing: .09em;
+            text-transform: uppercase; font-weight: 600; }
+  .col.before h3 { color: var(--flag); }
+  .col.after h3 { color: var(--accent); }
+  .col ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 7px;
+            font-size: 14.5px; }
+
+  dl.kv { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px;
+          font-size: 14.5px; align-items: baseline; }
+  dl.kv dt { font-family: var(--mono); font-size: 12px; color: var(--muted);
+             letter-spacing: .04em; }
+  dl.kv dd { margin: 0; }
+
+  figure { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  figcaption { font-size: 13.5px; color: var(--muted); max-width: 62ch; }
+  svg { display: block; max-width: 100%; }
+  .scroller svg { min-width: 560px; }
+  .foot { font-size: 13.5px; color: var(--muted); border-top: 1px solid var(--rule);
+          padding-top: 18px; }
+</style>
+<style>
+  .lad table { min-width: 880px; font-size: 12.5px; }
+  .lad th, .lad td { padding: 5px 8px; }
+  .lad thead th { position: sticky; top: 0; background: var(--ground); }
+  .lad .grp { border-left: 2px solid var(--rule); }
+  .xl { font-family: var(--mono); font-size: 12.5px; background: var(--sunk);
+        border-radius: 6px; padding: 12px 14px; overflow-x: auto; line-height: 1.8; }
+  .xl .c { color: var(--muted); }
+  .book { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 620px) { .book { grid-template-columns: 1fr; } }
+  .book table { min-width: 0; font-size: 12.5px; }
+  .book h4 { margin: 0 0 6px; font-family: var(--mono); font-size: 11px;
+             letter-spacing: .09em; text-transform: uppercase; color: var(--muted);
+             font-weight: 600; }
+  tr.top td { color: var(--accent); font-weight: 600; }
+  tr.deep td { color: var(--muted); }
+</style>
+<style>
+  /* ---- site chrome ------------------------------------------------ */
+  .wrap { padding-block: 40px 88px; }
+
+  .docbar {
+    position: sticky; top: 0; z-index: 40;
+    background: var(--panel);
+    border-bottom: 1px solid var(--rule);
+  }
+  .docbar-in {
+    max-width: 780px; margin: 0 auto;
+    padding: 10px 20px;
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--mono); font-size: 11.5px;
+  }
+  .docbar-title {
+    flex: 1 1 auto; min-width: 0; text-align: center;
+    color: var(--muted); letter-spacing: .04em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .docbar a {
+    flex: 0 0 auto;
+    color: var(--ink); text-decoration: none;
+    background: var(--sunk);
+    border: 1px solid var(--rule); border-radius: 5px;
+    padding: 6px 11px; font-weight: 500; letter-spacing: .02em;
+  }
+  .docbar a:hover { border-color: var(--muted); }
+  .docbar a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .docbar .docbar-pdf {
+    color: var(--panel); background: var(--accent); border-color: var(--accent);
+  }
+  .docbar .docbar-pdf:hover { filter: brightness(1.08); }
+
+  @media (max-width: 560px) {
+    .docbar-in { flex-wrap: wrap; }
+    .docbar-title { order: -1; flex-basis: 100%; text-align: left; }
+  }
+
+  @media print {
+    /* Print in the light palette whatever the viewer's theme, and let the
+       wide tables and charts print whole instead of scrolling. */
+    :root, :root[data-theme="dark"], :root:not([data-theme="light"]) {
+      --ground: #ffffff; --panel: #ffffff; --sunk: #f2f4f2;
+      --ink: #16201f; --muted: #4b5754; --rule: #cfd7d2;
+      --accent: #0b5145; --accent-soft: rgba(11, 81, 69, .07);
+      --flag: #7d440f; --flag-soft: rgba(125, 68, 15, .09);
+    }
+    @page { margin: 16mm 14mm; }
+    .docbar { display: none !important; }
+    .wrap { padding-block: 0; max-width: none; }
+    body { font-size: 10.5pt; }
+    .scroller, .lad, .xl, .calc { overflow: visible !important; }
+    .lad table { min-width: 0; font-size: 8.5pt; }
+    table { font-size: 9pt; }
+    .lad thead th { position: static; }
+    svg { max-width: 100%; height: auto; }
+    figure, .note, .calc, .xl, .verdict, .sec-head { break-inside: avoid; }
+    table { break-inside: auto; }
+    tr, .stage { break-inside: avoid; }
+    h1, h2, h3 { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="docbar">
+  <div class="docbar-in">
+    <a class="docbar-back" href="index.html"><span aria-hidden="true">&larr;</span> Back to the board</a>
+    <span class="docbar-title">Reading a spread ladder</span>
+    <a class="docbar-pdf" href="reading-a-spread-ladder.pdf" download>Download PDF</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">CFB Spreads &middot; the model</div>
+  <h1>Reading a spread ladder</h1>
+  <p class="lede">Kalshi does not quote a spread. It quotes a whole probability
+  distribution, one strike at a time — the tool uses that spread ladder to determine if the Kalshi market implies an edge compared to the line from Vegas. Here is an example for the Georgia vs Arkansas game on September 19th, 2026. Georgia is favored by 24.5 pts.</p>
+</header>
+
+<section>
+  <p>A sportsbook gives you one number: Georgia −24.5. Kalshi instead runs a
+  separate market on <em>“Georgia wins by over 1.5”</em>, <em>“over
+  2.5”</em>, <em>“over 3.5”</em> and so on up the board. For the purposes of this article, we will refer to each of these markets as a rung (rung on the spread ladder). Each price is a
+  probability. Stack them and you have the whole distribution of the
+  game's margin. Let x represent the points the home teams wins by.</p>
+
+  <div class="calc"><span class="c">the one idea</span><br>
+  P(x) = the chance the final margin comes in above x</div>
+
+  <p>A spread is a single point on that curve &mdash; the <span class="m">x</span> where
+  <span class="m">P(x) = 0.5</span>. The ladder gives every point, so the chance of
+  covering <em>any</em> number is read off the market rather than assumed.</p>
+
+  <p>The whole example below is <strong>Georgia at Arkansas</strong>, one snapshot taken from Kalshi's market a few days before the actual game on September 16th, 2026. Arkansas is the home team. The bet is <strong>Georgia
+  −24.5</strong> — equivalently Arkansas +24.5 — ordinary betting
+  notation, minus next to whoever gives the points. This means Georgia is heavily favored and Vegas expects them to win by 25 points.</p>
+
+  <div class="note">
+    <p><b>One coordinate convention, and it is not betting notation.</b> Internally every
+    number is <span class="m">margin = home score − away score</span>. With Arkansas
+    home, <span class="m">−24.5</span> means Arkansas <em>receives</em> 24.5. It has
+    to be a single fixed axis or <span class="m">P(x)</span> could not be shifted, compared
+    or integrated — “home” just picks which direction is positive, the way
+    a graph picks which way is up.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">Before the math</div>
+    <h2>The order book, and what the tool ignores</h2>
+  </div>
+
+  <p>Open <em>Georgia over 41.5</em> on Kalshi and the book is a mess. Here it is, the same
+  snapshot, everything with at least one contract resting:</p>
+
+  <div class="book">
+    <div>
+      <h4>YES bids &mdash; buy &ldquo;over 41.5&rdquo;</h4>
+      <table>
+        <thead><tr><th>price</th><th>contracts</th><th>$</th></tr></thead>
+        <tbody>
+          <tr class="top"><td>13&cent;</td><td>120</td><td>16</td></tr>
+          <tr><td>12&cent;</td><td>400</td><td>48</td></tr>
+          <tr><td>8&cent;</td><td>790</td><td>63</td></tr>
+          <tr class="deep"><td>3&cent;</td><td>1,046</td><td>31</td></tr>
+          <tr class="deep"><td>2&cent;</td><td>1,961</td><td>39</td></tr>
+          <tr class="deep"><td>1&cent;</td><td>2,800</td><td>28</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h4>NO bids &mdash; buy &ldquo;under 41.5&rdquo;</h4>
+      <table>
+        <thead><tr><th>price</th><th>contracts</th><th>$</th></tr></thead>
+        <tbody>
+          <tr class="top"><td>83&cent;</td><td>64</td><td>53</td></tr>
+          <tr><td>59&cent;</td><td>4,852</td><td>2,863</td></tr>
+          <tr><td>44&cent;</td><td>11,483</td><td>5,053</td></tr>
+          <tr><td>30&cent;</td><td>42,670</td><td>12,801</td></tr>
+          <tr><td>15&cent;</td><td>149,152</td><td>22,373</td></tr>
+          <tr class="deep"><td>1&cent;</td><td>3,430,820</td><td>34,308</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3>Why there is no separate ask column</h3>
+
+  <p>Kalshi never sells you a contract; it matches you with somebody taking the other side.
+  So a YES <em>ask</em> is not a third list &mdash; it <em>is</em> a NO bid, quoted from the
+  other end. Exactly one contract settles at &#36;1, so the two prices are tied together:</p>
+
+  <div class="calc">
+  <span class="c">one contract pays $1, and exactly one side wins</span><br>
+  YES price + NO price = &#36;1<br><br>
+  <span class="c">so every NO bid in the right-hand table is a YES ask</span><br>
+  NO bid 83&cent; &nbsp;=&nbsp; 100&cent; &minus; 83&cent; &nbsp;=&nbsp; <span class="out">YES ask 17&cent;</span><br>
+  NO bid 59&cent; &nbsp;=&nbsp; YES ask 41&cent;, and so on down the book
+  </div>
+
+  <p>Fold the two tables together and the strike is one ordinary two-sided market. Both
+  columns below are the same book, read from opposite ends:</p>
+
+  <div class="scroller">
+    <table>
+      <thead><tr><th>strike 41.5</th><th>YES &mdash; &ldquo;over 41.5&rdquo;</th><th>NO &mdash; &ldquo;under 41.5&rdquo;</th></tr></thead>
+      <tbody>
+        <tr><td>best bid</td><td>13&cent;</td><td>83&cent;</td></tr>
+        <tr><td>best ask</td><td>17&cent;</td><td>87&cent;</td></tr>
+        <tr class="deep"><td>bid + bid</td><td colspan="2">96&cent; &mdash; 4&cent; short of a dollar</td></tr>
+        <tr class="deep"><td>ask + ask</td><td colspan="2">104&cent; &mdash; 4&cent; over</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>That 4¢ gap is the whole cost of dealing here. Buy YES at 17¢ and NO at
+  87¢ and you have spent 104¢ to be certain of getting $1 back — a
+  guaranteed 4¢ loss, which is the market maker's edge. Sell both sides into the bids
+  and you collect 96¢ for a $1 liability: the same 4¢, pointing the other way.</p>
+
+  <p>Note the 2,800 contracts resting at 1&cent; on the YES side, and the far larger block
+  opposite it: <strong>3.4 million contracts bid at 1&cent;</strong>, &#36;34,308 of resting
+  orders &mdash; which, read the other way, is 3.4 million contracts offering to sell YES at
+  99&cent;.</p>
+
+  <p>Neither is a valuation. A YES bid at 1¢ pays $1 if Georgia wins by
+  42 or more — something this market prices at 15¢. Nobody bids one cent for a
+  fifteen-cent thing expecting fair value. It is a resting option, sitting there in case
+  somebody market-sells into a thin book during a chaotic moment in the fourth quarter. It
+  is a bet on <em>someone else's panic</em>, not a belief about the football game.</p>
+
+  <p><strong>This tool never sees any of it.</strong> It reads two fields per strike,
+the best bid and best ask, top of book and nothing else. On this strike that is
+  <span class="m">0.13 / 0.17</span>. The 1¢ orders sit five levels down and are
+  invisible, as is the 3.4&nbsp;million on the other side. The tool ignores the junk bids and asks.</p>
+
+  <h3>What happens if the junk <em>becomes</em> the top of book</h3>
+
+  <p>That is the case worth defending against. If every real bid gets pulled, the 1¢
+  order is the best bid and the market quotes <span class="m">0.01 / 0.17</span> — a
+  16¢ spread. Five filters stand in the way for each spread market on a game, and they run in this order:</p>
+
+  <div class="calc">
+  <span class="c">1. hard width cap -- MAX_STRIKE_WIDTH = 0.15</span><br>
+  width 0.16 &gt; 0.15 &nbsp;=&gt;&nbsp; <span class="out">strike dropped entirely</span><br><br>
+  <span class="c">2. never traded, and wider than typical for this game</span><br>
+  open_interest &lt;= 0 AND width &gt; median_width &nbsp;=&gt;&nbsp; dropped<br><br>
+  <span class="c">3. a quote spanning the whole range says nothing</span><br>
+  bid &lt;= 0 AND ask &gt;= 1 &nbsp;=&gt;&nbsp; dropped<br><br>
+  <span class="c">4. survivors are weighted, not treated alike</span><br>
+  w = (1 / width) &times; (1 + ln(1 + open_interest))<br><br>
+  <span class="c">5. and the leftover disagreement is measured, not assumed away</span><br>
+  the band -- derive the whole curve from bids, then from asks
+  </div>
+
+  <div class="note">
+    <p><b>Open interest is traded contracts, not resting ones.</b> It counts positions that
+    have actually been opened &mdash; matched, filled, held. The 1&cent; orders above are
+    offers to make a contract, not contracts, so none of them reach the weight:
+    this strike shows 6,820 open interest against 3.7 million contracts resting in the
+    book.</p>
+  </div>
+
+  <div class="note">
+    <p><b>Bad Spread Ladders:</b>&nbsp;Ideally a spread ladder should always have better odds for a more likely scenario. Georgia winning by 41.5 pts is more likely rung than Georgia winning by 45.5. Sometimes in thin markets, however, these extreme rungs share the same odds, or have wild bid-ask spreads. These filters account for mispriced rungs and clean up the ladder.</p>
+  </div>
+
+  <p>Step 2 below walks the rungs and, wherever a run of them goes the wrong way, replaces
+  that whole run with <em>one</em> value — their average, weighted by
+  <span class="m">w</span>. This can happen in two scenarios:</p>
+
+  <div class="calc">
+  <span class="c">crossed: a further rung priced higher than a nearer one</span><br>
+  &minus;14.5 P = 0.2450 &nbsp;w = 201&nbsp;&nbsp;<span class="c">3c wide, 153 OI</span><br>
+  &minus;13.5 P = 0.2600 &nbsp;w = 327&nbsp;&nbsp;<span class="c">2c wide, 254 OI &mdash; impossible, P rose</span><br>
+  &nbsp;&nbsp;&nbsp;=&gt; both become (0.2450&times;201 + 0.2600&times;327) / 528 = <span class="out">0.2543</span><br><br>
+  <span class="c">duplicate: two rungs quoting the same odds</span><br>
+  &minus;6.5 and &minus;5.5 both at P = 0.1100 &nbsp;=&gt; already flat, nothing to pool
+  </div>
+
+  <p>So the weight decides <em>where between them</em> the pooled value lands. A rung quoted 1¢ wide with 50,000 contracts is weighted far greater than&nbsp;one quoted 4¢ wide and never traded. Pool those two and the answer sits essentially on the
+  liquid one — the thin quote is pulled into line rather than dragging the curve with
+  it. That is the whole job: keep the information in a bad rung without letting it outvote a
+  good one.</p>
+
+  <p>On this snapshot of the Georgia vs Arkansas game, all 24 rungs survive the filters — the widest bid/ask spread is 4¢.</p>
+
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">The data</div>
+    <h2>The whole ladder</h2>
+  </div>
+
+  <p>Below is the snapshot for all 24 rungs, plus every derived column. The first
+  six columns are what Kalshi returned; the rest you can rebuild from them.</p>
+
+  <div class="scroller lad">
+    <table>
+      <thead>
+        <tr>
+          <th>thresh</th><th>bid</th><th>ask</th><th>mid</th><th>bid&ndash;ask</th><th>open int.</th>
+          <th class="grp">x</th><th>P</th><th>PAVA wt</th><th class="grp">z</th><th>fit wt</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr><td>41.5</td><td>0.13</td><td>0.17</td><td>0.1500</td><td>0.04</td><td>6,820</td><td>-41.5</td><td>0.8500</td><td>245.7</td><td>-1.7346</td><td>0.5100</td></tr>
+<tr><td>38.5</td><td>0.16</td><td>0.18</td><td>0.1700</td><td>0.02</td><td>4,416</td><td>-38.5</td><td>0.8300</td><td>469.7</td><td>-1.5856</td><td>0.5644</td></tr>
+<tr><td>35.5</td><td>0.22</td><td>0.23</td><td>0.2250</td><td>0.01</td><td>6,439</td><td>-35.5</td><td>0.7750</td><td>977.0</td><td>-1.2368</td><td>0.6975</td></tr>
+<tr><td>33.5</td><td>0.28</td><td>0.29</td><td>0.2850</td><td>0.01</td><td>1,612</td><td>-33.5</td><td>0.7150</td><td>838.6</td><td>-0.9198</td><td>0.8151</td></tr>
+<tr><td>30.5</td><td>0.35</td><td>0.36</td><td>0.3550</td><td>0.01</td><td>5,646</td><td>-30.5</td><td>0.6450</td><td>963.9</td><td>-0.5971</td><td>0.9159</td></tr>
+<tr><td>27.5</td><td>0.45</td><td>0.46</td><td>0.4550</td><td>0.01</td><td>19,338</td><td>-27.5</td><td>0.5450</td><td>1087.0</td><td>-0.1805</td><td>0.9919</td></tr>
+<tr><td>24.5</td><td>0.52</td><td>0.53</td><td>0.5250</td><td>0.01</td><td>49,660</td><td>-24.5</td><td>0.4750</td><td>1181.3</td><td>0.1001</td><td>0.9975</td></tr>
+<tr><td>23.5</td><td>0.55</td><td>0.56</td><td>0.5550</td><td>0.01</td><td>8,328</td><td>-23.5</td><td>0.4450</td><td>1002.8</td><td>0.2209</td><td>0.9879</td></tr>
+<tr><td>21.5</td><td>0.59</td><td>0.60</td><td>0.5950</td><td>0.01</td><td>9,061</td><td>-21.5</td><td>0.4050</td><td>1011.2</td><td>0.3847</td><td>0.9639</td></tr>
+<tr><td>20.5</td><td>0.63</td><td>0.64</td><td>0.6350</td><td>0.01</td><td>2,701</td><td>-20.5</td><td>0.3650</td><td>890.2</td><td>0.5537</td><td>0.9271</td></tr>
+<tr><td>17.5</td><td>0.68</td><td>0.71</td><td>0.6950</td><td>0.03</td><td>372</td><td>-17.5</td><td>0.3050</td><td>230.7</td><td>0.8236</td><td>0.8479</td></tr>
+<tr><td>16.5</td><td>0.71</td><td>0.73</td><td>0.7200</td><td>0.02</td><td>379</td><td>-16.5</td><td>0.2800</td><td>347.0</td><td>0.9445</td><td>0.8064</td></tr>
+<tr><td>14.5</td><td>0.74</td><td>0.77</td><td>0.7550</td><td>0.03</td><td>153</td><td>-14.5</td><td>0.2450</td><td>201.2</td><td>1.1255</td><td>0.7399</td></tr>
+<tr><td>13.5</td><td>0.77</td><td>0.79</td><td>0.7800</td><td>0.02</td><td>254</td><td>-13.5</td><td>0.2200</td><td>327.1</td><td>1.2657</td><td>0.6864</td></tr>
+<tr><td>11.5</td><td>0.80</td><td>0.82</td><td>0.8100</td><td>0.02</td><td>0</td><td>-11.5</td><td>0.1900</td><td>57.9</td><td>1.4500</td><td>0.6156</td></tr>
+<tr><td>10.5</td><td>0.82</td><td>0.84</td><td>0.8300</td><td>0.02</td><td>164</td><td>-10.5</td><td>0.1700</td><td>305.2</td><td>1.5856</td><td>0.5644</td></tr>
+<tr><td>9.5</td><td>0.82</td><td>0.86</td><td>0.8400</td><td>0.04</td><td>0</td><td>-9.5</td><td>0.1600</td><td>30.0</td><td>1.6582</td><td>0.5376</td></tr>
+<tr><td>7.5</td><td>0.85</td><td>0.89</td><td>0.8700</td><td>0.04</td><td>23</td><td>-7.5</td><td>0.1300</td><td>104.2</td><td>1.9010</td><td>0.4524</td></tr>
+<tr><td>6.5</td><td>0.88</td><td>0.90</td><td>0.8900</td><td>0.02</td><td>484</td><td>-6.5</td><td>0.1100</td><td>359.2</td><td>2.0907</td><td>0.3916</td></tr>
+<tr><td>5.5</td><td>0.88</td><td>0.90</td><td>0.8900</td><td>0.02</td><td>39</td><td>-5.5</td><td>0.1100</td><td>234.6</td><td>2.0907</td><td>0.3916</td></tr>
+<tr><td>4.5</td><td>0.89</td><td>0.90</td><td>0.8950</td><td>0.01</td><td>11</td><td>-4.5</td><td>0.1050</td><td>349.6</td><td>2.1429</td><td>0.3759</td></tr>
+<tr><td>3.5</td><td>0.91</td><td>0.92</td><td>0.9150</td><td>0.01</td><td>11</td><td>-3.5</td><td>0.0850</td><td>349.7</td><td>2.3763</td><td>0.3111</td></tr>
+<tr><td>2.5</td><td>0.92</td><td>0.93</td><td>0.9250</td><td>0.01</td><td>727</td><td>-2.5</td><td>0.0750</td><td>759.1</td><td>2.5123</td><td>0.2775</td></tr>
+<tr><td>1.5</td><td>0.92</td><td>0.93</td><td>0.9250</td><td>0.01</td><td>14</td><td>-1.5</td><td>0.0750</td><td>370.5</td><td>2.5123</td><td>0.2775</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Every rung is quoted on Georgia, the away team — nobody buys “Arkansas by
+  over 10”, so Kalshi doesn't even offer it. A one-sided ladder is normal for a big spread, more evenly matched teams will have ladders on both sides of 0.
+  Column by column, as Excel formulas:</p>
+
+  <div class="xl">
+  <span class="c">given: threshold, bid, ask, open interest</span><br>
+  mid&nbsp;&nbsp;&nbsp;&nbsp; = (bid + ask) / 2<br>
+  bid-ask = ask &minus; bid<br>
+  x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = &minus;threshold&nbsp;&nbsp;<span class="c">away-team strike; a home strike would be +threshold</span><br>
+  P&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 1 &minus; mid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c">away-team strike; a home strike would be mid</span><br>
+  PAVA wt = (1/bid-ask) * (1 + LN(1 + OI))<br>
+  z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = LN((1 &minus; P) / P)&nbsp;&nbsp;&nbsp;&nbsp;<span class="c">blank unless 0.05 &lt; P &lt; 0.95</span><br>
+  fit wt&nbsp; = 4 * P * (1 &minus; P)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c">same window</span>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">Step by step</div>
+    <h2>From that table to a bet</h2>
+  </div>
+
+  <ol class="stages">
+
+    <li class="stage">
+      <div class="stage-n">01</div>
+      <div class="stage-body">
+        <h3>Turn each price into a point on one curve</h3>
+        <p>Following the notation we set, a price on Georgia has to be flipped before it can join a function measured from
+        Arkansas's side (the home team).</p>
+        <div class="calc">
+        chance Georgia wins by &gt; 41.5 = 0.1500<br>
+        &nbsp; =&gt; chance Arkansas margin &gt; &minus;41.5 = 1 &minus; 0.1500<br>
+        <span class="out">x = &minus;41.5,&nbsp; P = 0.8500</span><br><br>
+        chance Georgia wins by &gt; 2.5 = 0.9250<br>
+        <span class="out">x = &nbsp;&minus;2.5,&nbsp; P = 0.0750</span>
+        </div>
+        <p>Read it as: Arkansas losing by fewer than 41.5 is an 85% shot; losing by fewer
+        than 2.5 is only 7.5%.&nbsp;</p>
+      </div>
+    </li>
+
+    <li class="stage">
+      <div class="stage-n">02</div>
+      <div class="stage-body">
+        <h3>Force the sequence to be non-increasing</h3>
+        <p><span class="m">P(x)</span> can never rise as <span class="m">x</span> rises
+        — a bigger margin is always less likely. Thin quotes break that constantly, and ladders with bad rungs are filter out and replaced by their weighted average as describe above.</p>
+        <div class="note">
+          <p><b>On this particular ladder it changes nothing.</b> All 24 points already
+          descend, so no ladder cleaning is needed.</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="stage">
+      <div class="stage-n">03</div>
+      <div class="stage-body">
+        <h3>The median is the implied spread</h3>
+        <p>Here is the whole ladder as a picture &mdash; every rung from the table, plotted
+        as <span class="m">x</span> against <span class="m">P</span>:</p>
+
+        <figure>
+          <div class="scroller"><svg viewBox="0 0 760 368" role="img" aria-label="The 24 rungs plotted as x against P. The points fall from 0.85 at minus 41.5 to 0.075 at minus 1.5, and the curve through them crosses P equals one half at minus 25.56.">
+  <line x1="96" y1="316.0" x2="716" y2="316.0" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="319.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">0.00</text>
+  <line x1="96" y1="247.0" x2="716" y2="247.0" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="250.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">0.25</text>
+  <line x1="96" y1="178.0" x2="716" y2="178.0" stroke="var(--flag)" stroke-width="1.5" stroke-dasharray="5 3"></line>
+  <text x="88.0" y="181.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">0.50</text>
+  <line x1="96" y1="109.0" x2="716" y2="109.0" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="112.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">0.75</text>
+  <line x1="96" y1="40.0" x2="716" y2="40.0" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="43.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">1.00</text>
+  <text x="151.7" y="338.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-40</text>
+  <text x="291.1" y="338.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-30</text>
+  <text x="430.4" y="338.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-20</text>
+  <text x="569.7" y="338.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-10</text>
+  <text x="709.0" y="338.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">0</text>
+  <path d="M96.0,77.2 L99.1,77.6 L102.2,77.9 L105.3,78.3 L108.4,78.7 L111.5,79.0 L114.6,79.4 L117.7,79.8 L120.8,80.2 L123.9,80.5 L127.0,80.9 L130.1,81.3 L133.2,81.7 L136.3,82.1 L139.4,82.4 L142.5,82.7 L145.6,83.0 L148.7,83.3 L151.8,83.6 L154.9,83.9 L158.0,84.3 L161.1,84.7 L164.2,85.2 L167.3,85.7 L170.4,86.4 L173.5,87.1 L176.6,87.9 L179.7,88.8 L182.8,89.7 L185.9,90.7 L189.0,91.7 L192.1,92.8 L195.2,93.9 L198.3,95.1 L201.4,96.3 L204.5,97.6 L207.6,99.0 L210.7,100.4 L213.8,101.8 L216.9,103.3 L220.0,105.1 L223.1,106.9 L226.2,108.8 L229.3,110.8 L232.4,112.8 L235.5,114.7 L238.6,116.6 L241.7,118.3 L244.8,120.0 L247.9,121.5 L251.0,122.9 L254.1,124.3 L257.2,125.6 L260.3,126.9 L263.4,128.2 L266.5,129.5 L269.6,130.9 L272.7,132.3 L275.8,133.7 L278.9,135.2 L282.0,136.8 L285.1,138.6 L288.2,140.4 L291.3,142.4 L294.4,144.4 L297.5,146.5 L300.6,148.7 L303.7,150.9 L306.8,153.1 L309.9,155.3 L313.0,157.4 L316.1,159.5 L319.2,161.5 L322.3,163.5 L325.4,165.3 L328.5,167.0 L331.6,168.6 L334.7,170.1 L337.8,171.5 L340.9,172.9 L344.0,174.2 L347.1,175.5 L350.2,176.8 L353.3,178.2 L356.4,179.5 L359.5,180.9 L362.6,182.3 L365.7,183.9 L368.8,185.5 L371.9,187.4 L375.0,189.3 L378.1,191.2 L381.2,193.0 L384.3,194.4 L387.4,195.6 L390.5,196.7 L393.6,197.7 L396.7,198.7 L399.8,199.8 L402.9,201.0 L406.0,202.3 L409.1,204.0 L412.2,206.1 L415.3,208.7 L418.4,211.5 L421.5,214.0 L424.6,215.9 L427.7,217.6 L430.8,219.1 L433.9,220.5 L437.0,221.7 L440.1,222.9 L443.2,223.9 L446.3,225.0 L449.4,226.0 L452.5,227.0 L455.6,228.1 L458.7,229.2 L461.8,230.4 L464.9,231.7 L468.0,233.1 L471.1,234.7 L474.2,236.4 L477.3,237.9 L480.4,239.2 L483.5,240.4 L486.6,241.5 L489.7,242.5 L492.8,243.5 L495.9,244.4 L499.0,245.4 L502.1,246.5 L505.2,247.6 L508.3,249.0 L511.4,250.5 L514.5,252.2 L517.6,253.8 L520.7,255.2 L523.8,256.3 L526.9,257.4 L530.0,258.3 L533.1,259.1 L536.2,259.9 L539.3,260.7 L542.4,261.6 L545.5,262.5 L548.6,263.5 L551.7,264.7 L554.8,266.0 L557.9,267.3 L561.0,268.5 L564.1,269.5 L567.2,270.1 L570.3,270.6 L573.4,271.2 L576.5,271.8 L579.6,272.6 L582.7,273.4 L585.8,274.2 L588.9,275.1 L592.0,276.1 L595.1,277.0 L598.2,278.0 L601.3,279.0 L604.4,280.1 L607.5,281.4 L610.6,283.0 L613.7,284.5 L616.8,285.5 L619.9,285.6 L623.0,285.6 L626.1,285.6 L629.2,285.6 L632.3,285.6 L635.4,285.7 L638.5,285.8 L641.6,286.1 L644.7,286.7 L647.8,287.4 L650.9,288.6 L654.0,290.0 L657.1,291.4 L660.2,292.5 L663.3,293.4 L666.4,294.2 L669.5,294.9 L672.6,295.2 L675.7,295.3 L678.8,295.3 L681.9,295.3 L685.0,295.3 L688.1,295.3 L691.2,295.3 L694.3,295.3 L697.4,295.3 L700.5,295.3 L703.6,295.3 L706.7,295.3 L709.8,295.3 L712.9,295.3 L716.0,295.3" fill="none" stroke="var(--accent)" stroke-width="2" opacity="0.55"></path>
+  <circle cx="130.8" cy="81.4" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="172.6" cy="86.9" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="214.4" cy="102.1" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="242.3" cy="118.7" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="284.1" cy="138.0" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="325.9" cy="165.6" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="367.7" cy="184.9" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="381.6" cy="193.2" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="409.5" cy="204.2" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="423.4" cy="215.3" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="465.2" cy="231.8" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="479.1" cy="238.7" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="507.0" cy="248.4" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="520.9" cy="255.3" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="548.8" cy="263.6" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="562.7" cy="269.1" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="576.7" cy="271.8" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="604.5" cy="280.1" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="618.5" cy="285.6" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="632.4" cy="285.6" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="646.3" cy="287.0" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="660.3" cy="292.5" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="674.2" cy="295.3" r="3.6" fill="var(--accent)"></circle>
+  <circle cx="688.1" cy="295.3" r="3.6" fill="var(--accent)"></circle>
+  <line x1="352.9" y1="178.0" x2="352.9" y2="316" stroke="var(--flag)" stroke-width="1.5" stroke-dasharray="4 3"></line>
+  <circle cx="352.9" cy="178.0" r="5" fill="none" stroke="var(--flag)" stroke-width="2"></circle>
+  <text x="362.9" y="150.0" fill="var(--flag)" font-family="IBM Plex Mono, monospace" font-size="10.5" font-weight="600">P = 0.50 crosses here</text>
+  <text x="362.9" y="166.0" fill="var(--flag)" font-family="IBM Plex Mono, monospace" font-size="10.5">M = &#8722;25.56 &#8212; the implied spread</text>
+  <text x="100.0" y="52.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10">each dot is one rung from the table above</text>
+  <text x="406.0" y="362.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">x &#8212; margin in points, Arkansas&#39;s side</text>
+  <text x="30.0" y="178.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="11" text-anchor="middle">P(x)</text>
+</svg></div>
+          <figcaption>The 24 rungs and the monotone curve through them. It only has to
+          cross <span class="m">P = 0.50</span> once, and where it does is the implied spread.</figcaption>
+        </figure>
+
+        <p>Find where it crosses one half. The two rungs straddling it:</p>
+        <div class="calc">
+        P(&minus;27.5) = 0.5450<br>
+        P(&minus;24.5) = 0.4750<br><br>
+        <span class="c">straight-line interpolation</span><br>
+        &minus;27.5 + 3 &times; (0.5450 &minus; 0.5) / (0.5450 &minus; 0.4750) = &minus;25.5714<br><br>
+        <span class="c">what the tool gets, using a monotone cubic</span><br>
+        <span class="out">implied margin = &minus;25.5600</span>
+        </div>
+        <div class="note">
+          <p><b>A spreadsheet will land on −25.5714, not −25.5600.</b> If you follow along in Excel you will get a slightly different median. The tool fits a Fritsch–Carlson monotone
+          cubic through all the rungs rather than joining them with straight lines — chosen
+          because it cannot overshoot.
+          Everything downstream from here is reproducible in Excel; this
+          one step is not.</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="stage">
+      <div class="stage-n">04</div>
+      <div class="stage-body">
+        <h3>Do it twice more to measure the market's own uncertainty</h3>
+        <p>Rebuild the entire curve from bid prices only, then from ask prices only. On an
+        away-team strike the mapping inverts, so the <em>ask</em> column produces the lower
+        margin:</p>
+        <div class="calc">
+        <span class="c">P = 1 - ask on every strike</span> &nbsp;=&gt; median = &minus;25.794<br>
+        <span class="c">P = 1 - bid on every strike</span> &nbsp;=&gt; median = &minus;25.331<br><br>
+        <span class="out">band = 0.463 pts</span>
+        </div>
+
+        <figure>
+          <div class="scroller"><svg viewBox="0 0 760 352" role="img" aria-label="Zoomed on the median. Three curves built from the same rungs: bids only, mids, and asks only. Each crosses one half at a different x, and the gap between the outer two is the 0.463 point band.">
+  <line x1="96" y1="291.9" x2="716" y2="291.9" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="295.4" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">0.35</text>
+  <line x1="96" y1="251.2" x2="716" y2="251.2" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="254.8" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">0.40</text>
+  <line x1="96" y1="210.6" x2="716" y2="210.6" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="214.1" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">0.45</text>
+  <line x1="96" y1="170.0" x2="716" y2="170.0" stroke="var(--ink)" stroke-width="1.4"></line>
+  <text x="88.0" y="173.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">0.50</text>
+  <line x1="96" y1="129.4" x2="716" y2="129.4" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="132.9" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">0.55</text>
+  <line x1="96" y1="88.8" x2="716" y2="88.8" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="92.3" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">0.60</text>
+  <line x1="96" y1="48.1" x2="716" y2="48.1" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="51.6" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">0.65</text>
+  <text x="152.4" y="322.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-30</text>
+  <text x="265.1" y="322.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-28</text>
+  <text x="377.8" y="322.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-26</text>
+  <text x="490.5" y="322.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-24</text>
+  <text x="603.3" y="322.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-22</text>
+  <text x="716.0" y="322.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-20</text>
+  <rect x="389.4" y="40" width="26.1" height="260" fill="var(--flag)" opacity="0.13"></rect>
+  <path d="M96.0,45.5 L99.9,46.9 L103.7,48.3 L107.6,49.8 L111.5,51.2 L115.4,52.7 L119.3,54.3 L123.1,55.8 L127.0,57.4 L130.9,59.0 L134.8,60.7 L138.6,62.4 L142.5,64.1 L146.4,65.9 L150.2,67.7 L154.1,69.5 L158.0,71.3 L161.9,73.2 L165.8,75.1 L169.6,77.0 L173.5,78.9 L177.4,80.8 L181.2,82.8 L185.1,84.7 L189.0,86.7 L192.9,88.7 L196.8,90.7 L200.6,92.7 L204.5,94.7 L208.4,96.7 L212.2,98.7 L216.1,100.7 L220.0,102.7 L223.9,104.7 L227.7,106.7 L231.6,108.6 L235.5,110.6 L239.4,112.6 L243.3,114.5 L247.1,116.4 L251.0,118.3 L254.9,120.2 L258.8,122.1 L262.6,123.9 L266.5,125.7 L270.4,127.5 L274.3,129.3 L278.1,131.0 L282.0,132.7 L285.9,134.4 L289.8,136.0 L293.6,137.6 L297.5,139.2 L301.4,140.7 L305.2,142.2 L309.1,143.7 L313.0,145.1 L316.9,146.6 L320.8,148.0 L324.6,149.3 L328.5,150.7 L332.4,152.0 L336.2,153.3 L340.1,154.6 L344.0,155.8 L347.9,157.1 L351.8,158.3 L355.6,159.6 L359.5,160.8 L363.4,162.0 L367.2,163.2 L371.1,164.4 L375.0,165.6 L378.9,166.8 L382.7,168.0 L386.6,169.1 L390.5,170.3 L394.4,171.5 L398.2,172.7 L402.1,173.9 L406.0,175.1 L409.9,176.3 L413.8,177.6 L417.6,178.8 L421.5,180.0 L425.4,181.3 L429.3,182.6 L433.1,183.9 L437.0,185.2 L440.9,186.5 L444.8,187.9 L448.6,189.3 L452.5,190.7 L456.4,192.1 L460.2,193.6 L464.1,195.1 L468.0,196.6 L471.9,198.3 L475.8,200.0 L479.6,201.7 L483.5,203.5 L487.4,205.3 L491.2,207.1 L495.1,208.8 L499.0,210.6 L502.9,212.3 L506.8,214.0 L510.6,215.6 L514.5,217.2 L518.4,218.6 L522.2,220.0 L526.1,221.3 L530.0,222.5 L533.9,223.7 L537.8,224.8 L541.6,225.9 L545.5,226.9 L549.4,227.9 L553.2,228.8 L557.1,229.8 L561.0,230.7 L564.9,231.6 L568.8,232.5 L572.6,233.4 L576.5,234.3 L580.4,235.2 L584.2,236.2 L588.1,237.1 L592.0,238.1 L595.9,239.1 L599.8,240.2 L603.6,241.3 L607.5,242.5 L611.4,243.7 L615.2,245.0 L619.1,246.4 L623.0,247.8 L626.9,249.3 L630.8,250.9 L634.6,252.7 L638.5,254.6 L642.4,256.7 L646.2,259.0 L650.1,261.3 L654.0,263.7 L657.9,266.2 L661.8,268.7 L665.6,271.2 L669.5,273.6 L673.4,276.0 L677.2,278.3 L681.1,280.4 L685.0,282.4 L688.9,284.2 L692.8,286.0 L696.6,287.7 L700.5,289.3 L704.4,291.0 L708.2,292.6 L712.1,294.1 L716.0,295.7" fill="none" stroke="var(--flag)" stroke-width="2.0"></path>
+  <circle cx="389.4" cy="170.0" r="4" fill="var(--flag)"></circle>
+  <path d="M96.0,41.5 L99.9,42.9 L103.7,44.3 L107.6,45.7 L111.5,47.2 L115.4,48.7 L119.3,50.2 L123.1,51.8 L127.0,53.3 L130.9,55.0 L134.8,56.6 L138.6,58.3 L142.5,60.1 L146.4,61.8 L150.2,63.6 L154.1,65.4 L158.0,67.3 L161.9,69.1 L165.8,71.0 L169.6,72.9 L173.5,74.8 L177.4,76.8 L181.2,78.7 L185.1,80.7 L189.0,82.7 L192.9,84.6 L196.8,86.6 L200.6,88.6 L204.5,90.6 L208.4,92.6 L212.2,94.6 L216.1,96.6 L220.0,98.6 L223.9,100.6 L227.7,102.6 L231.6,104.6 L235.5,106.5 L239.4,108.5 L243.3,110.4 L247.1,112.4 L251.0,114.3 L254.9,116.2 L258.8,118.0 L262.6,119.9 L266.5,121.7 L270.4,123.5 L274.3,125.2 L278.1,127.0 L282.0,128.7 L285.9,130.3 L289.8,132.0 L293.6,133.6 L297.5,135.1 L301.4,136.7 L305.2,138.2 L309.1,139.6 L313.0,141.1 L316.9,142.5 L320.8,143.9 L324.6,145.3 L328.5,146.6 L332.4,147.9 L336.2,149.2 L340.1,150.5 L344.0,151.8 L347.9,153.0 L351.8,154.3 L355.6,155.5 L359.5,156.7 L363.4,157.9 L367.2,159.1 L371.1,160.3 L375.0,161.5 L378.9,162.7 L382.7,163.9 L386.6,165.1 L390.5,166.3 L394.4,167.5 L398.2,168.6 L402.1,169.8 L406.0,171.1 L409.9,172.3 L413.8,173.5 L417.6,174.7 L421.5,176.0 L425.4,177.2 L429.3,178.5 L433.1,179.8 L437.0,181.1 L440.9,182.5 L444.8,183.8 L448.6,185.2 L452.5,186.6 L456.4,188.0 L460.2,189.5 L464.1,191.0 L468.0,192.6 L471.9,194.2 L475.8,195.9 L479.6,197.6 L483.5,199.4 L487.4,201.2 L491.2,203.0 L495.1,204.8 L499.0,206.5 L502.9,208.3 L506.8,209.9 L510.6,211.6 L514.5,213.1 L518.4,214.6 L522.2,215.9 L526.1,217.2 L530.0,218.4 L533.9,219.6 L537.8,220.7 L541.6,221.8 L545.5,222.8 L549.4,223.8 L553.2,224.8 L557.1,225.7 L561.0,226.6 L564.9,227.5 L568.8,228.4 L572.6,229.3 L576.5,230.3 L580.4,231.2 L584.2,232.1 L588.1,233.1 L592.0,234.1 L595.9,235.1 L599.8,236.1 L603.6,237.3 L607.5,238.4 L611.4,239.7 L615.2,240.9 L619.1,242.3 L623.0,243.7 L626.9,245.3 L630.8,246.9 L634.6,248.6 L638.5,250.6 L642.4,252.7 L646.2,255.0 L650.1,257.3 L654.0,259.8 L657.9,262.3 L661.8,264.8 L665.6,267.3 L669.5,269.7 L673.4,272.1 L677.2,274.4 L681.1,276.5 L685.0,278.4 L688.9,280.1 L692.8,281.8 L696.6,283.4 L700.5,284.9 L704.4,286.4 L708.2,287.8 L712.1,289.2 L716.0,290.5" fill="none" stroke="var(--accent)" stroke-width="2.6"></path>
+  <circle cx="402.6" cy="170.0" r="4" fill="var(--accent)"></circle>
+  <path d="M96.0,40.0 L99.9,40.0 L103.7,40.2 L107.6,41.7 L111.5,43.1 L115.4,44.6 L119.3,46.1 L123.1,47.7 L127.0,49.3 L130.9,50.9 L134.8,52.6 L138.6,54.3 L142.5,56.0 L146.4,57.8 L150.2,59.6 L154.1,61.4 L158.0,63.2 L161.9,65.1 L165.8,67.0 L169.6,68.9 L173.5,70.8 L177.4,72.7 L181.2,74.7 L185.1,76.6 L189.0,78.6 L192.9,80.6 L196.8,82.6 L200.6,84.6 L204.5,86.6 L208.4,88.6 L212.2,90.6 L216.1,92.6 L220.0,94.6 L223.9,96.6 L227.7,98.5 L231.6,100.5 L235.5,102.5 L239.4,104.4 L243.3,106.4 L247.1,108.3 L251.0,110.2 L254.9,112.1 L258.8,114.0 L262.6,115.8 L266.5,117.6 L270.4,119.4 L274.3,121.2 L278.1,122.9 L282.0,124.6 L285.9,126.3 L289.8,127.9 L293.6,129.5 L297.5,131.1 L301.4,132.6 L305.2,134.1 L309.1,135.6 L313.0,137.0 L316.9,138.4 L320.8,139.8 L324.6,141.2 L328.5,142.5 L332.4,143.9 L336.2,145.2 L340.1,146.4 L344.0,147.7 L347.9,149.0 L351.8,150.2 L355.6,151.4 L359.5,152.7 L363.4,153.9 L367.2,155.1 L371.1,156.3 L375.0,157.5 L378.9,158.6 L382.7,159.8 L386.6,161.0 L390.5,162.2 L394.4,163.4 L398.2,164.6 L402.1,165.8 L406.0,167.0 L409.9,168.2 L413.8,169.4 L417.6,170.7 L421.5,171.9 L425.4,173.2 L429.3,174.5 L433.1,175.8 L437.0,177.1 L440.9,178.4 L444.8,179.8 L448.6,181.1 L452.5,182.6 L456.4,184.0 L460.2,185.4 L464.1,186.9 L468.0,188.5 L471.9,190.1 L475.8,191.8 L479.6,193.6 L483.5,195.4 L487.4,197.1 L491.2,198.9 L495.1,200.7 L499.0,202.5 L502.9,204.2 L506.8,205.9 L510.6,207.5 L514.5,209.0 L518.4,210.5 L522.2,211.9 L526.1,213.2 L530.0,214.4 L533.9,215.6 L537.8,216.7 L541.6,217.7 L545.5,218.8 L549.4,219.8 L553.2,220.7 L557.1,221.7 L561.0,222.6 L564.9,223.5 L568.8,224.4 L572.6,225.3 L576.5,226.2 L580.4,227.1 L584.2,228.0 L588.1,229.0 L592.0,230.0 L595.9,231.0 L599.8,232.1 L603.6,233.2 L607.5,234.4 L611.4,235.6 L615.2,236.9 L619.1,238.2 L623.0,239.7 L626.9,241.2 L630.8,242.8 L634.6,244.6 L638.5,246.5 L642.4,248.7 L646.2,251.0 L650.1,253.4 L654.0,255.9 L657.9,258.4 L661.8,260.9 L665.6,263.4 L669.5,265.9 L673.4,268.2 L677.2,270.5 L681.1,272.5 L685.0,274.4 L688.9,276.1 L692.8,277.6 L696.6,279.0 L700.5,280.4 L704.4,281.7 L708.2,283.0 L712.1,284.2 L716.0,285.3" fill="none" stroke="var(--flag)" stroke-width="2.0"></path>
+  <circle cx="415.5" cy="170.0" r="4" fill="var(--flag)"></circle>
+  <circle cx="124.2" cy="56.2" r="2.6" fill="var(--flag)" opacity="0.55"></circle>
+  <circle cx="124.2" cy="48.1" r="2.6" fill="var(--flag)" opacity="0.55"></circle>
+  <circle cx="124.2" cy="52.2" r="2.6" fill="var(--accent)" opacity="0.55"></circle>
+  <circle cx="293.3" cy="137.5" r="2.6" fill="var(--flag)" opacity="0.55"></circle>
+  <circle cx="293.3" cy="129.4" r="2.6" fill="var(--flag)" opacity="0.55"></circle>
+  <circle cx="293.3" cy="133.4" r="2.6" fill="var(--accent)" opacity="0.55"></circle>
+  <circle cx="462.4" cy="194.4" r="2.6" fill="var(--flag)" opacity="0.55"></circle>
+  <circle cx="462.4" cy="186.3" r="2.6" fill="var(--flag)" opacity="0.55"></circle>
+  <circle cx="462.4" cy="190.3" r="2.6" fill="var(--accent)" opacity="0.55"></circle>
+  <circle cx="518.7" cy="218.8" r="2.6" fill="var(--flag)" opacity="0.55"></circle>
+  <circle cx="518.7" cy="210.6" r="2.6" fill="var(--flag)" opacity="0.55"></circle>
+  <circle cx="518.7" cy="214.7" r="2.6" fill="var(--accent)" opacity="0.55"></circle>
+  <circle cx="631.5" cy="251.2" r="2.6" fill="var(--flag)" opacity="0.55"></circle>
+  <circle cx="631.5" cy="243.1" r="2.6" fill="var(--flag)" opacity="0.55"></circle>
+  <circle cx="631.5" cy="247.2" r="2.6" fill="var(--accent)" opacity="0.55"></circle>
+  <circle cx="687.8" cy="283.8" r="2.6" fill="var(--flag)" opacity="0.55"></circle>
+  <circle cx="687.8" cy="275.6" r="2.6" fill="var(--flag)" opacity="0.55"></circle>
+  <circle cx="687.8" cy="279.7" r="2.6" fill="var(--accent)" opacity="0.55"></circle>
+  
+  
+  
+  <line x1="389.4" y1="274" x2="415.5" y2="274" stroke="var(--flag)" stroke-width="1.4"></line>
+  <line x1="389.4" y1="269" x2="389.4" y2="279" stroke="var(--flag)" stroke-width="1.4"></line>
+  <line x1="415.5" y1="269" x2="415.5" y2="279" stroke="var(--flag)" stroke-width="1.4"></line>
+  <text x="402.5" y="264.0" fill="var(--flag)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle" font-weight="600">band = 0.463 pts &#8212; &#8722;25.794 to &#8722;25.331</text>
+  
+  
+  <line x1="112" y1="202.5" x2="136" y2="202.5" stroke="var(--flag)" stroke-width="2.4"></line>
+  <text x="144" y="206" fill="var(--flag)" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="400">from bids only</text>
+  <line x1="112" y1="220.5" x2="136" y2="220.5" stroke="var(--accent)" stroke-width="2.4"></line>
+  <text x="144" y="224" fill="var(--accent)" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600">from mids</text>
+  <line x1="112" y1="238.5" x2="136" y2="238.5" stroke="var(--flag)" stroke-width="2.4"></line>
+  <text x="144" y="242" fill="var(--flag)" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="400">from asks only</text>
+  <text x="406.0" y="346.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">x &#8212; margin in points, Arkansas&#39;s side</text>
+</svg></div>
+          <figcaption>The same rungs, priced three ways, zoomed on the crossing. Each
+          curve meets <span class="m">P = 0.50</span> at its own <span class="m">x</span>; the shaded
+          strip between the outer two is the band.</figcaption>
+        </figure>
+        <p>The band is the honest version of &ldquo;how sure is the market&rdquo;. A plain
+        bid&ndash;ask filter misses games whose <em>wide</em> strikes happen to sit right at the
+        median; this is more robust, because it is measured at the crossing, which is where the
+        number is actually read.</p>
+
+        <h3 style="margin-top:6px">This tool will grade every Spread Ladder</h3>
+
+        <p>The band leads the grade, but it does not decide it alone. A ladder can be quoted a
+        cent wide and still be worthless if nobody has traded it, so each grade sets three bars
+        at once and a market has to clear <em>all three</em>:</p>
+
+        <div class="scroller">
+          <table>
+            <thead><tr><th>grade</th><th>band</th><th>open interest</th><th>rungs traded</th><th>money</th></tr></thead>
+            <tbody>
+              <tr class="top"><td>S &mdash; Deep market</td><td>&le; 0.5</td><td>&ge; 10,000</td><td>&ge; 60%</td><td>&ge; &#36;500k</td></tr>
+              <tr class="top"><td>A &mdash; Tight market</td><td>&le; 0.5</td><td>&ge; 10,000</td><td>&ge; 60%</td><td>&mdash;</td></tr>
+              <tr><td>B &mdash; Readable market</td><td>&le; 1.0</td><td>&ge; 2,000</td><td>&ge; 30%</td><td>&mdash;</td></tr>
+              <tr><td>C &mdash; Loose market</td><td>&le; 2.0</td><td>&ge; 500</td><td>any</td><td>&mdash;</td></tr>
+              <tr class="deep"><td>D &mdash; Unreadable</td><td>&gt; 2.0</td><td>&lt; 500</td><td>any</td><td>&mdash;</td></tr>
+            </tbody>
+          </table>
+        </div>
+<p>The grade then limits the call. A Loose market cannot produce anything stronger than
+        a lean however large the edge, because that edge was measured against a number the
+        market itself is unsure of &mdash; and only S and A markets count toward the headline
+        accuracy record. <strong>The grade describes the market, not the bet.</strong> A Deep
+        market can still offer nothing worth betting, and frequently does.</p>
+
+        <div class="calc">
+        <span class="c">Georgia at Arkansas, this snapshot</span><br>
+        band&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.45&nbsp; &le; 0.5 &nbsp;&#10003;<br>
+        open interest&nbsp; 151,847&nbsp; &ge; 10,000 &nbsp;&#10003;<br>
+        rungs traded&nbsp;&nbsp; 100%&nbsp; &ge; 60% &nbsp;&#10003;<br>
+        dollar volume&nbsp; &#36;162,900&nbsp; &lt; &#36;500k &nbsp;&#10007;<br><br>
+        <span class="out">grade A &mdash; Tight market</span>&nbsp; <span class="c">short of S on money alone</span>
+        </div>
+      </div>
+    </li>
+
+    <li class="stage">
+      <div class="stage-n">05</div>
+      <div class="stage-body">
+        <h3>Fit the width</h3>
+
+        <p>Defining some important columns shown in the spread ladder table above:</p>
+
+        <div class="calc">
+        x&nbsp; <span class="c">a margin in points. x = -41.5 means "Georgia by 41.5".</span><br>
+        P&nbsp; <span class="c">a probability. P(x) = the chance the margin beats x.</span><br>
+        M&nbsp; <span class="c">the median, where P = 0.5. This IS the implied spread.</span><br>
+        W&nbsp; <span class="c">the width: how far margins scatter around M, in points.</span>
+        </div>
+
+        <p>So we know the median (M=25.56) and the Vegas line is 24.5, so our spread ladder is giving us an edge of 1.06. Now we want to determine what that edge means in terms of probability, and that is given to us via the <em>steepness</em> of the curve. Since <span class="m" style="font-family: &quot;IBM Plex Mono&quot;, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">P(x)</span> counts everything above <span class="m" style="font-family: &quot;IBM Plex Mono&quot;, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">x</span>, its slope is the probability density — at any <span class="m" style="font-family: &quot;IBM Plex Mono&quot;, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">x</span>, the slope is the chance the game finishes within a point of there.</p>
+
+        <p>Below we will determine the&nbsp;<em>width </em>which will later be used to determine the standard deviation of the data and its implied probability.</p>
+
+        <h3 style="margin-top:6px">Curve Fitting using Logistics equation</h3>
+
+        <p>As seen above, the spread ladder is plotted as a logistic. The formula has exactly two knobs:</p>
+
+        <div class="calc">
+        P(x) = 1 / (1 + e^((x &minus; M)/W))<br><br>
+        <span class="c">M shifts it left or right. W makes it steep or flat.</span>
+        </div>
+
+        <p>Step 3 already fixed <span class="m">M = &minus;25.56</span>, which leaves a whole
+        <em>family</em> of candidate curves &mdash; one for every possible
+        <span class="m">W</span>. The job is finding which member the market is quoting.</p>
+
+        <p>The goal to find a&nbsp;<span style="font-family: &quot;IBM Plex Mono&quot;, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14.08px;">W that best fits the data from Kalshi's spread ladder.</span></p>
+
+        <p>For example, the rung at <span class="m">x = −13.5</span> trades at 78¢, so
+        <span class="m">P = 0.22</span>. Plugging that into the equation above and&nbsp;<span class="m">W = 9.53</span>.&nbsp;</p>
+
+        <figure>
+          <div class="scroller"><svg viewBox="0 0 760 400" role="img" aria-label="Three candidate logistic curves all pass through the median at minus 25.56. Near the median they overlap; far from it they fan apart. The market's 24 prices follow the middle curve, width 9.12.">
+  <line x1="96" y1="330.0" x2="716" y2="330.0" stroke="var(--rule)" stroke-width="1"></line><line x1="96" y1="257.5" x2="716" y2="257.5" stroke="var(--rule)" stroke-width="1"></line><line x1="96" y1="185.0" x2="716" y2="185.0" stroke="var(--rule)" stroke-width="1"></line><line x1="96" y1="112.5" x2="716" y2="112.5" stroke="var(--rule)" stroke-width="1"></line><line x1="96" y1="40.0" x2="716" y2="40.0" stroke="var(--rule)" stroke-width="1"></line>
+  <line x1="360.0" y1="40" x2="360.0" y2="330" stroke="var(--rule)" stroke-width="1" stroke-dasharray="3 3"></line>
+  <path d="M96.0,44.8 L102.5,45.3 L108.9,45.8 L115.4,46.4 L121.8,47.1 L128.3,47.8 L134.8,48.6 L141.2,49.5 L147.7,50.4 L154.1,51.5 L160.6,52.6 L167.0,53.9 L173.5,55.3 L180.0,56.8 L186.4,58.5 L192.9,60.3 L199.3,62.2 L205.8,64.4 L212.2,66.7 L218.7,69.2 L225.2,72.0 L231.6,74.9 L238.1,78.1 L244.5,81.6 L251.0,85.3 L257.5,89.2 L263.9,93.4 L270.4,97.9 L276.8,102.7 L283.3,107.7 L289.8,113.1 L296.2,118.7 L302.7,124.5 L309.1,130.7 L315.6,137.0 L322.0,143.6 L328.5,150.3 L335.0,157.2 L341.4,164.3 L347.9,171.4 L354.3,178.6 L360.8,185.9 L367.2,193.1 L373.7,200.3 L380.2,207.4 L386.6,214.5 L393.1,221.3 L399.5,228.0 L406.0,234.5 L412.5,240.8 L418.9,246.9 L425.4,252.7 L431.8,258.2 L438.3,263.5 L444.8,268.5 L451.2,273.2 L457.7,277.6 L464.1,281.8 L470.6,285.7 L477.0,289.3 L483.5,292.7 L490.0,295.8 L496.4,298.7 L502.9,301.4 L509.3,303.9 L515.8,306.1 L522.2,308.2 L528.7,310.2 L535.2,311.9 L541.6,313.6 L548.1,315.0 L554.5,316.4 L561.0,317.6 L567.5,318.8 L573.9,319.8 L580.4,320.7 L586.8,321.6 L593.3,322.4 L599.8,323.1 L606.2,323.7 L612.7,324.3 L619.1,324.8 L625.6,325.3 L632.0,325.8 L638.5,326.2 L645.0,326.5 L651.4,326.9 L657.9,327.1 L664.3,327.4 L670.8,327.7 L677.2,327.9 L683.7,328.1 L690.2,328.3 L696.6,328.4 L703.1,328.6 L709.5,328.7 L716.0,328.8" fill="none" stroke="var(--flag)" stroke-width="1.6" opacity="0.75"></path>
+  <path d="M96.0,103.2 L102.5,104.8 L108.9,106.4 L115.4,108.0 L121.8,109.6 L128.3,111.3 L134.8,113.0 L141.2,114.7 L147.7,116.4 L154.1,118.2 L160.6,120.0 L167.0,121.8 L173.5,123.7 L180.0,125.5 L186.4,127.4 L192.9,129.4 L199.3,131.3 L205.8,133.3 L212.2,135.3 L218.7,137.3 L225.2,139.3 L231.6,141.4 L238.1,143.4 L244.5,145.5 L251.0,147.6 L257.5,149.7 L263.9,151.9 L270.4,154.0 L276.8,156.2 L283.3,158.4 L289.8,160.6 L296.2,162.8 L302.7,165.0 L309.1,167.2 L315.6,169.5 L322.0,171.7 L328.5,174.0 L335.0,176.2 L341.4,178.5 L347.9,180.7 L354.3,183.0 L360.8,185.3 L367.2,187.5 L373.7,189.8 L380.2,192.1 L386.6,194.3 L393.1,196.6 L399.5,198.8 L406.0,201.1 L412.5,203.3 L418.9,205.5 L425.4,207.7 L431.8,209.9 L438.3,212.1 L444.8,214.3 L451.2,216.5 L457.7,218.6 L464.1,220.8 L470.6,222.9 L477.0,225.0 L483.5,227.1 L490.0,229.1 L496.4,231.2 L502.9,233.2 L509.3,235.2 L515.8,237.2 L522.2,239.2 L528.7,241.1 L535.2,243.0 L541.6,244.9 L548.1,246.8 L554.5,248.6 L561.0,250.4 L567.5,252.2 L573.9,254.0 L580.4,255.7 L586.8,257.4 L593.3,259.1 L599.8,260.8 L606.2,262.4 L612.7,264.0 L619.1,265.6 L625.6,267.2 L632.0,268.7 L638.5,270.2 L645.0,271.6 L651.4,273.1 L657.9,274.5 L664.3,275.9 L670.8,277.3 L677.2,278.6 L683.7,279.9 L690.2,281.2 L696.6,282.4 L703.1,283.7 L709.5,284.9 L716.0,286.1" fill="none" stroke="var(--flag)" stroke-width="1.6" opacity="0.75"></path>
+  <path d="M96.0,67.9 L102.5,69.3 L108.9,70.8 L115.4,72.3 L121.8,73.9 L128.3,75.6 L134.8,77.3 L141.2,79.2 L147.7,81.1 L154.1,83.0 L160.6,85.1 L167.0,87.2 L173.5,89.4 L180.0,91.7 L186.4,94.1 L192.9,96.5 L199.3,99.1 L205.8,101.7 L212.2,104.4 L218.7,107.2 L225.2,110.0 L231.6,113.0 L238.1,116.0 L244.5,119.1 L251.0,122.3 L257.5,125.6 L263.9,128.9 L270.4,132.4 L276.8,135.8 L283.3,139.4 L289.8,143.0 L296.2,146.7 L302.7,150.4 L309.1,154.2 L315.6,158.0 L322.0,161.8 L328.5,165.7 L335.0,169.6 L341.4,173.6 L347.9,177.5 L354.3,181.5 L360.8,185.5 L367.2,189.4 L373.7,193.4 L380.2,197.4 L386.6,201.3 L393.1,205.2 L399.5,209.1 L406.0,212.9 L412.5,216.7 L418.9,220.5 L425.4,224.2 L431.8,227.9 L438.3,231.5 L444.8,235.0 L451.2,238.5 L457.7,241.9 L464.1,245.2 L470.6,248.4 L477.0,251.6 L483.5,254.7 L490.0,257.7 L496.4,260.7 L502.9,263.5 L509.3,266.3 L515.8,269.0 L522.2,271.6 L528.7,274.1 L535.2,276.5 L541.6,278.9 L548.1,281.1 L554.5,283.3 L561.0,285.4 L567.5,287.4 L573.9,289.4 L580.4,291.3 L586.8,293.1 L593.3,294.8 L599.8,296.5 L606.2,298.1 L612.7,299.6 L619.1,301.0 L625.6,302.4 L632.0,303.8 L638.5,305.1 L645.0,306.3 L651.4,307.4 L657.9,308.6 L664.3,309.6 L670.8,310.6 L677.2,311.6 L683.7,312.5 L690.2,313.4 L696.6,314.2 L703.1,315.0 L709.5,315.8 L716.0,316.5" fill="none" stroke="var(--accent)" stroke-width="2.6"></path>
+  <circle cx="154.1" cy="83.5" r="3.1" fill="var(--ink)"></circle><circle cx="192.9" cy="89.3" r="3.1" fill="var(--ink)"></circle><circle cx="231.6" cy="105.2" r="3.1" fill="var(--ink)"></circle><circle cx="257.5" cy="122.7" r="3.1" fill="var(--ink)"></circle><circle cx="296.2" cy="142.9" r="3.1" fill="var(--ink)"></circle><circle cx="335.0" cy="171.9" r="3.1" fill="var(--ink)"></circle><circle cx="373.7" cy="192.2" r="3.1" fill="var(--ink)"></circle><circle cx="386.6" cy="200.9" r="3.1" fill="var(--ink)"></circle><circle cx="412.5" cy="212.6" r="3.1" fill="var(--ink)"></circle><circle cx="425.4" cy="224.2" r="3.1" fill="var(--ink)"></circle><circle cx="464.1" cy="241.6" r="3.1" fill="var(--ink)"></circle><circle cx="477.0" cy="248.8" r="3.1" fill="var(--ink)"></circle><circle cx="502.9" cy="258.9" r="3.1" fill="var(--ink)"></circle><circle cx="515.8" cy="266.2" r="3.1" fill="var(--ink)"></circle><circle cx="541.6" cy="274.9" r="3.1" fill="var(--ink)"></circle><circle cx="554.5" cy="280.7" r="3.1" fill="var(--ink)"></circle><circle cx="567.5" cy="283.6" r="3.1" fill="var(--ink)"></circle><circle cx="593.3" cy="292.3" r="3.1" fill="var(--ink)"></circle><circle cx="606.2" cy="298.1" r="3.1" fill="var(--ink)"></circle><circle cx="619.1" cy="298.1" r="3.1" fill="var(--ink)"></circle><circle cx="632.0" cy="299.6" r="3.1" fill="var(--ink)"></circle><circle cx="645.0" cy="305.4" r="3.1" fill="var(--ink)"></circle><circle cx="657.9" cy="308.2" r="3.1" fill="var(--ink)"></circle><circle cx="670.8" cy="308.2" r="3.1" fill="var(--ink)"></circle>
+  <circle cx="360.0" cy="185.0" r="5" fill="none" stroke="var(--ink)" stroke-width="1.8"></circle>
+  <text x="360.0" y="32.0" fill="var(--ink)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">median M = &#8722;25.56</text>
+  <text x="115.4" y="44.4" fill="var(--flag)" font-family="IBM Plex Mono, monospace" font-size="10.5">W = 5 &#8212; too steep</text>
+  <text x="115.4" y="156.0" fill="var(--flag)" font-family="IBM Plex Mono, monospace" font-size="10.5">W = 16 &#8212; too flat</text>
+  <text x="380.2" y="243.0" fill="var(--accent)" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600">W = 9.12 &#8212; fits the dots</text>
+  <line x1="515.8" y1="266.2" x2="446" y2="299" stroke="var(--ink)" stroke-width="1"></line><text x="441" y="303" fill="var(--ink)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">the rung at x = &#8722;13.5, P = 0.22</text>
+  <text x="173.5" y="352" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-40</text><text x="302.7" y="352" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-30</text><text x="431.8" y="352" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-20</text><text x="561.0" y="352" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-10</text><text x="690.2" y="352" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">0</text><text x="88" y="333.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">0&#162;</text><text x="88" y="261.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">25&#162;</text><text x="88" y="188.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">50&#162;</text><text x="88" y="116.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">75&#162;</text><text x="88" y="43.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">100&#162;</text>
+  <text x="406.0" y="378" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">x &#8212; margin in points, Arkansas&#39;s side</text>
+</svg></div>
+          <figcaption>Three candidates, all pinned at the median. Near it they lie on top of
+          one another; out in the tails they fan wide apart. The 24 dots are this game's
+          actual prices.</figcaption>
+        </figure>
+
+        <h3 style="margin-top:6px">The far rungs impact the width</h3>
+
+        <p>Rearranged for <span class="m">W</span>, any single rung paired with the median
+        already determines the width:</p>
+
+        <div class="calc">
+        P = 1 / (1 + e^((x &minus; M)/W))&nbsp;&nbsp;=&gt;&nbsp;&nbsp;
+        W = (x &minus; M) / ln((1 &minus; P)/P)
+        </div>
+
+        <div class="scroller">
+          <table>
+            <thead><tr><th>x</th><th>P</th><th>x &minus; M</th><th>z</th><th>W implied</th></tr></thead>
+            <tbody>
+<tr class="top"><td>-41.5</td><td>0.8500</td><td>-15.94</td><td>-1.7346</td><td>9.189</td></tr>
+<tr class="top"><td>-38.5</td><td>0.8300</td><td>-12.94</td><td>-1.5856</td><td>8.161</td></tr>
+<tr><td>-35.5</td><td>0.7750</td><td>-9.94</td><td>-1.2368</td><td>8.037</td></tr>
+<tr><td>-33.5</td><td>0.7150</td><td>-7.94</td><td>-0.9198</td><td>8.632</td></tr>
+<tr><td>-30.5</td><td>0.6450</td><td>-4.94</td><td>-0.5971</td><td>8.273</td></tr>
+<tr><td>-27.5</td><td>0.5450</td><td>-1.94</td><td>-0.1805</td><td>10.749</td></tr>
+<tr><td>-24.5</td><td>0.4750</td><td>+1.06</td><td>+0.1001</td><td>10.591</td></tr>
+<tr><td>-23.5</td><td>0.4450</td><td>+2.06</td><td>+0.2209</td><td>9.326</td></tr>
+<tr><td>-21.5</td><td>0.4050</td><td>+4.06</td><td>+0.3847</td><td>10.554</td></tr>
+<tr><td>-20.5</td><td>0.3650</td><td>+5.06</td><td>+0.5537</td><td>9.138</td></tr>
+<tr><td>-17.5</td><td>0.3050</td><td>+8.06</td><td>+0.8236</td><td>9.786</td></tr>
+<tr><td>-16.5</td><td>0.2800</td><td>+9.06</td><td>+0.9445</td><td>9.593</td></tr>
+<tr class="top"><td>-14.5</td><td>0.2450</td><td>+11.06</td><td>+1.1255</td><td>9.827</td></tr>
+<tr class="top"><td>-13.5</td><td>0.2200</td><td>+12.06</td><td>+1.2657</td><td>9.529</td></tr>
+<tr class="top"><td>-11.5</td><td>0.1900</td><td>+14.06</td><td>+1.4500</td><td>9.696</td></tr>
+<tr class="top"><td>-10.5</td><td>0.1700</td><td>+15.06</td><td>+1.5856</td><td>9.498</td></tr>
+<tr class="top"><td>-9.5</td><td>0.1600</td><td>+16.06</td><td>+1.6582</td><td>9.685</td></tr>
+<tr class="top"><td>-7.5</td><td>0.1300</td><td>+18.06</td><td>+1.9010</td><td>9.500</td></tr>
+<tr class="top"><td>-6.5</td><td>0.1100</td><td>+19.06</td><td>+2.0907</td><td>9.116</td></tr>
+<tr class="top"><td>-5.5</td><td>0.1100</td><td>+20.06</td><td>+2.0907</td><td>9.595</td></tr>
+<tr class="top"><td>-4.5</td><td>0.1050</td><td>+21.06</td><td>+2.1429</td><td>9.828</td></tr>
+<tr class="top"><td>-3.5</td><td>0.0850</td><td>+22.06</td><td>+2.3763</td><td>9.283</td></tr>
+<tr class="top"><td>-2.5</td><td>0.0750</td><td>+23.06</td><td>+2.5123</td><td>9.179</td></tr>
+<tr class="top"><td>-1.5</td><td>0.0750</td><td>+24.06</td><td>+2.5123</td><td>9.577</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Two things follow from that table, and they are the reason the ladder exists at
+        all. The first is visible in the chart above: near the median the candidate curves
+        are stacked on top of one another, so a rung there barely discriminates &mdash; any
+        width fits it about equally well. Out at <span class="m">&minus;41.5</span> they are
+        separated by 20&cent;, so a price there picks one decisively.</p>
+<h3 style="margin-top:6px">Before the fit: where the 8.5 comes from</h3>
+
+        <p>The fit below leans on a prior width of <span class="m">8.5</span>. That number is
+        not from this game and not from Kalshi &mdash; it is a standing assumption about
+        college football, carried in the same units as <span class="m">W</span>. Converted to
+        the scale it is easier to argue about:</p>
+
+        <div class="calc">
+        prior W = 8.5&nbsp;&nbsp;=&gt;&nbsp;&nbsp;SD = 8.5 &times; 1.8138 = <span class="out">15.4 pts</span>
+        </div>
+
+        <p>Season on season, FBS margins scatter around the closing spread with a standard
+        deviation of roughly <strong>13 to 17 points</strong>. 8.5 sits in the middle of that.
+        It is deliberately unopinionated: near enough to be harmless when it is wrong, and far
+        enough from the absurd to catch a ladder that has gone wrong.</p>
+<p>So the prior gets a vote, sized in the same currency as the data: it counts for
+        <strong>five rungs</strong> of information. Fitted widths across a full slate land
+        between 7.6 and 10.9, so five rungs is enough to rescue a ladder with nothing to say
+        and far too little to overrule one that does. This game supplies 15.6 effective rungs,
+        so the prior holds about a quarter of the vote.</p>
+
+        <p>Behind it sits a hard clamp of <span class="m">W</span> between 6 and 12 &mdash; SD
+        10.9 to 21.8 points. On a measured slate it never binds. If it starts binding, the fit
+        is wrong, not the game.</p>
+
+        <h3 style="margin-top:6px">The fit</h3>
+
+        <p>So all twenty-four rungs go in, weighted. Using the <span class="m">z</span> and
+        <span class="m">fit wt</span> columns from the ladder:</p>
+
+        <div class="calc">
+        <span class="c">weighted least squares through the origin</span><br>
+        raw W = &Sigma;(wt &middot; z &middot; (x &minus; M)) / &Sigma;(wt &middot; z&sup2;)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 234.1600 / 25.1209<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = <span class="out">9.3213</span><br><br>
+        <span class="c">how much signal the fit had</span><br>
+        info = &Sigma;wt = 15.6470&nbsp;<span class="c">&larr; effective rungs, of 24</span><br>
+        k&nbsp;&nbsp;&nbsp; = 15.6470 / (15.6470 + 5) = 0.7578<br><br>
+        <span class="c">shrink toward the 8.5 prior</span><br>
+        W = 0.7578 &times; 9.3213 + 0.2422 &times; 8.5 = <span class="out">9.1224</span>
+        </div>
+
+        <div class="xl">
+        <span class="c">in Excel, with x, z and fit wt as columns</span><br>
+        raw&nbsp; = SUMPRODUCT(fit_wt, z, (x &minus; M)) / SUMPRODUCT(fit_wt, z, z)<br>
+        info = SUM(fit_wt)<br>
+        W&nbsp;&nbsp;&nbsp; = (info/(info+5))*raw + (5/(info+5))*8.5
+        </div>
+
+        <p>The&nbsp;fit weight <span style="font-family: &quot;IBM Plex Mono&quot;, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14.08px;">4P(1−P)</span>is what makes it a weighted
+        regression rather than a plain one: rungs near the median, whose <span class="m">z</span>
+        is least reliable, count least. The prior then pulls the raw 9.3213 down to 9.1224
+        — 0.2 points of insurance on a fit that did not need rescuing.</p>
+
+
+        <h3 style="margin-top:6px">What W = 9.12 means</h3>
+
+        <p>Simulate a thousand replays of this game from the market's own numbers &mdash;
+        centre <span class="m">&minus;25.56</span>, width <span class="m">9.12</span>:</p>
+
+        <figure>
+          <div class="scroller"><svg viewBox="0 0 760 368" role="img" aria-label="Histogram of 1000 simulated replays of Georgia at Arkansas. The pile centres on Georgia by 25 or 26. 722 of the 1000 land within one standard deviation, 16 points, of the centre. 519 of them fall on the covering side of the minus 24.5 line.">
+  <rect x="281.0" y="40" width="215.2" height="260.0" fill="var(--ink)" opacity="0.06"></rect><rect x="79.0" y="278.3" width="24.8" height="21.7" fill="var(--accent)"></rect><rect x="105.8" y="295.7" width="24.8" height="4.3" fill="var(--accent)"></rect><rect x="132.5" y="289.1" width="24.8" height="10.9" fill="var(--accent)"></rect><rect x="159.2" y="278.3" width="24.8" height="21.7" fill="var(--accent)"></rect><rect x="186.0" y="260.9" width="24.8" height="39.1" fill="var(--accent)"></rect><rect x="212.8" y="245.7" width="24.8" height="54.3" fill="var(--accent)"></rect><rect x="239.5" y="204.5" width="24.8" height="95.5" fill="var(--accent)"></rect><rect x="266.2" y="208.8" width="24.8" height="91.2" fill="var(--accent)"></rect><rect x="293.0" y="171.9" width="24.8" height="128.1" fill="var(--accent)"></rect><rect x="319.8" y="104.6" width="24.8" height="195.4" fill="var(--accent)"></rect><rect x="346.5" y="89.4" width="24.8" height="210.6" fill="var(--accent)"></rect><rect x="373.2" y="46.0" width="24.8" height="254.0" fill="var(--accent)"></rect><rect x="400.0" y="52.5" width="24.8" height="247.5" fill="var(--rule)"></rect><rect x="426.8" y="72.1" width="24.8" height="227.9" fill="var(--rule)"></rect><rect x="453.5" y="115.5" width="24.8" height="184.5" fill="var(--rule)"></rect><rect x="480.2" y="189.3" width="24.8" height="110.7" fill="var(--rule)"></rect><rect x="507.0" y="215.3" width="24.8" height="84.7" fill="var(--rule)"></rect><rect x="533.8" y="250.1" width="24.8" height="49.9" fill="var(--rule)"></rect><rect x="560.5" y="260.9" width="24.8" height="39.1" fill="var(--rule)"></rect><rect x="587.2" y="267.4" width="24.8" height="32.6" fill="var(--rule)"></rect><rect x="614.0" y="278.3" width="24.8" height="21.7" fill="var(--rule)"></rect><rect x="640.8" y="280.5" width="24.8" height="19.5" fill="var(--rule)"></rect><rect x="667.5" y="282.6" width="24.8" height="17.4" fill="var(--rule)"></rect><rect x="694.2" y="291.3" width="24.8" height="8.7" fill="var(--rule)"></rect><line x1="395.7" y1="28" x2="395.7" y2="300" stroke="var(--flag)" stroke-width="2"></line>
+  <text x="402.7" y="38" fill="var(--flag)" font-family="IBM Plex Mono, monospace" font-size="10.5">the line, &#8722;24.5</text>
+  <text x="225.1" y="50" fill="var(--accent)" font-family="IBM Plex Mono, monospace" font-size="11" text-anchor="middle">519 of 1000 cover</text>
+  <text x="532.8" y="50" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="11" text-anchor="middle">481 do not</text>
+  <line x1="281.0" y1="330" x2="496.1" y2="330" stroke="var(--ink)" stroke-width="1"></line>
+  <line x1="281.0" y1="326" x2="281.0" y2="334" stroke="var(--ink)" stroke-width="1"></line>
+  <line x1="496.1" y1="326" x2="496.1" y2="334" stroke="var(--ink)" stroke-width="1"></line>
+  <text x="388.5" y="348" fill="var(--ink)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">722 of 1000 land in here &#8212; one SD, &#177;16 pts</text>
+  <line x1="78" y1="300" x2="720" y2="300" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="91.4" y="318" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">-70</text><text x="158.2" y="318" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">-60</text><text x="225.1" y="318" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">-50</text><text x="292.0" y="318" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">-40</text><text x="358.9" y="318" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">-30</text><text x="425.8" y="318" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">-20</text><text x="492.6" y="318" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">-10</text><text x="559.5" y="318" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">0</text><text x="626.4" y="318" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">10</text><text x="693.2" y="318" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">20</text>
+  <text x="191.7" y="362" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">&#8592; Georgia blowouts</text>
+  <text x="613.0" y="362" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">Arkansas wins &#8594;</text>
+</svg></div>
+          <figcaption>1,000 replays. Each bar is a four-point bucket of final margins.
+          Shaded bars are results where Georgia covers &minus;24.5.</figcaption>
+        </figure>
+
+        <p>The standard deviation is derived from <span class="m">W</span> by a fixed
+        constant.&nbsp;</p>
+
+        <div class="calc">
+        standard deviation = W &times; &pi;/&radic;3 = 9.1224 &times; 1.8138 = <span class="out">16.55 pts</span>
+        </div>
+
+        <p>Read it off the picture rather than the formula: 722 of the 1,000 replays land
+        within 16.55 points of the centre and the rest spill out either side.&nbsp;</p>
+
+        <p>Note that the shape is not a bell curve &mdash; it is squat and long-tailed.
+        Eleven percent of replays are Georgia by 45 or worse and six percent are Arkansas
+        outright, which is precisely what those far rungs were pricing.</p>
+
+        <p>The second reading of <span class="m">W</span> is the one the rest of the tool
+        runs on. <strong>Per point</strong> is the conversion rate: shift the line one point,
+        and this is how much the chance of covering moves. Differentiate the logistic at its
+        centre and it is exactly <span class="m">1/(4W)</span> &mdash; but it is easier to
+        just count it off the replays:</p>
+
+        <div class="calc">
+        Georgia covers &minus;24.5 &nbsp;<span class="out">519 of 1000</span><br>
+        Georgia covers &minus;25.5 &nbsp;<span class="out">488 of 1000</span><br><br>
+        <span class="c">31 games switch sides over that one point</span><br>
+        <span class="c">1/(4W) = 2.74% predicts 27 per 1000; the gap is sampling noise</span>
+        </div>
+
+        <p>So at this width one point of spread is worth 2.74 percentage points of win
+        probability. Wider game, flatter curve, fewer games moved per point. That number is
+        the exchange rate every later step trades through. Now that we have extracted data from Kalshi's spread ladder let's look at the money line market to support it.</p>
+      </div>
+    </li>
+    <li class="stage">
+      <div class="stage-n">06</div>
+      <div class="stage-body">
+        <h3>The moneyline is just the rung at x = 0</h3>
+
+        <p>Kalshi runs
+        a separate market on “Arkansas wins?”. Arkansas winning <em>is</em>
+        Arkansas's margin being greater than zero. So the money line is one more point on the
+        exact same curve. In this case the rung the spread ladder does not have a rung sitting at
+        <span class="m">x = 0 since it is such a lopsided game. As of the snapshot, Kalshi is trading Arkansas wins at 4.5 cents.</span></p>
+
+        <div class="calc">
+        <span class="c">the ladder's rungs run -41.5 ... -1.5</span><br>
+        <span class="c">the moneyline supplies the one at x = 0</span><br><br>
+        fitted curve says &nbsp;P(0) = <span class="out">0.0572</span><br>
+        moneyline market says&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = <span class="out">0.0450</span>
+        </div>
+
+        <p>Two markets on the same exchange, quoting the same event, disagreeing by 1.2
+        cents. The question is what that is worth <em>in points</em>, because points is the
+        only scale on which it can be argued with the ladder.</p>
+
+        <p>So ask it backwards: where would the median have to sit for
+        <span class="m">P(0)</span> to equal 4.5%? Set <span class="m">x = 0</span> in the
+        logistic and solve for the centre:</p>
+        <div class="calc">
+        P(0) = 1 / (1 + e^((0 &minus; M)/W))&nbsp;&nbsp;=&gt;&nbsp;&nbsp;
+        M = &minus;W &middot; ln((1 &minus; P(0)) / P(0))<br><br>
+        <span class="c">mid 0.045</span>&nbsp; &minus;9.1224 &middot; ln(0.955/0.045) = <span class="out">&minus;27.8695</span><br>
+        <span class="c">bid 0.040</span>&nbsp; = &minus;28.9916<br>
+        <span class="c">ask 0.050</span>&nbsp; = &minus;26.8605<br><br>
+        <span class="out">moneyline band = 2.1311 pts</span>
+        </div>
+
+        <p>The ladder says Georgia by 25.56; the moneyline is priced as if the number were
+        Georgia by 27.87. Which is the picture below: one curve, slid left until it passes
+        through the moneyline's price at the rung the ladder does not have.</p>
+
+        <figure>
+          <div class="scroller"><svg viewBox="0 0 760 372" role="img" aria-label="The fitted curve from the spread ladder reads 5.72 percent at x equals zero, where the moneyline pays at 4.50 percent. Sliding the whole curve left until it passes through 4.50 percent moves its median from minus 25.56 to minus 27.87. An inset magnifies the last 13 points so the two readings separate.">
+  <line x1="96" y1="320.0" x2="716" y2="320.0" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="323.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">0%</text>
+  <line x1="96" y1="250.0" x2="716" y2="250.0" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="253.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">25%</text>
+  <line x1="96" y1="180.0" x2="716" y2="180.0" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="183.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">50%</text>
+  <line x1="96" y1="110.0" x2="716" y2="110.0" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="113.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">75%</text>
+  <line x1="96" y1="40.0" x2="716" y2="40.0" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="43.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">100%</text>
+  <text x="96.0" y="342.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-50</text>
+  <text x="210.8" y="342.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-40</text>
+  <text x="325.6" y="342.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-30</text>
+  <text x="440.4" y="342.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-20</text>
+  <text x="555.3" y="342.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">-10</text>
+  <text x="670.1" y="342.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">0</text>
+  <line x1="670.1" y1="30" x2="670.1" y2="320" stroke="var(--ink)" stroke-width="1.4" stroke-dasharray="4 3"></line>
+  <text x="664.1" y="24.0" fill="var(--ink)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">x = 0 &#8212; the moneyline&#39;s rung</text>
+  <path d="M96.0,62.7 L101.2,63.8 L106.3,64.9 L111.5,66.0 L116.7,67.2 L121.8,68.5 L127.0,69.7 L132.2,71.1 L137.3,72.5 L142.5,73.9 L147.7,75.4 L152.8,77.0 L158.0,78.6 L163.2,80.2 L168.3,82.0 L173.5,83.8 L178.7,85.6 L183.8,87.5 L189.0,89.5 L194.2,91.6 L199.3,93.7 L204.5,95.8 L209.7,98.1 L214.8,100.4 L220.0,102.7 L225.2,105.2 L230.3,107.7 L235.5,110.2 L240.7,112.9 L245.8,115.6 L251.0,118.3 L256.2,121.1 L261.3,124.0 L266.5,126.9 L271.7,129.9 L276.8,132.9 L282.0,136.0 L287.2,139.2 L292.3,142.3 L297.5,145.6 L302.7,148.8 L307.8,152.1 L313.0,155.5 L318.2,158.8 L323.3,162.2 L328.5,165.6 L333.7,169.0 L338.8,172.5 L344.0,175.9 L349.2,179.4 L354.3,182.8 L359.5,186.3 L364.7,189.7 L369.8,193.2 L375.0,196.6 L380.2,200.0 L385.3,203.3 L390.5,206.7 L395.7,210.0 L400.8,213.3 L406.0,216.5 L411.2,219.7 L416.3,222.9 L421.5,226.0 L426.7,229.0 L431.8,232.0 L437.0,235.0 L442.2,237.9 L447.3,240.7 L452.5,243.5 L457.7,246.2 L462.8,248.8 L468.0,251.4 L473.2,253.9 L478.3,256.4 L483.5,258.8 L488.7,261.1 L493.8,263.4 L499.0,265.6 L504.2,267.7 L509.3,269.8 L514.5,271.8 L519.7,273.7 L524.8,275.6 L530.0,277.4 L535.2,279.1 L540.3,280.8 L545.5,282.5 L550.7,284.0 L555.8,285.6 L561.0,287.0 L566.2,288.4 L571.3,289.8 L576.5,291.1 L581.7,292.3 L586.8,293.6 L592.0,294.7 L597.2,295.8 L602.3,296.9 L607.5,297.9 L612.7,298.9 L617.8,299.8 L623.0,300.7 L628.2,301.6 L633.3,302.4 L638.5,303.2 L643.7,304.0 L648.8,304.7 L654.0,305.4 L659.2,306.1 L664.3,306.7 L669.5,307.3 L674.7,307.9 L679.8,308.5 L685.0,309.0 L690.2,309.5 L695.3,310.0 L700.5,310.5 L705.7,310.9 L710.8,311.3 L716.0,311.7" fill="none" stroke="var(--flag)" stroke-width="2.0"></path>
+  <path d="M96.0,58.0 L101.2,58.8 L106.3,59.7 L111.5,60.6 L116.7,61.6 L121.8,62.6 L127.0,63.7 L132.2,64.7 L137.3,65.9 L142.5,67.1 L147.7,68.3 L152.8,69.6 L158.0,70.9 L163.2,72.3 L168.3,73.7 L173.5,75.2 L178.7,76.8 L183.8,78.4 L189.0,80.0 L194.2,81.7 L199.3,83.5 L204.5,85.4 L209.7,87.3 L214.8,89.2 L220.0,91.3 L225.2,93.4 L230.3,95.5 L235.5,97.8 L240.7,100.1 L245.8,102.4 L251.0,104.9 L256.2,107.3 L261.3,109.9 L266.5,112.5 L271.7,115.2 L276.8,117.9 L282.0,120.7 L287.2,123.6 L292.3,126.5 L297.5,129.5 L302.7,132.5 L307.8,135.6 L313.0,138.7 L318.2,141.9 L323.3,145.1 L328.5,148.4 L333.7,151.7 L338.8,155.0 L344.0,158.4 L349.2,161.8 L354.3,165.2 L359.5,168.6 L364.7,172.0 L369.8,175.5 L375.0,178.9 L380.2,182.4 L385.3,185.8 L390.5,189.3 L395.7,192.7 L400.8,196.1 L406.0,199.5 L411.2,202.9 L416.3,206.2 L421.5,209.6 L426.7,212.8 L431.8,216.1 L437.0,219.3 L442.2,222.4 L447.3,225.6 L452.5,228.6 L457.7,231.6 L462.8,234.6 L468.0,237.5 L473.2,240.3 L478.3,243.1 L483.5,245.8 L488.7,248.5 L493.8,251.1 L499.0,253.6 L504.2,256.1 L509.3,258.5 L514.5,260.8 L519.7,263.1 L524.8,265.3 L530.0,267.4 L535.2,269.5 L540.3,271.5 L545.5,273.5 L550.7,275.3 L555.8,277.2 L561.0,278.9 L566.2,280.6 L571.3,282.3 L576.5,283.8 L581.7,285.4 L586.8,286.8 L592.0,288.2 L597.2,289.6 L602.3,290.9 L607.5,292.2 L612.7,293.4 L617.8,294.6 L623.0,295.7 L628.2,296.7 L633.3,297.8 L638.5,298.8 L643.7,299.7 L648.8,300.6 L654.0,301.5 L659.2,302.3 L664.3,303.1 L669.5,303.9 L674.7,304.6 L679.8,305.3 L685.0,306.0 L690.2,306.6 L695.3,307.3 L700.5,307.8 L705.7,308.4 L710.8,308.9 L716.0,309.5" fill="none" stroke="var(--accent)" stroke-width="2.6"></path>
+  <circle cx="193.6" cy="82.0" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="228.0" cy="87.6" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="262.5" cy="103.0" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="285.4" cy="119.8" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="319.9" cy="139.4" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="354.3" cy="167.4" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="388.8" cy="187.0" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="400.3" cy="195.4" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="423.2" cy="206.6" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="434.7" cy="217.8" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="469.1" cy="234.6" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="480.6" cy="241.6" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="503.6" cy="251.4" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="515.1" cy="258.4" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="538.0" cy="266.8" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="549.5" cy="272.4" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="561.0" cy="275.2" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="584.0" cy="283.6" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="595.4" cy="289.2" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="606.9" cy="289.2" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="618.4" cy="290.6" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="629.9" cy="296.2" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="641.4" cy="299.0" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="652.9" cy="299.0" r="2.8" fill="var(--ink)" opacity="0.5"></circle>
+  <circle cx="376.6" cy="180.0" r="3.6" fill="none" stroke="var(--accent)" stroke-width="1.8"></circle>
+  <text x="387.6" y="166.0" fill="var(--accent)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="start" font-weight="600">M = &#8722;25.56</text>
+  <circle cx="350.1" cy="180.0" r="3.6" fill="none" stroke="var(--flag)" stroke-width="1.8"></circle>
+  <text x="339.1" y="166.0" fill="var(--flag)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end" font-weight="600">M = &#8722;27.87</text>
+  <rect x="104" y="190" width="196" height="128" fill="var(--panel)" stroke="var(--rule)" stroke-width="1" rx="4"></rect>
+  <text x="112.0" y="206.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="9.5">zoom &#8212; the last 13 points</text>
+  <line x1="142" y1="290.0" x2="290" y2="290.0" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="136.0" y="293.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="end">0%</text>
+  <line x1="142" y1="258.5" x2="290" y2="258.5" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="136.0" y="262.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="end">5%</text>
+  <line x1="142" y1="226.9" x2="290" y2="226.9" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="136.0" y="230.4" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="end">10%</text>
+  <line x1="262.2" y1="208" x2="262.2" y2="290" stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="3 3"></line>
+  <text x="262.2" y="306.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">x = 0</text>
+  <path d="M166.1,209.0 L167.9,210.5 L169.8,212.0 L171.6,213.5 L173.4,215.0 L175.3,216.4 L177.2,217.8 L179.0,219.2 L180.8,220.6 L182.7,221.9 L184.6,223.3 L186.4,224.6 L188.2,225.8 L190.1,227.1 L191.9,228.3 L193.8,229.5 L195.7,230.7 L197.5,231.9 L199.3,233.0 L201.2,234.2 L203.1,235.3 L204.9,236.3 L206.8,237.4 L208.6,238.5 L210.4,239.5 L212.3,240.5 L214.1,241.5 L216.0,242.5 L217.8,243.4 L219.7,244.3 L221.6,245.3 L223.4,246.2 L225.2,247.1 L227.1,247.9 L228.9,248.8 L230.8,249.6 L232.7,250.4 L234.5,251.2 L236.3,252.0 L238.2,252.8 L240.1,253.6 L241.9,254.3 L243.8,255.0 L245.6,255.8 L247.4,256.5 L249.3,257.2 L251.2,257.8 L253.0,258.5 L254.8,259.1 L256.7,259.8 L258.6,260.4 L260.4,261.0 L262.2,261.6 L264.1,262.2 L265.9,262.8 L267.8,263.3 L269.6,263.9 L271.5,264.4 L273.4,265.0 L275.2,265.5 L277.0,266.0 L278.9,266.5 L280.8,267.0 L282.6,267.5 L284.5,268.0 L286.3,268.4 L288.1,268.9 L290.0,269.3" fill="none" stroke="var(--flag)" stroke-width="1.8"></path>
+  <path d="M186.4,208.1 L188.2,209.7 L190.1,211.2 L191.9,212.7 L193.8,214.2 L195.7,215.6 L197.5,217.1 L199.3,218.5 L201.2,219.8 L203.1,221.2 L204.9,222.5 L206.8,223.8 L208.6,225.1 L210.4,226.4 L212.3,227.6 L214.1,228.9 L216.0,230.1 L217.8,231.2 L219.7,232.4 L221.6,233.5 L223.4,234.7 L225.2,235.8 L227.1,236.8 L228.9,237.9 L230.8,238.9 L232.7,239.9 L234.5,240.9 L236.3,241.9 L238.2,242.9 L240.1,243.8 L241.9,244.8 L243.8,245.7 L245.6,246.6 L247.4,247.5 L249.3,248.3 L251.2,249.2 L253.0,250.0 L254.8,250.8 L256.7,251.6 L258.6,252.4 L260.4,253.2 L262.2,253.9 L264.1,254.6 L265.9,255.4 L267.8,256.1 L269.6,256.8 L271.5,257.5 L273.4,258.1 L275.2,258.8 L277.0,259.4 L278.9,260.1 L280.8,260.7 L282.6,261.3 L284.5,261.9 L286.3,262.5 L288.1,263.0 L290.0,263.6" fill="none" stroke="var(--accent)" stroke-width="2.2"></path>
+  <circle cx="262.2" cy="253.9" r="4" fill="var(--accent)"></circle>
+  <circle cx="262.2" cy="261.6" r="4" fill="var(--flag)"></circle>
+  <line x1="256.2" y1="253.9" x2="214.1" y2="244.9" stroke="var(--accent)" stroke-width="1"></line>
+  <text x="211.4" y="243.9" fill="var(--accent)" font-family="IBM Plex Mono, monospace" font-size="9.5" text-anchor="end" font-weight="600">ladder 5.72%</text>
+  <line x1="256.2" y1="261.6" x2="214.1" y2="274.6" stroke="var(--flag)" stroke-width="1"></line>
+  <text x="211.4" y="277.6" fill="var(--flag)" font-family="IBM Plex Mono, monospace" font-size="9.5" text-anchor="end" font-weight="600">moneyline 4.50%</text>
+  <text x="406.0" y="366.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">x &#8212; margin in points, Arkansas&#39;s side</text>
+</svg></div>
+          <figcaption>The grey dots are the 24 spread rungs; the solid curve is the fit through them.
+          At <span class="m">x = 0</span> it reads 5.72%. The moneyline pays at 4.50%, and the
+          only way to make the same curve say 4.50% there is to move its median from
+          &minus;25.56 to &minus;27.87.</figcaption>
+        </figure>
+
+        <div class="note">
+          <p><b>Note what the conversion needed.</b> A win probability alone cannot give you
+          a spread — 4.5% is equally consistent with a 27-point favorite in a normal
+          game and a 15-point favorite in a freakishly predictable one. You have to know how
+          far margins scatter, which is <span class="m">W</span>&nbsp;(width) from step 5. That is why it is worth
+          fitting properly: it is not only the cover-chance number, it is the exchange rate
+          the we use to determine the implied spread from the money line.</p>
+        </div>
+
+        <p><b>The conversion is least trustworthy on the most lopsided games.</b> Deep in the
+        tail the mapping from probability to points is steep, so a single tick of quoting
+        noise moves the answer a long way. Take Arkansas from 4.5&cent; to 5.5&cent; &mdash;
+        one cent, the smallest move Kalshi allows &mdash; and the implied number travels from
+        Georgia by 27.87 to Georgia by 25.94, nearly two points. On a near-even game the same
+        cent is worth about a third of a point, because at 50% the curve is at its flattest.
+        The moneyline is therefore an imprecise witness on exactly the games where it sits
+        furthest from the spread. The next step prices that imprecision rather than arguing
+        with it.</p>
+
+        <div class="calc">
+        points per cent = W &times; 0.01 / (P &times; (1 &minus; P))<br><br>
+        <span class="c">at the number, P = 0.50</span>&nbsp; 9.1224 &times; 0.01 / 0.2500 = <span class="out">0.36 pts</span><br>
+        <span class="c">at the moneyline, P = 0.045</span>&nbsp; 9.1224 &times; 0.01 / 0.0430 = <span class="out">2.12 pts</span>
+        </div>
+
+        <figure>
+          <div class="scroller"><svg viewBox="0 0 760 340" role="img" aria-label="How many points of spread one cent of price is worth, against the probability being quoted. At 50 percent a cent buys 0.36 points. At 4.5 percent it buys 2.12 points, six times as much.">
+  <line x1="96" y1="292.0" x2="716" y2="292.0" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="295.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">0</text>
+  <line x1="96" y1="240.4" x2="716" y2="240.4" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="243.9" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">1</text>
+  <line x1="96" y1="188.8" x2="716" y2="188.8" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="192.3" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">2</text>
+  <line x1="96" y1="137.2" x2="716" y2="137.2" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="140.7" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">3</text>
+  <line x1="96" y1="85.6" x2="716" y2="85.6" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="89.1" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">4</text>
+  <line x1="96" y1="34.0" x2="716" y2="34.0" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="88.0" y="37.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">5</text>
+  <text x="96.0" y="314.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">0%</text>
+  <text x="251.0" y="314.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">25%</text>
+  <text x="406.0" y="314.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">50%</text>
+  <text x="561.0" y="314.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">75%</text>
+  <text x="716.0" y="314.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">100%</text>
+  <path d="M107.8,39.5 L110.3,82.5 L112.7,112.8 L115.2,135.3 L117.7,152.6 L120.2,166.4 L122.7,177.6 L125.1,186.9 L127.6,194.7 L130.1,201.4 L132.6,207.2 L135.1,212.3 L137.5,216.7 L140.0,220.6 L142.5,224.1 L145.0,227.3 L147.5,230.2 L149.9,232.7 L152.4,235.1 L154.9,237.2 L157.4,239.2 L159.9,241.1 L162.3,242.7 L164.8,244.3 L167.3,245.7 L169.8,247.1 L172.3,248.4 L174.7,249.5 L177.2,250.7 L179.7,251.7 L182.2,252.7 L184.7,253.6 L187.1,254.5 L189.6,255.3 L192.1,256.1 L194.6,256.8 L197.1,257.5 L199.5,258.2 L202.0,258.8 L204.5,259.4 L207.0,260.0 L209.5,260.5 L211.9,261.0 L214.4,261.5 L216.9,262.0 L219.4,262.5 L221.9,262.9 L224.3,263.3 L226.8,263.7 L229.3,264.1 L231.8,264.5 L234.3,264.8 L236.7,265.2 L239.2,265.5 L241.7,265.8 L244.2,266.1 L246.7,266.4 L249.1,266.7 L251.6,267.0 L254.1,267.2 L256.6,267.5 L259.1,267.7 L261.5,267.9 L264.0,268.2 L266.5,268.4 L269.0,268.6 L271.5,268.8 L273.9,269.0 L276.4,269.2 L278.9,269.4 L281.4,269.5 L283.9,269.7 L286.3,269.9 L288.8,270.0 L291.3,270.2 L293.8,270.3 L296.3,270.5 L298.7,270.6 L301.2,270.7 L303.7,270.9 L306.2,271.0 L308.7,271.1 L311.1,271.2 L313.6,271.3 L316.1,271.4 L318.6,271.5 L321.1,271.6 L323.5,271.7 L326.0,271.8 L328.5,271.9 L331.0,272.0 L333.5,272.1 L335.9,272.2 L338.4,272.2 L340.9,272.3 L343.4,272.4 L345.9,272.4 L348.3,272.5 L350.8,272.6 L353.3,272.6 L355.8,272.7 L358.3,272.7 L360.7,272.8 L363.2,272.8 L365.7,272.8 L368.2,272.9 L370.7,272.9 L373.1,273.0 L375.6,273.0 L378.1,273.0 L380.6,273.0 L383.1,273.1 L385.5,273.1 L388.0,273.1 L390.5,273.1 L393.0,273.1 L395.5,273.1 L397.9,273.2 L400.4,273.2 L402.9,273.2 L405.4,273.2 L407.9,273.2 L410.3,273.2 L412.8,273.2 L415.3,273.2 L417.8,273.1 L420.3,273.1 L422.7,273.1 L425.2,273.1 L427.7,273.1 L430.2,273.1 L432.7,273.0 L435.1,273.0 L437.6,273.0 L440.1,272.9 L442.6,272.9 L445.1,272.9 L447.5,272.8 L450.0,272.8 L452.5,272.7 L455.0,272.7 L457.5,272.6 L459.9,272.6 L462.4,272.5 L464.9,272.5 L467.4,272.4 L469.9,272.3 L472.3,272.3 L474.8,272.2 L477.3,272.1 L479.8,272.0 L482.3,272.0 L484.7,271.9 L487.2,271.8 L489.7,271.7 L492.2,271.6 L494.7,271.5 L497.1,271.4 L499.6,271.3 L502.1,271.2 L504.6,271.1 L507.1,270.9 L509.5,270.8 L512.0,270.7 L514.5,270.5 L517.0,270.4 L519.5,270.3 L521.9,270.1 L524.4,270.0 L526.9,269.8 L529.4,269.6 L531.9,269.5 L534.3,269.3 L536.8,269.1 L539.3,268.9 L541.8,268.7 L544.3,268.5 L546.7,268.3 L549.2,268.1 L551.7,267.8 L554.2,267.6 L556.7,267.3 L559.1,267.1 L561.6,266.8 L564.1,266.6 L566.6,266.3 L569.1,266.0 L571.5,265.7 L574.0,265.3 L576.5,265.0 L579.0,264.7 L581.5,264.3 L583.9,263.9 L586.4,263.5 L588.9,263.1 L591.4,262.7 L593.9,262.2 L596.3,261.8 L598.8,261.3 L601.3,260.8 L603.8,260.2 L606.3,259.7 L608.7,259.1 L611.2,258.5 L613.7,257.8 L616.2,257.2 L618.7,256.4 L621.1,255.7 L623.6,254.9 L626.1,254.0 L628.6,253.1 L631.1,252.2 L633.5,251.2 L636.0,250.1 L638.5,249.0 L641.0,247.7 L643.5,246.4 L645.9,245.0 L648.4,243.5 L650.9,241.9 L653.4,240.2 L655.9,238.3 L658.3,236.2 L660.8,233.9 L663.3,231.5 L665.8,228.8 L668.3,225.8 L670.7,222.4 L673.2,218.7 L675.7,214.5 L678.2,209.8 L680.7,204.4 L683.1,198.2 L685.6,191.0 L688.1,182.5 L690.6,172.3 L693.1,159.9 L695.5,144.5 L698.0,124.8 L700.5,98.9 L703.0,63.0" fill="none" stroke="var(--accent)" stroke-width="2.4"></path>
+  <line x1="123.9" y1="182.5" x2="123.9" y2="292" stroke="var(--flag)" stroke-width="1.2" stroke-dasharray="3 3"></line>
+  <circle cx="123.9" cy="182.5" r="4" fill="var(--flag)"></circle>
+  <text x="131.9" y="170.5" fill="var(--flag)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="start" font-weight="600">moneyline, 4.5% &#8212; 2.12 pts</text>
+  <line x1="406.0" y1="273.2" x2="406.0" y2="292" stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="3 3"></line>
+  <circle cx="406.0" cy="273.2" r="4" fill="var(--ink)"></circle>
+  <text x="406.0" y="259.2" fill="var(--ink)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle" font-weight="600">the rung at the number, 50% &#8212; 0.36 pts</text>
+  <text x="710.0" y="48.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">points of spread bought by one cent of price</text>
+  <text x="406.0" y="336.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">the probability being quoted</text>
+</svg></div>
+          <figcaption>The same one-cent tick, valued across the curve. Near the number it barely moves
+          the spread; out where a heavy favourite's moneyline trades it moves it six times as
+          far.</figcaption>
+        </figure>
+
+        <p>So the moneyline is imprecise on this game <em>because</em> it is a blowout, not
+        because the market is thin &mdash; it carries 48,000 contracts of open interest. A cent
+        of quoting noise at 4.5% simply is worth two points of spread. The next step prices
+        that imprecision rather than arguing with it.</p>
+      </div>
+    </li>
+
+    <li class="stage">
+      <div class="stage-n">07</div>
+      <div class="stage-body">
+        <h3>Combine the spreads by precision</h3>
+
+        <p>Two markets now have an opinion about the same number, and they disagree: the
+        ladder says Georgia by 25.56, the moneyline says Georgia by 27.87. Averaging them
+        would be wrong, because one of those readings is far better measured than the other. We want to find a composite spread. Two symbols do the work:</p>
+
+        <div class="calc">
+        &sigma;&nbsp;&nbsp; <span class="c">sigma &mdash; how precisely a market pins the fair spread, in points</span><br>
+        w&nbsp;&nbsp; <span class="c">weight &mdash; 1/&sigma;&sup2;, that market&#39;s share of the vote</span>
+        </div>
+
+        <div class="note">
+          <p><b>Three symbols here, and two of them look alike.</b> Step 5&#39;s
+          <span class="m">W</span> is the width of the <em>game</em>: 9.12 points, how far
+          margins scatter. The <span class="m">prec</span> below is the weight of a
+          <em>quote</em>, and it measures something else entirely &mdash; how much to trust
+          one market against the other. And <span class="m">&sigma;</span> is a third thing
+          again: how far the quotes leave the number itself in doubt. A game can land 16
+          points off a spread that is nonetheless known to a quarter of a point, so a wide
+          game and a sharp price are not in tension.</p>
+        </div>
+
+        <p>Each market's σ is derived from half of the band.&nbsp;</p>
+
+        <div class="calc">
+        <span class="c">step 4 &mdash; the median from bids only vs from asks only</span><br>
+        ladder&nbsp;&nbsp;&nbsp;&nbsp; band 0.4632 pts&nbsp; &sigma; = 0.4632/2 = <span class="out">0.2316</span><br><br>
+        <span class="c">step 6 &mdash; the 4&cent; bid and the 5&cent; ask, converted to points</span><br>
+        moneyline band 2.1311 pts&nbsp; &sigma; = 2.1311/2 = <span class="out">1.0656</span>
+        </div>
+
+        <p>Halving is what turns an interval into a distance: the band runs from one edge to
+        the other, while <span class="m">&sigma;</span> is the distance from the middle out to
+        one edge. Read the two markets as error bars on the same axis:</p>
+
+        <figure>
+          <div class="scroller"><svg viewBox="0 0 760 306" role="img" aria-label="Each market as an estimate with an error bar. The ladder says minus 25.56 give or take 0.23 points. The moneyline says minus 27.87 give or take 1.07 points, a far wider bar. The composite sits at minus 25.66, almost on top of the ladder.">
+  <line x1="470.1" y1="60" x2="511.2" y2="60" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" opacity="0.30"></line>
+  <line x1="470.1" y1="51" x2="470.1" y2="69" stroke="var(--accent)" stroke-width="1.6"></line>
+  <line x1="511.2" y1="51" x2="511.2" y2="69" stroke="var(--accent)" stroke-width="1.6"></line>
+  <circle cx="490.6" cy="60" r="4.4" fill="var(--accent)"></circle>
+  <text x="134.0" y="64.0" fill="var(--accent)" font-family="IBM Plex Mono, monospace" font-size="11.5" text-anchor="end" font-weight="600">ladder</text>
+  <text x="134.0" y="79.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="9.5" text-anchor="end">&#963; = 0.2316</text>
+  <text x="490.6" y="45.0" fill="var(--accent)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">&#8722;25.5600</text>
+  <line x1="191.2" y1="120" x2="380.3" y2="120" stroke="var(--flag)" stroke-width="7" stroke-linecap="round" opacity="0.30"></line>
+  <line x1="191.2" y1="111" x2="191.2" y2="129" stroke="var(--flag)" stroke-width="1.6"></line>
+  <line x1="380.3" y1="111" x2="380.3" y2="129" stroke="var(--flag)" stroke-width="1.6"></line>
+  <circle cx="285.8" cy="120" r="4.4" fill="var(--flag)"></circle>
+  <text x="134.0" y="124.0" fill="var(--flag)" font-family="IBM Plex Mono, monospace" font-size="11.5" text-anchor="end" font-weight="600">moneyline</text>
+  <text x="134.0" y="139.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="9.5" text-anchor="end">&#963; = 1.0656</text>
+  <text x="285.8" y="105.0" fill="var(--flag)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">&#8722;27.8695</text>
+  <line x1="460.9" y1="190" x2="501.9" y2="190" stroke="var(--ink)" stroke-width="7" stroke-linecap="round" opacity="0.30"></line>
+  <line x1="460.9" y1="181" x2="460.9" y2="199" stroke="var(--ink)" stroke-width="1.6"></line>
+  <line x1="501.9" y1="181" x2="501.9" y2="199" stroke="var(--ink)" stroke-width="1.6"></line>
+  <circle cx="481.4" cy="190" r="4.4" fill="var(--ink)"></circle>
+  <text x="134.0" y="194.0" fill="var(--ink)" font-family="IBM Plex Mono, monospace" font-size="11.5" text-anchor="end" font-weight="600">composite</text>
+  <text x="134.0" y="209.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="9.5" text-anchor="end">&#963; = 0.2316</text>
+  <text x="481.4" y="175.0" fill="var(--ink)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">&#8722;25.6642</text>
+  <text x="150.0" y="232.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5">the moneyline&#39;s band is 4.6&#215; wider, so 1/&#963;&#178; gives it 1/21 of the say</text>
+  <line x1="150" y1="252" x2="700" y2="252" stroke="var(--rule)" stroke-width="1"></line>
+  <line x1="185.5" y1="248" x2="185.5" y2="256" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="185.5" y="272.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">&#8722;29</text>
+  <line x1="274.2" y1="248" x2="274.2" y2="256" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="274.2" y="272.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">&#8722;28</text>
+  <line x1="362.9" y1="248" x2="362.9" y2="256" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="362.9" y="272.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">&#8722;27</text>
+  <line x1="451.6" y1="248" x2="451.6" y2="256" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="451.6" y="272.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">&#8722;26</text>
+  <line x1="540.3" y1="248" x2="540.3" y2="256" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="540.3" y="272.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">&#8722;25</text>
+  <line x1="629.0" y1="248" x2="629.0" y2="256" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="629.0" y="272.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">&#8722;24</text>
+  <text x="425.0" y="294.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">the fair spread, in points &#8212; Arkansas&#39;s side</text>
+</svg></div>
+          <figcaption>Both markets are estimating one quantity. The ladder&#39;s bar is narrow, the
+          moneyline&#39;s is 4.6 times wider, and the composite lands almost on top of the
+          narrow one.</figcaption>
+        </figure>
+
+        <p>Now the weighting. Precision is <span class="m">1/&sigma;&sup2;</span>, and the
+        square is not decoration: it is what makes a market 4.6 times sharper count
+        <strong>21 times</strong> as much rather than 4.6 times. That is the weighting that
+        minimises the error of the blend when two noisy readings measure the same quantity.</p>
+
+        <div class="calc">
+        <span class="c">each market&#39;s precision, from its own &sigma;</span><br>
+        ladder&nbsp;&nbsp;&nbsp;&nbsp; &sigma; = 0.2316&nbsp; prec = 1/0.2316&sup2; = <span class="out">18.6427</span><br>
+        moneyline &sigma; = 1.0656&nbsp; prec = 1/1.0656&sup2; = <span class="out">&nbsp;0.8807</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total = <span class="out">19.5234</span><br><br>
+        <span class="c">the composite is their average, weighted by prec</span><br>
+        (18.6427 &times; &minus;25.5600) + (0.8807 &times; &minus;27.8695)&nbsp; =&nbsp; &minus;501.0274<br>
+        &minus;501.0274 / 19.5234 = <span class="out">&minus;25.6642</span>
+        </div>
+
+        <p>In this case, the moneyline's implied spread of -27.86 is way less impactful on the composite than the spread ladders -25.5 spread. On a close
+        game, the moneyline's implied spread will have more of an impact on the composite spread.</p>
+
+        <p>&nbsp;One number remains, the composite's own σ, which step 8 needs. The tool keeps the best input's σ and claims no
+        improvement it cannot justify:</p>
+
+        <div class="calc">
+        &sigma; = min(0.2316, 1.0656) = <span class="out">0.2316</span>
+        </div>
+      </div>
+    </li>
+
+    <li class="stage">
+      <div class="stage-n">08</div>
+      <div class="stage-body">
+        <h3>Weigh in Vegas's line</h3>
+
+        <p><strong>Why shrink toward the very number you are betting against?</strong> Because
+        the alternative is a worse assumption. Giving Vegas no weight is a standing claim that
+        on every game a Kalshi ladder knows something a much larger, older and more
+        specialized market has missed. Letting it in makes the tool demand evidence in
+        proportion to how sharp Kalshi actually is: a razor-tight ladder overrides Vegas
+        almost entirely, a loose one barely moves off it.&nbsp;</p>
+
+        <p>Vegas enters with an <em>assumed</em> &sigma; of 1.5 points, the one number in this
+        whole chain that is not measured from quotes. Closing CFB spreads sit within roughly a
+        point of true consensus, so 1.5 is deliberately loose: informative enough to catch a
+        lone bad Kalshi read, weak enough that a tight ladder dominates it.</p>
+
+        <div class="calc">
+        <span class="c">both sides weighted on the same definition of &sigma;</span><br>
+        composite &sigma; = 0.2316&nbsp;&nbsp;<span class="c">from step 7</span><br>
+        Vegas &sigma;&nbsp;&nbsp;&nbsp;&nbsp; = 1.5000&nbsp;&nbsp;<span class="c">assumed</span><br><br>
+        k = (1/0.2316&sup2;) / (1/0.2316&sup2; + 1/1.5&sup2;)<br>
+        &nbsp;&nbsp;= 18.6433 / (18.6433 + 0.4444) = <span class="out">0.9767</span><br><br>
+        estimate = 0.9767 &times; &minus;25.6642 + 0.0233 &times; &minus;24.5<br>
+        <span class="out">estimate = &minus;25.6371</span>
+        </div>
+<p>Step 3 gave −25.56: the spread ladders implied spread. The moneyline pushed it out to −25.66, and Vegas
+        pulled 2.3% of the way back, to −25.64. Both moves are small, and for the same
+        reason: every opinion arrives weighted by its own precision, and on a Tight market the
+        ladder is much sharper.</p>
+
+        <p>Then three gates, in order, any one of which ends it.</p>
+
+        <div class="calc">
+        <span class="c">1. is the line inside the market&#39;s own band?</span><br>
+        &minus;24.5 vs [&minus;25.794, &minus;25.331] &nbsp;&mdash;&nbsp; outside by 0.83, continue
+        </div>
+
+        <p>That interval is not built around the estimate. It <em>is</em> step 4's two
+        crossings: the median implied by bids only, and the median implied by asks only. Had Vegas's line sat in between the bid/ask spread of Kalshi's market, the apparent disagreement would have been smaller than the
+        cost of dealing — nothing to bet even if the direction were right.
+        −24.5 sits 0.83 points outside, so the disagreement is real rather than
+        bookkeeping.</p>
+
+        <div class="calc">
+        <span class="c">2. is the edge bigger than the vig?</span><br>
+        edge = &minus;25.6371 &minus; (&minus;24.5) = <span class="out">&minus;1.1371</span><br>
+        1.1371 &ge; 1.0 &nbsp;&mdash;&nbsp; continue
+        </div>
+
+        <p>Gate 1 only established that the two markets disagree. This one asks whether the
+        disagreement is large enough to pay for the bet.&nbsp;</p>
+
+        <div class="calc">
+        <span class="c">3. how big, and is the market good enough to say so?</span><br>
+        1.1371 &lt; 2.0 &nbsp;=&gt;&nbsp; <span class="out">lean</span>
+        </div>
+
+        <p>The last gate sizes the call — under 2 points a lean, 2 to 3.5 a solid, above
+        that a strong — and caps it. A Loose market cannot produce anything above a lean
+        however large the edge looks, because that edge was measured against a number the
+        market itself is unsure of.&nbsp;</p>
+
+        <div class="calc">
+        <span class="c">and the cover probability, off the fitted distribution</span><br>
+        P(Arkansas covers &minus;24.5) = 1 / (1 + e^((&minus;24.5 &minus; &minus;25.6371)/9.1224))<br>
+        &nbsp;&nbsp;= 0.4689<br>
+        <span class="out">P(Georgia covers &minus;24.5) = 53.1%</span>
+        </div>
+      </div>
+    </li>
+  </ol>
+
+  <div class="verdict">
+    <div class="eyebrow">the pick</div>
+    <p style="margin:0"><strong>Georgia &minus;24.5 &mdash; lean.</strong> Two Kalshi markets
+    put the fair number at Georgia by 25.7; Vegas offers 24.5. A 1.14-point edge, worth 53.1%
+    to cover against the 52.4% a &minus;110 line demands. Thin &mdash; which is exactly why it
+    is a lean and not a strong.</p>
+  </div>
+
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">What it is worth</div>
+    <h2>Pricing the cover probability - in depth.</h2>
+  </div>
+
+  <p>Step 8 calculates Georgia by 25.64: an edge of
+  <strong>1.14 points</strong>. Step 5 already fixed the exchange rate — 2.74 percentage
+  points of win probability per point of spread — so converting that edge is one line:</p>
+
+  <div class="calc">
+  chance of covering &asymp; 50% + (edge in points) &times; (per point)<br><br>
+  &nbsp;= 50% + 1.14 &times; 2.74%<br>
+  &nbsp;= <span class="out">53.11%</span>&nbsp;&nbsp;<span class="c">the exact logistic also gives 53.11%</span>
+  </div>
+
+  <p>So Georgia covers −24.5 about 53.11% of the time according to this tool. The only question left is what
+  the bet costs. A <span class="m">−110</span> price means risking $110 to win
+  $100, so it breaks even at:</p>
+
+  <div class="calc">
+  p &times; 100 = (1 &minus; p) &times; 110&nbsp;&nbsp;=&gt;&nbsp;&nbsp;210p = 110<br>
+  <span class="out">p = 110 / 210 = 52.38%</span>
+  </div>
+
+  <p>53.11% against 52.38%. The bet is on, by three quarters of a percentage point.&nbsp;53.11% is fair value at −113, so −110 is worth taking and
+  anything shorter than −113 is not:</p>
+
+  <div class="calc">
+  <span class="c">fair price for a 53.11% chance</span><br>
+  american odds = &minus;(0.5311 / 0.4689) &times; 100 = <span class="out">&minus;113</span><br><br>
+  &minus;110 offered&nbsp; needs 52.38%&nbsp; have 53.11% &nbsp;&mdash;&nbsp; <span class="out">bet</span><br>
+  &minus;115 offered&nbsp; needs 53.49%&nbsp; have 53.11% &nbsp;&mdash;&nbsp; <span class="out">no bet</span>
+  </div>
+
+  <p>Three quarters of a point of probability is a thin margin, and it is thin because the
+  edge is thin &mdash; not because anything upstream is shaky. That is precisely what a
+  <em>lean</em> means, and why two points of the same edge would be a solid.</p>
+
+  <p><b>NOTE:</b>&nbsp;Kalshi's market fees are not incorporated into this tool.</p>
+
+  <h3>How much does one far rung actually matter?</h3>
+
+  <p>The rung at
+  <span class="m">x = −41.5</span> is the market saying Georgia wins by 42-plus about
+  15% of the time. Reprice it by a full ten cents, a large move on a market quoting 15¢,
+  and refit across all 24 rungs:</p>
+
+  <div class="calc">
+  <span class="c">-41.5 as quoted, 15c -> W = 9.12 -> 2.74%/pt -> cover 53.11%</span> <span class="out">BET</span><br>
+  <span class="c">-41.5 at 20c         -> W = 9.21 -> 2.71%/pt -> cover 53.08%</span> <span class="out">BET</span><br>
+  <span class="c">-41.5 at 25c         -> W = 9.28 -> 2.69%/pt -> cover 53.06%</span> <span class="out">BET</span>
+  </div>
+
+  <p>Ten cents on one rung moves the width by 0.16 and the cover chance by five hundredths
+  of a percentage point. No single quote can hijack the answer, which is precisely what
+  fitting across every rung and shrinking toward a prior bought. Read the width off two
+  adjacent rungs instead and those same ten cents would <em>be</em> the answer.</p>
+
+  <p>What does decide it is the far rungs moving <strong>together</strong>: the market
+  repricing how wild the game could get, rather than one strike drifting.</p>
+
+  <div class="calc">
+  <span class="c">every rung 10+ pts out,  3c wider -> W = 10.06 -> 2.49%/pt -> cover 52.82%</span> <span class="out">BET</span><br>
+  <span class="c">every rung 10+ pts out,  8c wider -> W = 11.82 -> 2.12%/pt -> cover 52.40%</span> <span class="out">BET, barely</span><br>
+  <span class="c">every rung 10+ pts out, 12c wider -> W = 12.00 -> 2.08%/pt -> cover 52.37%</span> <span class="out">no bet</span>
+  </div>
+
+  <p>The edge never moved in any of those rows — 1.14 points throughout. Only the bar
+  did. And on the last row <span class="m">W</span> stopped at 12.00 because that is the tool's built in clamp,&nbsp; a sign the
+  ladder had stopped describing a football game.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">The other 23 markets</div>
+    <h2>Is another rung a better bet?</h2>
+  </div>
+
+  <p>Everything so far judged a single number. But the ladder is not one market &mdash; it is
+  24 separate outright markets, each with its own bid, ask and question. &ldquo;Georgia by
+  more than 35.5&rdquo; is a real tradeable contract at 23&cent;. The same two ingredients
+  price every one of them.</p>
+
+  <h3>The recipe, on one rung</h3>
+
+  <p>Take the rung at <span class="m">35.5</span>. Three lines:</p>
+
+  <div class="calc">
+  <span class="c">1. the edge: how far our number clears this rung, in points</span><br>
+  edge = 25.6371 &minus; 35.5 = <span class="out">&minus;9.86 pts</span><br>
+  <span class="c">negative: our number falls 9.86 short of 35.5</span><br><br>
+  <span class="c">2. edge into probability, at 2.74%/pt</span><br>
+  chance = 50% + (&minus;9.86 &times; 2.74%) = <span class="out">23.0%</span><br>
+  <span class="c">exact logistic: 1/(1 + e^(9.86/9.1224)) = 25.33%</span><br><br>
+  <span class="c">3. what the market charges for the same claim</span><br>
+  ask = 23&cent; &nbsp;=&gt;&nbsp; break-even 23.0%, quoted as <span class="out">+335</span><br><br>
+  <span class="c">25.33% against a 23.0% break-even</span><br>
+  edge = <span class="out">+2.33&cent; per contract</span>
+  </div>
+
+  <p>A Kalshi price <em>is</em> a probability, which removes a step: a 23&cent; ask means the
+  contract must hit more than 23% of the time to profit. No vig conversion, no odds
+  arithmetic &mdash; compare the number to the price.</p>
+
+  <h3>Where the per-point shortcut stops working</h3>
+
+  <p><span class="m">1/(4W)</span> is the slope of the curve <em>at the median</em>. The curve
+  flattens away from there, so the linear rule overstates every step it takes into the tail.
+  Within three points of the number the two agree to within 0.03 of a percentage point. By
+  twelve points out the gap is four points of probability, and from the 6.5 rung inward the
+  rule returns numbers above 100%, which is simply nonsense:</p>
+
+  <div class="scroller">
+    <table>
+      <thead><tr><th>rung</th><th>edge (pts)</th><th>per-point rule</th><th>exact</th><th>Kalshi ask</th><th>as odds</th><th>gap (&cent;)</th></tr></thead>
+      <tbody>
+<tr class="deep"><td>41.5</td><td>-15.86</td><td>6.5%</td><td>14.95%</td><td>17&cent;</td><td>+488</td><td>-2.05</td></tr>
+<tr class="deep"><td>38.5</td><td>-12.86</td><td>14.7%</td><td>19.62%</td><td>18&cent;</td><td>+456</td><td>+1.62</td></tr>
+<tr><td>35.5</td><td>-9.86</td><td>23.0%</td><td>25.33%</td><td>23&cent;</td><td>+335</td><td>+2.33</td></tr>
+<tr><td>33.5</td><td>-7.86</td><td>28.5%</td><td>29.69%</td><td>29&cent;</td><td>+245</td><td>+0.69</td></tr>
+<tr><td>30.5</td><td>-4.86</td><td>36.7%</td><td>36.98%</td><td>36&cent;</td><td>+178</td><td>+0.98</td></tr>
+<tr><td>27.5</td><td>-1.86</td><td>44.9%</td><td>44.91%</td><td>46&cent;</td><td>+117</td><td>-1.09</td></tr>
+<tr class="top"><td>24.5</td><td>+1.14</td><td>53.1%</td><td>53.11%</td><td>53&cent;</td><td>&minus;113</td><td>+0.11</td></tr>
+<tr><td>23.5</td><td>+2.14</td><td>55.9%</td><td>55.83%</td><td>56&cent;</td><td>&minus;127</td><td>-0.17</td></tr>
+<tr><td>21.5</td><td>+4.14</td><td>61.3%</td><td>61.15%</td><td>60&cent;</td><td>&minus;150</td><td>+1.15</td></tr>
+<tr><td>20.5</td><td>+5.14</td><td>64.1%</td><td>63.72%</td><td>64&cent;</td><td>&minus;178</td><td>-0.28</td></tr>
+<tr><td>17.5</td><td>+8.14</td><td>72.3%</td><td>70.93%</td><td>71&cent;</td><td>&minus;245</td><td>-0.07</td></tr>
+<tr><td>16.5</td><td>+9.14</td><td>75.0%</td><td>73.14%</td><td>73&cent;</td><td>&minus;270</td><td>+0.14</td></tr>
+<tr class="deep"><td>14.5</td><td>+11.14</td><td>80.5%</td><td>77.22%</td><td>77&cent;</td><td>&minus;335</td><td>+0.22</td></tr>
+<tr class="deep"><td>13.5</td><td>+12.14</td><td>83.3%</td><td>79.09%</td><td>79&cent;</td><td>&minus;376</td><td>+0.09</td></tr>
+<tr class="deep"><td>11.5</td><td>+14.14</td><td>88.7%</td><td>82.49%</td><td>82&cent;</td><td>&minus;456</td><td>+0.49</td></tr>
+<tr class="deep"><td>10.5</td><td>+15.14</td><td>91.5%</td><td>84.01%</td><td>84&cent;</td><td>&minus;525</td><td>+0.01</td></tr>
+<tr class="deep"><td>9.5</td><td>+16.14</td><td>94.2%</td><td>85.43%</td><td>86&cent;</td><td>&minus;614</td><td>-0.57</td></tr>
+<tr class="deep"><td>7.5</td><td>+18.14</td><td>99.7%</td><td>87.96%</td><td>89&cent;</td><td>&minus;809</td><td>-1.04</td></tr>
+<tr class="deep"><td>6.5</td><td>+19.14</td><td><span style='color:var(--flag)'>102.4%</span></td><td>89.07%</td><td>90&cent;</td><td>&minus;900</td><td>-0.93</td></tr>
+<tr class="deep"><td>5.5</td><td>+20.14</td><td><span style='color:var(--flag)'>105.2%</span></td><td>90.09%</td><td>90&cent;</td><td>&minus;900</td><td>+0.09</td></tr>
+<tr class="deep"><td>4.5</td><td>+21.14</td><td><span style='color:var(--flag)'>107.9%</span></td><td>91.03%</td><td>90&cent;</td><td>&minus;900</td><td>+1.03</td></tr>
+<tr class="deep"><td>3.5</td><td>+22.14</td><td><span style='color:var(--flag)'>110.7%</span></td><td>91.88%</td><td>92&cent;</td><td>&minus;1150</td><td>-0.12</td></tr>
+<tr class="deep"><td>2.5</td><td>+23.14</td><td><span style='color:var(--flag)'>113.4%</span></td><td>92.66%</td><td>93&cent;</td><td>&minus;1329</td><td>-0.34</td></tr>
+<tr class="deep"><td>1.5</td><td>+24.14</td><td><span style='color:var(--flag)'>116.1%</span></td><td>93.38%</td><td>93&cent;</td><td>&minus;1329</td><td>+0.38</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Shaded rows are where the shortcut has drifted more than three points of probability from
+  the truth. Use the exact logistic for anything past the rungs immediately around the number;
+  keep the per-point rule for the main line, where it is exact enough and far easier to hold
+  in your head.</p>
+
+  <p>The last column is <span class="m">exact &minus; ask</span>. Positive means the
+  contract is worth more than it costs, so you would buy the YES: <strong>14 of the 24
+  rungs</strong> show that.</p>
+
+  <p>A negative number is <em>not</em> the mirror of it, and there are ten of them. All it
+  says is that the model sits below the ask &mdash; and on nine of those ten it is still
+  <em>above the bid</em>, which puts it inside the spread, where neither side is a trade.
+  Selling needs the model below the <strong>bid</strong>, not merely below the ask, and
+  exactly one rung manages that:</p>
+
+  <div class="scroller">
+    <table>
+      <thead><tr><th>where the model sits</th><th>rungs</th><th>what it means</th></tr></thead>
+      <tbody>
+        <tr><td>above the ask</td><td>14</td><td>buy YES</td></tr>
+        <tr><td>below the bid</td><td>1</td><td>buy NO &mdash; the 27.5 rung, 44.91% against a 45&cent; bid</td></tr>
+        <tr class="deep"><td>between bid and ask</td><td>9</td><td>nothing to do</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Which is why the chart below re-centres on the mid rather than the ask: it is the one
+  view where both kinds of opportunity, and the nine non-opportunities, read off the same
+  axis.</p>
+
+  <h3>Visualized:</h3>
+
+  <p>Both of those tests are one test, and it draws better re-centered on the mid price. A gap
+  wider than half the bid–ask is exactly a row where the model beats the ask or undercuts
+  the bid; a gap inside it is a row where the model sits between the two and there is nothing
+  to do:</p>
+
+  <figure>
+    <div class="scroller"><svg viewBox="0 0 760 278" role="img" aria-label="For each of the 24 rungs, the gap between the fitted curve and the market mid price, in cents, against a shaded band of half the bid-ask spread. Fifteen gaps clear the band; the largest is under three cents.">
+  <line x1="74" y1="196.2" x2="726" y2="196.2" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="66.0" y="199.7" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="9.5" text-anchor="end">-4&#162;</text>
+  <line x1="74" y1="158.1" x2="726" y2="158.1" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="66.0" y="161.6" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="9.5" text-anchor="end">-2&#162;</text>
+  <line x1="74" y1="120.0" x2="726" y2="120.0" stroke="var(--rule)" stroke-width="1.4"></line>
+  <text x="66.0" y="123.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="9.5" text-anchor="end">0</text>
+  <line x1="74" y1="81.9" x2="726" y2="81.9" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="66.0" y="85.4" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="9.5" text-anchor="end">+2&#162;</text>
+  <line x1="74" y1="43.8" x2="726" y2="43.8" stroke="var(--rule)" stroke-width="1"></line>
+  <text x="66.0" y="47.3" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="9.5" text-anchor="end">+4&#162;</text>
+  <path d="M87.6,81.9 L114.8,101.0 L141.9,110.5 L169.1,110.5 L196.2,110.5 L223.4,110.5 L250.6,110.5 L277.8,110.5 L304.9,110.5 L332.1,110.5 L359.2,91.4 L386.4,101.0 L413.6,91.4 L440.8,101.0 L467.9,101.0 L495.1,101.0 L522.2,81.9 L549.4,81.9 L576.6,101.0 L603.8,101.0 L630.9,110.5 L658.1,110.5 L685.2,110.5 L712.4,110.5 L712.4,129.5 L685.2,129.5 L658.1,129.5 L630.9,129.5 L603.8,139.0 L576.6,139.0 L549.4,158.1 L522.2,158.1 L495.1,139.0 L467.9,139.0 L440.8,139.0 L413.6,148.6 L386.4,139.0 L359.2,148.6 L332.1,129.5 L304.9,129.5 L277.8,129.5 L250.6,129.5 L223.4,129.5 L196.2,129.5 L169.1,129.5 L141.9,129.5 L114.8,139.0 L87.6,158.1 Z" fill="var(--ink)" opacity="0.08"></path>
+  <rect x="81.0" y="120.0" width="13.2" height="1.0" fill="var(--accent)" opacity="0.45"></rect>
+  <text x="87.6" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">41.5</text>
+  <rect x="108.2" y="70.0" width="13.2" height="50.0" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="114.8" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">38.5</text>
+  <rect x="135.3" y="66.1" width="13.2" height="53.9" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="141.9" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">35.5</text>
+  <rect x="162.5" y="97.3" width="13.2" height="22.7" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="169.1" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">33.5</text>
+  <rect x="189.7" y="91.8" width="13.2" height="28.2" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="196.2" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">30.5</text>
+  <rect x="216.8" y="120.0" width="13.2" height="11.2" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="223.4" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">27.5</text>
+  <rect x="244.0" y="108.3" width="13.2" height="11.7" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="250.6" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">24.5</text>
+  <rect x="271.1" y="113.7" width="13.2" height="6.3" fill="var(--accent)" opacity="0.45"></rect>
+  <text x="277.8" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">23.5</text>
+  <rect x="298.3" y="88.6" width="13.2" height="31.4" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="304.9" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">21.5</text>
+  <rect x="325.5" y="115.9" width="13.2" height="4.1" fill="var(--accent)" opacity="0.45"></rect>
+  <text x="332.1" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">20.5</text>
+  <rect x="352.6" y="92.8" width="13.2" height="27.2" fill="var(--accent)" opacity="0.45"></rect>
+  <text x="359.2" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">17.5</text>
+  <rect x="379.8" y="98.3" width="13.2" height="21.7" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="386.4" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">16.5</text>
+  <rect x="407.0" y="87.2" width="13.2" height="32.8" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="413.6" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">14.5</text>
+  <rect x="434.1" y="99.2" width="13.2" height="20.8" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="440.8" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">13.5</text>
+  <rect x="461.3" y="91.7" width="13.2" height="28.3" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="467.9" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">11.5</text>
+  <rect x="488.5" y="100.7" width="13.2" height="19.3" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="495.1" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">10.5</text>
+  <rect x="515.6" y="92.7" width="13.2" height="27.3" fill="var(--accent)" opacity="0.45"></rect>
+  <text x="522.2" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">9.5</text>
+  <rect x="542.8" y="101.8" width="13.2" height="18.2" fill="var(--accent)" opacity="0.45"></rect>
+  <text x="549.4" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">7.5</text>
+  <rect x="570.0" y="118.7" width="13.2" height="1.3" fill="var(--accent)" opacity="0.45"></rect>
+  <text x="576.6" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">6.5</text>
+  <rect x="597.1" y="99.2" width="13.2" height="20.8" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="603.8" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">5.5</text>
+  <rect x="624.3" y="90.9" width="13.2" height="29.1" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="630.9" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">4.5</text>
+  <rect x="651.5" y="112.7" width="13.2" height="7.3" fill="var(--accent)" opacity="0.45"></rect>
+  <text x="658.1" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">3.5</text>
+  <rect x="678.6" y="116.9" width="13.2" height="3.1" fill="var(--accent)" opacity="0.45"></rect>
+  <text x="685.2" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">2.5</text>
+  <rect x="705.8" y="103.3" width="13.2" height="16.7" fill="var(--flag)" opacity="0.95"></rect>
+  <text x="712.4" y="218.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">1.5</text>
+  <text x="74.0" y="26.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10.5">fitted curve minus market mid, in cents</text>
+  <text x="726.0" y="26.0" fill="var(--flag)" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="end">15 of 24 clear the bid&#8211;ask</text>
+  <text x="400.0" y="240.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="middle">rung &#8212; &#8220;Georgia by more than this&#8221;</text>
+  <rect x="74" y="258" width="16" height="9" fill="var(--ink)" opacity="0.08"></rect>
+  <text x="96.0" y="266.0" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10">shaded: half the bid&#8211;ask. A gap inside it is not a trade &#8212; it is the cost of dealing.</text>
+</svg></div>
+    <figcaption>Each rung&#39;s gap between the fitted curve and the market mid, against a
+    shaded band of half the bid&ndash;ask. Bars inside the band are not opportunities &mdash;
+    they are narrower than the cost of trading.</figcaption>
+  </figure>
+
+  <p><strong>Fifteen of the 24 rungs show a gap wider than half the bid&ndash;ask</strong>, and
+  the largest is 2.83&cent;, at the 35.5 rung. Nothing about that is a windfall: the board&#39;s
+  <span class="m">scale_residual</span> for this game is 2.67&cent;, the same misfit measured
+  from the ladder&#39;s own median instead of the Vegas-shrunk estimate. The apparent
+  opportunities and the misfit are one measurement, not two.</p>
+
+  <p>And the main rung makes the point sharply. Kalshi asks 53&cent; for &ldquo;Georgia by more
+  than 24.5&rdquo; &mdash; the identical bet the tool likes at Vegas &minus;110:</p>
+
+  <div class="calc">
+  <span class="c">our number</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 53.11%<br>
+  <span class="c">Vegas &minus;110</span>&nbsp;&nbsp; needs 52.38% &nbsp;&mdash;&nbsp; clears by <span class="out">0.73 pts</span><br>
+  <span class="c">Kalshi 53&cent;</span>&nbsp;&nbsp;&nbsp; needs 53.00% &nbsp;&mdash;&nbsp; clears by <span class="out">0.11 pts</span>&nbsp;&nbsp;<span class="c">= &minus;113</span>
+  </div>
+
+  <p>Same game, same side, same estimate. Three cents of extra price eats 85% of the edge, and
+  a one-cent-wider quote would erase it outright. What you pay is not a detail on top of the
+  analysis; on a lean it is most of the analysis.</p>
+
+  <h3>The cost of dealing is not flat</h3>
+
+  <p>On Kalshi nobody pays &minus;110; they pay the bid&ndash;ask. Buy the YES at the ask and
+  the NO at the bid on a one-cent rung and the two sides sum to 101&cent;: a <strong>1%
+  overround</strong>, against 104.76% for a pair of &minus;110 sportsbook prices.</p>
+
+  <div class="scroller">
+    <table>
+      <thead><tr><th>rung</th><th>bid</th><th>ask</th><th>spread</th><th>overround</th><th>vs &minus;110</th></tr></thead>
+      <tbody><tr class="deep"><td>41.5</td><td>0.13</td><td>0.17</td><td>4&cent;</td><td>4.0%</td><td>0.84&times;</td></tr><tr class="deep"><td>38.5</td><td>0.16</td><td>0.18</td><td>2&cent;</td><td>2.0%</td><td>0.42&times;</td></tr><tr><td>35.5</td><td>0.22</td><td>0.23</td><td>1&cent;</td><td>1.0%</td><td>0.21&times;</td></tr><tr><td>27.5</td><td>0.45</td><td>0.46</td><td>1&cent;</td><td>1.0%</td><td>0.21&times;</td></tr><tr class="top"><td>24.5</td><td>0.52</td><td>0.53</td><td>1&cent;</td><td>1.0%</td><td>0.21&times;</td></tr><tr><td>21.5</td><td>0.59</td><td>0.60</td><td>1&cent;</td><td>1.0%</td><td>0.21&times;</td></tr><tr class="deep"><td>7.5</td><td>0.85</td><td>0.89</td><td>4&cent;</td><td>4.0%</td><td>0.84&times;</td></tr><tr><td>2.5</td><td>0.92</td><td>0.93</td><td>1&cent;</td><td>1.0%</td><td>0.21&times;</td></tr></tbody>
+    </table>
+  </div>
+
+  <p>Most of this ladder costs about a fifth of what a Vegas spread costs &mdash; but the rungs
+  that showed the biggest gaps are the wide ones. <strong>The cheap rungs are the busy ones
+  near the number; the far ones wanted for a tail bet are the expensive ones</strong>, market
+  makers charging for risk nobody else wants.</p>
+
+  <div class="note">
+    <p><b>And the naive version of this trade is circular, fatally so.</b> A Kalshi rung cannot
+    be bet on the strength of a curve fitted to Kalshi rungs. The model <em>is</em> the market,
+    smoothed, so every gap in that chart is the smoothing disagreeing with the prices it was
+    built from. The logistic is a 3.7&cent; approximation on a typical ladder, nearly six times
+    the noise floor &mdash; so a 2.67&cent; gap is far likelier to be the model being wrong than
+    the market being wrong.</p>
+  </div>
+
+  <p>Where the comparison is <em>not</em> circular is what the tool actually does: bet a
+  <strong>Vegas</strong> number using Kalshi as the signal. Two venues, two independently
+  formed prices, and the disagreement means something.</p>
+
+  <p>Which points at a real extension. Sportsbooks sell <strong>alternate lines</strong>
+  &mdash; Georgia &minus;21.5 at &minus;140, Georgia &minus;31.5 at +150. Those are Vegas
+  prices out at the far rungs, so comparing them against the Kalshi-fitted curve is not
+  circular, and it is exactly the region where the fit has most to say. At present the tool
+  compares only at the main number, spending a twenty-four-rung ladder to judge one number a
+  week.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">How far to trust it</div>
+    <h2>The fit residual</h2>
+  </div>
+
+  <p>Two parameters standing in for a whole market is a claim, and every game now ships the
+  evidence: <span class="m">scale_residual</span>, the worst gap between the fitted curve and
+  the strikes it came from. On this ladder it is <strong>0.0267</strong> &mdash; nowhere in
+  the 5&ndash;95&cent; window does the fitted curve sit more than 2.7 cents from the market.</p>
+
+  <p>A residual only means something against a floor, so: generate prices from an
+  <em>exact</em> logistic, degrade them the way Kalshi degrades everything &mdash; round to
+  1&cent; ticks, add a realistic spread &mdash; and push them through the same pipeline.</p>
+
+  <div class="calc">
+  <span class="c">prices from a known logistic, ticked and spread</span><br>
+  residual = 0.006 &nbsp;<span class="c">&larr; the machinery measuring itself</span><br><br>
+  <span class="c">real Kalshi ladders</span><br>
+  <span class="out">residual = 0.037 median &nbsp;(5.8&times; the floor)</span>
+  </div>
+
+  <div class="note">
+    <p><b>College football margins are not actually logistic.</b> The deviation is nearly six
+    times what tick rounding and spreads can explain, and in half the games the worst miss
+    sits at the median rather than out in the tails. That is real shape, not noise.</p>
+  </div>
+
+  <p>Worth stating plainly, because it bounds the claim. Near the number 3&cent; of
+  probability is roughly a point of spread, so cover chance and the moneyline conversion
+  carry about that much model error. It is an approximation, and a bounded one: every card
+  prints its own residual rather than assuming the question away.</p>
+
+  <p>That number replaced a 140-value survival table each game used to ship purely so the
+  browser could look the curve up. Cover chance is now closed form from a centre and a scale,
+  nothing read the table, and dropping it took the payload from 131&nbsp;KB to 101&nbsp;KB.</p>
+</section>
+
+<p class="foot">Every figure is one live snapshot of Georgia at Arkansas, 16 September 2026,
+checked against the running pipeline &mdash; the survival points, the scale fit, the
+composite, the shrinkage and the cover probability all reproduce its published output
+exactly. Rebuild them from the ladder table and you will match to the last decimal, with the
+single documented exception of the median in step 3.</p>
+
+</div>
+
+</body>
+</html>

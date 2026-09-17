@@ -73,6 +73,21 @@ body {
 h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
 .freshness { display: flex; gap: 12px; align-items: baseline; font-size: 13px; flex-wrap: wrap; }
 .deadline { color: var(--warn); font-weight: 600; }
+.titleactions { display: flex; gap: 8px 16px; align-items: baseline; flex-wrap: wrap; }
+/* Not a .tab: app.js binds every .tab in the document and clicks them by
+   data-tab, so a link wearing that class would be caught by the board. */
+.docslink {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 550;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+.docslink:hover { color: var(--ink); border-color: var(--muted); }
+.docslink:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* -------------------------------------------------------------- accuracy */
 
@@ -377,6 +392,8 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
 .foot p { margin: 0 0 10px; max-width: 68ch; }
 
 @media (max-width: 700px) {
+  .titlebar { align-items: flex-start; }
+  .titleactions { flex-direction: column; align-items: flex-start; gap: 6px; }
   .sig { grid-template-columns: 1fr auto; row-gap: 2px; }
   .sig-sd, .sig-w { grid-column: span 1; }
   .acc-tr { grid-template-columns: 1fr 62px 62px 44px; font-size: 12px; }
