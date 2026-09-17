@@ -153,6 +153,7 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
 .pick-game { font-weight: 600; }
 .pick-call { font-family: var(--mono); color: var(--accent); }
 .pick-meta { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+.pick-stale { color: var(--bad); }
 .pick-out { display: grid; gap: 2px; justify-items: end; text-align: right; }
 .pick-res { font-size: 10.5px; font-weight: 700; letter-spacing: .05em; }
 .pick-res.win { color: var(--good); }

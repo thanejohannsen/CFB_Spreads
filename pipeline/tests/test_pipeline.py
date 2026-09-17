@@ -328,6 +328,74 @@ def _payload(margin, line, side, kickoff, game_id="G1", tier="A"):
     }
 
 
+class TestUnfiredLocksStayOutOfTheRecord(unittest.TestCase):
+    """The bug: record() refreshes a lock on every run until its moment passes,
+    so before the deadline what is stored is a live preview of what WOULD lock,
+    not a commitment. The records showed those as picks -- the "Thursday noon"
+    tab listing a game on Thursday morning, and the "Final (T-1h)" tab listing
+    two games two days before kickoff, from snapshots taken 55 hours out."""
+
+    def setUp(self):
+        self.dir = tempfile.mkdtemp()
+        self.kickoff = datetime.datetime(2026, 9, 12, 23, 0, tzinfo=UTC)
+        self.before = datetime.datetime(2026, 9, 9, 12, 0, tzinfo=UTC)
+        grade_history.record(_payload(5.0, 3.0, "home", self.kickoff),
+                             history_dir=self.dir, now=self.before)
+        self.entry = grade_history.load_week("2026-09-12", self.dir)["games"]["G1"]
+
+    def _log(self, now):
+        real = grade_history.datetime.datetime
+        try:
+            class Frozen(real):
+                @classmethod
+                def now(cls, tz=None):
+                    return now
+            grade_history.datetime.datetime = Frozen
+            return grade_history.pick_log(self.dir)["entries"]
+        finally:
+            grade_history.datetime.datetime = real
+
+    def test_the_moments_are_the_ones_the_records_are_named_for(self):
+        self.assertEqual(grade_history.lock_moment(self.entry, "decision"),
+                         weeks.decision_deadline(self.kickoff))
+        self.assertEqual(grade_history.lock_moment(self.entry, "final"),
+                         weeks.final_lock(self.kickoff))
+
+    def test_a_lock_that_has_not_fired_is_not_a_record_entry(self):
+        records = {e["record"] for e in self._log(self.before)}
+        self.assertNotIn("thursday_all", records)
+        self.assertNotIn("headline", records)
+
+    def test_it_appears_once_its_own_moment_passes(self):
+        after_thursday = weeks.decision_deadline(self.kickoff) + datetime.timedelta(minutes=1)
+        records = {e["record"] for e in self._log(after_thursday)}
+        self.assertIn("thursday_all", records,
+                      "the decision lock has fired; it is a commitment now")
+        self.assertNotIn("headline", records,
+                         "the T-1h lock has not fired, so it is still a preview")
+
+        after_final = weeks.final_lock(self.kickoff) + datetime.timedelta(minutes=1)
+        self.assertIn("headline", {e["record"] for e in self._log(after_final)})
+
+    def test_a_tally_ignores_unfired_locks_too(self):
+        self.assertFalse(grade_history._in_scope(self.entry, "final", None, self.before))
+        self.assertTrue(grade_history._in_scope(
+            self.entry, "final", None,
+            weeks.final_lock(self.kickoff) + datetime.timedelta(minutes=1)))
+
+    def test_how_early_a_snapshot_was_taken_is_reported(self):
+        """Michigan St. vs Notre Dame locked 12h before Thursday noon, because
+        it had fallen out of the slate and record() stopped seeing it. The
+        number has to reach the page or the record silently misrepresents
+        itself."""
+        after = weeks.decision_deadline(self.kickoff) + datetime.timedelta(minutes=1)
+        entry = next(e for e in self._log(after) if e["record"] == "thursday_all")
+        expected = round((weeks.decision_deadline(self.kickoff)
+                          - self.before).total_seconds() / 60)
+        self.assertEqual(entry["minutes_before_lock"], expected)
+        self.assertGreater(entry["minutes_before_lock"], 0)
+
+
 class TestSlatePinning(unittest.TestCase):
     """The bug: the slate is the top N by open interest, recomputed every run,
     but a lock is permanent. A game locked on Wednesday could be pushed out of

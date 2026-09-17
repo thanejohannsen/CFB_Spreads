@@ -112,6 +112,17 @@ function sentence(text) {
   return /[.!?]$/.test(text) ? text : text + '.';
 }
 
+/** A gap in minutes, said the way a person would say it. */
+function fmtGap(mins) {
+  if (mins < 90) return `${Math.round(mins)}m`;
+  if (mins < 60 * 36) return `${Math.round(mins / 60)}h`;
+  return `${Math.round(mins / 1440)}d`;
+}
+
+/** Past this, a lock was taken early enough that the record should say so.
+ *  The build runs every few hours, so a healthy lock lands well inside this. */
+const STALE_LOCK_MINUTES = 360;
+
 function signalOf(game, key) {
   return (game.signals || []).find((s) => s.key === key) || null;
 }
@@ -382,9 +393,18 @@ function pickList(rec) {
     if (e.edge !== null && e.edge !== undefined) bits.push(`edge ${fmtSigned(e.edge)}`);
     if (e.p_cover) bits.push(`${(e.p_cover * 100).toFixed(0)}% to cover`);
     if (e.minutes_before_kickoff !== null && e.minutes_before_kickoff !== undefined) {
-      bits.push(`locked ${e.minutes_before_kickoff}m out`);
+      bits.push(`locked ${fmtGap(e.minutes_before_kickoff)} out`);
     }
-    main.append(el('span', 'pick-meta', bits.join(' · ')));
+    const meta = el('span', 'pick-meta', bits.join(' · '));
+    // A snapshot taken long before its own lock is not measuring what the
+    // record's name says. It happens when a game stops appearing in the slate
+    // and its lock freezes early, so say so rather than showing the pick as if
+    // it had been taken at the moment the record is dated by.
+    if (e.minutes_before_lock > STALE_LOCK_MINUTES) {
+      meta.append(document.createTextNode(' · '));
+      meta.append(el('span', 'pick-stale', `${fmtGap(e.minutes_before_lock)} early`));
+    }
+    main.append(meta);
     row.append(main);
 
     const out = el('span', 'pick-out');

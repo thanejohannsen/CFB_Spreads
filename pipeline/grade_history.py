@@ -378,13 +378,40 @@ def _outcome(entry: dict, lock: str, lens: str) -> Optional[bool]:
     return ((result.get("lenses") or {}).get(lens) or {}).get(f"{lock}_correct")
 
 
-def _in_scope(entry: dict, lock: str, tiers) -> bool:
-    """Tier is judged at the lock in question, not inherited from another one.
+def lock_moment(entry: dict, lock: str) -> Optional[datetime.datetime]:
+    """When this lock is due to fire for this game, or None without a kickoff."""
+    kickoff = weeks.parse_ts(entry.get("kickoff"))
+    if kickoff is None:
+        return None
+    return (weeks.decision_deadline(kickoff) if lock == "decision"
+            else weeks.final_lock(kickoff))
 
+
+def _has_fired(entry: dict, lock: str, now: datetime.datetime) -> bool:
+    """Has this lock's moment passed?
+
+    Until it has, record() keeps overwriting the snapshot on every run, so what
+    is stored is a live preview of what WOULD lock, not a commitment. Showing
+    that in a record dated by its lock -- "Thursday noon", "Final (T-1h)" --
+    reads as a pick the tool has already made, days before it has made it, and
+    it can still change or disappear before the moment arrives. A record holds
+    fired locks only; the board is where the live view belongs.
+    """
+    moment = lock_moment(entry, lock)
+    return True if moment is None else now >= moment
+
+
+def _in_scope(entry: dict, lock: str, tiers,
+              now: datetime.datetime = None) -> bool:
+    """Whether this game belongs in a record: lock fired, and tier in scope.
+
+    Tier is judged at the lock in question, not inherited from another one.
     A game's tier moves: with volume piling in late, Missouri/Kansas went from a
     0.30 band to 0.56 and dropped A to B between the two locks. Filtering on the
     tier recorded at the lock being graded is the only reading that matches what
     the record claims to measure."""
+    if not _has_fired(entry, lock, now or datetime.datetime.now(UTC)):
+        return False
     if not tiers:
         return True
     return ((_lock(entry, lock) or {}).get("tier")) in tiers
@@ -498,14 +525,24 @@ def summarize(history_dir: str = None) -> dict:
 # Pick log
 # --------------------------------------------------------------------------
 
+def _minutes_early(entry: dict, lock: str, snap: dict) -> Optional[int]:
+    """Minutes between a snapshot and the lock moment it stands in for."""
+    moment = lock_moment(entry, lock)
+    taken = weeks.parse_ts((snap or {}).get("at"))
+    if moment is None or taken is None:
+        return None
+    return max(0, round((moment - taken).total_seconds() / 60))
+
+
 def pick_log(history_dir: str = None) -> dict:
     """Every individual pick behind every record, newest first.
 
     A tally on its own cannot tell you whether a losing week was bad calls or
     good calls that lost on the number, so each entry carries the line it was
-    made against next to the final margin. Ungraded picks are included and
-    marked pending -- otherwise the current week only appears in hindsight,
-    which is when the log is least useful.
+    made against next to the final margin. Picks whose game has not been played
+    are included and marked pending -- otherwise the current week only appears
+    in hindsight, which is when the log is least useful. Picks whose LOCK has
+    not fired are a different thing and are excluded: see _has_fired.
     """
     history_dir = history_dir or config.HISTORY_DIR
     entries = []
@@ -546,6 +583,12 @@ def pick_log(history_dir: str = None) -> dict:
                     "confidence": pick.get("confidence"),
                     "locked_at": snap.get("at"),
                     "minutes_before_kickoff": snap.get("minutes_before_kickoff"),
+                    # How far ahead of its own moment this snapshot was taken.
+                    # Healthy runs land within a cron interval of the lock; a
+                    # big number means the game stopped appearing in the slate
+                    # and the lock froze early, so the record is not measuring
+                    # what its name says.
+                    "minutes_before_lock": _minutes_early(game, lock, snap),
                     "dollar_volume": snap.get("dollar_volume"),
                     "home_margin": margin,
                     "result": outcome,
