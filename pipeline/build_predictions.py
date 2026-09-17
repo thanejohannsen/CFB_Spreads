@@ -13,8 +13,8 @@ import os
 import sys
 from typing import Optional
 
-from . import (cfbd, combine, config, kalshi, liquidity, moneyline,
-               select_slate, sp_plus, weeks)
+from . import (cfbd, combine, config, grade_history, kalshi, liquidity,
+               moneyline, select_slate, sp_plus, weeks)
 from .margin_model import read_market
 from .match_games import match_all
 from .predict import evaluate
@@ -43,6 +43,22 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
     slate = select_slate.select(ladders, top_n)
     if not slate:
         raise SystemExit("no ladders returned by Kalshi; refusing to write an empty slate")
+
+    # Keep every game this week has already locked, even if its open interest
+    # has since fallen out of the top N. Without this the board silently drops
+    # a game the record is still grading, and its T-1h lock freezes at whatever
+    # value it held when it fell out -- see select_slate.select.
+    slate_day = _slate_date(slate)
+    if slate_day is not None:
+        pinned = grade_history.locked_ids(
+            weeks.week_key(datetime.datetime.combine(
+                slate_day, datetime.time(12, 0), tzinfo=UTC)))
+        if pinned:
+            slate = select_slate.select(ladders, top_n, pinned=pinned)
+            if verbose:
+                extra = len(slate) - (top_n or config.TOP_N)
+                if extra > 0:
+                    print(f"slate: pinned {extra} already-locked game(s) back in")
 
     season = now.year if now.month >= 8 else now.year - 1
     games, lines, unmatched = [], [], []

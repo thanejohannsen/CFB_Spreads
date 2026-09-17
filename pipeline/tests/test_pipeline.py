@@ -4,7 +4,7 @@ import os
 import tempfile
 import unittest
 
-from pipeline import grade_history, weeks
+from pipeline import grade_history, select_slate, weeks
 from pipeline.match_games import Match, match_all, normalize
 from pipeline.margin_model import parse_ladder
 from pipeline.tests.factories import logistic_event
@@ -326,6 +326,86 @@ def _payload(margin, line, side, kickoff, game_id="G1", tier="A"):
             },
         }],
     }
+
+
+class TestSlatePinning(unittest.TestCase):
+    """The bug: the slate is the top N by open interest, recomputed every run,
+    but a lock is permanent. A game locked on Wednesday could be pushed out of
+    the top N by Saturday -- after which the board stopped showing it while the
+    record went on grading it as pending, and its T-1h lock could never be
+    refreshed again, because record() only ever sees games in the payload.
+
+    Observed on Michigan St. vs Notre Dame: locked as a master lean, then 32nd
+    by open interest, so the board read "nothing clears the threshold" while the
+    record carried a pending pick on it."""
+
+    def setUp(self):
+        self.dir = tempfile.mkdtemp()
+        self.kickoff = datetime.datetime(2026, 9, 12, 23, 0, tzinfo=UTC)
+        self.early = datetime.datetime(2026, 9, 9, 12, 0, tzinfo=UTC)
+
+    def _lock(self, game_id, side="home"):
+        """Lock one game. side=None means no lens picked it at all -- _payload
+        deliberately has the ladder lens take the opposite side, so a pick-free
+        game has to be built by blanking every side."""
+        payload = _payload(5.0, 3.0, side, self.kickoff, game_id)
+        if side is None:
+            game = payload["games"][0]
+            game["pick"]["side"] = None
+            for pick in game["picks"].values():
+                pick["side"] = None
+        grade_history.record(payload, history_dir=self.dir, now=self.early)
+
+    def _ladders(self, ids_by_oi):
+        return [parse_ladder(logistic_event(event=gid, oi=oi))
+                for gid, oi in ids_by_oi]
+
+    def test_a_locked_game_is_kept_even_when_it_falls_out_of_the_top_n(self):
+        self._lock("KX-LOCKED")
+        pinned = grade_history.locked_ids("2026-09-12", self.dir, now=self.early)
+        self.assertIn("KX-LOCKED", pinned)
+
+        ladders = self._ladders([("KX-BIG", 90000.0), ("KX-LOCKED", 100.0)])
+        top1 = select_slate.select(ladders, top_n=1)
+        self.assertEqual([l.event_ticker for l in top1], ["KX-BIG"],
+                         "precondition: the locked game is outside the top N")
+
+        kept = select_slate.select(ladders, top_n=1, pinned=pinned)
+        self.assertEqual([l.event_ticker for l in kept], ["KX-BIG", "KX-LOCKED"])
+
+    def test_pinning_never_duplicates_a_game_already_in_the_top_n(self):
+        self._lock("KX-BIG")
+        pinned = grade_history.locked_ids("2026-09-12", self.dir, now=self.early)
+        ladders = self._ladders([("KX-BIG", 90000.0), ("KX-OTHER", 100.0)])
+        kept = select_slate.select(ladders, top_n=2, pinned=pinned)
+        self.assertEqual([l.event_ticker for l in kept], ["KX-BIG", "KX-OTHER"])
+
+    def test_no_history_leaves_the_slate_exactly_as_it_was(self):
+        ladders = self._ladders([("KX-BIG", 90000.0), ("KX-OTHER", 100.0)])
+        self.assertEqual(select_slate.select(ladders, top_n=1, pinned=set()),
+                         select_slate.select(ladders, top_n=1))
+
+    def test_a_played_game_that_was_never_picked_stops_being_pinned(self):
+        """Otherwise the slate only ever grows: every game that touched the top
+        N this week would stay on the board until the week rolled over."""
+        self._lock("KX-NOPLAY", side=None)
+        after = self.kickoff + datetime.timedelta(hours=4)
+        self.assertEqual(
+            grade_history.locked_ids("2026-09-12", self.dir, now=after), set())
+
+    def test_a_picked_game_stays_pinned_after_its_last_lock(self):
+        """The record is still grading it, so the board must still show it."""
+        self._lock("KX-PICKED", side="home")
+        after = self.kickoff + datetime.timedelta(hours=4)
+        self.assertIn("KX-PICKED",
+                      grade_history.locked_ids("2026-09-12", self.dir, now=after))
+
+    def test_before_its_final_lock_even_a_no_play_is_pinned(self):
+        """Its T-1h snapshot has not been taken yet, and a game absent from the
+        payload is a game record() cannot refresh."""
+        self._lock("KX-NOPLAY", side=None)
+        self.assertIn("KX-NOPLAY",
+                      grade_history.locked_ids("2026-09-12", self.dir, now=self.early))
 
 
 class TestLockingAndGrading(unittest.TestCase):

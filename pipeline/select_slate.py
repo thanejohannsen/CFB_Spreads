@@ -17,7 +17,22 @@ def rank(ladders: list[Ladder]) -> list[Ladder]:
     return sorted(ladders, key=lambda l: -l.total_open_interest)
 
 
-def select(ladders: list[Ladder], top_n: int = None) -> list[Ladder]:
-    """The week's slate. Locked at the decision snapshot by the caller so a
-    game cannot drop out of the record retroactively."""
-    return rank(ladders)[: (top_n or config.TOP_N)]
+def select(ladders: list[Ladder], top_n: int = None,
+           pinned: set = None) -> list[Ladder]:
+    """The week's slate: the TOP_N most popular, plus anything already pinned.
+
+    Open interest keeps moving after the decision deadline, so a game locked
+    into the record on Wednesday can be pushed out of the top N by Saturday.
+    When that happened the board stopped showing it while the record went on
+    grading it -- and, worse, its T-1h lock could never be refreshed again,
+    because a game absent from the payload is a game history never sees. The
+    caller pins every game this week has already locked, so the slate can only
+    grow after the deadline, never shed a game the record is committed to.
+    """
+    ranked = rank(ladders)
+    chosen = ranked[: (top_n or config.TOP_N)]
+    if not pinned:
+        return chosen
+    have = {l.event_ticker for l in chosen}
+    return chosen + [l for l in ranked
+                     if l.event_ticker in pinned and l.event_ticker not in have]

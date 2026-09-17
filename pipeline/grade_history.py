@@ -155,6 +155,40 @@ def _keeps_its_line(old: Optional[dict], new: dict) -> bool:
                 and new.get("vegas_home_favored_by") is None)
 
 
+def locked_ids(week_key: str, history_dir: str = None,
+               now: datetime.datetime = None) -> set:
+    """Games this week is still committed to, for build_predictions to pin.
+
+    A lock is a commitment, and two kinds of commitment outlive a game's place
+    in the top N by open interest:
+
+      * its T-1h lock has not fired yet, so the snapshot still needs refreshing
+        -- and a game missing from the payload is a game record() never sees,
+        which would freeze that lock at whatever it held when the game slipped
+        out of the slate;
+      * it carries an actual pick, which the record grades and the board must
+        therefore keep showing.
+
+    A game that is past its last lock and was never picked is finished with:
+    the record has all it needs, so it is left to fall off the board rather
+    than growing the slate for the rest of the week.
+    """
+    now = now or datetime.datetime.now(UTC)
+    out = set()
+    for gid, entry in (load_week(week_key, history_dir).get("games") or {}).items():
+        if not (entry.get("decision") or entry.get("final") or entry.get("closing")):
+            continue
+        kickoff = weeks.parse_ts(entry.get("kickoff"))
+        if kickoff is not None and now < weeks.final_lock(kickoff):
+            out.add(gid)
+            continue
+        if any(pick and pick.get("side")
+               for name in ("decision", "final", "closing")
+               for pick in _picks(entry.get(name)).values()):
+            out.add(gid)
+    return out
+
+
 def record(payload: dict, history_dir: str = None, now: datetime.datetime = None) -> str:
     """Fold the current slate into this week's history file.
 
