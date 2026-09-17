@@ -147,20 +147,27 @@ class TestRecordsAndPickLog(unittest.TestCase):
         self.assertEqual(after["decision"]["vegas_home_favored_by"], 6.5)
         self.assertEqual(after["decision"]["master_margin"], 9.0)
 
-    def test_headline_counts_only_top_tier_picks(self):
-        """The tier filter lives on the headline now that the S/A Thursday row
-        is gone; Thursday keeps every tier."""
+    def test_both_master_records_hold_every_tier_the_board_picks(self):
+        """The bug: the headline kept S/A markets only, so a board showing six
+        master picks sat above a record holding none of them. A record that
+        cannot be reconciled against the board it is measuring is unreadable,
+        however defensible the filter. Both master records now take every pick
+        the Master tab makes; the refusal lives in the pick rules, not here."""
         self._store("TOP", "A")
         self._store("MID", "B")
+        self._store("LOW", "C")
         week = grade_history.load_week("2026-09-12", self.dir)
         grade_history.save_week(
-            grade_history.apply_results(week, {"TOP": 10.0, "MID": 10.0}), self.dir)
+            grade_history.apply_results(week, {"TOP": 10.0, "MID": 10.0, "LOW": 10.0}),
+            self.dir)
 
         summary = grade_history.summarize(self.dir)
         by_key = {r["key"]: r["season"] for r in summary["records"]}
-        self.assertEqual(by_key["thursday_all"]["total"], 2)
-        self.assertEqual(by_key["headline"]["total"], 1,
-                         "the B-tier pick must not enter the S/A-filtered headline")
+        self.assertEqual(by_key["thursday_all"]["total"], 3)
+        self.assertEqual(by_key["headline"]["total"], 3,
+                         "the headline must hold the same picks the board shows")
+        for rec in summary["records"]:
+            self.assertIsNone(rec["tiers"], f"{rec['key']} must not filter on tier")
         self.assertNotIn("thursday_sa", by_key)
 
     def test_pick_log_matches_the_tally(self):
@@ -173,7 +180,8 @@ class TestRecordsAndPickLog(unittest.TestCase):
         for rec in summary["records"]:
             t = rec["season"]
             rows = [e for e in log["entries"]
-                    if e["record"] == rec["key"] and e["result"] != "pending"]
+                    if e["record"] == rec["key"]
+                    and e["result"] not in ("pending", "live")]
             self.assertEqual(len(rows), t["wins"] + t["losses"],
                              f"{rec['key']}: log rows must match the record it expands")
 
@@ -328,12 +336,16 @@ def _payload(margin, line, side, kickoff, game_id="G1", tier="A"):
     }
 
 
-class TestUnfiredLocksStayOutOfTheRecord(unittest.TestCase):
-    """The bug: record() refreshes a lock on every run until its moment passes,
-    so before the deadline what is stored is a live preview of what WOULD lock,
-    not a commitment. The records showed those as picks -- the "Thursday noon"
-    tab listing a game on Thursday morning, and the "Final (T-1h)" tab listing
-    two games two days before kickoff, from snapshots taken 55 hours out."""
+class TestARecordTracksTheBoardUntilItLocks(unittest.TestCase):
+    """The bug: the records showed a game only once its lock had fired, so on
+    Thursday afternoon the Master tab showed six picks above a "Final (T-1h)"
+    record showing none of them, for two days. Hiding the row and printing it
+    as a settled pick are both wrong; the fix is to show it and say which it is.
+
+    Each record therefore carries every pick the board shows from the moment it
+    appears, marked live and dated by the moment it will freeze, and stops
+    moving when its own clock runs out -- T-1h for the headline, noon ET for
+    Thursday. Nothing ungraded reaches a tally either way."""
 
     def setUp(self):
         self.dir = tempfile.mkdtemp()
@@ -344,16 +356,10 @@ class TestUnfiredLocksStayOutOfTheRecord(unittest.TestCase):
         self.entry = grade_history.load_week("2026-09-12", self.dir)["games"]["G1"]
 
     def _log(self, now):
-        real = grade_history.datetime.datetime
-        try:
-            class Frozen(real):
-                @classmethod
-                def now(cls, tz=None):
-                    return now
-            grade_history.datetime.datetime = Frozen
-            return grade_history.pick_log(self.dir)["entries"]
-        finally:
-            grade_history.datetime.datetime = real
+        return grade_history.pick_log(self.dir, now=now)["entries"]
+
+    def _row(self, now, record):
+        return next((e for e in self._log(now) if e["record"] == record), None)
 
     def test_the_moments_are_the_ones_the_records_are_named_for(self):
         self.assertEqual(grade_history.lock_moment(self.entry, "decision"),
@@ -361,39 +367,72 @@ class TestUnfiredLocksStayOutOfTheRecord(unittest.TestCase):
         self.assertEqual(grade_history.lock_moment(self.entry, "final"),
                          weeks.final_lock(self.kickoff))
 
-    def test_a_lock_that_has_not_fired_is_not_a_record_entry(self):
-        records = {e["record"] for e in self._log(self.before)}
-        self.assertNotIn("thursday_all", records)
-        self.assertNotIn("headline", records)
+    def test_an_unfired_lock_is_listed_live_not_hidden(self):
+        """The whole complaint: the board had picks and the record had nothing."""
+        for key in ("thursday_all", "headline"):
+            row = self._row(self.before, key)
+            self.assertIsNotNone(row, f"{key} must show the pick the board is showing")
+            self.assertEqual(row["result"], "live")
+            self.assertFalse(row["locked"])
+            self.assertEqual(
+                row["locks_at"],
+                (weeks.decision_deadline(self.kickoff) if key == "thursday_all"
+                 else weeks.final_lock(self.kickoff)).isoformat(),
+                "a live row has to say when it stops moving")
 
-    def test_it_appears_once_its_own_moment_passes(self):
+    def test_each_record_freezes_on_its_own_clock(self):
         after_thursday = weeks.decision_deadline(self.kickoff) + datetime.timedelta(minutes=1)
-        records = {e["record"] for e in self._log(after_thursday)}
-        self.assertIn("thursday_all", records,
-                      "the decision lock has fired; it is a commitment now")
-        self.assertNotIn("headline", records,
-                         "the T-1h lock has not fired, so it is still a preview")
+        self.assertTrue(self._row(after_thursday, "thursday_all")["locked"],
+                        "noon ET has passed; the Thursday row is a commitment now")
+        self.assertFalse(self._row(after_thursday, "headline")["locked"],
+                         "T-1h is still ahead, so the headline row is still live")
 
         after_final = weeks.final_lock(self.kickoff) + datetime.timedelta(minutes=1)
-        self.assertIn("headline", {e["record"] for e in self._log(after_final)})
+        self.assertTrue(self._row(after_final, "headline")["locked"])
 
-    def test_a_tally_ignores_unfired_locks_too(self):
-        self.assertFalse(grade_history._in_scope(self.entry, "final", None, self.before))
-        self.assertTrue(grade_history._in_scope(
-            self.entry, "final", None,
-            weeks.final_lock(self.kickoff) + datetime.timedelta(minutes=1)))
+    def test_a_live_row_is_the_board_pick_and_follows_it(self):
+        """A live row is a window onto the board, so when the board's pick moves
+        before the lock, the row moves with it rather than showing a stale one."""
+        self.assertEqual(self._row(self.before, "headline")["side"], "home")
+        later = self.before + datetime.timedelta(hours=6)
+        grade_history.record(_payload(1.0, 3.0, "away", self.kickoff),
+                             history_dir=self.dir, now=later)
+        self.assertEqual(self._row(later, "headline")["side"], "away")
 
-    def test_how_early_a_snapshot_was_taken_is_reported(self):
+    def test_nothing_ungraded_reaches_a_tally(self):
+        """Showing the live board must not put an ungraded pick in the record."""
+        summary = grade_history.summarize(self.dir, now=self.before)
+        for rec in summary["records"]:
+            self.assertEqual(rec["season"]["total"], 0, rec["key"])
+        by_key = {r["key"]: r["open"] for r in summary["records"]}
+        self.assertEqual(by_key["headline"], {"live": 1, "pending": 0},
+                         "the row the board is showing has to be counted somewhere")
+
+    def test_an_open_pick_moves_from_live_to_pending_at_its_lock(self):
+        after_final = weeks.final_lock(self.kickoff) + datetime.timedelta(minutes=1)
+        summary = grade_history.summarize(self.dir, now=after_final)
+        by_key = {r["key"]: r["open"] for r in summary["records"]}
+        self.assertEqual(by_key["headline"], {"live": 0, "pending": 1})
+
+    def test_how_early_a_snapshot_was_taken_is_reported_once_it_is_frozen(self):
         """Michigan St. vs Notre Dame locked 12h before Thursday noon, because
         it had fallen out of the slate and record() stopped seeing it. The
         number has to reach the page or the record silently misrepresents
         itself."""
         after = weeks.decision_deadline(self.kickoff) + datetime.timedelta(minutes=1)
-        entry = next(e for e in self._log(after) if e["record"] == "thursday_all")
+        entry = self._row(after, "thursday_all")
         expected = round((weeks.decision_deadline(self.kickoff)
                           - self.before).total_seconds() / 60)
         self.assertEqual(entry["minutes_before_lock"], expected)
         self.assertGreater(entry["minutes_before_lock"], 0)
+
+    def test_a_live_row_reports_no_staleness_at_all(self):
+        """A live snapshot is SUPPOSED to predate the moment it will lock at, so
+        measuring the gap would flag every row on the board as stale."""
+        row = self._row(self.before, "headline")
+        self.assertIsNone(row["minutes_before_lock"])
+        self.assertIsNone(row["minutes_before_kickoff"])
+        self.assertIsNone(row["locked_at"])
 
 
 class TestSlatePinning(unittest.TestCase):

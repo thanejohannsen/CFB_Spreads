@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-17T17:50:32.229783+00:00",
+ "generated_at": "2026-09-17T19:43:32.328962+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -17,10 +17,10 @@
    },
    "records": {
     "headline": {
-     "wins": 0,
-     "losses": 0,
-     "total": 0,
-     "pct": null
+     "wins": 1,
+     "losses": 2,
+     "total": 3,
+     "pct": 0.3333
     },
     "thursday_all": {
      "wins": 1,
@@ -65,10 +65,10 @@
   },
   "records": {
    "headline": {
-    "wins": 0,
-    "losses": 0,
-    "total": 0,
-    "pct": null
+    "wins": 1,
+    "losses": 2,
+    "total": 3,
+    "pct": 0.3333
    },
    "thursday_all": {
     "wins": 1,
@@ -113,24 +113,25 @@
  "records": [
   {
    "key": "headline",
-   "label": "Final (T-1h) - S/A markets",
+   "label": "Final (T-1h)",
    "lock": "final",
    "lens": "master",
-   "tiers": [
-    "S",
-    "A"
-   ],
+   "tiers": null,
    "season": {
-    "wins": 0,
-    "losses": 0,
-    "total": 0,
-    "pct": null
+    "wins": 1,
+    "losses": 2,
+    "total": 3,
+    "pct": 0.3333
+   },
+   "open": {
+    "live": 6,
+    "pending": 0
    },
    "last_week": {
-    "wins": 0,
-    "losses": 0,
-    "total": 0,
-    "pct": null
+    "wins": 1,
+    "losses": 2,
+    "total": 3,
+    "pct": 0.3333
    }
   },
   {
@@ -144,6 +145,10 @@
     "losses": 0,
     "total": 1,
     "pct": 1.0
+   },
+   "open": {
+    "live": 0,
+    "pending": 1
    },
    "last_week": {
     "wins": 1,
@@ -164,6 +169,10 @@
     "total": 1,
     "pct": 1.0
    },
+   "open": {
+    "live": 0,
+    "pending": 1
+   },
    "last_week": {
     "wins": 1,
     "losses": 0,
@@ -183,6 +192,10 @@
     "total": 10,
     "pct": 0.7
    },
+   "open": {
+    "live": 0,
+    "pending": 13
+   },
    "last_week": {
     "wins": 7,
     "losses": 3,
@@ -201,6 +214,10 @@
     "losses": 15,
     "total": 30,
     "pct": 0.5
+   },
+   "open": {
+    "live": 0,
+    "pending": 31
    },
    "last_week": {
     "wins": 15,

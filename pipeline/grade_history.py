@@ -1,16 +1,19 @@
 """Lock predictions before they can be revised, then grade them.
 
-Two locks are recorded per game:
+Two locks are recorded per game, each carrying every pick the Master tab makes
+and differing only in when it stops moving:
 
-  decision -- the last snapshot before Thursday noon ET.  This is the headline
-              record, because it is the tool as actually used: picks are due
-              Wednesday night / Thursday morning.
-  closing  -- the last snapshot before kickoff.  Used only to measure drift, so
-              the question "does a Wednesday read hold up?" gets an answer from
-              evidence rather than assumption.
+  decision -- the last snapshot before Thursday noon ET.  The tool as actually
+              used: picks are due Wednesday night / Thursday morning.
+  final    -- the last snapshot before kickoff minus an hour, where Kalshi's
+              volume peaks.  The headline record, and the measure of the method
+              at its sharpest.
 
-Neither is ever rewritten once its moment has passed.  An accuracy number you
-can revise after the fact is worth nothing.
+Until its moment arrives a lock is rewritten on every run, so it holds the live
+board; the record shows it as such, marked live and dated by the moment it will
+freeze.  Once the moment passes it is never rewritten again.  An accuracy number
+you can revise after the fact is worth nothing, and a record you cannot
+reconcile against the board is worth about as little.
 """
 
 from __future__ import annotations
@@ -48,8 +51,16 @@ LENSES = [
 
 # Every record the page can show, as (key, label, lock, lens, tier filter).
 #
-# The headline is the master at the T-1h lock, restricted to the tiers worth
-# acting on; the Thursday row behind it keeps every tier.
+# Both master records carry every pick the Master tab makes, and differ only in
+# the clock they freeze on: the headline at T-1h, the Thursday row at noon ET.
+#
+# Neither filters on tier. A record the board cannot be reconciled against is
+# the one thing worse than a flattering record: the headline used to keep S/A
+# markets only, so a board showing six master picks sat above a record holding
+# none of them, and no amount of reading the page explained the gap. The master
+# already refuses a D-grade market and caps a C-grade one at a lean, so the
+# picks it does make are the picks it stands behind -- all of them, at both
+# clocks.
 #
 # There was briefly an S/A-filtered Thursday row as a control, to separate the
 # effect of the clock from the effect of the tier filter. It was dropped because
@@ -57,7 +68,7 @@ LENSES = [
 # A-tier games, since a tight band is exactly when the line sits inside it and
 # the no-play rule reads no edge. A control with nothing in it is not a control.
 RECORDS = [
-    ("headline", "Final (T-1h) - S/A markets", "final", "master", config.HEADLINE_TIERS),
+    ("headline", "Final (T-1h)", "final", "master", None),
     ("thursday_all", "Thursday noon", "decision", "master", None),
 ] + [
     (f"lens_{key}", label, "decision", key, None)
@@ -388,30 +399,36 @@ def lock_moment(entry: dict, lock: str) -> Optional[datetime.datetime]:
 
 
 def _has_fired(entry: dict, lock: str, now: datetime.datetime) -> bool:
-    """Has this lock's moment passed?
+    """Has this lock's moment passed -- is this row frozen, or still moving?
 
-    Until it has, record() keeps overwriting the snapshot on every run, so what
-    is stored is a live preview of what WOULD lock, not a commitment. Showing
-    that in a record dated by its lock -- "Thursday noon", "Final (T-1h)" --
-    reads as a pick the tool has already made, days before it has made it, and
-    it can still change or disappear before the moment arrives. A record holds
-    fired locks only; the board is where the live view belongs.
+    Until the moment arrives, record() overwrites the snapshot on every run, so
+    what is stored is the live board: the pick as it stands right now, which can
+    still change or vanish before the lock takes it. Both readings of that are
+    wrong on their own. Hiding it leaves a record showing nothing while the
+    Master tab shows six picks, with no way to reconcile the two. Printing it
+    as a pick already made claims a commitment days early.
+
+    So the row is shown either way and this decides how: a fired lock is a
+    commitment and reads as one, an unfired lock is marked live and says when it
+    locks. It counts toward no tally -- an ungraded pick never could -- so the
+    numbers stay honest while the list stays complete.
     """
     moment = lock_moment(entry, lock)
     return True if moment is None else now >= moment
 
 
-def _in_scope(entry: dict, lock: str, tiers,
-              now: datetime.datetime = None) -> bool:
-    """Whether this game belongs in a record: lock fired, and tier in scope.
+def _in_scope(entry: dict, lock: str, tiers) -> bool:
+    """Whether this game belongs in a record at all.
 
     Tier is judged at the lock in question, not inherited from another one.
     A game's tier moves: with volume piling in late, Missouri/Kansas went from a
     0.30 band to 0.56 and dropped A to B between the two locks. Filtering on the
     tier recorded at the lock being graded is the only reading that matches what
-    the record claims to measure."""
-    if not _has_fired(entry, lock, now or datetime.datetime.now(UTC)):
-        return False
+    the record claims to measure.
+
+    Whether the lock has fired is deliberately NOT asked here. Both master
+    records now carry every pick the board shows from the moment it appears, and
+    freeze it when their own clock runs out; see _has_fired."""
     if not tiers:
         return True
     return ((_lock(entry, lock) or {}).get("tier")) in tiers
@@ -442,13 +459,41 @@ def _tally(entries: list[dict], lock: str, lens: str = "master", tiers=None) -> 
             "pct": round(wins / total, 4) if total else None}
 
 
-def summarize(history_dir: str = None) -> dict:
+def _open(entries: list[dict], lock: str, lens: str, tiers,
+          now: datetime.datetime) -> dict:
+    """Picks this record is carrying that no result has landed on yet.
+
+    Split by whether their lock has fired, because the two mean different
+    things: `live` is what the board is showing right now and can still change,
+    `pending` is frozen and waiting on a final score. Without this the row for a
+    record with nothing graded reads a bare em dash, which is indistinguishable
+    from a record making no picks at all -- the exact confusion of a board
+    showing six master picks above a headline record showing none.
+    """
+    live = pending = 0
+    for e in entries:
+        if (e.get("result") or {}).get("home_margin") is not None:
+            continue
+        if not _in_scope(e, lock, tiers):
+            continue
+        if not ((_picks(_lock(e, lock)) or {}).get(lens) or {}).get("side"):
+            continue
+        if _has_fired(e, lock, now):
+            pending += 1
+        else:
+            live += 1
+    return {"live": live, "pending": pending}
+
+
+def summarize(history_dir: str = None, now: datetime.datetime = None) -> dict:
     """Build the stacked scoreboard the page leads with."""
     history_dir = history_dir or config.HISTORY_DIR
+    now = now or datetime.datetime.now(UTC)
     weeks_data = _load_weeks(history_dir)
 
-    graded_weeks, all_entries = [], []
+    graded_weeks, all_entries, every_entry = [], [], []
     for week in weeks_data:
+        every_entry.extend(week.get("games", {}).values())
         entries = [e for e in week.get("games", {}).values() if e.get("result")]
         if not entries:
             continue
@@ -484,7 +529,7 @@ def summarize(history_dir: str = None) -> dict:
 
     drifts.sort()
     return {
-        "generated_at": datetime.datetime.now(UTC).isoformat(),
+        "generated_at": now.isoformat(),
         "weeks": graded_weeks,
         "last_week": graded_weeks[-1] if graded_weeks else None,
         "season": {"decision": _tally(all_entries, "decision"),
@@ -493,6 +538,7 @@ def summarize(history_dir: str = None) -> dict:
             {"key": key, "label": label, "lock": lock, "lens": lens,
              "tiers": list(tiers) if tiers else None,
              "season": _tally(all_entries, lock, lens, tiers),
+             "open": _open(every_entry, lock, lens, tiers, now),
              "last_week": (graded_weeks[-1]["records"].get(key) if graded_weeks else None)}
             for key, label, lock, lens, tiers in RECORDS
         ],
@@ -534,17 +580,23 @@ def _minutes_early(entry: dict, lock: str, snap: dict) -> Optional[int]:
     return max(0, round((moment - taken).total_seconds() / 60))
 
 
-def pick_log(history_dir: str = None) -> dict:
+def pick_log(history_dir: str = None, now: datetime.datetime = None) -> dict:
     """Every individual pick behind every record, newest first.
 
     A tally on its own cannot tell you whether a losing week was bad calls or
     good calls that lost on the number, so each entry carries the line it was
-    made against next to the final margin. Picks whose game has not been played
-    are included and marked pending -- otherwise the current week only appears
-    in hindsight, which is when the log is least useful. Picks whose LOCK has
-    not fired are a different thing and are excluded: see _has_fired.
+    made against next to the final margin.
+
+    Three states, not two. A pick whose lock has fired but whose game has not
+    been played is `pending`; one whose lock is still ahead is `live`, still
+    moving with the board and carrying the moment it will freeze. Both are
+    listed, because a record that only fills in after the fact is exactly when
+    it is least useful -- and because the Master tab and the record it is
+    measured by have to show the same games. Neither reaches a tally: only a
+    graded pick is a win or a loss.
     """
     history_dir = history_dir or config.HISTORY_DIR
+    now = now or datetime.datetime.now(UTC)
     entries = []
 
     for week in _load_weeks(history_dir):
@@ -560,11 +612,13 @@ def pick_log(history_dir: str = None) -> dict:
                 if not pick.get("side"):
                     continue
 
-                if margin is None:
-                    outcome = "pending"
-                else:
+                fired = _has_fired(game, lock, now)
+                moment = lock_moment(game, lock)
+                if margin is not None:
                     ok = _outcome(game, lock, lens)
                     outcome = "win" if ok is True else ("loss" if ok is False else "push")
+                else:
+                    outcome = "pending" if fired else "live"
 
                 entries.append({
                     "record": key,
@@ -581,14 +635,22 @@ def pick_log(history_dir: str = None) -> dict:
                     "edge": round(float(pick["edge"]), 2) if pick.get("edge") is not None else None,
                     "p_cover": pick.get("p_cover"),
                     "confidence": pick.get("confidence"),
-                    "locked_at": snap.get("at"),
-                    "minutes_before_kickoff": snap.get("minutes_before_kickoff"),
+                    # Whether this row is frozen. A live row is the board's
+                    # current pick and will be rewritten on the next run.
+                    "locked": fired,
+                    "locks_at": moment.isoformat() if moment else None,
+                    "locked_at": snap.get("at") if fired else None,
+                    "minutes_before_kickoff": (snap.get("minutes_before_kickoff")
+                                               if fired else None),
                     # How far ahead of its own moment this snapshot was taken.
                     # Healthy runs land within a cron interval of the lock; a
                     # big number means the game stopped appearing in the slate
                     # and the lock froze early, so the record is not measuring
-                    # what its name says.
-                    "minutes_before_lock": _minutes_early(game, lock, snap),
+                    # what its name says. Meaningless before the lock fires --
+                    # a live snapshot is SUPPOSED to predate its own moment --
+                    # so it is only reported once the row is frozen.
+                    "minutes_before_lock": (_minutes_early(game, lock, snap)
+                                            if fired else None),
                     "dollar_volume": snap.get("dollar_volume"),
                     "home_margin": margin,
                     "result": outcome,

@@ -136,8 +136,14 @@ actually arrives. Measured from the tool's own stored snapshots, open interest g
 | Oklahoma vs Michigan | 474,576 | 723,511 | +52% |
 
 Be clear about what that measures: it is the method at its sharpest, **not the picks you could
-actually submit** on a Wednesday night. The Thursday-noon record is still kept, one click down,
-across every tier.
+actually submit** on a Wednesday night. The Thursday-noon record is still kept, one click down.
+
+**Both records carry every pick the Master tab makes.** Neither filters on tier; they differ only in
+which clock freezes them. The headline used to keep S/A markets only, and the result was a board
+showing six master picks sitting above a record holding none of them — a record you cannot reconcile
+against the board is worse than a flattering one, whatever the filter was defending. The refusal
+already lives in the pick rules (D makes no pick, C is capped at a lean), so a pick that reaches the
+board is one the record stands behind.
 
 More volume did not always mean a *tighter* market: Missouri/Kansas went from a 0.30 band to 0.56 and
 Ohio St./Texas 0.40 to 0.80, both dropping A to B. Tier is therefore judged at whichever lock is
@@ -150,13 +156,22 @@ topped out at $447k, which is why the threshold counts both markets. Dollar volu
 traded × price — Kalshi settles each contract at $0 or $1, so counting notional would roughly double
 the figure.
 
-Each locked snapshot records **how stale it is** (`minutes_before_kickoff`). A missed cron run leaves
-the lock older than intended, and without the gap a stale lock is indistinguishable from a fresh one.
+Each locked snapshot records **how stale it is** (`minutes_before_kickoff`), and each pick records how
+far ahead of its own moment it was taken (`minutes_before_lock`). A missed cron run, or a game that
+fell out of the slate, leaves the lock older than intended; without the gap a stale lock is
+indistinguishable from a fresh one, so the page prints it — *locked 3d out · 12h early*.
+
+**A record tracks the board until it locks.** A lock is rewritten on every run until its moment
+arrives, so before then it holds the live board rather than a commitment. Both readings of that are
+wrong on their own: hide it and the record shows nothing while the Master tab shows six picks; print
+it as settled and the tool claims a commitment days early. So the row is shown either way and labelled
+for what it is — **LIVE** while it still moves, with the moment it will freeze, then **PENDING** once
+frozen and waiting on a final score, then the result. Neither reaches a tally; only a graded pick is a
+win or a loss.
 
 **Clicking any record** expands the individual picks behind it — the pick, the line it was made
 against, the tier and edge at that lock, and the final margin. That last pair is the point: a tally
-cannot tell you whether a losing week was bad calls or good calls losing on the number. Ungraded
-picks appear as pending, so the current week is visible before it is history.
+cannot tell you whether a losing week was bad calls or good calls losing on the number.
 
 ## Does the Wednesday deadline hurt?
 
@@ -175,9 +190,9 @@ Measured on a Wednesday afternoon against the following Saturday:
 Scoping to the top 30 by open interest is self-reinforcing: popularity and tradeability are the same
 signal, so the junk is excluded by construction rather than by filtering.
 
-The record is still locked at **Thursday noon ET** — the moment you actually decide — and a second
-snapshot is taken at kickoff purely to measure drift. Over a season that answers "does a Wednesday
-read hold up?" with evidence instead of assumption.
+The Thursday-noon record still locks at **the moment you actually decide**, and the headline locks an
+hour before each kickoff. Over a season the pair answers "does a Wednesday read hold up?" with
+evidence instead of assumption — that is what the *Thu → final drift* figure above the records is.
 
 ## Four tabs, four records
 

@@ -139,8 +139,11 @@ TIERS = {
 TIER_S = {"label": "Deep market"}
 TIER_D = {"label": "Unreadable market"}
 
-# Tiers good enough for the headline record.
-HEADLINE_TIERS = ("S", "A")
+# There is deliberately no "tiers good enough for the record" list. Both master
+# records carry every pick the Master tab makes; a record holding a subset of
+# the board cannot be reconciled against it. The refusal already lives in the
+# pick rules -- D makes no pick at all, C is capped at a lean -- rather than in
+# a filter applied afterwards. See grade_history.RECORDS.
 
 # Minimum open interest before a game is considered to have any signal at all.
 MIN_OPEN_INTEREST = 500

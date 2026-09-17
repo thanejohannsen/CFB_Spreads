@@ -38,11 +38,6 @@ class Quality:
     def tradeable(self) -> bool:
         return self.tier in ("S", "A", "B", "C")
 
-    @property
-    def headline(self) -> bool:
-        """Good enough for the headline record."""
-        return self.tier in config.HEADLINE_TIERS
-
 
 def grade(read: MarketRead, dollar_volume: float = 0.0) -> Quality:
     """Assign a quality tier from the uncertainty band, open interest, how much

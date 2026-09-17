@@ -285,6 +285,26 @@ const LOCK_NOTE = {
   decision: 'locked Thursday noon ET — the picks you could actually submit',
 };
 
+/** Minutes from now until an ISO timestamp, or null if it is unreadable. */
+function minutesUntil(iso) {
+  if (!iso) return null;
+  const t = new Date(iso);
+  if (isNaN(t)) return null;
+  return Math.max(0, (t - Date.now()) / 60000);
+}
+
+/** How many picks a record is carrying that nothing has graded yet.
+ *  A record with an empty W-L column is otherwise indistinguishable from one
+ *  making no picks at all, which is exactly how the board came to show six
+ *  master picks above a record that looked empty. */
+function openText(rec) {
+  const open = rec.open || {};
+  const bits = [];
+  if (open.live) bits.push(`${open.live} live`);
+  if (open.pending) bits.push(`${open.pending} pending`);
+  return bits.join(' · ');
+}
+
 async function loadPicks() {
   if (state.picks) return state.picks;
   try {
@@ -304,7 +324,7 @@ function renderAccuracy() {
   const headline = records.find((r) => r.key === 'headline');
 
   const head = el('div', 'acc-head');
-  if (!graded || !headline) {
+  if (!headline) {
     head.append(metric('Record', '—', 'no graded games yet'));
     box.append(head);
     box.append(el('p', 'acc-empty',
@@ -315,7 +335,9 @@ function renderAccuracy() {
   }
 
   head.append(metric(headline.label, recordText(headline.season),
-                     headline.season.pct !== null ? `${(headline.season.pct * 100).toFixed(0)}%` : ''));
+                     headline.season.pct !== null
+                       ? `${(headline.season.pct * 100).toFixed(0)}%`
+                       : (openText(headline) || 'no graded games yet')));
   if (a.drift && a.drift.median !== null) {
     head.append(metric('Thu → final drift', `${a.drift.median.toFixed(1)} pts`,
                        `same pick ${a.drift.same_pick}/${a.drift.same_pick_total}`));
@@ -325,6 +347,15 @@ function renderAccuracy() {
   lock.append(el('div', '', `${graded} graded games`));
   head.append(lock);
   box.append(head);
+
+  // The table renders even with nothing graded: the records are still carrying
+  // this week's live picks, and hiding them is how the board and the record
+  // came to disagree in the first place.
+  if (!graded) {
+    box.append(el('p', 'acc-empty',
+      'No games have been graded yet. Each record below is already carrying this week\u2019s picks '
+      + 'and freezes them on its own clock; the W-L fills in once finals land.'));
+  }
 
   const table = el('div', 'acc-table');
   const hdr = el('div', 'acc-tr head');
@@ -339,6 +370,13 @@ function renderAccuracy() {
     const name = el('span', 'acc-td name');
     name.append(el('span', 'caret', state.expanded === rec.key ? '▾' : '▸'));
     name.append(document.createTextNode(' ' + rec.label));
+    // The W-L columns only ever count graded picks, so a record already
+    // carrying this week's board still reads as two em dashes -- which is how a
+    // Master tab showing six picks came to sit above a record that looked
+    // empty. The count of what it is holding goes on the name, always visible,
+    // not behind the expander.
+    const open = openText(rec);
+    if (open) name.append(el('span', 'acc-open', open));
     row.append(name);
     row.append(el('span', 'acc-td', rec.last_week ? recordText(rec.last_week) : '—'));
     row.append(el('span', 'acc-td', recordText(rec.season)));
@@ -368,6 +406,12 @@ function pickList(rec) {
   const note = el('div', 'picks-note');
   note.append(document.createTextNode(LOCK_NOTE[rec.lock] || ''));
   if (rec.tiers) note.append(document.createTextNode(` · ${rec.tiers.join('/')} markets only`));
+  if (entries.some((e) => e.result === 'live')) {
+    note.append(document.createTextNode(' · '));
+    note.append(el('span', 'picks-live-note',
+      'LIVE rows are what the board is showing right now — they move with the '
+      + 'market until this record\u2019s clock reaches them, then freeze.'));
+  }
   wrap.append(note);
 
   if (!entries.length) {
@@ -392,7 +436,12 @@ function pickList(rec) {
     if (e.tier) bits.push(QUALITY[e.tier] || `tier ${e.tier}`);
     if (e.edge !== null && e.edge !== undefined) bits.push(`edge ${fmtSigned(e.edge)}`);
     if (e.p_cover) bits.push(`${(e.p_cover * 100).toFixed(0)}% to cover`);
-    if (e.minutes_before_kickoff !== null && e.minutes_before_kickoff !== undefined) {
+    // A frozen row says how close to kickoff it was taken; a live one has not
+    // been taken yet, so it says when it will be.
+    if (e.locked === false) {
+      const until = minutesUntil(e.locks_at);
+      bits.push(until === null ? 'not locked yet' : `locks in ${fmtGap(until)}`);
+    } else if (e.minutes_before_kickoff !== null && e.minutes_before_kickoff !== undefined) {
       bits.push(`locked ${fmtGap(e.minutes_before_kickoff)} out`);
     }
     const meta = el('span', 'pick-meta', bits.join(' · '));
@@ -408,7 +457,9 @@ function pickList(rec) {
     row.append(main);
 
     const out = el('span', 'pick-out');
-    if (e.result === 'pending') {
+    if (e.result === 'live') {
+      out.append(el('span', 'pick-res live', 'LIVE'));
+    } else if (e.result === 'pending') {
       out.append(el('span', 'pick-res pending', 'PENDING'));
     } else {
       out.append(el('span', 'pick-res ' + e.result, e.result.toUpperCase()));
