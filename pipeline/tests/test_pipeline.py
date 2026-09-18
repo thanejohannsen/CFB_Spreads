@@ -1,3 +1,4 @@
+import collections
 import datetime
 import json
 import os
@@ -334,6 +335,81 @@ def _payload(margin, line, side, kickoff, game_id="G1", tier="A"):
             },
         }],
     }
+
+
+class TestTheMoneylineLensIsGradedOnBothClocks(unittest.TestCase):
+    """The master is graded at Thursday noon and again at T-1h, because "does a
+    Wednesday read hold up?" deserves evidence. The moneyline lens now is too:
+    it carries most of the master's weight on a tight game, and Kalshi's volume
+    arrives late, so it is the signal most likely to answer differently.
+
+    Nothing had to be computed for it -- apply_results already wrote
+    `final_correct` for every lens -- so what these pin is that the two rows are
+    genuinely independent and not the same tally printed twice."""
+
+    def setUp(self):
+        self.dir = tempfile.mkdtemp()
+        self.kickoff = datetime.datetime(2026, 9, 12, 23, 0, tzinfo=UTC)
+        # Thursday noon ET for that week is 2026-09-10 16:00 UTC; T-1h is
+        # 2026-09-12 22:00 UTC. Between them only the final lock still moves.
+        self.before_both = datetime.datetime(2026, 9, 9, 12, 0, tzinfo=UTC)
+        self.between = datetime.datetime(2026, 9, 11, 12, 0, tzinfo=UTC)
+
+    def _keys(self):
+        return {key for key, _l, _lock, _lens, _t in grade_history.RECORDS}
+
+    def test_the_lens_has_a_row_on_each_clock(self):
+        keys = self._keys()
+        self.assertIn("lens_kalshi_ml", keys)
+        self.assertIn("lens_kalshi_ml_final", keys)
+        by_key = {k: (lock, lens) for k, _l, lock, lens, _t in grade_history.RECORDS}
+        self.assertEqual(by_key["lens_kalshi_ml"], ("decision", "kalshi_ml"))
+        self.assertEqual(by_key["lens_kalshi_ml_final"], ("final", "kalshi_ml"))
+        labels = [l for _k, l, _lock, _lens, _t in grade_history.RECORDS]
+        self.assertEqual(len(labels), len(set(labels)),
+                         "two rows sharing a label cannot be told apart on the page")
+
+    def test_the_two_clocks_grade_independently(self):
+        """The market moved between the deadlines, so the later lock took the
+        other side. One row wins and the other loses on the same game."""
+        grade_history.record(_payload(5.0, 3.0, "home", self.kickoff),
+                             history_dir=self.dir, now=self.before_both)
+        grade_history.record(_payload(1.0, 3.0, "away", self.kickoff),
+                             history_dir=self.dir, now=self.between)
+        week = grade_history.load_week("2026-09-12", self.dir)
+        self.assertEqual(week["games"]["G1"]["decision"]["picks"]["kalshi_ml"]["side"], "home",
+                         "Thursday noon had passed; that lock must be frozen")
+        self.assertEqual(week["games"]["G1"]["final"]["picks"]["kalshi_ml"]["side"], "away")
+
+        grade_history.save_week(
+            grade_history.apply_results(week, {"G1": 10.0}), self.dir)   # home covers
+        by_key = {r["key"]: r["season"] for r in grade_history.summarize(self.dir)["records"]}
+        self.assertEqual((by_key["lens_kalshi_ml"]["wins"],
+                          by_key["lens_kalshi_ml"]["losses"]), (1, 0))
+        self.assertEqual((by_key["lens_kalshi_ml_final"]["wins"],
+                          by_key["lens_kalshi_ml_final"]["losses"]), (0, 1))
+
+    def test_a_pick_at_one_clock_only_reaches_that_record(self):
+        """The later lock passing on a game it earlier liked must empty one row,
+        not both -- otherwise the pair is one tally wearing two labels."""
+        grade_history.record(_payload(5.0, 3.0, "home", self.kickoff),
+                             history_dir=self.dir, now=self.before_both)
+        grade_history.record(_payload(3.0, 3.0, None, self.kickoff),
+                             history_dir=self.dir, now=self.between)
+        rows = grade_history.pick_log(self.dir)["entries"]
+        self.assertEqual([e["record"] for e in rows if e["record"].startswith("lens_kalshi_ml")],
+                         ["lens_kalshi_ml"])
+
+    def test_the_other_lenses_keep_a_single_clock(self):
+        """Deliberate, not an oversight: the pair has to earn the extra column
+        before the other two get one."""
+        locks = collections.defaultdict(set)
+        for _k, _l, lock, lens, _t in grade_history.RECORDS:
+            locks[lens].add(lock)
+        self.assertEqual(locks["kalshi_ml"], {"decision", "final"})
+        self.assertEqual(locks["master"], {"decision", "final"})
+        self.assertEqual(locks["kalshi_spread"], {"decision"})
+        self.assertEqual(locks["sp_plus"], {"decision"})
 
 
 class TestARecordTracksTheBoardUntilItLocks(unittest.TestCase):

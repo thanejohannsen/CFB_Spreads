@@ -574,16 +574,22 @@ function pickList(rec) {
       const until = minutesUntil(e.locks_at);
       bits.push(until === null ? 'not locked yet' : `locks in ${fmtGap(until)}`);
     } else if (e.minutes_before_kickoff !== null && e.minutes_before_kickoff !== undefined) {
-      bits.push(`locked ${fmtGap(e.minutes_before_kickoff)} out`);
+      // Context, not an alarm. On a Thursday-noon row ~3d IS Thursday noon, so
+      // the old "locked 3d out" read like a warning while restating the
+      // record's own definition -- and sat next to one that really was.
+      bits.push(`${fmtGap(e.minutes_before_kickoff)} before kickoff`);
     }
     const meta = el('span', 'pick-meta', bits.join(' · '));
-    // A snapshot taken long before its own lock is not measuring what the
-    // record's name says. It happens when a game stops appearing in the slate
-    // and its lock freezes early, so say so rather than showing the pick as if
-    // it had been taken at the moment the record is dated by.
+    // This one is the alarm. A snapshot taken long before its own lock is not
+    // measuring what the record's name says: the game stopped appearing in the
+    // slate, so record() never saw it again and the lock froze where it stood.
     if (e.minutes_before_lock > STALE_LOCK_MINUTES) {
       meta.append(document.createTextNode(' · '));
-      meta.append(el('span', 'pick-stale', `${fmtGap(e.minutes_before_lock)} early`));
+      const stale = el('span', 'pick-stale', `lock fired ${fmtGap(e.minutes_before_lock)} early`);
+      stale.title = 'This game dropped out of the slate before its deadline, so the '
+                  + 'snapshot stopped refreshing and the lock froze early. It is filed '
+                  + 'under a moment it predates.';
+      meta.append(stale);
     }
     main.append(meta);
     row.append(main);

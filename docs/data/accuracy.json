@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-18T18:54:49.768748+00:00",
+ "generated_at": "2026-09-18T21:41:07.375333+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -17,18 +17,12 @@
    },
    "records": {
     "headline": {
-     "wins": 0,
-     "losses": 0,
-     "total": 0,
-     "pct": null
+     "wins": 1,
+     "losses": 2,
+     "total": 3,
+     "pct": 0.3333
     },
     "thursday_all": {
-     "wins": 1,
-     "losses": 0,
-     "total": 1,
-     "pct": 1.0
-    },
-    "lens_kalshi_spread": {
      "wins": 1,
      "losses": 0,
      "total": 1,
@@ -39,6 +33,18 @@
      "losses": 3,
      "total": 10,
      "pct": 0.7
+    },
+    "lens_kalshi_ml_final": {
+     "wins": 9,
+     "losses": 9,
+     "total": 18,
+     "pct": 0.5
+    },
+    "lens_kalshi_spread": {
+     "wins": 1,
+     "losses": 0,
+     "total": 1,
+     "pct": 1.0
     },
     "lens_sp_plus": {
      "wins": 15,
@@ -75,13 +81,19 @@
      "total": 0,
      "pct": null
     },
-    "lens_kalshi_spread": {
+    "lens_kalshi_ml": {
      "wins": 0,
      "losses": 0,
      "total": 0,
      "pct": null
     },
-    "lens_kalshi_ml": {
+    "lens_kalshi_ml_final": {
+     "wins": 0,
+     "losses": 0,
+     "total": 0,
+     "pct": null
+    },
+    "lens_kalshi_spread": {
      "wins": 0,
      "losses": 0,
      "total": 0,
@@ -123,13 +135,19 @@
     "total": 0,
     "pct": null
    },
-   "lens_kalshi_spread": {
+   "lens_kalshi_ml": {
     "wins": 0,
     "losses": 0,
     "total": 0,
     "pct": null
    },
-   "lens_kalshi_ml": {
+   "lens_kalshi_ml_final": {
+    "wins": 0,
+    "losses": 0,
+    "total": 0,
+    "pct": null
+   },
+   "lens_kalshi_spread": {
     "wins": 0,
     "losses": 0,
     "total": 0,
@@ -160,18 +178,19 @@
  "records": [
   {
    "key": "headline",
-   "label": "Final (T-1h) - S/A markets",
+   "label": "Final (T-1h)",
    "lock": "final",
    "lens": "master",
-   "tiers": [
-    "S",
-    "A"
-   ],
+   "tiers": null,
    "season": {
-    "wins": 0,
-    "losses": 0,
-    "total": 0,
-    "pct": null
+    "wins": 1,
+    "losses": 2,
+    "total": 3,
+    "pct": 0.3333
+   },
+   "open": {
+    "live": 0,
+    "pending": 0
    },
    "last_week": {
     "wins": 0,
@@ -192,6 +211,56 @@
     "total": 1,
     "pct": 1.0
    },
+   "open": {
+    "live": 0,
+    "pending": 1
+   },
+   "last_week": {
+    "wins": 0,
+    "losses": 0,
+    "total": 0,
+    "pct": null
+   }
+  },
+  {
+   "key": "lens_kalshi_ml",
+   "label": "Kalshi ML vs Spread - Thursday noon",
+   "lock": "decision",
+   "lens": "kalshi_ml",
+   "tiers": null,
+   "season": {
+    "wins": 7,
+    "losses": 3,
+    "total": 10,
+    "pct": 0.7
+   },
+   "open": {
+    "live": 0,
+    "pending": 13
+   },
+   "last_week": {
+    "wins": 0,
+    "losses": 0,
+    "total": 0,
+    "pct": null
+   }
+  },
+  {
+   "key": "lens_kalshi_ml_final",
+   "label": "Kalshi ML vs Spread - Final (T-1h)",
+   "lock": "final",
+   "lens": "kalshi_ml",
+   "tiers": null,
+   "season": {
+    "wins": 9,
+    "losses": 9,
+    "total": 18,
+    "pct": 0.5
+   },
+   "open": {
+    "live": 14,
+    "pending": 0
+   },
    "last_week": {
     "wins": 0,
     "losses": 0,
@@ -211,24 +280,9 @@
     "total": 1,
     "pct": 1.0
    },
-   "last_week": {
-    "wins": 0,
-    "losses": 0,
-    "total": 0,
-    "pct": null
-   }
-  },
-  {
-   "key": "lens_kalshi_ml",
-   "label": "Kalshi ML vs Spread",
-   "lock": "decision",
-   "lens": "kalshi_ml",
-   "tiers": null,
-   "season": {
-    "wins": 7,
-    "losses": 3,
-    "total": 10,
-    "pct": 0.7
+   "open": {
+    "live": 0,
+    "pending": 1
    },
    "last_week": {
     "wins": 0,
@@ -248,6 +302,10 @@
     "losses": 15,
     "total": 30,
     "pct": 0.5
+   },
+   "open": {
+    "live": 0,
+    "pending": 31
    },
    "last_week": {
     "wins": 0,

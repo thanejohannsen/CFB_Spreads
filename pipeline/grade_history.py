@@ -67,12 +67,32 @@ LENSES = [
 # it could never hold data: across the stored weeks the master picked 0 of 36
 # A-tier games, since a tight band is exactly when the line sits inside it and
 # the no-play rule reads no edge. A control with nothing in it is not a control.
+#
+# The moneyline lens is graded on both clocks too, and it is the only lens that
+# is. The master earns a second clock because the question "does a Wednesday
+# read hold up?" deserves evidence rather than assumption, and the moneyline is
+# the signal most likely to answer it differently: it is the one carrying most
+# of the master's weight on a tight game, and Kalshi's volume arrives late. The
+# pair already holds data and is not a duplicate -- across the stored weeks the
+# T-1h lock picked 32 games to Thursday's 23, while the two chose opposite sides
+# exactly once. Both samples are far too small to read anything into the split
+# yet, which is the point of starting to keep it.
+#
+# Nothing had to be computed for this. apply_results already writes
+# `final_correct` for every lens and _snapshot freezes all four picks into both
+# locks, so the row was always there to list. The other two lenses stay on one
+# clock until this pair shows the second is worth the column.
 RECORDS = [
     ("headline", "Final (T-1h)", "final", "master", None),
     ("thursday_all", "Thursday noon", "decision", "master", None),
+    # Keyed `lens_kalshi_ml` still, and deliberately: the lens keys are meant to
+    # outlive relabelling. Only the label gains its clock, now that the name
+    # alone no longer identifies one row.
+    ("lens_kalshi_ml", "Kalshi ML vs Spread - Thursday noon", "decision", "kalshi_ml", None),
+    ("lens_kalshi_ml_final", "Kalshi ML vs Spread - Final (T-1h)", "final", "kalshi_ml", None),
 ] + [
     (f"lens_{key}", label, "decision", key, None)
-    for key, label in LENSES if key != "master"
+    for key, label in LENSES if key not in ("master", "kalshi_ml")
 ]
 
 

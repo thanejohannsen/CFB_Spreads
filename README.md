@@ -194,7 +194,7 @@ The Thursday-noon record still locks at **the moment you actually decide**, and 
 hour before each kickoff. Over a season the pair answers "does a Wednesday read hold up?" with
 evidence instead of assumption — that is what the *Thu → final drift* figure above the records is.
 
-## Four tabs, four records
+## Four tabs, six records
 
 **Master** is the tool's official pick. It combines the two Kalshi signals by **measured precision**,
 per game — each market's own bid/ask converted onto the spread scale, so the sharper one carries the
@@ -232,7 +232,20 @@ tier gate and no shrinkage toward the line. A lens exists to measure whether its
 information at all, so filtering it through the master's safety rules — or pulling it toward the very
 line it is being graded against — would destroy the thing being measured.
 
-**Each tab keeps its own record.** The three lens definitions never change, so those rows stay
+**Each tab keeps its own record, and two of them keep two.** The master is graded at Thursday noon
+and again an hour before kickoff, because "does a Wednesday read hold up?" deserves evidence rather
+than assumption. The **moneyline lens** is now graded on both clocks for the same reason, and it is
+the only lens that is: it carries most of the master's weight on a tight game, and Kalshi's volume
+arrives late, so it is the signal most likely to answer differently.
+
+Nothing had to be computed to add it — every lens's result was already graded at both locks, and
+the row simply was not listed. Across the stored weeks the T-1h lock picked 32 games to Thursday's
+23 and the two chose opposite sides exactly once, so the pair differs mostly in *which* games it
+takes rather than which side. **Both samples are far too small to read anything into yet** — that
+is the reason to start keeping it, not a result. The other two lenses stay on one clock until this
+pair earns the column.
+
+The three lens definitions never change, so those rows stay
 comparable all season however the master is re-tuned, and after a few weeks they show which signal is
 actually carrying the result. Only the master can shift meaning underneath you, so each locked master
 pick carries a `strategy_version` stamp; if the formula ever changes mid-season the row can be split
