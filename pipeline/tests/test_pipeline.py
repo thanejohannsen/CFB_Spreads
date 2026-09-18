@@ -780,6 +780,21 @@ class TestExecutionVenues(unittest.TestCase):
             {r["venue"]: r for r in at110["rows"]}["book"]["break_even"],
             {r["venue"]: r for r in at105["rows"]}["book"]["break_even"])
 
+    def test_a_payload_without_quotes_is_not_a_missing_rung(self):
+        """Two different empty states, and conflating them lies. A payload built
+        before quotes existed has no `quotes` key at all -- every box would claim
+        "Kalshi does not quote this number" when Kalshi quotes plenty of them.
+        The page tells them apart on the key; both reach venues() the same way."""
+        self.assertIsNone(execution.quote_at({}, 3.5), "no quotes key at all")
+        self.assertIsNone(execution.quote_at({"quotes": []}, 3.5), "ladder unreadable")
+        self.assertIsNone(
+            execution.quote_at({"quotes": [[7.5, 0.5, 0.52, 10, 10]]}, 3.5),
+            "quoted, but not at this number")
+        for game in ({}, {"quotes": []}, {"quotes": [[7.5, 0.5, 0.52, 10, 10]]}):
+            v = execution.venues(execution.quote_at(game, 3.5), "home", 0.55)
+            self.assertFalse(v["quoted"])
+            self.assertEqual([r["venue"] for r in v["rows"]], ["book"])
+
     def test_quote_at_reads_the_side_off_the_sign(self):
         game = {"quotes": [[-7.5, 0.30, 0.32, 10, 10], [3.5, 0.60, 0.62, 10, 10]]}
         self.assertTrue(execution.quote_at(game, 3.5)["home_strike"])

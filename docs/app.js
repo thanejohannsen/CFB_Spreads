@@ -845,7 +845,15 @@ function executionBox(game, pick, line) {
       `the top two are ${(v.margin * 100).toFixed(2)}¢ apart, well inside what the assumed `
       + 'sportsbook price is worth. Take whichever you can actually get on. '));
   }
-  if (!v.quoted) {
+  if (!v.quoted && !game.quotes) {
+    // Not the same thing as Kalshi having no rung here, and saying so would be
+    // false: this payload was written before quotes were published at all. The
+    // scheduled build refreshes every few hours, and every half hour once games
+    // are under way, so this clears itself.
+    foot.append(document.createTextNode(
+      'This data refresh predates the per-rung quotes, so only the book is priced here. '
+      + 'Kalshi\u2019s side fills in on the next build.'));
+  } else if (!v.quoted) {
     foot.append(document.createTextNode(
       'Kalshi does not quote this number, so the book is the only venue for this exact bet. '
       + 'Its ladder sits on a coarser grid than the line on many games.'));
