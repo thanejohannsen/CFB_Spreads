@@ -206,6 +206,47 @@ MARGIN_SCALE_MAX = 12.0
 # pretending the typical game is a clean fit.
 SCALE_RESIDUAL_FLAG = 0.055
 
+# --------------------------------------------------------- execution ----
+#
+# What it costs to actually place the bet the tool just found.  This matters
+# out of proportion to its size: the master's edges run well under 2 points of
+# probability, so the difference between venues is most of the result.
+#
+# Kalshi's trading fee, as published: ceil(0.07 x contracts x P x (1-P)) to the
+# next cent, with maker orders charged a quarter of that.  The rounding is a
+# property of the ORDER, not of the price, so the fee is carried unrounded
+# everywhere it is compared across venues and the rounding is mentioned on the
+# page instead.  https://kalshi.com/docs/kalshi-fee-schedule.pdf
+KALSHI_FEE_RATE = 0.07
+KALSHI_MAKER_FEE_MULTIPLIER = 0.25
+
+# Contracts that must rest behind a quote before it counts as a price you could
+# fill.  Kalshi seeds levels with ~0.02-contract orders and reports them as top
+# of book: across 112 ladders every apparent crossed pair sat on 0.01-0.04
+# contracts, and one measured rung quoted 0.76/0.77 against a real 0.76/0.82.
+# One whole contract is the smallest floor that removes all of it.
+MIN_EXECUTABLE_SIZE = 1.0
+
+# CFBD publishes the spread but not its price -- the stored lines carry only
+# `home_favored_by`, `over_under` and `provider`.  So the sportsbook side is
+# assumed at the standard number and SAID to be assumed on the card, where it
+# can be overridden per game.  It is not cosmetic: at -105 the cheapest venue
+# changes on many games.
+ASSUMED_VEGAS_PRICE = -110
+
+# Below this gap, two venues are level rather than ranked.  The sportsbook price
+# is assumed, and the assumption is worth about 1.2 points of probability
+# between -105 and -110 -- so crowning a winner by 0.06 of a point, as one live
+# game did, is precision the inputs cannot support.  A quarter of a point is
+# comfortably inside that and still well under any edge worth acting on.
+EXEC_TIE_POINTS = 0.0025
+
+# How far from the game's own number to publish per-rung quotes.  The full
+# ladder for the slate is ~29KB on a 165KB payload; +/-6 points is ~8KB, and
+# MAX_STRIKE_DISTANCE already refuses to trust a line more than 3 points from a
+# strike, so nothing the tool would act on falls outside this.
+EXEC_QUOTE_RANGE_PTS = 6.0
+
 # ------------------------------------------------------------- timing ----
 
 # Picks are due Wednesday night / Thursday morning.  The headline accuracy

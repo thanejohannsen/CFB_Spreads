@@ -243,6 +243,65 @@ distinguishable from the 52.4% break-even a −110 line demands, so letting it m
 hundreds of thousands of contracts would add noise. It keeps its own tab and record and can be
 promoted later if that record earns it.
 
+## Where to place it
+
+A pick is only worth what you can get on it for, and these edges are thin — the master clears a
+−110 line by well under two points of probability. So when **Master** or **Kalshi ML vs Spread**
+calls a side, the card ranks the ways to place that exact bet by all-in break-even.
+
+Ranking needs no model. The venue with the lowest break-even leaves the most edge whatever the
+cover chance turns out to be, so the probability scales the numbers without ever reordering them.
+A Kalshi contract settles at $1, so its all-in cost **is** its break-even — no odds conversion, and
+both venues compare in one unit.
+
+**Two things separate the venues, and only one is execution.**
+
+| | | measured |
+|---|---|---|
+| **cost of dealing** | what a venue charges over its **own** midpoint | book +2.38¢, Kalshi taking +2.25¢, Kalshi **resting −0.06¢** |
+| **disagreement** | the two venues pricing the same number differently | −4.5¢ to +2.5¢ |
+
+The first is execution, and the headline is that *taking* the offer on Kalshi is a wash against a
+−110 book while *resting* a limit is worth about 2.4¢ — more than the entire edge the master works
+to find. The maker fee being a quarter of the taker fee is most of that.
+
+The second is **not a saving**. It is a bet, and it is the one the *Kalshi Spread vs Vegas Spread*
+tab exists to measure and grade. Folding it into the first is a real trap rather than a
+hypothetical one: compare a model's cover probability straight to a Kalshi rung's cost and, on the
+moneyline lens, the resulting "saving" tracks that lens's own ML-versus-ladder divergence at
+**r = +0.96**, peaking at 10 points of imaginary free money on the game where the two disagree
+most. The box computes both and reports them apart.
+
+Three honest limits, all stated on the card:
+
+- **The sportsbook price is assumed.** CFBD publishes the number but not the juice, so −110 is a
+  default you can correct per game. At −105 the cheapest venue changes on many games.
+- **Resting only pays if you get filled.** The row says so; nothing here models fill probability.
+- **A quote is not a price unless something is behind it.** Kalshi seeds levels with ~0.02-contract
+  orders and reports them as top of book — on one measured rung the API showed 0.76/0.77 while the
+  best prices with a whole contract behind them were 0.76/0.82. Quotes ship with their resting
+  size and a row that cannot be filled is struck through.
+
+Kalshi's ladder sits on a coarser grid than the Vegas number on most games, so often there is no
+rung at the pick's number at all — 4 of 6 master picks on a measured slate. The box says so and
+shows the book alone, which is information rather than a failure.
+
+### What this deliberately is not
+
+The obvious neighbouring idea — scan the ladder for crossed or underpriced rungs — was measured
+first and does not survive:
+
+- **Crossed rungs.** Five existed on top-of-book across 112 ladders; every one sat on 0.01–0.04
+  contracts. Require a single whole contract and there are none, and the total profit available at
+  real resting size was $0.001. Given infinite depth the fees still eat them: two legs of taker fee
+  exceed the 1–2¢ gross on all five. Clearing fees needs a cross wider than 3.5¢ near the middle of
+  the book — wider than the ladder's own typical spread.
+- **Rungs cheap against the fitted curve.** 256 of 1,810 rungs looked cheap net of fees; **none**
+  cleared its own game's `scale_residual`. The residual median across live ladders is 3.9¢, so the
+  bar is calibrated rather than invented, and the apparent edges are flat across distance from the
+  number (18% / 14% / 13% / 13% by bucket) — the signature of noise, not of a tail premium. It is
+  the circular comparison: a curve fitted to Kalshi rungs cannot price those same rungs.
+
 ## Moneyline cross-check
 
 Ties are impossible, so the ladder already contains a win probability: `P(home wins) = S(0)`. Kalshi
@@ -305,18 +364,20 @@ pipeline/
   select_slate.py     rank by open interest, lock the week's top 30
   match_games.py      Kalshi <-> CFBD name and date matching
   predict.py          line + market read -> pick, or an explicit refusal
-  grade_history.py    dual decision/closing locks, grading, the scoreboard
+  execution.py        a made pick -> which venue leaves the most of it
+  grade_history.py    decision/final locks, grading, the scoreboard
 docs/                 the Pages site (vanilla HTML/CSS/JS, no build step)
-  data/current.json   this week's slate, with a dense survival table per game
+  data/current.json   this week's slate: market read, picks, and quotes near the number
   data/history/       immutable weekly snapshots, never rewritten
 tools/
   conformance.js      fails CI if the page and the pipeline disagree on a pick
 ```
 
-The heavy math stays in Python. Each game ships a dense survival table on the half-integer grid, so
-typing a spread on the page is a table lookup rather than a re-fit. `docs/app.js` mirrors
-`pipeline/predict.py` so a hand-entered line is judged by the same rules that grade the record;
-the rule set is kept small so that stays true.
+The heavy math stays in Python, and each game ships the two numbers the page needs to redo it —
+a centre and a scale — so typing a spread is a closed-form evaluation rather than a re-fit or a
+table lookup. `docs/app.js` mirrors `pipeline/predict.py` and `pipeline/execution.py` so a
+hand-entered line is judged, and priced, by the same rules that grade the record; both rule sets
+are kept small so that stays true.
 
 **The page is authoritative, and CI proves it.** The page can only read numbers at the precision they
 were published at, so the pipeline decides at that precision too — `config.publish` quantises every
@@ -326,6 +387,12 @@ the board rendering *No play* on a game the record was counting as a pick, becau
 two implementations agree is worth nothing unless something fails when they stop, so
 `tools/conformance.js` loads `docs/app.js` itself — not a copy of its logic — replays its `evaluate`
 over every game in `current.json`, and fails the build on any disagreement.
+
+The execution box is held to the same standard. The pipeline stores no answer for it to be checked
+against, so the check asks for one: `python -m pipeline.execution` emits the venue rows for every
+stored pick and the page's own `venues()` is replayed against them. A tenth of a cent of drift there
+recommends the wrong venue, and both a broken fee constant and an inverted side mapping were
+confirmed to fail the build.
 
 ### Scheduled updates
 

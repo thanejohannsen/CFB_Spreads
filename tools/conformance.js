@@ -15,6 +15,12 @@
  * every game in the committed current.json, for all four lenses, against the
  * pick the pipeline stored. Any disagreement exits non-zero.
  *
+ * The same argument covers the execution box, which mirrors pipeline/execution.py
+ * so it can price a hand-typed line in the browser. There the pipeline stores no
+ * answer to compare against, so this asks it for one: `python -m pipeline.execution`
+ * emits the venue rows for every stored pick and app.js's own venues() is replayed
+ * against them. A tenth of a cent of drift there picks the wrong venue.
+ *
  *   node tools/conformance.js [path/to/current.json]
  */
 'use strict';
@@ -22,6 +28,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const { spawnSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const APP = path.join(ROOT, 'docs', 'app.js');
@@ -36,7 +43,8 @@ function loadApp() {
   if (headless === src) {
     throw new Error('app.js no longer ends in main(); update this loader');
   }
-  const node = () => ({ style: {}, append() {}, addEventListener() {}, classList: { add() {} } });
+  const node = () => ({ style: {}, append() {}, addEventListener() {},
+                        classList: { add() {} }, setAttribute() {} });
   const context = vm.createContext({
     console,
     document: {
@@ -106,7 +114,82 @@ function main() {
     process.exit(1);
   }
 
-  console.log(`conformance: ${compared} picks across ${games.length} games, page and pipeline agree`);
+  const execChecked = checkExecution(context, data, games);
+  console.log(`conformance: ${compared} picks across ${games.length} games, `
+              + `page and pipeline agree (plus ${execChecked} execution rows)`);
+}
+
+/** The execution box: app.js:venues() against pipeline/execution.py:venues(). */
+function checkExecution(context, data, games) {
+  const venues = vm.runInContext('venues', context);
+  const quoteAt = vm.runInContext('quoteAt', context);
+  if (typeof venues !== 'function' || typeof quoteAt !== 'function') {
+    console.error('could not reach venues()/quoteAt() in app.js');
+    process.exit(1);
+  }
+
+  const run = spawnSync('python3', ['-m', 'pipeline.execution', DATA],
+                        { cwd: ROOT, encoding: 'utf8' });
+  if (run.status !== 0) {
+    console.error('could not run pipeline.execution:\n' + (run.stderr || run.error));
+    process.exit(1);
+  }
+  const expected = JSON.parse(run.stdout);
+  const byId = new Map(games.map((g) => [g.id, g]));
+
+  // Both sides run the same arithmetic on the same published doubles, so they
+  // should agree exactly; the tolerance is here to name a real divergence
+  // rather than to tolerate one.
+  const EPS = 1e-9;
+  const problems = [];
+  let rows = 0;
+
+  for (const want of expected) {
+    const game = byId.get(want.id);
+    const pick = ((game || {}).picks || {})[want.lens] || {};
+    const got = venues(quoteAt(game, game.vegas_home_favored_by), pick.side,
+                       pick.p_cover, undefined);
+    if (got.rows.length !== want.venues.rows.length) {
+      problems.push(`${game.title} [${want.lens}]: ${want.venues.rows.length} rows in the `
+                    + `pipeline, ${got.rows.length} on the page`);
+      continue;
+    }
+    for (let i = 0; i < got.rows.length; i++) {
+      const a = want.venues.rows[i];
+      const b = got.rows[i];
+      rows++;
+      for (const key of ['venue', 'cost', 'break_even', 'dealing', 'edge', 'fillable', 'best', 'level']) {
+        const x = a[key];
+        const y = b[key];
+        const same = (typeof x === 'number' && typeof y === 'number')
+          ? Math.abs(x - y) < EPS : x === y;
+        if (!same) {
+          problems.push(`${game.title} [${want.lens}] ${a.venue}.${key}: `
+                        + `pipeline ${x}, page ${y}`);
+        }
+      }
+    }
+    for (const key of ['margin', 'tied']) {
+      const x = want.venues[key];
+      const y = got[key];
+      const same = (typeof x === 'number' && typeof y === 'number')
+        ? Math.abs(x - y) < EPS : x === y;
+      if (!same) problems.push(`${game.title} [${want.lens}] ${key}: pipeline ${x}, page ${y}`);
+    }
+    if (want.venues.best !== got.best) {
+      problems.push(`${game.title} [${want.lens}]: pipeline would place it on `
+                    + `${want.venues.best}, the page says ${got.best}`);
+    }
+  }
+
+  if (problems.length) {
+    console.error(`\nThe execution box and the pipeline disagree on ${problems.length} value(s):\n`);
+    for (const p of problems) console.error('  ' + p);
+    console.error('\ndocs/app.js mirrors pipeline/execution.py. Both must decide from the same');
+    console.error('published numbers, or the box recommends the wrong venue.\n');
+    process.exit(1);
+  }
+  return rows;
 }
 
 main();

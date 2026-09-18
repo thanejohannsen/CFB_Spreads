@@ -34,6 +34,36 @@ def _slate_date(ladders) -> Optional[datetime.date]:
     return datetime.date.fromisoformat(collections.Counter(dates).most_common(1)[0][0])
 
 
+def _size(contracts: float):
+    """Resting size, at the precision anyone reads it at.
+
+    The only question asked of this number is whether it clears one contract, so
+    a size in the thousands is published whole -- two decimals on 9776.33 is
+    3KB of payload across the slate for digits nothing consults. Below the floor
+    the exact figure is kept, because "0.02 contracts" is the evidence that the
+    quote is seeded dust rather than a market.
+    """
+    return (round(contracts, 2) if contracts < config.MIN_EXECUTABLE_SIZE
+            else round(contracts))
+
+
+def _quotes(ladder, read) -> list:
+    """Per-rung two-sided quotes within EXEC_QUOTE_RANGE_PTS of the number.
+
+    Unlike `strikes` this deliberately does NOT filter to usable strikes: a rung
+    too wide to help fit the curve is still a rung you can trade, and the
+    execution box judges it on its own resting size instead.
+    """
+    out = []
+    for st in ladder.strikes:
+        x = st.threshold if st.abbrev == ladder.home_abbrev else -st.threshold
+        if abs(x - read.implied_margin) > config.EXEC_QUOTE_RANGE_PTS:
+            continue
+        out.append([round(x, 1), config.publish(st.bid), config.publish(st.ask),
+                    _size(st.bid_size), _size(st.ask_size)])
+    return sorted(out)
+
+
 def build(top_n: int = None, verbose: bool = True) -> dict:
     now = datetime.datetime.now(UTC)
     ladders, unparsed = kalshi.fetch_ladders()
@@ -217,6 +247,15 @@ def build(top_n: int = None, verbose: bool = True) -> dict:
                 round(st.threshold if st.abbrev == ladder.home_abbrev else -st.threshold, 1)
                 for st in ladder.usable_strikes()
             ),
+            # Executable quotes near the number, so the page can price the bet
+            # it just recommended: [x, bid, ask, bid_size, ask_size], x signed
+            # home-positive like `strikes`. Sizes travel with the prices because
+            # a quote with hundredths of a contract behind it is not a price you
+            # can fill, and Kalshi reports those as top of book. Range-limited
+            # to keep the payload honest -- the whole ladder for the slate is
+            # ~29KB, this is ~8KB, and MAX_STRIKE_DISTANCE already refuses a
+            # line more than 3pts from a strike.
+            "quotes": [] if read.rejected else _quotes(ladder, read),
             "usable_strikes": read.usable_strikes,
             "total_strikes": read.total_strikes,
             "tier": quality.tier,

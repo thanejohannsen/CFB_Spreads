@@ -4,7 +4,7 @@ import os
 import tempfile
 import unittest
 
-from pipeline import grade_history, select_slate, weeks
+from pipeline import config, execution, grade_history, select_slate, weeks
 from pipeline.match_games import Match, match_all, normalize
 from pipeline.margin_model import parse_ladder
 from pipeline.tests.factories import logistic_event
@@ -626,6 +626,206 @@ class TestLockingAndGrading(unittest.TestCase):
         self.assertEqual(summary["season"]["decision"]["wins"], 1)
         self.assertEqual(summary["season"]["decision"]["total"], 1,
                          "a game with no pick must not inflate the denominator")
+
+
+class TestExecutionSideMapping(unittest.TestCase):
+    """The bug this guards: a home rung's YES is {margin > x} but an away rung's
+    YES is {margin < x}, so reading the wrong one does not skew the answer, it
+    prices the other team's bet. Measured live, getting it backwards flipped the
+    recommended venue on two of two checkable games and turned a -3.66c row into
+    a +5.33c one. All four combinations, one assertion each."""
+
+    def test_all_four_combinations(self):
+        self.assertTrue(execution.wants_yes(True, "home"),
+                        "a home rung's YES is the home side covering")
+        self.assertFalse(execution.wants_yes(True, "away"),
+                         "the away side of a home rung is its NO")
+        self.assertTrue(execution.wants_yes(False, "away"),
+                        "an away rung's YES is the away side covering")
+        self.assertFalse(execution.wants_yes(False, "home"),
+                         "the home side of an away rung is its NO")
+
+    def test_the_two_sides_cost_what_the_book_charges_for_them(self):
+        """Buying the YES lifts the ask; buying the NO pays 1 - bid."""
+        quote = {"bid": 0.40, "ask": 0.44, "bid_size": 500, "ask_size": 500,
+                 "home_strike": True}
+        home = {r["venue"]: r for r in
+                execution.venues(quote, "home", 0.5)["rows"]}
+        away = {r["venue"]: r for r in
+                execution.venues(quote, "away", 0.5)["rows"]}
+        self.assertAlmostEqual(home["kalshi_take"]["cost"], 0.44)
+        self.assertAlmostEqual(away["kalshi_take"]["cost"], 0.60)   # 1 - 0.40
+        self.assertAlmostEqual(home["kalshi_rest"]["cost"], 0.40)
+        self.assertAlmostEqual(away["kalshi_rest"]["cost"], 0.56)   # 1 - 0.44
+
+    def test_thresholds_are_positive_so_the_sign_carries_the_side(self):
+        """`quotes` publishes a signed x and the page reads the side off its
+        sign alone. That only works because Kalshi thresholds are positive --
+        0 of 2,303 rungs across a live slate were at or below zero."""
+        from pipeline.margin_model import parse_ladder
+        ladder = parse_ladder(logistic_event())
+        self.assertTrue(all(s.threshold > 0 for s in ladder.strikes))
+        for s in ladder.strikes:
+            x = s.threshold if s.abbrev == ladder.home_abbrev else -s.threshold
+            self.assertEqual(x > 0, s.abbrev == ladder.home_abbrev)
+
+
+class TestExecutionCost(unittest.TestCase):
+    def test_maker_is_a_quarter_of_taker(self):
+        self.assertAlmostEqual(execution.fee_rate(0.5, maker=True),
+                               execution.fee_rate(0.5) * 0.25)
+
+    def test_the_fee_peaks_at_the_coin_flip(self):
+        """0.07 * p * (1-p) is largest at 50c -- 1.75c, the published maximum."""
+        self.assertAlmostEqual(execution.fee_rate(0.5), 0.0175)
+        self.assertGreater(execution.fee_rate(0.5), execution.fee_rate(0.2))
+        self.assertGreater(execution.fee_rate(0.5), execution.fee_rate(0.9))
+
+    def test_an_order_rounds_up_to_the_next_cent(self):
+        """The rounding is a property of the ORDER, not the price: one contract
+        at 22c is charged 2c, a thousand are charged 1.2c each. Which is why
+        every cross-venue comparison uses the unrounded rate instead."""
+        self.assertAlmostEqual(execution.order_fee(0.22, 1), 0.02)
+        self.assertAlmostEqual(execution.order_fee(0.22, 1000) / 1000, 0.01202, places=5)
+        # ...and both bracket the unrounded rate the venue comparison uses.
+        self.assertLess(execution.fee_rate(0.22), execution.order_fee(0.22, 1))
+        self.assertAlmostEqual(execution.fee_rate(0.22), 0.012012, places=6)
+
+    def test_a_kalshi_price_is_its_own_break_even(self):
+        """It settles at $1, so there is no odds conversion -- only the fee."""
+        self.assertAlmostEqual(execution.break_even(0.50),
+                               0.50 + execution.fee_rate(0.50))
+        self.assertAlmostEqual(execution.american_break_even(-110), 110 / 210)
+        self.assertAlmostEqual(execution.american_break_even(150), 100 / 250)
+
+
+class TestExecutionVenues(unittest.TestCase):
+    QUOTE = {"bid": 0.50, "ask": 0.52, "bid_size": 900, "ask_size": 900,
+             "home_strike": True}
+
+    def test_ranking_needs_no_model(self):
+        """p_cover scales every edge by the same amount, so it cannot reorder
+        the rows. That is what makes the recommendation model-free."""
+        order = lambda p: [r["venue"] for r in
+                           execution.venues(self.QUOTE, "home", p)["rows"]
+                           if r["fillable"]]
+        self.assertEqual(order(0.40), order(0.99))
+
+    def test_the_decomposition_adds_back_up(self):
+        """Any gap between two venues is cost-of-dealing plus disagreement, and
+        only the first is a saving. If these stop summing, the box is double
+        counting the tool's own signal as a discount."""
+        v = execution.venues(self.QUOTE, "home", 0.55)
+        rows = {r["venue"]: r for r in v["rows"]}
+        gap = rows["book"]["break_even"] - rows["kalshi_rest"]["break_even"]
+        dealing = rows["book"]["dealing"] - rows["kalshi_rest"]["dealing"]
+        self.assertAlmostEqual(gap, dealing + v["disagreement"])
+
+    def test_dealing_is_measured_against_each_venue_own_mid(self):
+        """A -110/-110 book charges 2.38 points a side. Kalshi charges its half
+        spread plus the fee -- and resting collects rather than pays."""
+        v = execution.venues(self.QUOTE, "home", 0.55)
+        rows = {r["venue"]: r for r in v["rows"]}
+        self.assertAlmostEqual(rows["book"]["dealing"], 110 / 210 - 0.5)
+        self.assertGreater(rows["kalshi_take"]["dealing"], 0)
+        self.assertLess(rows["kalshi_rest"]["dealing"], 0)
+
+    def test_a_dust_quote_is_not_a_price_you_can_take(self):
+        """Kalshi seeds levels with ~0.02 contracts and reports them as top of
+        book; every apparent crossed pair on a live slate sat on 0.01-0.04.
+        Offering that as a venue is advice that cannot be filled."""
+        dust = dict(self.QUOTE, ask_size=0.02)
+        rows = {r["venue"]: r for r in execution.venues(dust, "home", 0.55)["rows"]}
+        self.assertFalse(rows["kalshi_take"]["fillable"])
+        self.assertNotEqual(execution.venues(dust, "home", 0.55)["best"], "kalshi_take")
+        # Resting posts a new order rather than consuming one, so it survives.
+        self.assertTrue(rows["kalshi_rest"]["fillable"])
+
+    def test_two_venues_a_hair_apart_are_level_not_ranked(self):
+        """A live game crowned a winner by 0.056c while the sportsbook price was
+        only assumed -- and that assumption is worth ~1.2c between -105 and -110.
+        Inside the tie band there is no winner to name."""
+        # 52c resting breaks even at 52.44%, against the book's 52.38%.
+        hair = {"bid": 0.47, "ask": 0.48, "bid_size": 900, "ask_size": 900,
+                "home_strike": True}
+        v = execution.venues(hair, "away", 0.55)
+        self.assertTrue(v["tied"], "0.06c apart is not a ranking")
+        self.assertIsNone(v["best"])
+        self.assertFalse(any(r["best"] for r in v["rows"]))
+        self.assertLess(v["margin"], config.EXEC_TIE_POINTS)
+
+    def test_a_real_gap_still_names_a_winner(self):
+        clear = {"bid": 0.40, "ask": 0.42, "bid_size": 900, "ask_size": 900,
+                 "home_strike": True}
+        v = execution.venues(clear, "home", 0.55)
+        self.assertFalse(v["tied"])
+        self.assertEqual(v["best"], "kalshi_rest")
+        self.assertGreaterEqual(v["margin"], config.EXEC_TIE_POINTS)
+
+    def test_no_rung_leaves_the_book_as_the_only_venue(self):
+        """Ordinary, not broken: the ladder's grid is coarser than the Vegas
+        number on most games -- 4 of 6 master picks on a measured slate."""
+        v = execution.venues(None, "home", 0.55)
+        self.assertEqual([r["venue"] for r in v["rows"]], ["book"])
+        self.assertEqual(v["best"], "book")
+        self.assertFalse(v["quoted"])
+        self.assertIsNone(v["disagreement"])
+
+    def test_the_sportsbook_price_changes_the_answer(self):
+        """CFBD publishes the number but not the juice, so the price is assumed
+        and overridable. It is not cosmetic: -105 moves the bar 1.2 points."""
+        at110 = execution.venues(self.QUOTE, "home", 0.55, -110)
+        at105 = execution.venues(self.QUOTE, "home", 0.55, -105)
+        self.assertGreater(
+            {r["venue"]: r for r in at110["rows"]}["book"]["break_even"],
+            {r["venue"]: r for r in at105["rows"]}["book"]["break_even"])
+
+    def test_quote_at_reads_the_side_off_the_sign(self):
+        game = {"quotes": [[-7.5, 0.30, 0.32, 10, 10], [3.5, 0.60, 0.62, 10, 10]]}
+        self.assertTrue(execution.quote_at(game, 3.5)["home_strike"])
+        self.assertFalse(execution.quote_at(game, -7.5)["home_strike"])
+        self.assertIsNone(execution.quote_at(game, 1.5), "no rung at that number")
+        self.assertIsNone(execution.quote_at(game, None))
+
+
+class TestExecutionQuotesPublished(unittest.TestCase):
+    def test_sizes_survive_parsing(self):
+        from pipeline.margin_model import parse_ladder
+        ladder = parse_ladder(logistic_event())
+        self.assertTrue(all(s.bid_size > 0 and s.ask_size > 0 for s in ladder.strikes))
+        self.assertTrue(ladder.strikes[0].executable("ask"))
+
+    def test_a_dust_quote_is_not_executable(self):
+        event = logistic_event()
+        event["markets"][0]["yes_ask_size_fp"] = "0.02"
+        from pipeline.margin_model import parse_ladder
+        strike = parse_ladder(event).strikes[0]
+        self.assertFalse(strike.executable("ask"))
+        self.assertTrue(strike.executable("bid"),
+                        "one thin side must not condemn the other")
+
+    def test_quotes_stay_near_the_number(self):
+        """Range-limited on purpose: the whole ladder for a slate is ~29KB of
+        payload, and MAX_STRIKE_DISTANCE already refuses a line more than 3pts
+        from a strike."""
+        from pipeline import build_predictions
+        from pipeline.margin_model import parse_ladder, read_market
+        ladder = parse_ladder(logistic_event())
+        read = read_market(ladder)
+        rows = build_predictions._quotes(ladder, read)
+        self.assertTrue(rows)
+        for x, bid, ask, bid_size, ask_size in rows:
+            self.assertLessEqual(abs(x - read.implied_margin),
+                                 config.EXEC_QUOTE_RANGE_PTS)
+            self.assertLessEqual(bid, ask)
+        self.assertEqual(rows, sorted(rows), "the page scans these in order")
+
+    def test_big_sizes_are_published_whole_and_dust_is_not(self):
+        """Two decimals on 9776.33 is payload nothing reads; 0.02 is the
+        evidence that a quote is seeded dust rather than a market."""
+        from pipeline import build_predictions
+        self.assertEqual(build_predictions._size(9776.33), 9776)
+        self.assertEqual(build_predictions._size(0.02), 0.02)
 
 
 if __name__ == "__main__":

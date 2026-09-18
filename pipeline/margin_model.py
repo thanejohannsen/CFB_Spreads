@@ -40,6 +40,14 @@ class Strike:
     open_interest: float
     last_price: float
     volume: float = 0.0
+    # Contracts resting AT the top of book, which is a different question from
+    # the price there. Kalshi seeds price levels with ~0.02-contract orders, and
+    # `bid`/`ask` report those as the quote: on one measured rung the API showed
+    # 0.76/0.77 while the best prices with a whole contract behind them were
+    # 0.76/0.82. Nothing that decides a trade may read the price without also
+    # reading how much of it exists -- see `executable`.
+    bid_size: float = 0.0
+    ask_size: float = 0.0
 
     @property
     def dollar_volume(self) -> float:
@@ -62,6 +70,17 @@ class Strike:
     @property
     def traded(self) -> bool:
         return self.last_price > 0
+
+    def executable(self, side: str, min_size: float = None) -> bool:
+        """Is there enough resting at this quote to call it a real price?
+
+        `side` is "bid" or "ask". Used by the execution box, which must not
+        offer a price nobody can fill; the curve fitting deliberately does not
+        ask, because a thin quote still carries information about where the
+        market sits even when you cannot trade on it.
+        """
+        floor = config.MIN_EXECUTABLE_SIZE if min_size is None else min_size
+        return (self.bid_size if side == "bid" else self.ask_size) >= floor
 
     def usable(self, median_width: float) -> bool:
         """A quote wide enough to be a market-maker placeholder carries no
@@ -190,6 +209,10 @@ def parse_ladder(event: dict) -> Optional[Ladder]:
             open_interest=_num(m.get("open_interest_fp")) or 0.0,
             last_price=_num(m.get("last_price_dollars")) or 0.0,
             volume=_num(m.get("volume_fp")) or 0.0,
+            # Already in the /events payload the fetch makes, so this costs no
+            # extra call.
+            bid_size=_num(m.get("yes_bid_size_fp")) or 0.0,
+            ask_size=_num(m.get("yes_ask_size_fp")) or 0.0,
         ))
 
     if not strikes or not (1 <= len(abbrev_to_team) <= 2):

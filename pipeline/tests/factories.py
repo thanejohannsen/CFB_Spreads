@@ -6,7 +6,8 @@ import math
 
 
 def market(event: str, abbrev: str, team: str, threshold: float,
-           bid: float, ask: float, oi: float = 5000.0, last: float = None) -> dict:
+           bid: float, ask: float, oi: float = 5000.0, last: float = None,
+           bid_size: float = 5000.0, ask_size: float = 5000.0) -> dict:
     tag = int(threshold + 0.5)
     return {
         "ticker": f"{event}-{abbrev}{tag}",
@@ -14,6 +15,11 @@ def market(event: str, abbrev: str, team: str, threshold: float,
         "floor_strike": threshold,
         "yes_bid_dollars": f"{bid:.4f}",
         "yes_ask_dollars": f"{ask:.4f}",
+        # Contracts resting at those prices. Kalshi seeds levels with hundredths
+        # of a contract, so the default here is a real market and a test that
+        # cares about dust passes its own tiny number.
+        "yes_bid_size_fp": f"{bid_size:.2f}",
+        "yes_ask_size_fp": f"{ask_size:.2f}",
         "open_interest_fp": f"{oi:.2f}",
         "last_price_dollars": f"{(bid + ask) / 2 if last is None else last:.4f}",
         "yes_sub_title": f"{team} wins by over {threshold} points",

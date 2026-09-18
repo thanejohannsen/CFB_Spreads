@@ -12,7 +12,16 @@ const MIN_EDGE_POINTS = 1.0;       // an edge under a point is inside the vig
 const EDGE_SOLID = 2.0;
 const EDGE_STRONG = 3.5;
 const SCALE_RESIDUAL_FLAG = 0.055;  // pipeline/config.py
+const KALSHI_FEE_RATE = 0.07;            // pipeline/config.py
+const KALSHI_MAKER_FEE_MULTIPLIER = 0.25;
+const MIN_EXECUTABLE_SIZE = 1.0;
+const ASSUMED_VEGAS_PRICE = -110;
+const EXEC_TIE_POINTS = 0.0025;
+// The two tabs that pick a side worth pricing an execution for. The other two
+// are measurement lenses, not instructions to bet.
+const EXEC_TABS = ['master', 'kalshi_ml'];
 const STORAGE_KEY = 'cfb-spreads:manual-lines:v1';
+const PRICE_KEY = 'cfb-spreads:manual-prices:v1';
 
 // Market quality, keyed by tier letter. Mirrors TIERS in pipeline/config.py.
 // Quality describes the *market* -- how precisely Kalshi is quoting this game.
@@ -42,25 +51,29 @@ const state = {
   sort: 'edge',
   picksOnly: false,
   manual: loadManual(),
+  prices: loadStored(PRICE_KEY),   // per-game sportsbook price, CFBD has none
   picks: null,          // picks.json, fetched only when a record is expanded
   expanded: null,       // which record's pick list is open
 };
 
 /* ------------------------------------------------------------- storage -- */
 
-function loadManual() {
+function loadStored(key) {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    return JSON.parse(localStorage.getItem(key)) || {};
   } catch (e) {
     return {};                       // private mode, cleared data, blocked storage
   }
 }
 
-function saveManual() {
+function save(key, value) {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.manual));
+    localStorage.setItem(key, JSON.stringify(value));
   } catch (e) { /* non-fatal: the page still works, the value just won't persist */ }
 }
+
+function loadManual() { return loadStored(STORAGE_KEY); }
+function saveManual() { save(STORAGE_KEY, state.manual); }
 
 /* --------------------------------------------------------------- model -- */
 
@@ -225,6 +238,125 @@ function evaluate(game, line, lens) {
   reason += ` Take ${team} ${fmtBet(line, side)}.`;
 
   return { side, team, line, estimate, edge, p_cover: pCover, p_push: pPush, confidence, reason };
+}
+
+/* ------------------------------------------------------------ execution --
+ *
+ * INVARIANT: mirrors pipeline/execution.py. Same rules, same numbers, and
+ * tools/conformance.js checks the two have not drifted.
+ *
+ * The pick is already made; this only asks which venue leaves the most of it.
+ * Ranking needs no model -- the lowest break-even wins whatever the cover
+ * chance is -- so p_cover scales the edges without ever reordering them. */
+
+/** Kalshi's fee as a fraction of a contract, unrounded. Mirrors execution.fee_rate. */
+function feeRate(price, maker) {
+  const rate = KALSHI_FEE_RATE * (maker ? KALSHI_MAKER_FEE_MULTIPLIER : 1);
+  return rate * price * (1 - price);
+}
+
+/** A Kalshi contract settles at $1, so its all-in cost IS its break-even. */
+function breakEven(cost, maker) {
+  return cost + feeRate(cost, maker);
+}
+
+/** The win rate an American-odds price needs. -110 => 0.5238. */
+function americanBreakEven(price) {
+  if (!price) return null;
+  return price < 0 ? -price / (-price + 100) : 100 / (price + 100);
+}
+
+/** Is the pick this rung's YES, or its NO?
+ *  A home rung's YES is {margin > x}; an away rung's YES is {margin < x}.
+ *  Backwards here prices the other team's bet, so it is its own function. */
+function wantsYes(homeStrike, side) {
+  return homeStrike === (side === 'home');
+}
+
+/** The rung at exactly this number, from the published quotes.
+ *  Quotes are [x, bid, ask, bid_size, ask_size] with x signed home-positive,
+ *  the same convention as `strikes`. Kalshi thresholds are always positive and
+ *  sit on the half-point grid -- verified across a full slate, 0 of 2,303 rungs
+ *  were at or below zero -- so the sign alone says whose contract it is, and
+ *  the pipeline pins that with a test. */
+function quoteAt(game, line) {
+  for (const q of game.quotes || []) {
+    if (Math.abs(q[0] - line) < 1e-9) {
+      return { x: q[0], bid: q[1], ask: q[2], bidSize: q[3], askSize: q[4],
+               homeStrike: q[0] > 0 };
+    }
+  }
+  return null;
+}
+
+/** Every way to place this bet, cheapest break-even first. Mirrors execution.venues. */
+function venues(quote, side, pCover, vegasPrice) {
+  const price = vegasPrice === null || vegasPrice === undefined ? ASSUMED_VEGAS_PRICE : vegasPrice;
+  const bookBe = americanBreakEven(price);
+  const rows = [{
+    venue: 'book', label: `Sportsbook ${fmtOdds(price)}`, note: 'assumed price',
+    cost: null, break_even: bookBe, dealing: bookBe === null ? null : bookBe - 0.5,
+    fillable: true,
+  }];
+
+  let mid = null;
+  if (quote) {
+    const yes = wantsYes(quote.homeStrike, side);
+    const contract = yes ? 'YES' : 'NO';
+    const takeCost = yes ? quote.ask : 1 - quote.bid;
+    const takeSize = yes ? quote.askSize : quote.bidSize;
+    const restCost = yes ? quote.bid : 1 - quote.ask;
+
+    rows.push({
+      venue: 'kalshi_take', label: `Kalshi ${contract}, take the offer`, note: '',
+      cost: takeCost, break_even: breakEven(takeCost, false), dealing: null,
+      contract, size: takeSize,
+      // A price with hundredths of a contract behind it is not a price.
+      fillable: takeSize >= MIN_EXECUTABLE_SIZE,
+    });
+    rows.push({
+      venue: 'kalshi_rest', label: `Kalshi ${contract}, rest a limit`,
+      note: 'only pays if you get filled', cost: restCost,
+      break_even: breakEven(restCost, true), dealing: null, contract, size: null,
+      // Resting posts an order rather than consuming one, so depth does not
+      // gate it; the risk is the fill, and the note says so.
+      fillable: true,
+    });
+
+    mid = (quote.bid + quote.ask) / 2;
+    if (!yes) mid = 1 - mid;
+    for (const row of rows.slice(1)) row.dealing = row.break_even - mid;
+  }
+
+  for (const row of rows) {
+    row.edge = (pCover === null || pCover === undefined || row.break_even === null)
+      ? null : pCover - row.break_even;
+  }
+  const fillable = rows.filter((r) => r.fillable && r.break_even !== null)
+                       .sort((a, b) => a.break_even - b.break_even);
+  // How much the winner wins by. Inside EXEC_TIE_POINTS the two are level: the
+  // sportsbook price is assumed, and that assumption moves the bar far more
+  // than such a gap, so naming a winner there is precision we do not have.
+  const margin = fillable.length > 1
+    ? fillable[1].break_even - fillable[0].break_even : null;
+  const tied = margin !== null && margin < EXEC_TIE_POINTS;
+  for (const row of rows) {
+    row.best = fillable.length > 0 && row === fillable[0] && !tied;
+    row.level = fillable.length > 0 && !row.best && row.fillable && row.break_even !== null
+      && row.break_even - fillable[0].break_even < EXEC_TIE_POINTS;
+  }
+
+  return {
+    rows,
+    best: fillable.length && !tied ? fillable[0].venue : null,
+    margin,
+    tied,
+    mid,
+    // Kalshi's own view against the book's implied even money. Named and set
+    // aside; it is a trade the Kalshi-Spread tab owns, never a saving.
+    disagreement: mid === null ? null : 0.5 - mid,
+    quoted: quote !== null,
+  };
 }
 
 /* ------------------------------------------------------------ formatting */
@@ -654,8 +786,128 @@ function gameCard(game, lens) {
   verdict.append(document.createTextNode(' — ' + pick.reason));
   card.append(verdict);
 
+  const exec = executionBox(game, pick, line);
+  if (exec) card.append(exec);
+
   card.append(manualRow(game));
   return card;
+}
+
+/** Where to place the bet this card just recommended.
+ *
+ *  Only on the tabs that issue an instruction, and only once they have. The
+ *  rows are ranked by break-even, which needs no model; the edge column scales
+ *  with the cover chance but never reorders them. */
+function executionBox(game, pick, line) {
+  if (!pick.side || !EXEC_TABS.includes(state.tab)) return null;
+  const priced = state.prices[game.id];
+  const vegasPrice = priced === undefined || priced === '' ? ASSUMED_VEGAS_PRICE : parseFloat(priced);
+  const v = venues(quoteAt(game, line), pick.side, pick.p_cover,
+                   Number.isNaN(vegasPrice) ? ASSUMED_VEGAS_PRICE : vegasPrice);
+
+  const box = el('div', 'exec');
+  box.append(el('div', 'exec-head', 'Where to place it'));
+
+  const table = el('div', 'exec-table');
+  const hdr = el('div', 'exec-tr head');
+  hdr.append(el('span', 'exec-td name', ''), el('span', 'exec-td', 'cost'),
+             el('span', 'exec-td', 'break-even'), el('span', 'exec-td', 'edge'));
+  table.append(hdr);
+
+  for (const row of v.rows) {
+    const tr = el('div', `exec-tr${row.best || row.level ? ' best' : ''}`
+                       + `${row.fillable ? '' : ' unfillable'}`);
+    const name = el('span', 'exec-td name');
+    name.append(document.createTextNode(row.label));
+    if (row.note) name.append(el('span', 'exec-note', row.note));
+    if (!row.fillable) {
+      // Kalshi seeds price levels with hundredths of a contract and reports
+      // them as top of book. Showing the price without saying nothing is
+      // behind it is advice you cannot fill.
+      name.append(el('span', 'exec-note bad',
+        `only ${row.size} contract${row.size === 1 ? '' : 's'} at that price`));
+    }
+    tr.append(name);
+    tr.append(el('span', 'exec-td', row.cost === null ? '—' : `${(row.cost * 100).toFixed(0)}¢`));
+    tr.append(el('span', 'exec-td', row.break_even === null ? '—' : pct(row.break_even)));
+    tr.append(el('span', `exec-td${row.edge === null ? '' : (row.edge > 0 ? ' pos' : ' neg')}`,
+                row.edge === null ? '—' : `${fmtSigned(row.edge * 100)}¢`));
+    table.append(tr);
+  }
+  box.append(table);
+
+  const foot = el('div', 'exec-foot');
+  if (v.tied) {
+    // Ranking two venues that differ by hundredths of a point, off a price we
+    // assumed, is a number the inputs cannot support.
+    foot.append(el('span', 'exec-strong', 'Too close to call: '));
+    foot.append(document.createTextNode(
+      `the top two are ${(v.margin * 100).toFixed(2)}¢ apart, well inside what the assumed `
+      + 'sportsbook price is worth. Take whichever you can actually get on. '));
+  }
+  if (!v.quoted) {
+    foot.append(document.createTextNode(
+      'Kalshi does not quote this number, so the book is the only venue for this exact bet. '
+      + 'Its ladder sits on a coarser grid than the line on many games.'));
+  } else {
+    const deal = v.rows.filter((r) => r.dealing !== null && r.dealing !== undefined);
+    const book = v.rows.find((r) => r.venue === 'book');
+    const rest = v.rows.find((r) => r.venue === 'kalshi_rest');
+    if (rest && book) {
+      foot.append(el('span', 'exec-strong', 'Cost of dealing: '));
+      foot.append(document.createTextNode(
+        `Kalshi resting ${fmtSigned(rest.dealing * 100)}¢ against the book's `
+        + `${fmtSigned(book.dealing * 100)}¢ — that part is execution. `));
+    }
+    if (v.disagreement !== null && Math.abs(v.disagreement) > 0.0005) {
+      // The rest of any gap is the two venues pricing the same number
+      // differently. That is a trade, and it is the Kalshi-Spread tab's trade.
+      // Folding it in here would report this tool's own signal as a discount.
+      foot.append(document.createTextNode(
+        `The remaining ${fmtSigned(v.disagreement * 100)}¢ is the two venues pricing this `
+        + 'number differently, which is a disagreement to bet, not a saving — see '));
+      const link = el('button', 'linky', 'Kalshi Spread vs Vegas Spread →');
+      link.type = 'button';
+      link.addEventListener('click',
+        () => document.querySelector('.tab[data-tab=kalshi_spread]').click());
+      foot.append(link);
+    }
+  }
+  box.append(foot);
+  box.append(priceRow(game));
+  return box;
+}
+
+/** CFBD publishes the spread but not its price, so the book's juice is assumed
+ *  and can be corrected here. At -105 the cheapest venue changes on many games,
+ *  so this is not a nicety. */
+function priceRow(game) {
+  const row = el('div', 'exec-price');
+  row.append(el('span', '', 'Sportsbook price:'));
+  const input = el('input');
+  input.type = 'number';
+  input.step = '5';
+  input.placeholder = String(ASSUMED_VEGAS_PRICE);
+  input.value = state.prices[game.id] ?? '';
+  input.setAttribute('aria-label', `Sportsbook price for ${game.title}`);
+  if (input.value !== '') input.classList.add('set');
+  input.addEventListener('input', () => {
+    if (input.value === '') delete state.prices[game.id];
+    else state.prices[game.id] = input.value;
+    save(PRICE_KEY, state.prices);
+    const fresh = gameCard(game, state.tab);
+    row.closest('.game').replaceWith(fresh);
+    const next = fresh.querySelector('.exec-price input');
+    if (next) {
+      next.focus();
+      try { next.setSelectionRange(next.value.length, next.value.length); }
+      catch (e) { /* type="number" in Chrome and Safari */ }
+    }
+  });
+  row.append(input);
+  row.append(el('span', 'src', state.prices[game.id] === undefined
+    ? 'assumed — CFBD publishes the number, not the juice' : 'yours'));
+  return row;
 }
 
 /** The three signals side by side, with the precision that sets their weight. */

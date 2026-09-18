@@ -329,6 +329,63 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
 .verdict.noplay .call { color: var(--muted); }
 .verdict.nosignal .call { color: var(--muted); }
 
+/* ------------------------------------------------------------ execution -- */
+
+.exec {
+  margin-top: 10px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+}
+.exec-head {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.exec-table { display: grid; gap: 1px; }
+.exec-tr {
+  display: grid;
+  grid-template-columns: minmax(140px, 1fr) 52px 74px 58px;
+  gap: 8px;
+  align-items: baseline;
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-size: 12.5px;
+}
+.exec-tr.head {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  padding-bottom: 0;
+}
+/* The row to act on. Tinted rather than badged: it is already first. */
+.exec-tr.best { background: color-mix(in srgb, var(--accent) 13%, transparent); font-weight: 600; }
+.exec-tr.unfillable { opacity: .55; }
+.exec-tr.unfillable .exec-td:not(.name) { text-decoration: line-through; }
+.exec-td { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; }
+.exec-td.name { font-family: inherit; text-align: left; }
+.exec-td.pos { color: var(--good); }
+.exec-td.neg { color: var(--bad); }
+.exec-note { font-size: 10.5px; color: var(--muted); margin-left: 6px; }
+.exec-note.bad { color: var(--bad); }
+.exec-foot { font-size: 11.5px; color: var(--muted); margin-top: 7px; line-height: 1.45; }
+.exec-strong { color: var(--ink); font-weight: 600; }
+.exec-price {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  margin-top: 8px; font-size: 11.5px; color: var(--muted);
+}
+.exec-price input {
+  width: 74px; padding: 4px 7px;
+  border: 1px solid var(--line); border-radius: 7px;
+  background: var(--bg); color: var(--ink); font: inherit; font-family: var(--mono);
+}
+.exec-price input.set { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.exec-price .src { font-size: 11px; }
+
 .manual { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; font-size: 12.5px; color: var(--muted); }
 .manual input {
   width: 88px;
@@ -397,6 +454,12 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
   .acc-tr { grid-template-columns: 1fr 62px 62px 44px; font-size: 12px; }
   .pick { grid-template-columns: 44px 1fr; row-gap: 4px; }
   .pick-out { grid-column: 2; justify-items: start; text-align: left; }
+  /* Four columns need 348px before padding, which a phone does not have. The
+     venue takes its own line and the three numbers share the next one, so the
+     comparison still reads down a column. */
+  .exec-tr { grid-template-columns: 1fr 1fr 1fr; gap: 2px 6px; }
+  .exec-td.name { grid-column: 1 / -1; }
+  .exec-tr.head .exec-td.name { display: none; }
 }
 
 @media (max-width: 560px) {
