@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-19T15:28:15.096050+00:00",
+ "generated_at": "2026-09-19T18:26:59.793272+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -189,7 +189,7 @@
     "pct": 0.3333
    },
    "open": {
-    "live": 2,
+    "live": 1,
     "pending": 0
    },
    "last_week": {
@@ -258,8 +258,8 @@
     "pct": 0.4737
    },
    "open": {
-    "live": 15,
-    "pending": 4
+    "live": 9,
+    "pending": 6
    },
    "last_week": {
     "wins": 0,
