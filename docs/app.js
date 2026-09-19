@@ -132,6 +132,19 @@ function fmtGap(mins) {
   return `${Math.round(mins / 1440)}d`;
 }
 
+/** Has this game kicked off? The board is a list of bets you can still place,
+ *  and a game under way is not one of them.
+ *
+ *  Only when the kickoff is real. With no CFBD match the pipeline invents a
+ *  19:00Z kickoff so week bucketing and the deadline land on the right day --
+ *  see build_predictions -- and hiding a game on a made-up time risks hiding
+ *  one that has not started. Showing a finished game is the cheaper mistake. */
+function hasStarted(game) {
+  if (!game.kickoff_exact || !game.kickoff) return false;
+  const t = new Date(game.kickoff);
+  return !isNaN(t) && t.getTime() <= Date.now();
+}
+
 /** Past this, a lock was taken early enough that the record should say so.
  *  The build runs every few hours, so a healthy lock lands well inside this. */
 const STALE_LOCK_MINUTES = 360;
@@ -650,16 +663,24 @@ function chipRow(label, groups) {
 
 const TIER_ORDER = { S: 0, A: 1, B: 2, C: 3, D: 4 };
 
-function visibleGames() {
+/** Everything the board would show if nothing had kicked off. */
+function boardGames() {
   const q = state.search.trim().toLowerCase();
   let games = state.data.games.filter((g) => TIER_ORDER[g.tier] <= TIER_ORDER[state.tier]);
-
   if (q) {
     games = games.filter((g) => `${g.home_team} ${g.away_team} ${g.title}`.toLowerCase().includes(q));
   }
   if (state.picksOnly) {
     games = games.filter((g) => evaluate(g, lineFor(g), state.tab).side !== null);
   }
+  return games;
+}
+
+function visibleGames() {
+  // Games under way come off the board. They stay in the record -- a pick is
+  // graded whether or not you can still take it -- so this is a display rule,
+  // not a change to what is counted.
+  const games = boardGames().filter((g) => !hasStarted(g));
 
   const sorters = {
     edge: (a, b) => Math.abs(evaluate(b, lineFor(b), state.tab).edge)
@@ -686,7 +707,15 @@ function render() {
   const board = document.getElementById('board');
   board.textContent = '';
   const games = visibleGames();
+  const started = boardGames().length - games.length;
   document.getElementById('empty').hidden = games.length > 0;
+  if (started) {
+    // Half a Saturday board can be under way at once. Vanishing silently reads
+    // as a broken filter, so the count is stated.
+    board.append(el('p', 'board-note',
+      `${started} game${started === 1 ? '' : 's'} already under way, hidden. `
+      + 'They stay in the records below.'));
+  }
 
   const summary = boardSummary();
   if (summary) board.append(summary);
@@ -696,7 +725,9 @@ function render() {
 
 /** A board of "No play" cards should say why, not leave you scrolling. */
 function boardSummary() {
-  const all = state.data.games;
+  // Counted over the same games the board is showing: quoting a total that
+  // includes games under way would contradict the list beneath it.
+  const all = state.data.games.filter((g) => !hasStarted(g));
   const priced = all.filter((g) => lineFor(g) !== null);
   const picks = priced.filter((g) => evaluate(g, lineFor(g), state.tab).side !== null);
   if (picks.length || !priced.length) return null;

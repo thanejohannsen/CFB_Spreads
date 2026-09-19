@@ -512,15 +512,20 @@ class TestARecordTracksTheBoardUntilItLocks(unittest.TestCase):
 
 
 class TestSlatePinning(unittest.TestCase):
-    """The bug: the slate is the top N by open interest, recomputed every run,
-    but a lock is permanent. A game locked on Wednesday could be pushed out of
-    the top N by Saturday -- after which the board stopped showing it while the
-    record went on grading it as pending, and its T-1h lock could never be
-    refreshed again, because record() only ever sees games in the payload.
+    """The slate is the top N by open interest, recomputed every run, but a
+    pick has to be watched until its lock fires. record() only ever sees games
+    in the payload, so a picked game pushed out of the top N stops being
+    re-evaluated: the board drops it while the record still grades it, and its
+    open lock freezes holding a pick the tool no longer makes.
 
-    Observed on Michigan St. vs Notre Dame: locked as a master lean, then 32nd
-    by open interest, so the board read "nothing clears the threshold" while the
-    record carried a pending pick on it."""
+    Observed on Michigan St. vs Notre Dame: a master lean at 03:49, then out of
+    the top 30 for every run before Thursday noon, so its decision lock froze
+    twelve hours early on a pick the board had already stopped showing.
+
+    Pinning is therefore for picks, not for attendance. The first attempt kept
+    every game with any lock until its T-1h -- which before Saturday is every
+    game that has touched the top N all week, 49 against a TOP_N of 30 -- and
+    that is what these now pin against."""
 
     def setUp(self):
         self.dir = tempfile.mkdtemp()
@@ -537,6 +542,15 @@ class TestSlatePinning(unittest.TestCase):
             game["pick"]["side"] = None
             for pick in game["picks"].values():
                 pick["side"] = None
+        grade_history.record(payload, history_dir=self.dir, now=self.early)
+
+    def _lock_lens(self, game_id, lens):
+        """Lock a game that exactly one lens picks, to prove which lenses pin."""
+        payload = _payload(5.0, 3.0, "home", self.kickoff, game_id)
+        game = payload["games"][0]
+        game["pick"]["side"] = None
+        for key, pick in game["picks"].items():
+            pick["side"] = "home" if key == lens else None
         grade_history.record(payload, history_dir=self.dir, now=self.early)
 
     def _ladders(self, ids_by_oi):
@@ -583,12 +597,67 @@ class TestSlatePinning(unittest.TestCase):
         self.assertIn("KX-PICKED",
                       grade_history.locked_ids("2026-09-12", self.dir, now=after))
 
-    def test_before_its_final_lock_even_a_no_play_is_pinned(self):
-        """Its T-1h snapshot has not been taken yet, and a game absent from the
-        payload is a game record() cannot refresh."""
+    def test_a_no_play_is_not_pinned_even_before_its_final_lock(self):
+        """This reverses an earlier rule, deliberately. Pinning every game with
+        a lock until T-1h meant pinning every game that had touched the top N
+        all week -- 49 against a TOP_N of 30 on a measured slate. A game the
+        tool has no opinion on needs nothing from the record, and if it is
+        inside the top N it is in the payload anyway."""
         self._lock("KX-NOPLAY", side=None)
-        self.assertIn("KX-NOPLAY",
+        self.assertEqual(
+            grade_history.locked_ids("2026-09-12", self.dir, now=self.early), set())
+
+    def test_a_picked_game_is_pinned_so_the_pick_can_be_DROPPED(self):
+        """The point of pinning, and the reason the narrow rule is not a
+        regression: a picked game keeps being evaluated, so when the edge goes
+        the open lock is overwritten with a no-play and the record loses the
+        pick. Michigan St. vs Notre Dame is the case that was not -- it fell out
+        of the slate holding a lean, stopped being looked at, and its Thursday
+        lock froze on a snapshot twelve hours older than the deadline."""
+        self._lock("KX-EDGY", side="home")
+        self.assertIn("KX-EDGY",
                       grade_history.locked_ids("2026-09-12", self.dir, now=self.early))
+
+        # the edge goes while the deadline is still ahead
+        later = self.early + datetime.timedelta(hours=6)
+        payload = _payload(3.0, 3.0, None, self.kickoff, "KX-EDGY")
+        game = payload["games"][0]
+        game["pick"]["side"] = None
+        for pick in game["picks"].values():
+            pick["side"] = None
+        grade_history.record(payload, history_dir=self.dir, now=later)
+
+        entry = grade_history.load_week("2026-09-12", self.dir)["games"]["KX-EDGY"]
+        self.assertIsNone(entry["decision"]["picks"]["master"]["side"],
+                          "the open lock must lose the pick, not keep it")
+        self.assertEqual(grade_history.locked_ids("2026-09-12", self.dir, now=later), set(),
+                         "and with no pick left there is nothing to hold it in the slate")
+
+    def test_which_lenses_hold_a_game_in_the_slate(self):
+        """SP+ is excluded on the evidence: it is a near-static power rating and
+        changed side between locks on 24% of its picked games, against 74% for
+        the moneyline and 100% for the master and the ladder. Re-evaluating a
+        signal that does not move buys little, and SP+ alone dragged 17 of 19
+        extra games onto a measured board."""
+        for lens in ("master", "kalshi_spread", "kalshi_ml"):
+            with self.subTest(lens=lens):
+                self.assertIn(lens, grade_history.PINNING_LENSES)
+        self.assertNotIn("sp_plus", grade_history.PINNING_LENSES)
+
+        self._lock_lens("KX-SPONLY", "sp_plus")
+        self._lock_lens("KX-ML", "kalshi_ml")
+        pinned = grade_history.locked_ids("2026-09-12", self.dir, now=self.early)
+        self.assertNotIn("KX-SPONLY", pinned, "an SP+ pick alone does not pin")
+        self.assertIn("KX-ML", pinned)
+
+    def test_the_rule_does_not_depend_on_the_clock(self):
+        """The old rule turned on whether T-1h had passed. This one asks only
+        whether a pick exists, so it answers the same at every moment."""
+        self._lock("KX-PICKED", side="home")
+        answers = {frozenset(grade_history.locked_ids("2026-09-12", self.dir, now=t))
+                   for t in (self.early, self.kickoff,
+                             self.kickoff + datetime.timedelta(days=3))}
+        self.assertEqual(len(answers), 1)
 
 
 class TestLockingAndGrading(unittest.TestCase):

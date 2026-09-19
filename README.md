@@ -190,6 +190,47 @@ Measured on a Wednesday afternoon against the following Saturday:
 Scoping to the top 30 by open interest is self-reinforcing: popularity and tradeability are the same
 signal, so the junk is excluded by construction rather than by filtering.
 
+### A pick is watched until its lock fires
+
+The top 30 is recomputed every run, so a game can fall out of it mid-week — and `record()` only
+ever sees games in the payload. A picked game that slips out therefore stops being re-evaluated,
+and its open lock freezes holding a pick the tool no longer makes. That is exactly what happened to
+Michigan St. vs Notre Dame: a master lean at 03:49 on Thursday, outside the top 30 for every run
+before noon, so its decision lock froze twelve hours early on a pick the board had already dropped.
+
+So **a game carrying a pick is pinned into the slate until its lock fires** — not so the pick is
+preserved, but so it can be *withdrawn*. Kept in the payload, it is re-evaluated every run; when the
+edge goes the open lock is overwritten with a no-play and the record loses the pick, which is the
+correct outcome. Once it holds no pick it is no longer pinned, and if it is outside the top 30 it
+falls off the board.
+
+Pinning is for picks, not attendance. The first attempt kept every game with any stored lock until
+its T-1h, which before Saturday is every game that has touched the top 30 all week — 49 against a
+`TOP_N` of 30, so the board filled with markets the tool does not claim to cover. The rule now turns
+on whether a pick exists, which also makes it independent of the clock.
+
+**SP+ picks do not pin**, on the evidence rather than for convenience. Pinning buys the chance to
+re-evaluate, which is worth little on a signal that barely moves: SP+ is a near-static power rating
+and changed side between the two locks on **24%** of its 76 picked games, against **74%** for the
+moneyline and **100%** for the master and the ladder. It was also the single largest source of
+bloat, dragging 17 of 19 extra games onto a measured board. The master and the two Kalshi lenses pin;
+SP+ rides along whenever a game is in the top 30 anyway.
+
+One consequence worth stating: `by_tier` and the *Thu → final drift* figure are computed from both
+snapshots of every graded game, picked or not, so an unpinned game that also leaves the top 30 can
+feed them a stale snapshot. On the stored weeks that is 21 of 37 drift samples. Restricting drift to
+picked games — which is what the statistic is asking about anyway — is the honest fix and has not
+been done yet.
+
+### Games under way come off the board
+
+The board is a list of bets you can still place, so a game past kickoff is hidden from it — on a
+Saturday afternoon that was 26 of 49. The count is stated rather than left as a silently shorter
+list, and it is a display rule only: the pick stays in the record and is graded either way. A game
+whose kickoff had to be guessed (no CFBD match, so the pipeline invents a 19:00Z time purely to
+bucket the week) is never hidden, because showing a finished game is a cheaper mistake than hiding a
+live one.
+
 The Thursday-noon record still locks at **the moment you actually decide**, and the headline locks an
 hour before each kickoff. Over a season the pair answers "does a Wednesday read hold up?" with
 evidence instead of assumption — that is what the *Thu → final drift* figure above the records is.

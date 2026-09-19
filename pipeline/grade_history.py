@@ -49,6 +49,17 @@ LENSES = [
     ("sp_plus", "SP+ vs Vegas Spread"),
 ]
 
+# Whose picks are worth holding a game in the slate for -- see locked_ids.
+#
+# SP+ is left out on the evidence, not for convenience. It is a near-static
+# power rating, so its pick barely moves between the two locks: measured across
+# the stored weeks it changed on 24% of its 76 picked games, against 74% for the
+# moneyline and 100% for the master and the ladder. Pinning exists to let a pick
+# be RE-EVALUATED and dropped, which is worth little on a signal that does not
+# move -- and SP+ alone accounted for 17 of the 19 games the old rule dragged
+# into the slate beyond the top 30.
+PINNING_LENSES = ("master", "kalshi_spread", "kalshi_ml")
+
 # Every record the page can show, as (key, label, lock, lens, tier filter).
 #
 # Both master records carry every pick the Master tab makes, and differ only in
@@ -188,35 +199,47 @@ def _keeps_its_line(old: Optional[dict], new: dict) -> bool:
 
 def locked_ids(week_key: str, history_dir: str = None,
                now: datetime.datetime = None) -> set:
-    """Games this week is still committed to, for build_predictions to pin.
+    """Games worth holding in the slate, for build_predictions to pin.
 
-    A lock is a commitment, and two kinds of commitment outlive a game's place
-    in the top N by open interest:
+    One test: does any lock on this game hold a pick one of PINNING_LENSES
+    stands behind?  That covers both reasons a game has to stay in the payload,
+    and they are different reasons:
 
-      * its T-1h lock has not fired yet, so the snapshot still needs refreshing
-        -- and a game missing from the payload is a game record() never sees,
-        which would freeze that lock at whatever it held when the game slipped
-        out of the slate;
-      * it carries an actual pick, which the record grades and the board must
-        therefore keep showing.
+      * a lock still OPEN needs the game evaluated every run so the pick can be
+        DROPPED when the edge goes.  record() only ever sees games in the
+        payload, so a picked game that slips out of the top N stops being
+        re-evaluated and its lock freezes holding a pick the tool no longer
+        makes.  That is how Michigan St. vs Notre Dame came to be credited to
+        Thursday noon with a snapshot taken twelve hours earlier.
+      * a lock already FIRED keeps the game in the payload so the board can
+        still show it, and a board that has dropped a game the record grades
+        cannot be reconciled against it. That window is narrower than it looks:
+        the T-1h lock fires an hour before kickoff, and the board hides a game
+        once it starts, so this is really about that last hour.
 
-    A game that is past its last lock and was never picked is finished with:
-    the record has all it needs, so it is left to fall off the board rather
-    than growing the slate for the rest of the week.
+    A game holding no pick is pinned by neither.  If it is inside the top N it
+    is in the payload anyway; if it is not, it is a game the tool has no opinion
+    on, and the record needs nothing from it.
+
+    This used to pin any game with a lock at all until its T-1h passed, which
+    before Saturday is every game that has touched the top N all week -- 49
+    against a TOP_N of 30, so the board filled with markets the tool does not
+    claim to cover and TOP_N stopped meaning anything.  Keeping a game because
+    it was once seen is not the same as keeping one because it is picked.
+
+    `now` is accepted and ignored.  The old rule turned on whether T-1h had
+    passed; this one asks only whether a pick exists, which is the same answer
+    at every moment -- so the parameter stays for its callers and tests rather
+    than because the answer needs it.
     """
-    now = now or datetime.datetime.now(UTC)
+    del now
     out = set()
     for gid, entry in (load_week(week_key, history_dir).get("games") or {}).items():
-        if not (entry.get("decision") or entry.get("final") or entry.get("closing")):
-            continue
-        kickoff = weeks.parse_ts(entry.get("kickoff"))
-        if kickoff is not None and now < weeks.final_lock(kickoff):
-            out.add(gid)
-            continue
-        if any(pick and pick.get("side")
-               for name in ("decision", "final", "closing")
-               for pick in _picks(entry.get(name)).values()):
-            out.add(gid)
+        for name in ("decision", "final"):
+            picks = _picks(_lock(entry, name)) or {}
+            if any((picks.get(key) or {}).get("side") for key in PINNING_LENSES):
+                out.add(gid)
+                break
     return out
 
 
