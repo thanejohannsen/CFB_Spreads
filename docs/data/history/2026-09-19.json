@@ -1110,6 +1110,12 @@
    },
    "title": "Akron vs Minnesota"
   },
+  "KXNCAAFSPREAD-26SEP19ARSTTCU": {
+   "away_team": "Arkansas St.",
+   "home_team": "TCU",
+   "kickoff": "2026-09-20T00:00:00+00:00",
+   "title": "Arkansas St. vs TCU"
+  },
   "KXNCAAFSPREAD-26SEP19ASUKU": {
    "away_team": "Arizona St.",
    "closing": {
@@ -2440,6 +2446,12 @@
    "kickoff": "2026-09-19T23:30:00+00:00",
    "title": "Colorado vs Northwestern"
   },
+  "KXNCAAFSPREAD-26SEP19CONNUSM": {
+   "away_team": "UConn",
+   "home_team": "Southern Miss",
+   "kickoff": "2026-09-19T23:00:00+00:00",
+   "title": "UConn vs Southern Miss"
+  },
   "KXNCAAFSPREAD-26SEP19DUQWSU": {
    "away_team": "Duquesne",
    "home_team": "Washington St.",
@@ -3310,6 +3322,87 @@
    "kickoff": "2026-09-19T23:00:00+00:00",
    "title": "Florida vs Auburn"
   },
+  "KXNCAAFSPREAD-26SEP19FRESSJSU": {
+   "away_team": "Fresno St.",
+   "final": {
+    "at": "2026-09-20T00:43:47.658615+00:00",
+    "band": 0.31,
+    "blended_margin": -4.34,
+    "dollar_volume": 63824,
+    "fraction_traded": 0.71,
+    "implied_margin": -4.34,
+    "kalshi_weight": 0.989,
+    "margin_high": -4.19,
+    "margin_low": -4.5,
+    "master_margin": -4.64,
+    "minutes_before_kickoff": 136,
+    "open_interest": 135812,
+    "pick": {
+     "confidence": "no-play",
+     "edge": -0.1385019999999999,
+     "estimate": -4.638502,
+     "line": -4.5,
+     "p_cover": 0.5040891640146945,
+     "p_push": 0.0,
+     "reason": "Line sits inside the market's own 0.3pt uncertainty band (-4.5 to -4.2); no edge worth acting on.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-play",
+      "edge": -0.5599999999999996,
+      "estimate": -5.06,
+      "line": -4.5,
+      "p_cover": 0.5165279099421882,
+      "p_push": 0.0,
+      "reason": "Market and line agree to within 0.6 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": 0.16000000000000014,
+      "estimate": -4.34,
+      "line": -4.5,
+      "p_cover": 0.5047238405409491,
+      "p_push": 0.0,
+      "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-play",
+      "edge": -0.1385019999999999,
+      "estimate": -4.638502,
+      "line": -4.5,
+      "p_cover": 0.5040891640146945,
+      "p_push": 0.0,
+      "reason": "Line sits inside the market's own 0.3pt uncertainty band (-4.5 to -4.2); no edge worth acting on.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "strong",
+      "edge": -4.699999999999999,
+      "estimate": -9.2,
+      "line": -4.5,
+      "p_cover": 0.6353105532146215,
+      "p_push": 0.0,
+      "reason": "Estimate Fresno St. -9.2; line is Fresno St. -4.5. At that number the market gives Fresno St. a 64% chance to cover. Edge 4.7 pts. Take Fresno St. -4.5.",
+      "side": "away",
+      "team": "Fresno St."
+     }
+    },
+    "tier": "A",
+    "vegas_home_favored_by": -4.5
+   },
+   "home_team": "San Jose St.",
+   "kickoff": "2026-09-20T03:00:00+00:00",
+   "title": "Fresno St. vs San Jose St."
+  },
   "KXNCAAFSPREAD-26SEP19FSUALA": {
    "away_team": "Florida St.",
    "closing": {
@@ -4000,24 +4093,24 @@
     "vegas_home_favored_by": 2.5
    },
    "final": {
-    "at": "2026-09-19T22:42:55.956560+00:00",
+    "at": "2026-09-20T00:43:47.658615+00:00",
     "band": 0.21,
     "blended_margin": 2.4,
-    "dollar_volume": 87405,
+    "dollar_volume": 113722,
     "fraction_traded": 1.0,
     "implied_margin": 2.4,
     "kalshi_weight": 0.995,
     "margin_high": 2.5,
     "margin_low": 2.29,
-    "master_margin": 2.05,
-    "minutes_before_kickoff": 197,
-    "open_interest": 225115,
+    "master_margin": 2.1,
+    "minutes_before_kickoff": 76,
+    "open_interest": 263935,
     "pick": {
      "confidence": "no-play",
-     "edge": -0.4477500000000001,
-     "estimate": 2.05225,
+     "edge": -0.3979999999999997,
+     "estimate": 2.1020000000000003,
      "line": 2.5,
-     "p_cover": 0.5144147400833611,
+     "p_cover": 0.5126591198201897,
      "p_push": 0.0,
      "reason": "Line sits inside the market's own 0.2pt uncertainty band (+2.3 to +2.5); no edge worth acting on.",
      "side": null,
@@ -4027,12 +4120,12 @@
     "picks": {
      "kalshi_ml": {
       "confidence": "lean",
-      "edge": -1.24,
-      "estimate": 1.26,
+      "edge": -1.08,
+      "estimate": 1.42,
       "line": 2.5,
-      "p_cover": 0.5398466052003317,
+      "p_cover": 0.5343047434625802,
       "p_push": 0.0,
-      "reason": "Estimate San Diego St. -1.3; line is San Diego St. -2.5. At that number the market gives James Madison a 54% chance to cover. Edge 1.2 pts. Take James Madison +2.5.",
+      "reason": "Estimate San Diego St. -1.4; line is San Diego St. -2.5. At that number the market gives James Madison a 53% chance to cover. Edge 1.1 pts. Take James Madison +2.5.",
       "side": "away",
       "team": "James Madison"
      },
@@ -4041,7 +4134,7 @@
       "edge": -0.10000000000000009,
       "estimate": 2.4,
       "line": 2.5,
-      "p_cover": 0.5032202202713181,
+      "p_cover": 0.5031813203224373,
       "p_push": 0.0,
       "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
@@ -4049,10 +4142,10 @@
      },
      "master": {
       "confidence": "no-play",
-      "edge": -0.4477500000000001,
-      "estimate": 2.05225,
+      "edge": -0.3979999999999997,
+      "estimate": 2.1020000000000003,
       "line": 2.5,
-      "p_cover": 0.5144147400833611,
+      "p_cover": 0.5126591198201897,
       "p_push": 0.0,
       "reason": "Line sits inside the market's own 0.2pt uncertainty band (+2.3 to +2.5); no edge worth acting on.",
       "side": null,
@@ -4064,7 +4157,7 @@
       "edge": -4.5,
       "estimate": -2.0,
       "line": 2.5,
-      "p_cover": 0.6409863296544107,
+      "p_cover": 0.6393733597329685,
       "p_push": 0.0,
       "reason": "Estimate James Madison -2.0; line is San Diego St. -2.5. At that number the market gives James Madison a 64% chance to cover. Edge 4.5 pts. Take James Madison +2.5.",
       "side": "away",
@@ -5926,6 +6019,12 @@
    "kickoff": "2026-09-19T23:30:00+00:00",
    "title": "Michigan St. vs Notre Dame"
   },
+  "KXNCAAFSPREAD-26SEP19MURROKST": {
+   "away_team": "Murray St.",
+   "home_team": "Oklahoma St.",
+   "kickoff": "2026-09-19T23:00:00+00:00",
+   "title": "Murray St. vs Oklahoma St."
+  },
   "KXNCAAFSPREAD-26SEP19NCSTVAN": {
    "away_team": "NC St.",
    "closing": {
@@ -6256,78 +6355,78 @@
     "vegas_home_favored_by": -27.5
    },
    "final": {
-    "at": "2026-09-19T22:42:55.956560+00:00",
-    "band": 0.63,
-    "blended_margin": -25.88,
-    "dollar_volume": 38359,
-    "fraction_traded": 0.81,
-    "implied_margin": -25.85,
-    "kalshi_weight": 0.958,
-    "margin_high": -25.51,
-    "margin_low": -26.14,
-    "master_margin": -26.03,
-    "minutes_before_kickoff": 227,
-    "open_interest": 55049,
+    "at": "2026-09-20T00:43:47.658615+00:00",
+    "band": 0.24,
+    "blended_margin": -24.63,
+    "dollar_volume": 69543,
+    "fraction_traded": 0.952,
+    "implied_margin": -24.62,
+    "kalshi_weight": 0.993,
+    "margin_high": -24.5,
+    "margin_low": -24.74,
+    "master_margin": -24.66,
+    "minutes_before_kickoff": 106,
+    "open_interest": 105730,
     "pick": {
-     "confidence": "no-play",
-     "edge": 0.4692729999999976,
-     "estimate": -26.030727000000002,
+     "confidence": "lean",
+     "edge": 1.8377900000000018,
+     "estimate": -24.662209999999998,
      "line": -26.5,
-     "p_cover": 0.513551521326615,
+     "p_cover": 0.5536523967788897,
      "p_push": 0.0,
-     "reason": "Market and line agree to within 0.5 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
-     "side": null,
+     "reason": "Estimate North Dakota St. -24.7; line is North Dakota St. -26.5. At that number the market gives Sacramento St. a 55% chance to cover. Edge 1.8 pts. Blend: 99% kalshi spread / 1% kalshi ml. Take Sacramento St. +26.5.",
+     "side": "home",
      "strategy_version": "v2",
-     "team": null
+     "team": "Sacramento St."
     },
     "picks": {
      "kalshi_ml": {
-      "confidence": "solid",
-      "edge": -2.210000000000001,
-      "estimate": -28.71,
+      "confidence": "lean",
+      "edge": -1.7899999999999991,
+      "estimate": -28.29,
       "line": -26.5,
-      "p_cover": 0.5634907459226048,
+      "p_cover": 0.5522675385265431,
       "p_push": 0.0,
-      "reason": "Estimate North Dakota St. -28.7; line is North Dakota St. -26.5. At that number the market gives North Dakota St. a 56% chance to cover. Edge 2.2 pts. Take North Dakota St. -26.5.",
+      "reason": "Estimate North Dakota St. -28.3; line is North Dakota St. -26.5. At that number the market gives North Dakota St. a 55% chance to cover. Edge 1.8 pts. Take North Dakota St. -26.5.",
       "side": "away",
       "team": "North Dakota St."
      },
      "kalshi_spread": {
-      "confidence": "no-play",
-      "edge": 0.6499999999999986,
-      "estimate": -25.85,
+      "confidence": "lean",
+      "edge": 1.879999999999999,
+      "estimate": -24.62,
       "line": -26.5,
-      "p_cover": 0.5187662787434205,
+      "p_cover": 0.5548748663438061,
       "p_push": 0.0,
-      "reason": "Market and line agree to within 0.6 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
-      "side": null,
-      "team": null
+      "reason": "Estimate North Dakota St. -24.6; line is North Dakota St. -26.5. At that number the market gives Sacramento St. a 55% chance to cover. Edge 1.9 pts. Take Sacramento St. +26.5.",
+      "side": "home",
+      "team": "Sacramento St."
      },
      "master": {
-      "confidence": "no-play",
-      "edge": 0.4692729999999976,
-      "estimate": -26.030727000000002,
+      "confidence": "lean",
+      "edge": 1.8377900000000018,
+      "estimate": -24.662209999999998,
       "line": -26.5,
-      "p_cover": 0.513551521326615,
+      "p_cover": 0.5536523967788897,
       "p_push": 0.0,
-      "reason": "Market and line agree to within 0.5 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
-      "side": null,
+      "reason": "Estimate North Dakota St. -24.7; line is North Dakota St. -26.5. At that number the market gives Sacramento St. a 55% chance to cover. Edge 1.8 pts. Blend: 99% kalshi spread / 1% kalshi ml. Take Sacramento St. +26.5.",
+      "side": "home",
       "strategy_version": "v2",
-      "team": null
+      "team": "Sacramento St."
      },
      "sp_plus": {
       "confidence": "solid",
       "edge": 3.1000000000000014,
       "estimate": -23.4,
       "line": -26.5,
-      "p_cover": 0.5885976378323864,
+      "p_cover": 0.5898642911303049,
       "p_push": 0.0,
       "reason": "Estimate North Dakota St. -23.4; line is North Dakota St. -26.5. At that number the market gives Sacramento St. a 59% chance to cover. Edge 3.1 pts. Take Sacramento St. +26.5.",
       "side": "home",
       "team": "Sacramento St."
      }
     },
-    "tier": "B",
+    "tier": "A",
     "vegas_home_favored_by": -26.5
    },
    "home_team": "Sacramento St.",
@@ -6878,26 +6977,26 @@
     "vegas_home_favored_by": 14.0
    },
    "final": {
-    "at": "2026-09-19T22:42:55.956560+00:00",
+    "at": "2026-09-20T00:43:47.658615+00:00",
     "band": 0.14,
-    "blended_margin": 14.07,
-    "dollar_volume": 57620,
-    "fraction_traded": 0.812,
-    "implied_margin": 14.07,
+    "blended_margin": 14.09,
+    "dollar_volume": 82935,
+    "fraction_traded": 0.844,
+    "implied_margin": 14.09,
     "kalshi_weight": 0.996,
-    "margin_high": 14.14,
-    "margin_low": 14.0,
-    "master_margin": 14.18,
-    "minutes_before_kickoff": 257,
-    "open_interest": 77665,
+    "margin_high": 14.16,
+    "margin_low": 14.02,
+    "master_margin": 14.19,
+    "minutes_before_kickoff": 136,
+    "open_interest": 114483,
     "pick": {
      "confidence": "no-play",
-     "edge": 0.17920799999999915,
-     "estimate": 14.179208,
+     "edge": 0.1891639999999981,
+     "estimate": 14.189163999999998,
      "line": 14.0,
-     "p_cover": 0.49090875547374685,
-     "p_push": 0.02833261253865066,
-     "reason": "Line sits inside the market's own 0.1pt uncertainty band (+14.0 to +14.1); no edge worth acting on.",
+     "p_cover": 0.4910958866320017,
+     "p_push": 0.02863752730019048,
+     "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -6905,34 +7004,34 @@
     "picks": {
      "kalshi_ml": {
       "confidence": "lean",
-      "edge": 1.6500000000000004,
-      "estimate": 15.65,
+      "edge": 1.4800000000000004,
+      "estimate": 15.48,
       "line": 14.0,
-      "p_cover": 0.5325484962816383,
-      "p_push": 0.02808928139601352,
-      "reason": "Estimate UCLA -15.7; line is UCLA -14.0. At that number the market gives UCLA a 53% chance to cover. Edge 1.7 pts. Take UCLA -14.0.",
+      "p_cover": 0.5280462792747734,
+      "p_push": 0.02843608032728251,
+      "reason": "Estimate UCLA -15.5; line is UCLA -14.0. At that number the market gives UCLA a 53% chance to cover. Edge 1.5 pts. Take UCLA -14.0.",
       "side": "home",
       "team": "UCLA"
      },
      "kalshi_spread": {
       "confidence": "no-play",
-      "edge": 0.07000000000000028,
-      "estimate": 14.07,
+      "edge": 0.08999999999999986,
+      "estimate": 14.09,
       "line": 14.0,
-      "p_cover": 0.48781487096080817,
-      "p_push": 0.02833508836368509,
+      "p_cover": 0.488256183393238,
+      "p_push": 0.028640127893527045,
       "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
      },
      "master": {
       "confidence": "no-play",
-      "edge": 0.17920799999999915,
-      "estimate": 14.179208,
+      "edge": 0.1891639999999981,
+      "estimate": 14.189163999999998,
       "line": 14.0,
-      "p_cover": 0.49090875547374685,
-      "p_push": 0.02833261253865066,
-      "reason": "Line sits inside the market's own 0.1pt uncertainty band (+14.0 to +14.1); no edge worth acting on.",
+      "p_cover": 0.4910958866320017,
+      "p_push": 0.02863752730019048,
+      "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -6942,8 +7041,8 @@
       "edge": -1.1999999999999993,
       "estimate": 12.8,
       "line": 14.0,
-      "p_cover": 0.5198297785092949,
-      "p_push": 0.02820492796689117,
+      "p_cover": 0.5200433603249466,
+      "p_push": 0.02850602440295008,
       "reason": "Estimate UCLA -12.8; line is UCLA -14.0. At that number the market gives Purdue a 52% chance to cover. Edge 1.2 pts. Take Purdue +14.0.",
       "side": "away",
       "team": "Purdue"
@@ -7758,6 +7857,12 @@
    "home_team": "Toledo",
    "kickoff": "2026-09-19T19:00:00+00:00",
    "title": "Temple vs Toledo"
+  },
+  "KXNCAAFSPREAD-26SEP19TROYMIZZ": {
+   "away_team": "Troy",
+   "home_team": "Missouri",
+   "kickoff": "2026-09-19T23:00:00+00:00",
+   "title": "Troy vs Missouri"
   },
   "KXNCAAFSPREAD-26SEP19TULNKSU": {
    "away_team": "Tulane",
@@ -9710,6 +9815,12 @@
    "home_team": "Michigan",
    "kickoff": "2026-09-19T19:30:00+00:00",
    "title": "UTEP vs Michigan"
+  },
+  "KXNCAAFSPREAD-26SEP19UTMMEM": {
+   "away_team": "Tennessee-Martin",
+   "home_team": "Memphis",
+   "kickoff": "2026-09-19T19:00:00+00:00",
+   "title": "Tennessee-Martin vs Memphis"
   },
   "KXNCAAFSPREAD-26SEP19UTSATEX": {
    "away_team": "UTSA",
