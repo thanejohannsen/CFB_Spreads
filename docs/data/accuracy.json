@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-20T15:33:43.255721+00:00",
+ "generated_at": "2026-09-20T20:25:08.922899+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -235,7 +235,7 @@
     "pct": 0.5455
    },
    "open": {
-    "live": 10,
+    "live": 9,
     "pending": 0
    },
    "last_week": {
@@ -258,7 +258,7 @@
     "pct": 0.5152
    },
    "open": {
-    "live": 10,
+    "live": 9,
     "pending": 0
    },
    "last_week": {
@@ -281,7 +281,7 @@
     "pct": 1.0
    },
    "open": {
-    "live": 2,
+    "live": 3,
     "pending": 0
    },
    "last_week": {
@@ -304,7 +304,7 @@
     "pct": 0.5667
    },
    "open": {
-    "live": 16,
+    "live": 29,
     "pending": 0
    },
    "last_week": {
