@@ -139,6 +139,13 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
 .acc-td { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 .acc-td.name { font-family: inherit; }
 .acc-td.muted { color: var(--muted); }
+.acc-scope {
+  margin-left: 8px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--muted);
+  white-space: nowrap;
+}
 .acc-open {
   margin-left: 8px;
   font-family: var(--mono);
@@ -163,6 +170,7 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
 }
 .picks-note { font-size: 11.5px; color: var(--muted); padding: 2px 2px 8px; }
 .picks-live-note { color: var(--accent); }
+.picks-scope { color: var(--muted); }
 .picks-empty { font-size: 12.5px; color: var(--muted); padding: 6px 2px; }
 
 .pick {
@@ -469,7 +477,12 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
   .titleactions { flex-direction: column; align-items: flex-start; gap: 6px; }
   .sig { grid-template-columns: 1fr auto; row-gap: 2px; }
   .sig-sd, .sig-w { grid-column: span 1; }
-  .acc-tr { grid-template-columns: 1fr 62px 62px 44px; font-size: 12px; }
+  .acc-tr { grid-template-columns: minmax(0, 1fr) 62px 62px 44px; font-size: 12px; }
+  /* The name carries a label plus up to two chips. Side by side they will not
+     fit a phone, so the chips drop onto their own lines and stop forcing the
+     grid column wider than the screen. */
+  .acc-td.name { min-width: 0; }
+  .acc-open, .acc-scope { display: block; margin-left: 0; white-space: normal; }
   .pick { grid-template-columns: 44px 1fr; row-gap: 4px; }
   .pick-out { grid-column: 2; justify-items: start; text-align: left; }
   /* Four columns need 348px before padding, which a phone does not have. The

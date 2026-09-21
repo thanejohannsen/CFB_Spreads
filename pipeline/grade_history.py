@@ -93,18 +93,52 @@ PINNING_LENSES = ("master", "kalshi_spread", "kalshi_ml")
 # `final_correct` for every lens and _snapshot freezes all four picks into both
 # locks, so the row was always there to list. The other two lenses stay on one
 # clock until this pair shows the second is worth the column.
+# The sixth field scopes a record to a set of STRATEGY_VERSIONs, the same shape
+# as the tier filter: None counts everything.
+#
+# It is NOT applied to every record, because not every pick changed when the
+# formula did. v2 refit the logistic scale, and only signals that read that
+# scale moved with it:
+#
+#   moneyline.cross_check   reads read.scale at five call sites    -> moved
+#   combine.master_composite  inherits the moneyline's sigma       -> moved
+#   combine.ladder_signal   reads the ladder MEDIAN and the band   -> unchanged
+#   combine.sp_plus_signal  reads static ratings and a fixed sigma -> unchanged
+#
+# So a v1-stamped SP+ pick is what v2 would have produced anyway. Filtering it
+# would have thrown away 36 of its 60 graded games for nothing -- and SP+ is
+# the only record picking fast enough to reach a verdict this season.
+CURRENT = (config.STRATEGY_VERSION,)
+
 RECORDS = [
-    ("headline", "Final (T-1h)", "final", "master", None),
-    ("thursday_all", "Thursday noon", "decision", "master", None),
+    ("headline", "Final (T-1h)", "final", "master", None, CURRENT),
+    ("thursday_all", "Thursday noon", "decision", "master", None, CURRENT),
     # Keyed `lens_kalshi_ml` still, and deliberately: the lens keys are meant to
     # outlive relabelling. Only the label gains its clock, now that the name
     # alone no longer identifies one row.
-    ("lens_kalshi_ml", "Kalshi ML vs Spread - Thursday noon", "decision", "kalshi_ml", None),
-    ("lens_kalshi_ml_final", "Kalshi ML vs Spread - Final (T-1h)", "final", "kalshi_ml", None),
+    ("lens_kalshi_ml", "Kalshi ML vs Spread - Thursday noon", "decision", "kalshi_ml",
+     None, CURRENT),
+    ("lens_kalshi_ml_final", "Kalshi ML vs Spread - Final (T-1h)", "final", "kalshi_ml",
+     None, CURRENT),
 ] + [
-    (f"lens_{key}", label, "decision", key, None)
+    (f"lens_{key}", label, "decision", key, None, None)
     for key, label in LENSES if key not in ("master", "kalshi_ml")
 ]
+
+
+def _version(snapshot: Optional[dict]) -> Optional[str]:
+    """Which formula produced this snapshot.
+
+    Only the master pick carries the stamp -- build_predictions sets it on
+    `picks["master"]` alone, because the three lens definitions never change.
+    But every snapshot has a master pick dict whether or not it picked a side,
+    so the snapshot's version is readable from there for all four lenses. That
+    is what lets a moneyline row be scoped without stamping it twice.
+
+    None means the snapshot predates versioning, which is certainly not the
+    current formula; see _in_scope.
+    """
+    return ((_picks(snapshot) or {}).get("master") or {}).get("strategy_version")
 
 
 def _picks(snapshot: Optional[dict]) -> dict:
@@ -460,7 +494,7 @@ def _has_fired(entry: dict, lock: str, now: datetime.datetime) -> bool:
     return True if moment is None else now >= moment
 
 
-def _in_scope(entry: dict, lock: str, tiers) -> bool:
+def _in_scope(entry: dict, lock: str, tiers, versions=None) -> bool:
     """Whether this game belongs in a record at all.
 
     Tier is judged at the lock in question, not inherited from another one.
@@ -471,7 +505,14 @@ def _in_scope(entry: dict, lock: str, tiers) -> bool:
 
     Whether the lock has fired is deliberately NOT asked here. Both master
     records now carry every pick the board shows from the moment it appears, and
-    freeze it when their own clock runs out; see _has_fired."""
+    freeze it when their own clock runs out; see _has_fired.
+
+    `versions` scopes a record to one or more STRATEGY_VERSIONs. A record that
+    blends two formulas is two records added together: the published Final
+    (T-1h) 3-2 was v1 going 1-2 plus v2 going 2-0. An unstamped snapshot
+    predates versioning entirely, so it is never the current formula."""
+    if versions and _version(_lock(entry, lock)) not in versions:
+        return False
     if not tiers:
         return True
     return ((_lock(entry, lock) or {}).get("tier")) in tiers
@@ -487,10 +528,11 @@ def _load_weeks(history_dir: str) -> list[dict]:
     return out
 
 
-def _tally(entries: list[dict], lock: str, lens: str = "master", tiers=None) -> dict:
+def _tally(entries: list[dict], lock: str, lens: str = "master", tiers=None,
+           versions=None) -> dict:
     wins = losses = 0
     for e in entries:
-        if not _in_scope(e, lock, tiers):
+        if not _in_scope(e, lock, tiers, versions):
             continue
         ok = _outcome(e, lock, lens)
         if ok is True:
@@ -502,7 +544,7 @@ def _tally(entries: list[dict], lock: str, lens: str = "master", tiers=None) -> 
             "pct": round(wins / total, 4) if total else None}
 
 
-def _open(entries: list[dict], lock: str, lens: str, tiers,
+def _open(entries: list[dict], lock: str, lens: str, tiers, versions,
           now: datetime.datetime) -> dict:
     """Picks this record is carrying that no result has landed on yet.
 
@@ -517,7 +559,7 @@ def _open(entries: list[dict], lock: str, lens: str, tiers,
     for e in entries:
         if (e.get("result") or {}).get("home_margin") is not None:
             continue
-        if not _in_scope(e, lock, tiers):
+        if not _in_scope(e, lock, tiers, versions):
             continue
         if not ((_picks(_lock(e, lock)) or {}).get(lens) or {}).get("side"):
             continue
@@ -544,8 +586,8 @@ def summarize(history_dir: str = None, now: datetime.datetime = None) -> dict:
             "week_key": week["week_key"],
             "decision": _tally(entries, "decision"),
             "final": _tally(entries, "final"),
-            "records": {key: _tally(entries, lock, lens, tiers)
-                        for key, _, lock, lens, tiers in RECORDS},
+            "records": {key: _tally(entries, lock, lens, tiers, versions)
+                        for key, _, lock, lens, tiers, versions in RECORDS},
         })
         all_entries.extend(entries)
 
@@ -580,10 +622,16 @@ def summarize(history_dir: str = None, now: datetime.datetime = None) -> dict:
         "records": [
             {"key": key, "label": label, "lock": lock, "lens": lens,
              "tiers": list(tiers) if tiers else None,
-             "season": _tally(all_entries, lock, lens, tiers),
-             "open": _open(every_entry, lock, lens, tiers, now),
+             "versions": list(versions) if versions else None,
+             "season": _tally(all_entries, lock, lens, tiers, versions),
+             # What the version scope costs, so a number that shrank says why
+             # rather than just being smaller than last week.
+             "superseded": (_tally(all_entries, lock, lens, tiers)["total"]
+                            - _tally(all_entries, lock, lens, tiers, versions)["total"]
+                            if versions else 0),
+             "open": _open(every_entry, lock, lens, tiers, versions, now),
              "last_week": (graded_weeks[-1]["records"].get(key) if graded_weeks else None)}
-            for key, label, lock, lens, tiers in RECORDS
+            for key, label, lock, lens, tiers, versions in RECORDS
         ],
         "lenses": [
             {"key": key, "label": label,
@@ -647,9 +695,9 @@ def pick_log(history_dir: str = None, now: datetime.datetime = None) -> dict:
             result = game.get("result") or {}
             margin = result.get("home_margin")
 
-            for key, _label, lock, lens, tiers in RECORDS:
+            for key, _label, lock, lens, tiers, versions in RECORDS:
                 snap = _lock(game, lock)
-                if not snap or not _in_scope(game, lock, tiers):
+                if not snap or not _in_scope(game, lock, tiers, versions):
                     continue
                 pick = (_picks(snap) or {}).get(lens) or {}
                 if not pick.get("side"):
@@ -678,6 +726,7 @@ def pick_log(history_dir: str = None, now: datetime.datetime = None) -> dict:
                     "edge": round(float(pick["edge"]), 2) if pick.get("edge") is not None else None,
                     "p_cover": pick.get("p_cover"),
                     "confidence": pick.get("confidence"),
+                    "strategy_version": _version(snap),
                     # Whether this row is frozen. A live row is the board's
                     # current pick and will be rewritten on the next run.
                     "locked": fired,

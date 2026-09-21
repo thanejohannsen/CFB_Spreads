@@ -286,6 +286,42 @@ takes rather than which side. **Both samples are far too small to read anything 
 is the reason to start keeping it, not a result. The other two lenses stay on one clock until this
 pair earns the column.
 
+### One record, one formula
+
+`STRATEGY_VERSION` is stamped into every locked master pick, and the records that the
+formula governs count **only picks made under the current one**. Without that, a record is
+two records added together: the published Final (T-1h) 3-2 was v1 going 1-2 plus v2 going
+2-0, presented as one number.
+
+The scope is not applied everywhere, because not every pick moved when the formula did.
+v2 refit the logistic scale, so only signals that read it changed:
+
+| signal | reads | v2 |
+|---|---|---|
+| `moneyline.cross_check` | `read.scale`, five call sites | **picks moved** |
+| `master_composite` | the moneyline's sigma | **picks moved** |
+| `combine.ladder_signal` | the ladder median and the band | unchanged |
+| `combine.sp_plus_signal` | static ratings, a fixed sigma | unchanged |
+
+So the two master records and the two moneyline records are scoped; the ladder and SP+
+rows are not. A v1 SP+ pick is what v2 would have produced anyway, and filtering it would
+have discarded **36 of its 60 graded games** for nothing.
+
+Two details worth knowing. The version boundary is **not** a week boundary — week
+2026-09-19 holds 108 v2 snapshots and 50 v1 ones, because locks that had already frozen
+kept the old stamp, so this is filtered per pick rather than per week. And only the master
+pick carries the stamp, but every snapshot has a master pick, so a moneyline row is scoped
+by reading its own snapshot's stamp rather than being stamped twice.
+
+**Superseded picks are excluded, not deleted.** They stay in `docs/data/history/`
+untouched — a fired lock is never rewritten, and if a later version grades worse than an
+earlier one, that comparison is the first thing anyone would want. Each scoped record
+prints what it set aside rather than quietly shrinking.
+
+The cost is real and worth stating: **bumping the version resets these four records to
+zero.** That is the logical end of counting only the current formula, and it prices a
+mid-season change honestly rather than hiding it, but it means a bump is not free.
+
 The three lens definitions never change, so those rows stay
 comparable all season however the master is re-tuned, and after a few weeks they show which signal is
 actually carrying the result. Only the master can shift meaning underneath you, so each locked master

@@ -326,7 +326,10 @@ def _payload(margin, line, side, kickoff, game_id="G1", tier="A"):
             "vegas_home_favored_by": line, "master_margin": margin,
             "pick": _pick(side, line, margin),
             "picks": {
-                "master": _pick(side, line, margin),
+                # Stamped like build_predictions does: only the master pick
+                # carries the version, and every version filter reads it there.
+                "master": dict(_pick(side, line, margin),
+                               strategy_version=config.STRATEGY_VERSION),
                 # the ladder lens deliberately takes the OTHER side here, so the
                 # test can prove the four records are graded independently
                 "kalshi_spread": _pick("away" if side == "home" else "home", line, margin),
@@ -335,6 +338,102 @@ def _payload(margin, line, side, kickoff, game_id="G1", tier="A"):
             },
         }],
     }
+
+
+class TestARecordCountsOneFormula(unittest.TestCase):
+    """A record that blends two formulas is two records added together. The
+    published Final (T-1h) 3-2 was v1 going 1-2 plus v2 going 2-0, and config.py
+    already said the stamp existed so a mid-season change could be "split out of
+    the record instead of silently blending two different rule sets" -- nothing
+    split it.
+
+    Scoping is not applied to every record, because not every pick moved when
+    the formula did. v2 refit the logistic scale; only signals reading that
+    scale changed, which is the moneyline and the master composite that inherits
+    its sigma. The ladder lens reads the median and SP+ reads static ratings, so
+    their v1 picks are what v2 would have produced -- filtering them would have
+    discarded 36 of SP+'s 60 graded games for nothing."""
+
+    def setUp(self):
+        self.dir = tempfile.mkdtemp()
+        self.kickoff = datetime.datetime(2026, 9, 12, 23, 0, tzinfo=UTC)
+        self.early = datetime.datetime(2026, 9, 9, 12, 0, tzinfo=UTC)
+
+    def _store(self, game_id, version, side="home"):
+        payload = _payload(5.0, 3.0, side, self.kickoff, game_id)
+        payload["games"][0]["picks"]["master"]["strategy_version"] = version
+        grade_history.record(payload, history_dir=self.dir, now=self.early)
+
+    def _grade(self, margins):
+        week = grade_history.load_week("2026-09-12", self.dir)
+        grade_history.save_week(grade_history.apply_results(week, margins), self.dir)
+        return {r["key"]: r for r in grade_history.summarize(self.dir)["records"]}
+
+    def test_only_the_current_formula_is_counted(self):
+        self._store("KX-OLD", "v1")
+        self._store("KX-NEW", config.STRATEGY_VERSION)
+        recs = self._grade({"KX-OLD": 10.0, "KX-NEW": 10.0})
+        self.assertEqual(recs["thursday_all"]["season"]["total"], 1,
+                         "the v1 pick must not reach a v2-scoped record")
+        self.assertEqual(recs["thursday_all"]["superseded"], 1,
+                         "and the record has to say what it set aside")
+
+    def test_an_unscoped_record_counts_both(self):
+        """SP+ and the ladder lens never changed, so nothing is dropped."""
+        self._store("KX-OLD", "v1")
+        self._store("KX-NEW", config.STRATEGY_VERSION)
+        recs = self._grade({"KX-OLD": 10.0, "KX-NEW": 10.0})
+        self.assertIsNone(recs["lens_kalshi_spread"]["versions"])
+        self.assertEqual(recs["lens_kalshi_spread"]["season"]["total"], 2)
+        self.assertEqual(recs["lens_kalshi_spread"]["superseded"], 0)
+
+    def test_a_lens_row_is_scoped_by_the_master_stamp_in_its_own_snapshot(self):
+        """Only the master pick is stamped, but every snapshot has one, so a
+        moneyline row can be scoped without stamping it twice."""
+        self._store("KX-OLD", "v1")
+        entry = grade_history.load_week("2026-09-12", self.dir)["games"]["KX-OLD"]
+        self.assertEqual(grade_history._version(entry["decision"]), "v1")
+        self.assertIsNone(
+            entry["decision"]["picks"]["kalshi_ml"].get("strategy_version"),
+            "precondition: the lens pick carries no stamp of its own")
+        recs = self._grade({"KX-OLD": 10.0})
+        self.assertEqual(recs["lens_kalshi_ml"]["season"]["total"], 0)
+        self.assertEqual(recs["lens_kalshi_spread"]["season"]["total"], 1,
+                         "the same v1 snapshot still counts where nothing moved")
+
+    def test_an_unstamped_snapshot_is_not_the_current_formula(self):
+        """It predates versioning, so it certainly is not v2."""
+        self._store("KX-BARE", None)
+        entry = grade_history.load_week("2026-09-12", self.dir)["games"]["KX-BARE"]
+        self.assertIsNone(grade_history._version(entry["decision"]))
+        self.assertFalse(grade_history._in_scope(entry, "decision", None,
+                                                 (config.STRATEGY_VERSION,)))
+        self.assertTrue(grade_history._in_scope(entry, "decision", None, None))
+
+    def test_superseded_picks_leave_the_pick_log_too(self):
+        """The tally and the list it expands to have to agree."""
+        self._store("KX-OLD", "v1")
+        self._store("KX-NEW", config.STRATEGY_VERSION)
+        rows = grade_history.pick_log(self.dir)["entries"]
+        thursday = [e for e in rows if e["record"] == "thursday_all"]
+        self.assertEqual([e["strategy_version"] for e in thursday],
+                         [config.STRATEGY_VERSION])
+        unscoped = [e for e in rows if e["record"] == "lens_kalshi_spread"]
+        self.assertEqual(sorted(e["strategy_version"] or "" for e in unscoped),
+                         sorted(["v1", config.STRATEGY_VERSION]),
+                         "an unscoped record keeps both formulas")
+
+    def test_stored_history_is_never_touched(self):
+        """Scoping a record is not deleting a lock. grade_history's one
+        guarantee is that a fired lock is never rewritten."""
+        self._store("KX-OLD", "v1")
+        before = json.dumps(grade_history.load_week("2026-09-12", self.dir), sort_keys=True)
+        self._grade({"KX-OLD": 10.0})
+        grade_history.pick_log(self.dir)
+        after = grade_history.load_week("2026-09-12", self.dir)
+        self.assertEqual(after["games"]["KX-OLD"]["decision"]["picks"]["master"]
+                         ["strategy_version"], "v1")
+        self.assertIn('"v1"', before)
 
 
 class TestTheMoneylineLensIsGradedOnBothClocks(unittest.TestCase):
@@ -356,16 +455,16 @@ class TestTheMoneylineLensIsGradedOnBothClocks(unittest.TestCase):
         self.between = datetime.datetime(2026, 9, 11, 12, 0, tzinfo=UTC)
 
     def _keys(self):
-        return {key for key, _l, _lock, _lens, _t in grade_history.RECORDS}
+        return {rec[0] for rec in grade_history.RECORDS}
 
     def test_the_lens_has_a_row_on_each_clock(self):
         keys = self._keys()
         self.assertIn("lens_kalshi_ml", keys)
         self.assertIn("lens_kalshi_ml_final", keys)
-        by_key = {k: (lock, lens) for k, _l, lock, lens, _t in grade_history.RECORDS}
+        by_key = {r[0]: (r[2], r[3]) for r in grade_history.RECORDS}
         self.assertEqual(by_key["lens_kalshi_ml"], ("decision", "kalshi_ml"))
         self.assertEqual(by_key["lens_kalshi_ml_final"], ("final", "kalshi_ml"))
-        labels = [l for _k, l, _lock, _lens, _t in grade_history.RECORDS]
+        labels = [r[1] for r in grade_history.RECORDS]
         self.assertEqual(len(labels), len(set(labels)),
                          "two rows sharing a label cannot be told apart on the page")
 
@@ -404,8 +503,8 @@ class TestTheMoneylineLensIsGradedOnBothClocks(unittest.TestCase):
         """Deliberate, not an oversight: the pair has to earn the extra column
         before the other two get one."""
         locks = collections.defaultdict(set)
-        for _k, _l, lock, lens, _t in grade_history.RECORDS:
-            locks[lens].add(lock)
+        for rec in grade_history.RECORDS:
+            locks[rec[3]].add(rec[2])
         self.assertEqual(locks["kalshi_ml"], {"decision", "final"})
         self.assertEqual(locks["master"], {"decision", "final"})
         self.assertEqual(locks["kalshi_spread"], {"decision"})

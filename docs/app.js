@@ -522,6 +522,14 @@ function renderAccuracy() {
     // not behind the expander.
     const open = openText(rec);
     if (open) name.append(el('span', 'acc-open', open));
+    // A record scoped to one formula has to say so, or a number that shrank
+    // just looks like a worse week.
+    if (rec.versions && rec.superseded) {
+      name.append(el('span', 'acc-scope',
+        `${rec.versions.join('/')} only · ${rec.superseded} superseded`));
+    } else if (rec.versions) {
+      name.append(el('span', 'acc-scope', `${rec.versions.join('/')} only`));
+    }
     row.append(name);
     row.append(el('span', 'acc-td', rec.last_week ? recordText(rec.last_week) : '—'));
     row.append(el('span', 'acc-td', recordText(rec.season)));
@@ -551,6 +559,16 @@ function pickList(rec) {
   const note = el('div', 'picks-note');
   note.append(document.createTextNode(LOCK_NOTE[rec.lock] || ''));
   if (rec.tiers) note.append(document.createTextNode(` · ${rec.tiers.join('/')} markets only`));
+  if (rec.versions) {
+    note.append(document.createTextNode(' · '));
+    note.append(el('span', 'picks-scope',
+      `${rec.versions.join('/')} formula only`
+      + (rec.superseded
+          ? ` — ${rec.superseded} graded pick${rec.superseded === 1 ? '' : 's'} under an earlier `
+            + `formula ${rec.superseded === 1 ? 'is' : 'are'} kept in the history but not `
+            + 'counted here'
+          : '')));
+  }
   if (entries.some((e) => e.result === 'live')) {
     note.append(document.createTextNode(' · '));
     note.append(el('span', 'picks-live-note',
