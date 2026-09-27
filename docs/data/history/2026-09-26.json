@@ -1,5 +1,1097 @@
 {
  "games": {
+  "KXNCAAFSPREAD-26OCT02PITTVT": {
+   "away_team": "Pittsburgh",
+   "decision": {
+    "at": "2026-09-27T03:59:47.409290+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 4073,
+    "fraction_traded": 0.097,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 8100,
+    "open_interest": 5976,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 2 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 4.5,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-09-27T03:59:47.409290+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 4073,
+    "fraction_traded": 0.097,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 8100,
+    "open_interest": 5976,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 2 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 4.5,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "Virginia Tech",
+   "kickoff": "2026-10-02T19:00:00+00:00",
+   "title": "Pittsburgh vs Virginia Tech"
+  },
+  "KXNCAAFSPREAD-26OCT02PSUNW": {
+   "away_team": "Penn St.",
+   "decision": {
+    "at": "2026-09-27T03:59:47.409290+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 7592,
+    "fraction_traded": 0.194,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 8100,
+    "open_interest": 2179,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 2 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -8.9,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-09-27T03:59:47.409290+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 7592,
+    "fraction_traded": 0.194,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 8100,
+    "open_interest": 2179,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 2 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -8.9,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "Northwestern",
+   "kickoff": "2026-10-02T19:00:00+00:00",
+   "title": "Penn St. vs Northwestern"
+  },
+  "KXNCAAFSPREAD-26OCT03AUBTENN": {
+   "away_team": "Auburn",
+   "decision": {
+    "at": "2026-09-27T03:59:47.409290+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 767,
+    "fraction_traded": 0.032,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 9540,
+    "open_interest": 3,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 1 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 11.1,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-09-27T03:59:47.409290+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 767,
+    "fraction_traded": 0.032,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 9540,
+    "open_interest": 3,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 1 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 11.1,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "Tennessee",
+   "kickoff": "2026-10-03T19:00:00+00:00",
+   "title": "Auburn vs Tennessee"
+  },
+  "KXNCAAFSPREAD-26OCT03BYUTCU": {
+   "away_team": "BYU",
+   "decision": {
+    "at": "2026-09-27T03:59:47.409290+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 9090,
+    "fraction_traded": 0.097,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 9540,
+    "open_interest": 997,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 1 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -3.8,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-09-27T03:59:47.409290+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 9090,
+    "fraction_traded": 0.097,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 9540,
+    "open_interest": 997,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 1 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -3.8,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "TCU",
+   "kickoff": "2026-10-03T19:00:00+00:00",
+   "title": "BYU vs TCU"
+  },
+  "KXNCAAFSPREAD-26OCT03MICHMINN": {
+   "away_team": "Michigan",
+   "decision": {
+    "at": "2026-09-27T03:59:47.409290+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 3028,
+    "fraction_traded": 0.097,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 9540,
+    "open_interest": 131,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 0 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -6.7,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-09-27T03:59:47.409290+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 3028,
+    "fraction_traded": 0.097,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 9540,
+    "open_interest": 131,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 0 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -6.7,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "Minnesota",
+   "kickoff": "2026-10-03T19:00:00+00:00",
+   "title": "Michigan vs Minnesota"
+  },
+  "KXNCAAFSPREAD-26OCT03NDUNC": {
+   "away_team": "Notre Dame",
+   "decision": {
+    "at": "2026-09-27T03:59:47.409290+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 1300,
+    "fraction_traded": 0.042,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 9540,
+    "open_interest": 28,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 0 usable strikes of 24.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 0 usable strikes of 24.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 0 usable strikes of 24.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -19.7,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-09-27T03:59:47.409290+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 1300,
+    "fraction_traded": 0.042,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 9540,
+    "open_interest": 28,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 0 usable strikes of 24.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 0 usable strikes of 24.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 0 usable strikes of 24.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -19.7,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "North Carolina",
+   "kickoff": "2026-10-03T19:00:00+00:00",
+   "title": "Notre Dame vs North Carolina"
+  },
+  "KXNCAAFSPREAD-26OCT03OSUIOWA": {
+   "away_team": "Ohio St.",
+   "decision": {
+    "at": "2026-09-27T03:59:47.409290+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 3103,
+    "fraction_traded": 0.065,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 9540,
+    "open_interest": 40,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 1 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -9.9,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-09-27T03:59:47.409290+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 3103,
+    "fraction_traded": 0.065,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 9540,
+    "open_interest": 40,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 1 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -9.9,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "Iowa",
+   "kickoff": "2026-10-03T19:00:00+00:00",
+   "title": "Ohio St. vs Iowa"
+  },
   "KXNCAAFSPREAD-26SEP24LIBCCAR": {
    "away_team": "Liberty",
    "decision": {
@@ -866,6 +1958,12 @@
    "home_team": "Indiana",
    "kickoff": "2026-09-26T00:00:00+00:00",
    "title": "Northwestern vs Indiana"
+  },
+  "KXNCAAFSPREAD-26SEP26AAMUFAMU": {
+   "away_team": "Alabama A&M",
+   "home_team": "Florida A&M",
+   "kickoff": "2026-09-26T23:00:00+00:00",
+   "title": "Alabama A&M vs Florida A&M"
   },
   "KXNCAAFSPREAD-26SEP26AFANEV": {
    "away_team": "Air Force",
@@ -2613,6 +3711,12 @@
    "kickoff": "2026-09-26T20:00:00+00:00",
    "title": "Houston vs Georgia Southern"
   },
+  "KXNCAAFSPREAD-26SEP26IDSTSUU": {
+   "away_team": "Idaho St.",
+   "home_team": "Southern Utah",
+   "kickoff": "2026-09-27T00:00:00+00:00",
+   "title": "Idaho St. vs Southern Utah"
+  },
   "KXNCAAFSPREAD-26SEP26ILLOSU": {
    "away_team": "Illinois",
    "decision": {
@@ -3411,6 +4515,12 @@
    "kickoff": "2026-09-27T01:00:00+00:00",
    "title": "UMass vs Sacramento St."
   },
+  "KXNCAAFSPREAD-26SEP26MERAC": {
+   "away_team": "Mercer",
+   "home_team": "Abilene Christian",
+   "kickoff": "2026-09-27T00:00:00+00:00",
+   "title": "Mercer vs Abilene Christian"
+  },
   "KXNCAAFSPREAD-26SEP26MHUWKU": {
    "away_team": "Mercyhurst",
    "home_team": "Western Kentucky",
@@ -3884,6 +4994,12 @@
    "home_team": "Mississippi St.",
    "kickoff": "2026-09-26T23:45:00+00:00",
    "title": "Missouri vs Mississippi St."
+  },
+  "KXNCAAFSPREAD-26SEP26MONTUCD": {
+   "away_team": "Montana",
+   "home_team": "UC Davis",
+   "kickoff": "2026-09-27T02:00:00+00:00",
+   "title": "Montana vs UC Davis"
   },
   "KXNCAAFSPREAD-26SEP26MOSUSMU": {
    "away_team": "Missouri St.",
@@ -7877,6 +8993,12 @@
    "home_team": "Iowa St.",
    "kickoff": "2026-09-26T19:30:00+00:00",
    "title": "Utah vs Iowa St."
+  },
+  "KXNCAAFSPREAD-26SEP26UTUUNCO": {
+   "away_team": "Utah Tech",
+   "home_team": "Northern Colorado",
+   "kickoff": "2026-09-27T00:00:00+00:00",
+   "title": "Utah Tech vs Northern Colorado"
   },
   "KXNCAAFSPREAD-26SEP26VANAUB": {
    "away_team": "Vanderbilt",
