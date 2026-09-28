@@ -196,25 +196,48 @@ def _parse_dt(value) -> Optional["datetime.datetime"]:
     return dt.replace(tzinfo=_dt.timezone.utc) if dt.tzinfo is None else dt
 
 
-def calendar_weeks(year: int, path: str = CACHE_PATH) -> list[dict]:
+def _covers(weeks: list[dict], target) -> bool:
+    """Does this calendar have a week containing `target`?"""
+    return any(w["start"].date() <= target <= w["end"].date() for w in weeks)
+
+
+def calendar_weeks(year: int, path: str = CACHE_PATH, covering=None) -> list[dict]:
     """Regular-season weeks with their date ranges.
 
     Cached hard: a season's calendar does not change, and this used to be
     fetched on every single run -- roughly 780 calls a month at the current
     cadence, which on its own would have pushed the free tier over its 1,000
     limit.
+
+    But a season's calendar not changing is not the same as the API returning
+    all of it. One run on 2026-09-14 got back two weeks -- 2 and 3, covering
+    Sep 8 to Sep 21 -- and caching that permanently meant every later date fell
+    outside every range and snapped to the nearest week, which is week 3 for the
+    rest of the season. That silently mis-resolved the week for two slates,
+    cost a full week of grading, and looked like a CFBD outage rather than a
+    stale cache.
+
+    So the cache is trusted only while it answers the question being asked:
+    pass `covering` and a calendar that does not reach that date is refetched
+    once. In the healthy case the date is inside the cached range and this
+    still costs about one call a season.
     """
     cache = load_cache(path)
     key = f"calendar-{year}"
     entry = cache.get(key) or {}
     if entry.get("schema") == CACHE_SCHEMA and entry.get("weeks"):
-        return [{"week": w["week"], "start": _parse_dt(w["start"]), "end": _parse_dt(w["end"])}
-                for w in entry["weeks"]]
+        weeks = [{"week": w["week"], "start": _parse_dt(w["start"]), "end": _parse_dt(w["end"])}
+                 for w in entry["weeks"]]
+        if covering is None or _covers(weeks, covering):
+            return weeks
 
     try:
         raw = _get("/calendar", {"year": year})
     except (HttpError, MissingKey):
-        return []
+        # A failed refresh must not throw away what we already had; a partial
+        # calendar still resolves the weeks it does cover.
+        return [{"week": w["week"], "start": _parse_dt(w["start"]), "end": _parse_dt(w["end"])}
+                for w in (entry.get("weeks") or [])]
 
     weeks = []
     for e in raw:
@@ -236,7 +259,7 @@ def calendar_weeks(year: int, path: str = CACHE_PATH) -> list[dict]:
     return weeks
 
 
-def week_for_date(year: int, target) -> Optional[int]:
+def week_for_date(year: int, target, path: str = CACHE_PATH) -> Optional[int]:
     """The CFBD week containing `target` (a date).
 
     This deliberately asks "which week are these games in?" rather than "which
@@ -246,17 +269,30 @@ def week_for_date(year: int, target) -> Optional[int]:
     still calls it last week.  Keying off the games themselves removes the
     ambiguity: the week always follows what is actually on the board.
     """
-    weeks = calendar_weeks(year)
+    week, _resolved = week_for_date_checked(year, target, path)
+    return week
+
+
+def week_for_date_checked(year: int, target, path: str = CACHE_PATH) -> tuple:
+    """As week_for_date, plus whether the calendar actually covered the date.
+
+    The nearest-week fallback is kept -- a guess beats no board at all -- but it
+    used to be indistinguishable from a real answer, and that is what let a
+    two-week calendar report "week 3" for every date in October with total
+    confidence. Callers that can act on the difference now can.
+    """
+    weeks = calendar_weeks(year, path, covering=target)
     if not weeks or target is None:
-        return None
+        return None, False
 
     for w in weeks:
         if w["start"].date() <= target <= w["end"].date():
-            return w["week"]
+            return w["week"], True
 
     # Between two weeks, or past the last one: take the nearest by start date so
     # a gap in the calendar degrades to the closest week rather than to nothing.
-    return min(weeks, key=lambda w: abs((w["start"].date() - target).days))["week"]
+    # Flagged as a guess, because it is one.
+    return min(weeks, key=lambda w: abs((w["start"].date() - target).days))["week"], False
 
 
 def cached_finals(season: int, week: int, path: str = CACHE_PATH,

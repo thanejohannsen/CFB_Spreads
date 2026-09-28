@@ -632,9 +632,8 @@ function pickList(rec) {
       out.append(el('span', 'pick-res pending', 'PENDING'));
     } else {
       out.append(el('span', 'pick-res ' + e.result, e.result.toUpperCase()));
-      if (e.home_margin !== null && e.home_margin !== undefined) {
-        out.append(el('span', 'pick-margin', marginResult(e)));
-      }
+      const outcome = marginResult(e);
+      if (outcome) out.append(el('span', 'pick-margin', outcome));
     }
     row.append(out);
     wrap.append(row);
@@ -642,12 +641,33 @@ function pickList(rec) {
   return wrap;
 }
 
-/** "Miss St by 25" — the actual outcome, next to the number it was bet against. */
+/** "Miss St by 25" — the actual outcome, next to the number it was bet against.
+ *
+ * Grading from a settled Kalshi ladder brackets the margin rather than naming
+ * it: the rungs say it landed between two numbers, which pins it exactly about
+ * four times in ten and otherwise gives a range. A range is still an outcome,
+ * so it is printed as one — unless the bracket straddles zero, where it does
+ * not even say who won and the win/loss badge has to speak alone. */
 function marginResult(e) {
   const m = e.home_margin;
-  if (m === 0) return 'tie';
-  const winner = m > 0 ? e.home_team : e.away_team;
-  return `${winner} by ${Math.abs(m)}`;
+  if (m !== null && m !== undefined) {
+    if (m === 0) return 'tie';
+    return `${m > 0 ? e.home_team : e.away_team} by ${Math.abs(m)}`;
+  }
+  const lo = e.margin_low, hi = e.margin_high;
+  const low = (lo === null || lo === undefined) ? null : Math.floor(lo) + 1;
+  const high = (hi === null || hi === undefined) ? null : Math.ceil(hi) - 1;
+  if (low !== null && low > 0) return `${e.home_team} by ${marginSpan(low, high)}`;
+  if (high !== null && high < 0) {
+    return `${e.away_team} by ${marginSpan(-high, low === null ? null : -low)}`;
+  }
+  return '';
+}
+
+/** "4", "4–5", or "4+" when the far end of the bracket is open. */
+function marginSpan(a, b) {
+  if (b === null) return `${a}+`;
+  return a === b ? `${a}` : `${a}–${b}`;
 }
 
 function metric(k, v, sub) {
@@ -1089,6 +1109,25 @@ function manualRow(game) {
 function renderDataWarning() {
   const box = document.getElementById('datawarning');
   box.textContent = '';
+  renderLineWarning(box);
+  renderUngradedWarning(box);
+}
+
+/** A week that was played and never graded — the record's newest column is
+ *  stale, and a stale column reads exactly like a quiet week unless it says so. */
+function renderUngradedWarning(box) {
+  const u = state.accuracy && state.accuracy.ungraded;
+  if (!u) return;
+  const panel = el('div', 'panel warning');
+  panel.append(el('strong', '', `The week of ${u.week_key} has not been graded. `));
+  panel.append(document.createTextNode(
+    `${u.games} games have been played and ${u.picks} `
+    + `${u.picks === 1 ? 'pick is' : 'picks are'} still waiting on a result, so `
+    + 'every record below is missing its most recent week.'));
+  box.append(panel);
+}
+
+function renderLineWarning(box) {
   const d = state.data;
   if (!d.cfbd_available) return;
 

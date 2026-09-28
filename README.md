@@ -173,6 +173,41 @@ win or a loss.
 against, the tier and edge at that lock, and the final margin. That last pair is the point: a tally
 cannot tell you whether a losing week was bad calls or good calls losing on the number.
 
+### Grading does not depend on the week number
+
+Results come from CFBD's final scores, which have to be asked for by week — and the week is looked
+up in a calendar that is cached hard, because a season's calendar does not change. That reasoning is
+sound and the cache was still poison: one `/calendar` call came back holding only weeks 2 and 3, and
+caching *that* forever meant every date after Sep 21 fell outside every range and snapped to the
+nearest week, which is week 3 for the rest of the season. The board survived on a ±1 retry. Grading
+had none: it asked for week 3, matched nothing, and returned quietly. **Of the 85 games stored under
+that week, the 73 already played never entered the record** — 113 picks across every lens and lock —
+and on the page that is indistinguishable from a quiet week.
+
+Three things changed, because the bug had three halves:
+
+- **The cache is trusted only while it answers the question.** `calendar_weeks(covering=date)`
+  refetches when the cached calendar does not reach the date being asked about. In the healthy case
+  the date is inside the range and this still costs about one call a season.
+- **A guess says it is a guess.** `week_for_date` still falls back to the nearest week — a guess
+  beats no board — but `week_for_date_checked` returns whether the calendar actually covered the
+  date, so a caller can tell the two apart. Grading uses it to retry the neighbouring weeks before
+  believing an empty result.
+- **Grading has a second source that needs no week number at all.** A settled Kalshi ladder brackets
+  the final margin: every rung is one inequality about it, and their intersection is a range. The
+  stored game id *is* the Kalshi event ticker, so this needs no team matching, no calendar and no
+  CFBD key — it is the one grading path that survives all three being wrong.
+
+A bracket is usually enough. It pins the margin outright about four times in ten (the rungs sit a
+point and a half apart), and where it does not it still decides any pick whose number sits outside
+it, which on the weeks measured was every single one. Where the range *straddles* the pick's number
+the game is left ungraded rather than guessed from a midpoint — a record whose whole claim is that it
+cannot be revised must not invent the one case it cannot see. Checked against CFBD's own grades over
+163 settled games and 208 graded picks, the two agreed on every one.
+
+The page says so too: when the newest played week carries no results at all, a banner names it. A
+stale last-week column otherwise reads exactly like a real one.
+
 ## Does the Wednesday deadline hurt?
 
 Less than you would think, because liquidity concentrates in exactly the games worth picking.
@@ -501,6 +536,12 @@ Kalshi is unauthenticated and returns the whole slate in one request, so a refre
 calls and can run as often as it likes. CFBD responses are cached in `docs/data/cfbd_snapshot.json`
 and refreshed every 8 hours, which holds the monthly count near 180 against the free tier's 1,000
 while leaving the Kalshi cadence untouched.
+
+The season calendar is still cached for the season rather than the 8 hours, but it is now refetched
+if it does not cover the date being asked about — one extra call on the run that first reaches past
+it, against a whole week of grading lost to the alternative. Settled Kalshi markets are fetched once
+per grading sweep and only once a week has actually asked for them, so a run with nothing left to
+grade still costs nothing.
 
 ---
 

@@ -193,7 +193,7 @@ h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
 .pick-res { font-size: 10.5px; font-weight: 700; letter-spacing: .05em; }
 .pick-res.win { color: var(--good); }
 .pick-res.loss { color: var(--bad); }
-.pick-res.push, .pick-res.pending { color: var(--muted); }
+.pick-res.push, .pick-res.pending, .pick-res.unresolved { color: var(--muted); }
 /* Live is not a result -- it is the board, still moving. Given the accent so it
    reads as "in flight" rather than as a third outcome alongside win and loss. */
 .pick-res.live { color: var(--accent); }

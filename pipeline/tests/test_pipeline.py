@@ -5,7 +5,7 @@ import os
 import tempfile
 import unittest
 
-from pipeline import config, execution, grade_history, select_slate, weeks
+from pipeline import config, execution, grade_history, kalshi, select_slate, weeks
 from pipeline.match_games import Match, match_all, normalize
 from pipeline.margin_model import parse_ladder
 from pipeline.tests.factories import logistic_event
@@ -232,21 +232,21 @@ class TestWeekSelection(unittest.TestCase):
 
     def test_week_follows_the_games(self):
         self.assertEqual(
-            self.cfbd.week_for_date(2026, datetime.date(2026, 9, 19)), 3,
+            self.cfbd.week_for_date(2026, datetime.date(2026, 9, 19), self.path), 3,
             "a slate played Sep 19 belongs to week 3, whatever today is")
 
     def test_monday_of_the_previous_week_still_resolves_forward(self):
         """The exact failure: on Mon Sep 14 the old heuristic returned week 2
         because week 2 ran through a Monday game, while the board already held
         Sep 17-19 games."""
-        self.assertEqual(self.cfbd.week_for_date(2026, datetime.date(2026, 9, 14)), 2)
-        self.assertEqual(self.cfbd.week_for_date(2026, datetime.date(2026, 9, 17)), 3)
+        self.assertEqual(self.cfbd.week_for_date(2026, datetime.date(2026, 9, 14), self.path), 2)
+        self.assertEqual(self.cfbd.week_for_date(2026, datetime.date(2026, 9, 17), self.path), 3)
 
     def test_postseason_weeks_are_ignored(self):
-        self.assertEqual(self.cfbd.week_for_date(2026, datetime.date(2026, 9, 16)), 3)
+        self.assertEqual(self.cfbd.week_for_date(2026, datetime.date(2026, 9, 16), self.path), 3)
 
     def test_date_outside_every_week_snaps_to_the_nearest(self):
-        self.assertEqual(self.cfbd.week_for_date(2026, datetime.date(2026, 8, 1)), 2)
+        self.assertEqual(self.cfbd.week_for_date(2026, datetime.date(2026, 8, 1), self.path), 2)
 
     def test_calendar_is_cached_rather_than_refetched(self):
         """It used to be fetched every run -- around 780 calls a month at the
@@ -1085,6 +1085,241 @@ class TestExecutionQuotesPublished(unittest.TestCase):
         from pipeline import build_predictions
         self.assertEqual(build_predictions._size(9776.33), 9776)
         self.assertEqual(build_predictions._size(0.02), 0.02)
+
+
+
+class TestAPartialCalendarIsNotTrusted(unittest.TestCase):
+    """The failure this exists to prevent, replayed.
+
+    One /calendar call on 2026-09-14 came back with two weeks -- 2 and 3,
+    covering Sep 8 to Sep 21 -- and the hard cache kept them forever.  Every
+    later date then fell outside every range and snapped to the nearest week,
+    which is week 3 for the rest of the season, reported with exactly the same
+    confidence as a real answer.  It cost one slate its Vegas lines and another
+    its entire grading run.
+    """
+
+    SHORT = [
+        {"season": 2026, "seasonType": "regular", "week": 2,
+         "firstGameStart": "2026-09-08T00:00:00Z", "lastGameStart": "2026-09-14T23:00:00Z"},
+        {"season": 2026, "seasonType": "regular", "week": 3,
+         "firstGameStart": "2026-09-15T00:00:00Z", "lastGameStart": "2026-09-21T23:00:00Z"},
+    ]
+    FULL = SHORT + [
+        {"season": 2026, "seasonType": "regular", "week": 4,
+         "firstGameStart": "2026-09-22T00:00:00Z", "lastGameStart": "2026-09-28T23:00:00Z"},
+        {"season": 2026, "seasonType": "regular", "week": 5,
+         "firstGameStart": "2026-09-29T00:00:00Z", "lastGameStart": "2026-10-05T23:00:00Z"},
+    ]
+
+    def setUp(self):
+        from pipeline import cfbd
+        self.cfbd = cfbd
+        self.path = os.path.join(tempfile.mkdtemp(), "cache.json")
+        self._get = cfbd._get
+        self.calls = []
+        self._serve(self.SHORT)
+        cfbd.calendar_weeks(2026, self.path)          # prime the short cache
+        self.calls.clear()
+
+    def tearDown(self):
+        self.cfbd._get = self._get
+
+    def _serve(self, payload):
+        def fake(path, params):
+            self.calls.append(path)
+            return payload if path == "/calendar" else []
+        self.cfbd._get = fake
+
+    def test_a_covered_date_is_served_from_cache(self):
+        """The saving the hard cache was written for has to survive the fix."""
+        self.assertEqual(
+            self.cfbd.week_for_date(2026, datetime.date(2026, 9, 19), self.path), 3)
+        self.assertEqual(self.calls, [], "a calendar that covers the date must not refetch")
+
+    def test_a_date_past_the_cache_refetches_and_resolves(self):
+        self._serve(self.FULL)
+        week, resolved = self.cfbd.week_for_date_checked(
+            2026, datetime.date(2026, 10, 3), self.path)
+        self.assertEqual(self.calls, ["/calendar"])
+        self.assertEqual(week, 5, "Oct 3 is week 5, and week 3 is the bug")
+        self.assertTrue(resolved)
+
+    def test_the_refetched_calendar_is_cached_in_turn(self):
+        self._serve(self.FULL)
+        self.cfbd.week_for_date(2026, datetime.date(2026, 10, 3), self.path)
+        self.calls.clear()
+        self.assertEqual(self.cfbd.week_for_date(2026, datetime.date(2026, 10, 3), self.path), 5)
+        self.assertEqual(self.calls, [], "one refetch, not one per call")
+
+    def test_a_guess_is_reported_as_a_guess(self):
+        """When the refetch brings back the same short calendar there is nothing
+        better to answer with -- but the answer has to say so."""
+        week, resolved = self.cfbd.week_for_date_checked(
+            2026, datetime.date(2026, 10, 3), self.path)
+        self.assertEqual(week, 3, "still the nearest week; a guess beats no board")
+        self.assertFalse(resolved, "and week_for_date alone cannot tell you that")
+
+    def test_a_failed_refetch_keeps_the_calendar_it_had(self):
+        """A CFBD outage must not turn a partial calendar into no calendar --
+        that would blank the board for the weeks it does cover."""
+        def boom(path, params):
+            raise self.cfbd.MissingKey("no key")
+        self.cfbd._get = boom
+        self.assertEqual(
+            self.cfbd.week_for_date(2026, datetime.date(2026, 9, 19), self.path), 3)
+
+
+class TestSettledLaddersBracketTheMargin(unittest.TestCase):
+    """Every rung of a settled ladder is one inequality about the home margin.
+
+    The away rungs are the half that is easy to get backwards: "away wins by
+    over 7.5" resolving YES bounds the margin from ABOVE, not below.  They were
+    backwards, and the brackets came back with a median width of minus twenty
+    points -- so there is one case here per rung-and-result combination rather
+    than a comment claiming they agree.
+    """
+
+    EVENT = "KXNCAAFSPREAD-26SEP26RUTGBC"
+
+    def _rung(self, abbrev, strike, result):
+        return {"ticker": f"{self.EVENT}-{abbrev}{int(strike)}",
+                "event_ticker": self.EVENT, "floor_strike": strike, "result": result}
+
+    def test_home_yes_is_a_lower_bound(self):
+        self.assertEqual(
+            kalshi.margin_from_settled([self._rung("BC", 7.5, "yes")], "BC"),
+            (7.5, float("inf")))
+
+    def test_home_no_is_an_upper_bound(self):
+        self.assertEqual(
+            kalshi.margin_from_settled([self._rung("BC", 7.5, "no")], "BC"),
+            (-float("inf"), 7.5))
+
+    def test_away_yes_is_an_upper_bound(self):
+        """Rutgers winning by over 7.5 means the home margin is below -7.5."""
+        self.assertEqual(
+            kalshi.margin_from_settled([self._rung("RUTG", 7.5, "yes")], "BC"),
+            (-float("inf"), -7.5))
+
+    def test_away_no_is_a_lower_bound(self):
+        self.assertEqual(
+            kalshi.margin_from_settled([self._rung("RUTG", 7.5, "no")], "BC"),
+            (-7.5, float("inf")))
+
+    def test_a_full_ladder_closes_in_on_the_margin(self):
+        rungs = [self._rung("BC", 3.5, "yes"), self._rung("BC", 6.5, "no"),
+                 self._rung("RUTG", 3.5, "no"), self._rung("RUTG", 10.5, "no")]
+        self.assertEqual(kalshi.margin_from_settled(rungs, "BC"), (3.5, 6.5))
+
+    def test_an_impossible_bracket_is_not_a_result(self):
+        """lower above upper is the signature of the bug it replaced: no margin
+        satisfies it, so returning it would grade games wrong with confidence."""
+        rungs = [self._rung("BC", 10.5, "yes"), self._rung("BC", 3.5, "no")]
+        self.assertIsNone(kalshi.margin_from_settled(rungs, "BC"))
+
+    def test_nothing_settled_is_no_bracket(self):
+        self.assertIsNone(kalshi.margin_from_settled(
+            [{"ticker": f"{self.EVENT}-BC7", "floor_strike": 7.5, "result": ""}], "BC"))
+
+    def test_the_home_side_is_the_end_of_the_event_ticker(self):
+        rungs = [self._rung("BC", 3.5, "yes"), self._rung("RUTG", 3.5, "no")]
+        self.assertEqual(kalshi.home_abbrev_from_event(self.EVENT, rungs), "BC")
+
+    def test_an_away_code_that_tails_the_home_code_is_not_mistaken_for_it(self):
+        """SC at USC: the ticker ends with both, and the longer one is home."""
+        event = "KXNCAAFSPREAD-26SEP26SCUSC"
+        rungs = [{"ticker": f"{event}-SC4", "event_ticker": event,
+                  "floor_strike": 3.5, "result": "no"},
+                 {"ticker": f"{event}-USC4", "event_ticker": event,
+                  "floor_strike": 3.5, "result": "yes"}]
+        self.assertEqual(kalshi.home_abbrev_from_event(event, rungs), "USC")
+        self.assertEqual(kalshi.margin_from_settled(rungs, "USC"), (3.5, float("inf")))
+
+    def test_a_one_sided_ladder_quoting_only_the_away_team(self):
+        """No rung belongs to the home side, which is an answer, not a failure."""
+        rungs = [self._rung("RUTG", 14.5, "yes")]
+        self.assertEqual(kalshi.home_abbrev_from_event(self.EVENT, rungs), "")
+        self.assertEqual(kalshi.margin_from_settled(rungs, ""), (-float("inf"), -14.5))
+
+
+class TestGradingSurvivesTheCalendar(unittest.TestCase):
+    """Grading must not depend on a week number being right.
+
+    It did, and one stale calendar entry meant 85 played games were asked about
+    the wrong week, matched nothing, and were returned from quietly -- the
+    picks simply never entered the record.
+    """
+
+    EVENT = "KXNCAAFSPREAD-26SEP26RUTGBC"
+
+    def setUp(self):
+        self.dir = tempfile.mkdtemp()
+        kickoff = datetime.datetime(2026, 9, 26, 23, 0, tzinfo=UTC)
+        pick = {"side": "home", "line": 3.5, "team": "Boston College",
+                "edge": 2.0, "confidence": "lean", "strategy_version": config.STRATEGY_VERSION}
+        snap = {"at": "2026-09-24T12:00:00+00:00", "tier": "A", "picks": {"master": pick},
+                "pick": pick, "vegas_home_favored_by": 3.5}
+        grade_history.save_week({
+            "week_key": "2026-09-26", "season": 2026,
+            "games": {self.EVENT: {
+                "title": "Rutgers vs Boston College", "home_team": "Boston College",
+                "away_team": "Rutgers", "kickoff": kickoff.isoformat(),
+                "decision": dict(snap), "final": dict(snap)}},
+        }, self.dir)
+
+        self._available = grade_history.cfbd.available
+        grade_history.cfbd.available = lambda: False      # CFBD reaches nothing
+
+    def tearDown(self):
+        grade_history.cfbd.available = self._available
+
+    def _settled(self, rungs):
+        return [{"ticker": f"{self.EVENT}-{a}{int(s)}", "event_ticker": self.EVENT,
+                 "floor_strike": s, "result": r} for a, s, r in rungs]
+
+    def test_a_settled_ladder_grades_the_week_without_cfbd(self):
+        week = grade_history.grade_week("2026-09-26", 2026, self.dir, settled=self._settled(
+            [("BC", 6.5, "yes"), ("BC", 10.5, "no"), ("RUTG", 3.5, "no")]))
+        result = week["games"][self.EVENT]["result"]
+        self.assertEqual(result["source"], "kalshi")
+        self.assertEqual((result["margin_low"], result["margin_high"]), (6.5, 10.5))
+        self.assertTrue(result["final_correct"], "BC by 7-10 covers a line of 3.5")
+
+    def test_a_one_point_bracket_names_the_margin_outright(self):
+        week = grade_history.grade_week("2026-09-26", 2026, self.dir, settled=self._settled(
+            [("BC", 6.5, "yes"), ("BC", 7.5, "no")]))
+        self.assertEqual(week["games"][self.EVENT]["result"]["home_margin"], 7.0)
+
+    def test_a_bracket_straddling_the_line_grades_nothing(self):
+        """Not a push and not a guess: the evidence does not reach the number,
+        and a record that cannot be revised must not invent the one case it
+        cannot see."""
+        week = grade_history.grade_week("2026-09-26", 2026, self.dir, settled=self._settled(
+            [("BC", 1.5, "yes"), ("BC", 10.5, "no")]))
+        result = week["games"][self.EVENT]["result"]
+        self.assertIsNone(result["final_correct"])
+        self.assertIsNone(result["home_margin"])
+
+        row = next(e for e in grade_history.pick_log(self.dir)["entries"]
+                   if e["record"] == "headline")
+        self.assertEqual(row["result"], "unresolved")
+
+    def test_a_game_with_no_settled_ladder_is_left_pending(self):
+        week = grade_history.grade_week("2026-09-26", 2026, self.dir, settled=[])
+        self.assertNotIn("result", week["games"][self.EVENT])
+
+    def test_the_summary_names_the_week_that_failed_to_grade(self):
+        now = datetime.datetime(2026, 9, 28, 12, 0, tzinfo=UTC)
+        summary = grade_history.summarize(self.dir, now=now)
+        self.assertEqual(summary["ungraded"]["week_key"], "2026-09-26")
+        self.assertEqual(summary["ungraded"]["games"], 1)
+
+        grade_history.grade_week("2026-09-26", 2026, self.dir, settled=self._settled(
+            [("BC", 6.5, "yes"), ("BC", 10.5, "no")]))
+        self.assertIsNone(grade_history.summarize(self.dir, now=now)["ungraded"],
+                          "and stops naming it once it grades")
+
 
 
 if __name__ == "__main__":

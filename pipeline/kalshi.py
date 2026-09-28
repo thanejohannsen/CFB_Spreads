@@ -63,8 +63,17 @@ def fetch_settled_markets(series: str = None) -> list[dict]:
 def margin_from_settled(markets: list[dict], home_abbrev: str) -> Optional[tuple[float, float]]:
     """Bracket the final home margin from a settled ladder's yes/no results.
 
-    The highest home strike resolving "yes" is a lower bound on the margin; the
-    lowest resolving "no" is an upper bound.
+    Every rung is a claim about the same number -- the home margin -- so each
+    settlement is one inequality and the ladder is their intersection.
+
+    A home rung `t` asks {margin > t}, so its yes is a lower bound and its no an
+    upper one.  An away rung `t` asks {margin < -t}, because "away wins by over
+    t" is the same event read from the other end, so it is the other way round:
+    its YES bounds the margin from above.  That inversion is easy to get
+    backwards and it does not blur the answer, it turns it inside out -- the
+    away branches used to be swapped and the brackets came back with a median
+    width of MINUS twenty points.  Hence one condition, two bounds, and a test
+    per combination.
     """
     lower, upper = -float("inf"), float("inf")
     for m in markets:
@@ -74,13 +83,58 @@ def margin_from_settled(markets: list[dict], home_abbrev: str) -> Optional[tuple
             continue
         suffix = m["ticker"].rsplit("-", 1)[-1]
         abbrev = "".join(c for c in suffix if not c.isdigit())
-        signed = float(strike) if abbrev == home_abbrev else -float(strike)
-        if (abbrev == home_abbrev) == (result == "yes"):
-            lower = max(lower, signed) if abbrev == home_abbrev else lower
-            upper = min(upper, signed) if abbrev != home_abbrev else upper
+        home = abbrev == home_abbrev
+        signed = float(strike) if home else -float(strike)
+        if home == (result == "yes"):
+            lower = max(lower, signed)       # home yes, away no: margin above
         else:
-            upper = min(upper, signed) if abbrev == home_abbrev else upper
-            lower = max(lower, signed) if abbrev != home_abbrev else lower
+            upper = min(upper, signed)       # home no, away yes: margin below
     if lower == -float("inf") and upper == float("inf"):
         return None
+    if upper <= lower:
+        # No margin satisfies this, so the ladder is not saying what it appears
+        # to: a mis-read side, a settlement correction, or two events sharing a
+        # ticker. An impossible bracket is worse than no bracket -- it grades
+        # games wrong with full confidence -- so it is not returned as one.
+        return None
     return lower, upper
+
+
+def settled_by_event(markets: list[dict]) -> dict[str, list[dict]]:
+    """Group settled markets by their event ticker."""
+    out: dict[str, list[dict]] = {}
+    for m in markets:
+        ticker = m.get("event_ticker")
+        if ticker:
+            out.setdefault(ticker, []).append(m)
+    return out
+
+
+def home_abbrev_from_event(event_ticker: str, markets: list[dict]) -> Optional[str]:
+    """Which of a settled event's abbreviations is the home side.
+
+    Kalshi writes the event ticker as ``<series>-<date><away><home>``, so the
+    home abbreviation is the one the ticker ends with.  It is matched against
+    the abbreviations the markets themselves carry rather than split by
+    position, because the codes are not fixed width; where both match -- an
+    away code that is also a tail of the home code, SC at USC -- the longer one
+    is the home side, since the shorter can only match by being a suffix of it.
+
+    Returns "" when the ladder quotes one team and that team is the away side:
+    no rung belongs to the home team, which is a real answer rather than a
+    failure.  None means the ticker and the rungs disagree, and nothing should
+    be graded from that.
+    """
+    seen = set()
+    for m in markets:
+        suffix = (m.get("ticker") or "").rsplit("-", 1)[-1]
+        abbrev = "".join(c for c in suffix if not c.isdigit())
+        if abbrev:
+            seen.add(abbrev)
+    if not seen:
+        return None
+    tail = event_ticker.rsplit("-", 1)[-1]
+    matches = [a for a in seen if tail.endswith(a) and tail != a]
+    if matches:
+        return max(matches, key=len)
+    return "" if len(seen) == 1 else None

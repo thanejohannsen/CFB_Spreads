@@ -20,10 +20,11 @@ from __future__ import annotations
 
 import datetime
 import json
+import math
 import os
 from typing import Optional
 
-from . import cfbd, config, weeks
+from . import cfbd, config, kalshi, weeks
 
 UTC = datetime.timezone.utc
 
@@ -326,33 +327,99 @@ def record(payload: dict, history_dir: str = None, now: datetime.datetime = None
 # Grading
 # --------------------------------------------------------------------------
 
-def _graded(snapshot: Optional[dict], home_margin: float,
-            lens: str = "master") -> Optional[bool]:
-    """Did this lens's pick cover?  None when it made no pick or pushed."""
+def _decide(snapshot: Optional[dict], lens: str, margin: Optional[float],
+            bracket: Optional[tuple] = None) -> Optional[bool]:
+    """Did this lens's pick cover?
+
+    Two kinds of evidence reduce to one answer. A final score names the margin
+    outright. A settled Kalshi ladder names a range it fell inside, which still
+    decides any pick whose number sits outside that range -- and most do, since
+    the rungs are a point and a half apart either side of the result.
+
+    None when there was no pick, when the game pushed, or when the range
+    straddles the number. The last is the one worth being strict about: a
+    bracket that does not reach the line is missing evidence, not a near miss,
+    and guessing from its midpoint would put invented results into a record
+    whose whole claim is that it cannot be revised after the fact.
+    """
     pick = (_picks(snapshot) or {}).get(lens) or {}
     side, line = pick.get("side"), pick.get("line")
     if side is None or line is None:
         return None
-    if abs(home_margin - line) < 1e-9:
-        return None                                   # push
-    home_covered = home_margin > line
+
+    if margin is not None:
+        if abs(margin - line) < 1e-9:
+            return None                               # push
+        home_covered = margin > line
+    elif bracket is not None:
+        low, high = bracket
+        if low >= line:
+            home_covered = True                       # margin > low >= line
+        elif high <= line:
+            home_covered = False                      # margin < high <= line
+        else:
+            return None
+    else:
+        return None
+
     return home_covered if side == "home" else not home_covered
 
 
-def apply_results(week: dict, results: dict[str, float]) -> dict:
-    """Attach final margins (keyed by event id) and grade both locks."""
+def _pinned(bracket: Optional[tuple]) -> Optional[float]:
+    """The exact margin, when exactly one whole number fits the bracket.
+
+    Worth extracting because a margin is what the page shows and what the drift
+    numbers are computed from; a bracket one point wide gives it for free, which
+    on a full slate is about four games in ten.
+    """
+    if not bracket:
+        return None
+    low, high = bracket
+    if math.isinf(low) or math.isinf(high):
+        return None
+    fits = [n for n in range(math.floor(low) + 1, math.ceil(high)) if low < n < high]
+    return float(fits[0]) if len(fits) == 1 else None
+
+
+def _finite(value: Optional[float]) -> Optional[float]:
+    """An open end of a bracket is an infinity, and JSON has no word for one."""
+    if value is None or math.isinf(value):
+        return None
+    return value
+
+
+def apply_results(week: dict, results: dict[str, float],
+                  brackets: dict[str, tuple] = None) -> dict:
+    """Attach what is known about each final margin, and grade both locks.
+
+    `results` holds exact margins keyed by event id; `brackets` holds (low,
+    high) ranges from settled Kalshi ladders for the games `results` could not
+    reach. A game with neither is left untouched -- an entry carrying no
+    `result` is what every caller reads as "not played yet", and writing an
+    empty one would take those picks out of the pending column without putting
+    them in the record.
+    """
+    brackets = brackets or {}
     for game_id, entry in week.get("games", {}).items():
         margin = results.get(game_id)
+        bracket = brackets.get(game_id) if margin is None else None
         if margin is None:
+            margin = _pinned(bracket)
+        if margin is None and bracket is None:
             continue
         entry["result"] = {
             "home_margin": margin,
-            "decision_correct": _graded(_lock(entry, "decision"), margin),
-            "final_correct": _graded(_lock(entry, "final"), margin),
+            # Kept even when the margin is known, so a settlement-graded game
+            # can be told from a score-graded one long after the fact.
+            "margin_low": _finite(bracket[0]) if bracket else None,
+            "margin_high": _finite(bracket[1]) if bracket else None,
+            "source": "kalshi" if bracket else "cfbd",
+            "decision_correct": _decide(_lock(entry, "decision"), "master", margin, bracket),
+            "final_correct": _decide(_lock(entry, "final"), "master", margin, bracket),
             "lenses": {
                 key: {
-                    "decision_correct": _graded(_lock(entry, "decision"), margin, key),
-                    "final_correct": _graded(_lock(entry, "final"), margin, key),
+                    "decision_correct": _decide(_lock(entry, "decision"), key, margin, bracket),
+                    "final_correct": _decide(_lock(entry, "final"), key, margin, bracket),
                 }
                 for key, _ in LENSES
             },
@@ -360,10 +427,104 @@ def apply_results(week: dict, results: dict[str, float]) -> dict:
     return week
 
 
-def grade_week(week_key: str, season: int, history_dir: str = None) -> Optional[dict]:
-    """Pull finals from CFBD and grade a stored week."""
+def _finals_for(week: dict, season: int, saturday: datetime.date) -> tuple:
+    """Exact margins from CFBD's final scores, keyed by stored event id.
+
+    Returns (results, note).  The note says how the week number was arrived at,
+    because that is the thing that silently went wrong: a calendar holding only
+    two weeks answered "week 3" for every date in October with no way to tell
+    the answer from a guess.
+    """
     if not cfbd.available():
-        return None
+        return {}, "no CFBD key"
+
+    cfb_week, resolved = cfbd.week_for_date_checked(season, saturday)
+    if cfb_week is None:
+        return {}, "no calendar"
+
+    weeks_to_try = [cfb_week]
+    if not resolved:
+        # The calendar did not reach this date, so the number is the nearest
+        # week rather than the right one.  The board already retries its
+        # neighbours for exactly this reason; grading did not, and that is how
+        # a slate of 85 games came to be asked about the wrong week and quietly
+        # matched nothing.
+        weeks_to_try += [cfb_week + 1, cfb_week - 1]
+
+    from .match_games import normalize
+    for candidate in weeks_to_try:
+        if candidate < 1:
+            continue
+        finals = {}
+        for g in cfbd.cached_finals(season, candidate):
+            if g.get("home_margin") is None or not g.get("completed"):
+                continue
+            finals[frozenset((normalize(g["home_team"]), normalize(g["away_team"])))] = g
+
+        results = {}
+        for game_id, entry in week["games"].items():
+            final = finals.get(frozenset((normalize(entry["home_team"]),
+                                          normalize(entry["away_team"]))))
+            if not final:
+                continue
+            margin = float(final["home_margin"])
+            if normalize(final["home_team"]) != normalize(entry["home_team"]):
+                margin = -margin
+            results[game_id] = margin
+
+        if results:
+            note = f"week {candidate}"
+            return results, note if resolved else f"{note}, guessed from a short calendar"
+
+    asked = "/".join(str(w) for w in weeks_to_try)
+    return {}, f"week {asked} matched nothing" + ("" if resolved else " (guessed)")
+
+
+def _settlement_brackets(game_ids, settled: list = None) -> dict[str, tuple]:
+    """Bracket each game's final margin from its settled Kalshi ladder.
+
+    The stored event id IS the Kalshi event ticker, so this needs no team-name
+    matching, no week number, no calendar and no API key -- which is the whole
+    point of having it.  It is the one grading path that survives every other
+    input being wrong, and a calendar cached two weeks deep in September is how
+    that stopped being hypothetical.
+    """
+    wanted = set(game_ids)
+    if not wanted:
+        return {}
+    try:
+        markets = kalshi.fetch_settled_markets() if settled is None else settled
+    except Exception:                                       # noqa: BLE001
+        return {}
+
+    out = {}
+    for ticker, rungs in kalshi.settled_by_event(markets).items():
+        if ticker not in wanted:
+            continue
+        home = kalshi.home_abbrev_from_event(ticker, rungs)
+        if home is None:
+            continue
+        bracket = kalshi.margin_from_settled(rungs, home)
+        if bracket is not None:
+            out[ticker] = bracket
+    return out
+
+
+def grade_week(week_key: str, season: int, history_dir: str = None,
+               settled: list = None) -> Optional[dict]:
+    """Grade a stored week from final scores, falling back to settled ladders.
+
+    Two sources, in order of precision.  CFBD's finals give the margin itself.
+    Where they reach nothing -- a wrong week number, a missing key, an FCS
+    opponent CFBD does not carry -- the settled Kalshi ladder brackets it
+    instead, which is enough to decide a pick whose number sits outside the
+    bracket.  Checked against CFBD's own grades over 163 settled games the two
+    agreed on every one.
+
+    `settled` is the settled-market list, so a sweep over several weeks fetches
+    it once; None fetches it on demand, and only for games still missing a
+    result.
+    """
     week = load_week(week_key, history_dir)
     if not week.get("games"):
         return None
@@ -374,29 +535,19 @@ def grade_week(week_key: str, season: int, history_dir: str = None) -> Optional[
         saturday = datetime.date.fromisoformat(week_key)
     except ValueError:
         return None
-    cfb_week = cfbd.week_for_date(season, saturday)
-    if cfb_week is None:
-        return None
 
-    from .match_games import normalize
-    finals = {}
-    for g in cfbd.cached_finals(season, cfb_week):
-        if g.get("home_margin") is None or not g.get("completed"):
-            continue
-        finals[frozenset((normalize(g["home_team"]), normalize(g["away_team"])))] = g
+    results, note = _finals_for(week, season, saturday)
+    ungraded = [gid for gid, entry in week["games"].items()
+                if gid not in results and not entry.get("result")]
+    brackets = _settlement_brackets(ungraded, settled)
 
-    results = {}
-    for game_id, entry in week["games"].items():
-        key = frozenset((normalize(entry["home_team"]), normalize(entry["away_team"])))
-        final = finals.get(key)
-        if not final:
-            continue
-        margin = float(final["home_margin"])
-        if normalize(final["home_team"]) != normalize(entry["home_team"]):
-            margin = -margin
-        results[game_id] = margin
+    # A grading run that reached nothing used to return quietly, which is how
+    # a whole week of picks sat unscored for a fortnight while the page showed
+    # a stale column and looked fine.
+    print(f"grade {week_key}: {len(results)} from finals ({note}), "
+          f"{len(brackets)} of {len(ungraded)} remaining from settlements")
 
-    week = apply_results(week, results)
+    week = apply_results(week, results, brackets)
     save_week(week, history_dir)
     return week
 
@@ -433,20 +584,33 @@ def grade_recent(season: int, history_dir: str = None,
     after the week rolled over was lost for good: 17 already-played games from
     one week were stranded that way. Sweeping back picks them up, and settled
     weeks stop being fetched once complete, so the steady state is unchanged.
+
+    The settled-market list is fetched at most once for the whole sweep, and
+    only once a week has actually asked for it -- so a run with nothing left to
+    grade still costs nothing.
     """
     history_dir = history_dir or config.HISTORY_DIR
     graded: dict[str, int] = {}
-    if not cfbd.available() or not os.path.isdir(history_dir):
+    if not os.path.isdir(history_dir):
         return graded
 
+    settled = None
     for name in sorted(os.listdir(history_dir), reverse=True):
         if not name.endswith(".json"):
             continue
         week = load_week(name[:-5], history_dir)
         if not needs_grading(week, max_age_days=max_age_days):
             continue
+        if settled is None:
+            # Grading no longer requires a CFBD key, so this is not gated on
+            # one: settlements are the fallback precisely for the runs where
+            # the key, the calendar or the week number is the thing at fault.
+            try:
+                settled = kalshi.fetch_settled_markets()
+            except Exception:                               # noqa: BLE001
+                settled = []
         try:
-            result = grade_week(week["week_key"], season, history_dir)
+            result = grade_week(week["week_key"], season, history_dir, settled=settled)
         except Exception:                                   # noqa: BLE001
             continue
         if result:
@@ -557,7 +721,7 @@ def _open(entries: list[dict], lock: str, lens: str, tiers, versions,
     """
     live = pending = 0
     for e in entries:
-        if (e.get("result") or {}).get("home_margin") is not None:
+        if e.get("result"):
             continue
         if not _in_scope(e, lock, tiers, versions):
             continue
@@ -568,6 +732,38 @@ def _open(entries: list[dict], lock: str, lens: str, tiers, versions,
         else:
             live += 1
     return {"live": live, "pending": pending}
+
+
+def _ungraded_week(weeks_data: list[dict], now: datetime.datetime) -> Optional[dict]:
+    """The newest stored week that has been played and carries no results.
+
+    On the page a record whose newest column is a fortnight old looks exactly
+    like one that had a quiet week, so a whole slate failing to grade shows up
+    as nothing at all: 85 games and 113 picks sat unscored for a fortnight while
+    the scoreboard read as though everything were fine. Saying which week is
+    missing costs one field and removes that entire failure mode.
+
+    Only the newest PLAYED week is reported. Weeks still ahead are skipped (they
+    are not late, they have not happened), and once that week grades this goes
+    back to None -- an older gap is a game CFBD does not carry, not an outage.
+    """
+    for week in reversed(weeks_data):
+        games = (week.get("games") or {}).values()
+        if any(e.get("result") for e in games):
+            return None
+        played = [e for e in games
+                  if (weeks.parse_ts(e.get("kickoff")) or now)
+                  < now - datetime.timedelta(hours=6)]
+        if not played:
+            continue
+        picks = sum(
+            1 for e in played
+            for _key, _label, lock, lens, tiers, versions in RECORDS
+            if _in_scope(e, lock, tiers, versions)
+            and ((_picks(_lock(e, lock)) or {}).get(lens) or {}).get("side")
+        )
+        return {"week_key": week["week_key"], "games": len(played), "picks": picks}
+    return None
 
 
 def summarize(history_dir: str = None, now: datetime.datetime = None) -> dict:
@@ -655,6 +851,8 @@ def summarize(history_dir: str = None, now: datetime.datetime = None) -> dict:
             "same_pick_total": len(agreements),
         },
         "graded_games": len(all_entries),
+        # The newest played week that never graded, or None when there is none.
+        "ungraded": _ungraded_week(weeks_data, now),
     }
 
 
@@ -685,6 +883,12 @@ def pick_log(history_dir: str = None, now: datetime.datetime = None) -> dict:
     it is least useful -- and because the Master tab and the record it is
     measured by have to show the same games. Neither reaches a tally: only a
     graded pick is a win or a loss.
+
+    A fourth state exists but is rare: `unresolved`, a game that has been played
+    and settled where the evidence brackets the margin without reaching this
+    pick's number. Over the 208 graded picks the settlement path was checked
+    against, it happened to none of them -- but it is what honest looks like
+    when it does.
     """
     history_dir = history_dir or config.HISTORY_DIR
     now = now or datetime.datetime.now(UTC)
@@ -705,9 +909,18 @@ def pick_log(history_dir: str = None, now: datetime.datetime = None) -> dict:
 
                 fired = _has_fired(game, lock, now)
                 moment = lock_moment(game, lock)
-                if margin is not None:
+                if result:
                     ok = _outcome(game, lock, lens)
-                    outcome = "win" if ok is True else ("loss" if ok is False else "push")
+                    if ok is not None:
+                        outcome = "win" if ok else "loss"
+                    elif margin is not None:
+                        outcome = "push"
+                    else:
+                        # Played and settled, but the bracket the settlement
+                        # gives straddles this pick's number, so nothing decides
+                        # it. Named rather than filed as a push, which would
+                        # claim the game landed exactly on the line.
+                        outcome = "unresolved"
                 else:
                     outcome = "pending" if fired else "live"
 
@@ -745,6 +958,10 @@ def pick_log(history_dir: str = None, now: datetime.datetime = None) -> dict:
                                             if fired else None),
                     "dollar_volume": snap.get("dollar_volume"),
                     "home_margin": margin,
+                    # Where the margin is only bracketed, the bounds, so the
+                    # page can say "by 4-5" instead of leaving the column blank.
+                    "margin_low": result.get("margin_low"),
+                    "margin_high": result.get("margin_high"),
                     "result": outcome,
                 })
 
