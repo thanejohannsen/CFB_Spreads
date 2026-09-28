@@ -447,6 +447,9 @@ function openText(rec) {
   const bits = [];
   if (open.live) bits.push(`${open.live} live`);
   if (open.pending) bits.push(`${open.pending} pending`);
+  // Played and still ungraded — a different wait from the two above, and the
+  // only one that means something is wrong if it does not clear.
+  if (open.awaiting) bits.push(`${open.awaiting} awaiting result`);
   return bits.join(' · ');
 }
 
@@ -575,6 +578,12 @@ function pickList(rec) {
       'LIVE rows are what the board is showing right now — they move with the '
       + 'market until this record\u2019s clock reaches them, then freeze.'));
   }
+  if (entries.some((e) => e.result === 'awaiting')) {
+    note.append(document.createTextNode(' · '));
+    note.append(el('span', 'picks-live-note',
+      'AWAITING RESULT rows are played and frozen, waiting on the next grading '
+      + 'run — normal for a few hours after kickoff, a grading failure if they stay.'));
+  }
   wrap.append(note);
 
   if (!entries.length) {
@@ -630,6 +639,8 @@ function pickList(rec) {
       out.append(el('span', 'pick-res live', 'LIVE'));
     } else if (e.result === 'pending') {
       out.append(el('span', 'pick-res pending', 'PENDING'));
+    } else if (e.result === 'awaiting') {
+      out.append(el('span', 'pick-res awaiting', 'AWAITING RESULT'));
     } else {
       out.append(el('span', 'pick-res ' + e.result, e.result.toUpperCase()));
       const outcome = marginResult(e);

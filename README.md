@@ -166,8 +166,15 @@ arrives, so before then it holds the live board rather than a commitment. Both r
 wrong on their own: hide it and the record shows nothing while the Master tab shows six picks; print
 it as settled and the tool claims a commitment days early. So the row is shown either way and labelled
 for what it is — **LIVE** while it still moves, with the moment it will freeze, then **PENDING** once
-frozen and waiting on a final score, then the result. Neither reaches a tally; only a graded pick is a
-win or a loss.
+frozen and waiting on a kickoff, then **AWAITING RESULT** once the game has been played, then the
+result. None of the three reaches a tally; only a graded pick is a win or a loss.
+
+The third used to share a word with the second, and that is not a wording nit: a game that has not
+started and a game whose result never arrived are the same row under one label, so a grading outage
+looks exactly like a Saturday that has not happened yet. That is how a week with 61 ungraded picks sat
+on the page for a fortnight reading as normal. **AWAITING RESULT** is ordinary for the few hours
+between a kickoff and the next grading sweep; if it is still there on Wednesday, something is wrong,
+and now you can see that from the row.
 
 **Clicking any record** expands the individual picks behind it — the pick, the line it was made
 against, the tier and edge at that lock, and the final margin. That last pair is the point: a tally

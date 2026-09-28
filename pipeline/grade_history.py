@@ -552,6 +552,23 @@ def grade_week(week_key: str, season: int, history_dir: str = None,
     return week
 
 
+# How long after kickoff a game is treated as played. Long enough to cover a
+# game going long, short enough that a missing result shows up the same day.
+PLAYED_GRACE_HOURS = 6
+
+
+def _played(entry: dict, now: datetime.datetime) -> bool:
+    """Has this game finished?  One definition, because three callers ask.
+
+    The sweep uses it to decide whether a result is worth chasing and the page
+    uses it to decide whether a frozen pick is waiting on a kickoff or waiting
+    on a grading run. Those have to be the same question or the page will say a
+    result is overdue while the sweep has already stopped looking for it.
+    """
+    kickoff = weeks.parse_ts(entry.get("kickoff"))
+    return bool(kickoff) and kickoff < now - datetime.timedelta(hours=PLAYED_GRACE_HOURS)
+
+
 def needs_grading(week: dict, now: datetime.datetime = None,
                   max_age_days: int = 21) -> bool:
     """Whether a stored week still has results worth chasing.
@@ -567,13 +584,8 @@ def needs_grading(week: dict, now: datetime.datetime = None,
     if (now.date() - saturday).days > max_age_days:
         return False
 
-    for entry in week.get("games", {}).values():
-        if entry.get("result"):
-            continue
-        kickoff = weeks.parse_ts(entry.get("kickoff"))
-        if kickoff and kickoff < now - datetime.timedelta(hours=6):
-            return True
-    return False
+    return any(_played(e, now) for e in week.get("games", {}).values()
+               if not e.get("result"))
 
 
 def grade_recent(season: int, history_dir: str = None,
@@ -750,14 +762,18 @@ def _open(entries: list[dict], lock: str, lens: str, tiers, versions,
           now: datetime.datetime) -> dict:
     """Picks this record is carrying that no result has landed on yet.
 
-    Split by whether their lock has fired, because the two mean different
-    things: `live` is what the board is showing right now and can still change,
-    `pending` is frozen and waiting on a final score. Without this the row for a
-    record with nothing graded reads a bare em dash, which is indistinguishable
-    from a record making no picks at all -- the exact confusion of a board
-    showing six master picks above a headline record showing none.
+    Three states, because a pick with no result is waiting on three different
+    things. `live` is what the board is showing right now and can still change.
+    `pending` is frozen and waiting on a kickoff. `awaiting` is frozen, played,
+    and waiting on a grading run -- which is normal for a few hours and a
+    grading failure after that.
+
+    Without any of this the row for a record with nothing graded reads a bare em
+    dash, indistinguishable from a record making no picks at all -- the exact
+    confusion of a board showing six master picks above a headline record
+    showing none.
     """
-    live = pending = 0
+    live = pending = awaiting = 0
     for e in entries:
         if e.get("result"):
             continue
@@ -765,11 +781,13 @@ def _open(entries: list[dict], lock: str, lens: str, tiers, versions,
             continue
         if not ((_picks(_lock(e, lock)) or {}).get(lens) or {}).get("side"):
             continue
-        if _has_fired(e, lock, now):
-            pending += 1
-        else:
+        if not _has_fired(e, lock, now):
             live += 1
-    return {"live": live, "pending": pending}
+        elif _played(e, now):
+            awaiting += 1
+        else:
+            pending += 1
+    return {"live": live, "pending": pending, "awaiting": awaiting}
 
 
 def _ungraded_week(weeks_data: list[dict], now: datetime.datetime) -> Optional[dict]:
@@ -789,9 +807,7 @@ def _ungraded_week(weeks_data: list[dict], now: datetime.datetime) -> Optional[d
         games = (week.get("games") or {}).values()
         if any(e.get("result") for e in games):
             return None
-        played = [e for e in games
-                  if (weeks.parse_ts(e.get("kickoff")) or now)
-                  < now - datetime.timedelta(hours=6)]
+        played = [e for e in games if _played(e, now)]
         if not played:
             continue
         picks = sum(
@@ -914,19 +930,21 @@ def pick_log(history_dir: str = None, now: datetime.datetime = None) -> dict:
     good calls that lost on the number, so each entry carries the line it was
     made against next to the final margin.
 
-    Three states, not two. A pick whose lock has fired but whose game has not
-    been played is `pending`; one whose lock is still ahead is `live`, still
-    moving with the board and carrying the moment it will freeze. Both are
-    listed, because a record that only fills in after the fact is exactly when
-    it is least useful -- and because the Master tab and the record it is
-    measured by have to show the same games. Neither reaches a tally: only a
+    Four states before a result, not one. A pick whose lock is still ahead is
+    `live`, moving with the board and carrying the moment it will freeze. One
+    whose lock has fired and whose game has not started is `pending`. One whose
+    game has been PLAYED and still has no result is `awaiting` -- ordinary for
+    the few hours between a kickoff and the next grading sweep, a grading
+    failure after that, and the distinction the page could not previously make.
+    All are listed, because a record that only fills in after the fact is
+    exactly when it is least useful -- and because the Master tab and the record
+    it is measured by have to show the same games. None reaches a tally: only a
     graded pick is a win or a loss.
 
-    A fourth state exists but is rare: `unresolved`, a game that has been played
-    and settled where the evidence brackets the margin without reaching this
-    pick's number. Over the 208 graded picks the settlement path was checked
-    against, it happened to none of them -- but it is what honest looks like
-    when it does.
+    The fourth is rare: `unresolved`, a game that has been played and settled
+    where the evidence brackets the margin without reaching this pick's number.
+    Over the 208 graded picks the settlement path was checked against, it
+    happened to none of them -- but it is what honest looks like when it does.
     """
     history_dir = history_dir or config.HISTORY_DIR
     now = now or datetime.datetime.now(UTC)
@@ -959,8 +977,18 @@ def pick_log(history_dir: str = None, now: datetime.datetime = None) -> dict:
                         # it. Named rather than filed as a push, which would
                         # claim the game landed exactly on the line.
                         outcome = "unresolved"
+                elif not fired:
+                    outcome = "live"
+                elif _played(game, now):
+                    # Frozen, played, and still no result. Ordinary for the few
+                    # hours between a kickoff and the next grading sweep; after
+                    # that it is a grading failure, and it used to be filed as
+                    # `pending` -- the same word as a game that has not started.
+                    # That is how a week where 61 picks never graded read, for a
+                    # fortnight, exactly like a week still waiting to be played.
+                    outcome = "awaiting"
                 else:
-                    outcome = "pending" if fired else "live"
+                    outcome = "pending"
 
                 entries.append({
                     "record": key,

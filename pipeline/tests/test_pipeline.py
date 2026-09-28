@@ -182,19 +182,62 @@ class TestRecordsAndPickLog(unittest.TestCase):
             t = rec["season"]
             rows = [e for e in log["entries"]
                     if e["record"] == rec["key"]
-                    and e["result"] not in ("pending", "live")]
+                    and e["result"] in ("win", "loss")]
             self.assertEqual(len(rows), t["wins"] + t["losses"],
                              f"{rec['key']}: log rows must match the record it expands")
 
-    def test_ungraded_picks_appear_as_pending(self):
+    def test_a_played_pick_with_no_result_is_awaiting_one(self):
+        """Not `pending`, which is the word for a game that has not started.
+
+        Sharing one word between the two is what let a week where 61 picks never
+        graded read, for a fortnight, exactly like a week still waiting to be
+        played -- and it is the question the record exists to answer honestly.
+        """
+        self._store("TOP", "A")
+        rows = [e for e in grade_history.pick_log(self.dir)["entries"]
+                if e["record"] == "thursday_all"]
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["result"], "awaiting")
+        self.assertIsNone(rows[0]["home_margin"])
+
+    def test_a_frozen_pick_before_kickoff_is_still_pending(self):
         """Otherwise the current week only shows up in hindsight, which is when
         the log is least useful."""
         self._store("TOP", "A")
-        log = grade_history.pick_log(self.dir)
-        rows = [e for e in log["entries"] if e["record"] == "thursday_all"]
-        self.assertEqual(len(rows), 1)
+        before = self.kickoff - datetime.timedelta(minutes=30)   # lock fired, not played
+        rows = [e for e in grade_history.pick_log(self.dir, now=before)["entries"]
+                if e["record"] == "thursday_all"]
         self.assertEqual(rows[0]["result"], "pending")
-        self.assertIsNone(rows[0]["home_margin"])
+        self.assertTrue(rows[0]["locked"])
+
+    def test_a_pick_stays_pending_through_the_grace_after_kickoff(self):
+        """A game does not become overdue the second it kicks off."""
+        self._store("TOP", "A")
+        during = self.kickoff + datetime.timedelta(hours=2)
+        rows = [e for e in grade_history.pick_log(self.dir, now=during)["entries"]
+                if e["record"] == "thursday_all"]
+        self.assertEqual(rows[0]["result"], "pending")
+
+    def test_a_graded_pick_is_a_win_or_a_loss_whatever_the_clock_says(self):
+        self._store("TOP", "A")
+        week = grade_history.load_week("2026-09-12", self.dir)
+        grade_history.save_week(grade_history.apply_results(week, {"TOP": 10.0}), self.dir)
+        rows = [e for e in grade_history.pick_log(self.dir)["entries"]
+                if e["record"] == "thursday_all"]
+        self.assertEqual(rows[0]["result"], "win")
+
+    def test_the_open_counts_split_the_three_waits_apart(self):
+        self._store("TOP", "A")
+        live = self.early                                        # lock still ahead
+        pending = self.kickoff - datetime.timedelta(minutes=30)  # frozen, not played
+        awaiting = self.kickoff + datetime.timedelta(days=1)     # played, no result
+        for when, expected in ((live, {"live": 1, "pending": 0, "awaiting": 0}),
+                               (pending, {"live": 0, "pending": 1, "awaiting": 0}),
+                               (awaiting, {"live": 0, "pending": 0, "awaiting": 1})):
+            summary = grade_history.summarize(self.dir, now=when)
+            row = next(r for r in summary["records"] if r["key"] == "headline")
+            self.assertEqual(row["open"], expected, f"at {when.isoformat()}")
+            self.assertEqual(row["season"]["total"], 0, "and none of them is a tally")
 
     def test_no_play_games_never_enter_the_log(self):
         self._store("NOPICK", "A", side=None)
@@ -580,14 +623,14 @@ class TestARecordTracksTheBoardUntilItLocks(unittest.TestCase):
         for rec in summary["records"]:
             self.assertEqual(rec["season"]["total"], 0, rec["key"])
         by_key = {r["key"]: r["open"] for r in summary["records"]}
-        self.assertEqual(by_key["headline"], {"live": 1, "pending": 0},
+        self.assertEqual(by_key["headline"], {"live": 1, "pending": 0, "awaiting": 0},
                          "the row the board is showing has to be counted somewhere")
 
     def test_an_open_pick_moves_from_live_to_pending_at_its_lock(self):
         after_final = weeks.final_lock(self.kickoff) + datetime.timedelta(minutes=1)
         summary = grade_history.summarize(self.dir, now=after_final)
         by_key = {r["key"]: r["open"] for r in summary["records"]}
-        self.assertEqual(by_key["headline"], {"live": 0, "pending": 1})
+        self.assertEqual(by_key["headline"], {"live": 0, "pending": 1, "awaiting": 0})
 
     def test_how_early_a_snapshot_was_taken_is_reported_once_it_is_frozen(self):
         """Michigan St. vs Notre Dame locked 12h before Thursday noon, because
