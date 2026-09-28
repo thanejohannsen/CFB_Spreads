@@ -2026,6 +2026,32 @@
    },
    "home_team": "Coastal Carolina",
    "kickoff": "2026-09-24T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -17.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Liberty vs Coastal Carolina"
   },
   "KXNCAAFSPREAD-26SEP25ARMYTEM": {
@@ -2182,6 +2208,32 @@
    },
    "home_team": "Temple",
    "kickoff": "2026-09-25T20:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -4.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Army vs Temple"
   },
   "KXNCAAFSPREAD-26SEP25CLEMCAL": {
@@ -2338,12 +2390,64 @@
    },
    "home_team": "California",
    "kickoff": "2026-09-26T02:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Clemson vs California"
   },
   "KXNCAAFSPREAD-26SEP25HARVBRWN": {
    "away_team": "Harvard",
    "home_team": "Brown",
    "kickoff": "2026-09-25T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -4.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Harvard vs Brown"
   },
   "KXNCAAFSPREAD-26SEP25HOWRUTG": {
@@ -2425,6 +2529,32 @@
    },
    "home_team": "Rutgers",
    "kickoff": "2026-09-25T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 51.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Howard vs Rutgers"
   },
   "KXNCAAFSPREAD-26SEP25NAVYUAB": {
@@ -2581,6 +2711,32 @@
    },
    "home_team": "UAB",
    "kickoff": "2026-09-25T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 4.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Navy vs UAB"
   },
   "KXNCAAFSPREAD-26SEP25NWIND": {
@@ -2737,12 +2893,64 @@
    },
    "home_team": "Indiana",
    "kickoff": "2026-09-26T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 6.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Northwestern vs Indiana"
   },
   "KXNCAAFSPREAD-26SEP26AAMUFAMU": {
    "away_team": "Alabama A&M",
    "home_team": "Florida A&M",
    "kickoff": "2026-09-26T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -19.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Alabama A&M vs Florida A&M"
   },
   "KXNCAAFSPREAD-26SEP26AFANEV": {
@@ -2824,6 +3032,32 @@
    },
    "home_team": "Nevada",
    "kickoff": "2026-09-27T02:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Air Force vs Nevada"
   },
   "KXNCAAFSPREAD-26SEP26APPNCST": {
@@ -2980,12 +3214,64 @@
    },
    "home_team": "NC St.",
    "kickoff": "2026-09-26T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Appalachian St. vs NC St."
   },
   "KXNCAAFSPREAD-26SEP26ARIZWSU": {
    "away_team": "Arizona",
    "home_team": "Washington St.",
    "kickoff": "2026-09-26T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Arizona vs Washington St."
   },
   "KXNCAAFSPREAD-26SEP26BALLKENT": {
@@ -3142,6 +3428,32 @@
    },
    "home_team": "Kent St.",
    "kickoff": "2026-09-26T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 13.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Ball St. vs Kent St."
   },
   "KXNCAAFSPREAD-26SEP26BSUWMU": {
@@ -3298,12 +3610,64 @@
    },
    "home_team": "Western Michigan",
    "kickoff": "2026-09-26T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -25.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": true,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Boise St. vs Western Michigan"
   },
   "KXNCAAFSPREAD-26SEP26CARKFSU": {
    "away_team": "Central Arkansas",
    "home_team": "Florida St.",
    "kickoff": "2026-09-26T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 27.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Central Arkansas vs Florida St."
   },
   "KXNCAAFSPREAD-26SEP26CMUMIA": {
@@ -3460,6 +3824,32 @@
    },
    "home_team": "Miami (FL)",
    "kickoff": "2026-09-26T22:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 49.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Central Michigan vs Miami (FL)"
   },
   "KXNCAAFSPREAD-26SEP26COLOBAY": {
@@ -3616,6 +4006,32 @@
    },
    "home_team": "Baylor",
    "kickoff": "2026-09-26T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Colorado vs Baylor"
   },
   "KXNCAAFSPREAD-26SEP26CONNMOH": {
@@ -3772,6 +4188,32 @@
    },
    "home_team": "Miami (OH)",
    "kickoff": "2026-09-26T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "UConn vs Miami (OH)"
   },
   "KXNCAAFSPREAD-26SEP26CSUUTSA": {
@@ -3928,18 +4370,96 @@
    },
    "home_team": "UTSA",
    "kickoff": "2026-09-26T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Colorado St. vs UTSA"
   },
   "KXNCAAFSPREAD-26SEP26DELUVA": {
    "away_team": "Delaware",
    "home_team": "Virginia",
    "kickoff": "2026-09-26T22:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 39.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Delaware vs Virginia"
   },
   "KXNCAAFSPREAD-26SEP26ETAMMCNS": {
    "away_team": "East Texas A&M",
    "home_team": "McNeese",
    "kickoff": "2026-09-26T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "East Texas A&M vs McNeese"
   },
   "KXNCAAFSPREAD-26SEP26FAUULM": {
@@ -4096,6 +4616,32 @@
    },
    "home_team": "Louisiana-Monroe",
    "kickoff": "2026-09-27T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -28.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Florida Atlantic vs Louisiana-Monroe"
   },
   "KXNCAAFSPREAD-26SEP26GTSTAN": {
@@ -4177,6 +4723,32 @@
    },
    "home_team": "Stanford",
    "kickoff": "2026-09-27T02:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Georgia Tech vs Stanford"
   },
   "KXNCAAFSPREAD-26SEP26HAWWYO": {
@@ -4333,6 +4905,32 @@
    },
    "home_team": "Wyoming",
    "kickoff": "2026-09-26T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 17.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": true
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Hawai'i vs Wyoming"
   },
   "KXNCAAFSPREAD-26SEP26HOUGASO": {
@@ -4489,12 +5087,64 @@
    },
    "home_team": "Georgia Southern",
    "kickoff": "2026-09-26T20:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Houston vs Georgia Southern"
   },
   "KXNCAAFSPREAD-26SEP26IDSTSUU": {
    "away_team": "Idaho St.",
    "home_team": "Southern Utah",
    "kickoff": "2026-09-27T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -4.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Idaho St. vs Southern Utah"
   },
   "KXNCAAFSPREAD-26SEP26ILLOSU": {
@@ -4651,6 +5301,32 @@
    },
    "home_team": "Ohio St.",
    "kickoff": "2026-09-26T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 23.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Illinois vs Ohio St."
   },
   "KXNCAAFSPREAD-26SEP26IOWAMICH": {
@@ -4807,12 +5483,64 @@
    },
    "home_team": "Michigan",
    "kickoff": "2026-09-26T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -1.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Iowa vs Michigan"
   },
   "KXNCAAFSPREAD-26SEP26IWTXST": {
    "away_team": "Incarnate Word",
    "home_team": "Texas St.",
    "kickoff": "2026-09-26T22:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 53.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Incarnate Word vs Texas St."
   },
   "KXNCAAFSPREAD-26SEP26JMUODU": {
@@ -4969,6 +5697,32 @@
    },
    "home_team": "Old Dominion",
    "kickoff": "2026-09-26T22:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -26.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "James Madison vs Old Dominion"
   },
   "KXNCAAFSPREAD-26SEP26KENNARST": {
@@ -5125,6 +5879,32 @@
    },
    "home_team": "Arkansas St.",
    "kickoff": "2026-09-26T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Kennesaw St. vs Arkansas St."
   },
   "KXNCAAFSPREAD-26SEP26KSUCIN": {
@@ -5281,30 +6061,160 @@
    },
    "home_team": "Cincinnati",
    "kickoff": "2026-09-26T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 5.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Kansas St. vs Cincinnati"
   },
   "KXNCAAFSPREAD-26SEP26LIUFIU": {
    "away_team": "LIU",
    "home_team": "Florida International",
    "kickoff": "2026-09-26T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 17.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 17.5,
+    "margin_low": 16.5,
+    "source": "kalshi"
+   },
    "title": "LIU vs Florida International"
   },
   "KXNCAAFSPREAD-26SEP26MASSSAC": {
    "away_team": "UMass",
    "home_team": "Sacramento St.",
    "kickoff": "2026-09-27T01:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -29.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "UMass vs Sacramento St."
   },
   "KXNCAAFSPREAD-26SEP26MERAC": {
    "away_team": "Mercer",
    "home_team": "Abilene Christian",
    "kickoff": "2026-09-27T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -17.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Mercer vs Abilene Christian"
   },
   "KXNCAAFSPREAD-26SEP26MHUWKU": {
    "away_team": "Mercyhurst",
    "home_team": "Western Kentucky",
    "kickoff": "2026-09-26T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 45.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Mercyhurst vs Western Kentucky"
   },
   "KXNCAAFSPREAD-26SEP26MINNWASH": {
@@ -5461,6 +6371,32 @@
    },
    "home_team": "Washington",
    "kickoff": "2026-09-27T03:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": false,
+    "home_margin": -3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Minnesota vs Washington"
   },
   "KXNCAAFSPREAD-26SEP26MISSFLA": {
@@ -5617,6 +6553,32 @@
    },
    "home_team": "Florida",
    "kickoff": "2026-09-26T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 24.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Ole Miss vs Florida"
   },
   "KXNCAAFSPREAD-26SEP26MIZZMSST": {
@@ -5773,12 +6735,64 @@
    },
    "home_team": "Mississippi St.",
    "kickoff": "2026-09-26T23:45:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": false,
+    "home_margin": 7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Missouri vs Mississippi St."
   },
   "KXNCAAFSPREAD-26SEP26MONTUCD": {
    "away_team": "Montana",
    "home_team": "UC Davis",
    "kickoff": "2026-09-27T02:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -40.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Montana vs UC Davis"
   },
   "KXNCAAFSPREAD-26SEP26MOSUSMU": {
@@ -5860,6 +6874,32 @@
    },
    "home_team": "SMU",
    "kickoff": "2026-09-27T01:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": true,
+    "home_margin": 10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": true
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": true
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Missouri St. vs SMU"
   },
   "KXNCAAFSPREAD-26SEP26MTUJVST": {
@@ -6016,6 +7056,32 @@
    },
    "home_team": "Jacksonville St.",
    "kickoff": "2026-09-26T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Middle Tennessee vs Jacksonville St."
   },
   "KXNCAAFSPREAD-26SEP26NAUMTST": {
@@ -6097,12 +7163,64 @@
    },
    "home_team": "Montana St.",
    "kickoff": "2026-09-27T02:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": true,
+    "home_margin": 14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": true
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": true
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": true
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Northern Arizona vs Montana St."
   },
   "KXNCAAFSPREAD-26SEP26NCCUECU": {
    "away_team": "North Carolina Central",
    "home_team": "East Carolina",
    "kickoff": "2026-09-26T20:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 33.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "North Carolina Central vs East Carolina"
   },
   "KXNCAAFSPREAD-26SEP26NDPUR": {
@@ -6259,6 +7377,32 @@
    },
    "home_team": "Purdue",
    "kickoff": "2026-09-26T18:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -39.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Notre Dame vs Purdue"
   },
   "KXNCAAFSPREAD-26SEP26NEBMSU": {
@@ -6415,6 +7559,32 @@
    },
    "home_team": "Michigan St.",
    "kickoff": "2026-09-26T21:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -18.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Nebraska vs Michigan St."
   },
   "KXNCAAFSPREAD-26SEP26NIUGAST": {
@@ -6571,6 +7741,32 @@
    },
    "home_team": "Georgia St.",
    "kickoff": "2026-09-26T18:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 21.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Northern Illinois vs Georgia St."
   },
   "KXNCAAFSPREAD-26SEP26OKLAUGA": {
@@ -6727,6 +7923,32 @@
    },
    "home_team": "Georgia",
    "kickoff": "2026-09-26T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 28.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Oklahoma vs Georgia"
   },
   "KXNCAAFSPREAD-26SEP26OKSTWVU": {
@@ -6883,6 +8105,32 @@
    },
    "home_team": "West Virginia",
    "kickoff": "2026-09-26T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -17.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": true,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Oklahoma St. vs West Virginia"
   },
   "KXNCAAFSPREAD-26SEP26OREUSC": {
@@ -7039,6 +8287,32 @@
    },
    "home_team": "USC",
    "kickoff": "2026-09-26T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Oregon vs USC"
   },
   "KXNCAAFSPREAD-26SEP26ORSTUTEP": {
@@ -7195,6 +8469,32 @@
    },
    "home_team": "UTEP",
    "kickoff": "2026-09-27T01:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -26.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Oregon St. vs UTEP"
   },
   "KXNCAAFSPREAD-26SEP26RICEFRES": {
@@ -7276,6 +8576,32 @@
    },
    "home_team": "Fresno St.",
    "kickoff": "2026-09-27T02:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Rice vs Fresno St."
   },
   "KXNCAAFSPREAD-26SEP26SCARALA": {
@@ -7432,6 +8758,32 @@
    },
    "home_team": "Alabama",
    "kickoff": "2026-09-26T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 31.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "South Carolina vs Alabama"
   },
   "KXNCAAFSPREAD-26SEP26SDSUTOL": {
@@ -7588,6 +8940,32 @@
    },
    "home_team": "Toledo",
    "kickoff": "2026-09-26T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 25.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "San Diego St. vs Toledo"
   },
   "KXNCAAFSPREAD-26SEP26SHSUTTU": {
@@ -7744,6 +9122,32 @@
    },
    "home_team": "Texas Tech",
    "kickoff": "2026-09-26T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 35.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Sam Houston vs Texas Tech"
   },
   "KXNCAAFSPREAD-26SEP26TCUUCF": {
@@ -7900,6 +9304,32 @@
    },
    "home_team": "UCF",
    "kickoff": "2026-09-26T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 8.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "TCU vs UCF"
   },
   "KXNCAAFSPREAD-26SEP26TEXTENN": {
@@ -8056,6 +9486,32 @@
    },
    "home_team": "Tennessee",
    "kickoff": "2026-09-26T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Texas vs Tennessee"
   },
   "KXNCAAFSPREAD-26SEP26TLSAARK": {
@@ -8212,6 +9668,32 @@
    },
    "home_team": "Arkansas",
    "kickoff": "2026-09-27T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 28.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Tulsa vs Arkansas"
   },
   "KXNCAAFSPREAD-26SEP26TROYUSU": {
@@ -8368,6 +9850,32 @@
    },
    "home_team": "Utah St.",
    "kickoff": "2026-09-26T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 11.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Troy vs Utah St."
   },
   "KXNCAAFSPREAD-26SEP26TXAMLSU": {
@@ -8524,6 +10032,32 @@
    },
    "home_team": "LSU",
    "kickoff": "2026-09-26T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 29.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": true,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Texas A&M vs LSU"
   },
   "KXNCAAFSPREAD-26SEP26UCLAMD": {
@@ -8680,6 +10214,32 @@
    },
    "home_team": "Maryland",
    "kickoff": "2026-09-26T17:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -51.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": false,
+      "final_correct": true
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "UCLA vs Maryland"
   },
   "KXNCAAFSPREAD-26SEP26ULLCHAR": {
@@ -8836,6 +10396,32 @@
    },
    "home_team": "Charlotte",
    "kickoff": "2026-09-26T22:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -27.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Louisiana vs Charlotte"
   },
   "KXNCAAFSPREAD-26SEP26UNLVAKR": {
@@ -8992,6 +10578,32 @@
    },
    "home_team": "Akron",
    "kickoff": "2026-09-26T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -28.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "UNLV vs Akron"
   },
   "KXNCAAFSPREAD-26SEP26UNMNMSU": {
@@ -9148,6 +10760,32 @@
    },
    "home_team": "New Mexico St.",
    "kickoff": "2026-09-26T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -24.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": true,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "New Mexico vs New Mexico St."
   },
   "KXNCAAFSPREAD-26SEP26USAUK": {
@@ -9304,6 +10942,32 @@
    },
    "home_team": "Kentucky",
    "kickoff": "2026-09-26T16:45:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 24.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": true,
+      "final_correct": true
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "South Alabama vs Kentucky"
   },
   "KXNCAAFSPREAD-26SEP26USFBGSU": {
@@ -9460,6 +11124,32 @@
    },
    "home_team": "Bowling Green",
    "kickoff": "2026-09-26T21:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -8.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "South Florida vs Bowling Green"
   },
   "KXNCAAFSPREAD-26SEP26USMTULN": {
@@ -9616,6 +11306,32 @@
    },
    "home_team": "Tulane",
    "kickoff": "2026-09-26T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Southern Miss vs Tulane"
   },
   "KXNCAAFSPREAD-26SEP26UTAHISU": {
@@ -9772,12 +11488,64 @@
    },
    "home_team": "Iowa St.",
    "kickoff": "2026-09-26T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": true,
+      "final_correct": true
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Utah vs Iowa St."
   },
   "KXNCAAFSPREAD-26SEP26UTUUNCO": {
    "away_team": "Utah Tech",
    "home_team": "Northern Colorado",
    "kickoff": "2026-09-27T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 24.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Utah Tech vs Northern Colorado"
   },
   "KXNCAAFSPREAD-26SEP26VANAUB": {
@@ -9934,6 +11702,32 @@
    },
    "home_team": "Auburn",
    "kickoff": "2026-09-26T20:15:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 6.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Vanderbilt vs Auburn"
   },
   "KXNCAAFSPREAD-26SEP26VTBC": {
@@ -10090,6 +11884,32 @@
    },
    "home_team": "Boston College",
    "kickoff": "2026-09-26T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Virginia Tech vs Boston College"
   },
   "KXNCAAFSPREAD-26SEP26WAKELOU": {
@@ -10246,6 +12066,32 @@
    },
    "home_team": "Louisville",
    "kickoff": "2026-09-26T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Wake Forest vs Louisville"
   },
   "KXNCAAFSPREAD-26SEP26WEBBMRSH": {
@@ -10327,6 +12173,32 @@
    },
    "home_team": "Marshall",
    "kickoff": "2026-09-26T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 1.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Gardner-Webb vs Marshall"
   },
   "KXNCAAFSPREAD-26SEP26WISPSU": {
@@ -10483,6 +12355,32 @@
    },
    "home_team": "Penn St.",
    "kickoff": "2026-09-26T21:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -4.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Wisconsin vs Penn St."
   }
  },
