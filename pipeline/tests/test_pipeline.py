@@ -1322,5 +1322,67 @@ class TestGradingSurvivesTheCalendar(unittest.TestCase):
 
 
 
+
+class TestAGameIsCountedOnceAcrossWeekFiles(unittest.TestCase):
+    """record() files a game under the week the RUN happens in, so a game the
+    board carries early lands in the previous week's file too.
+
+    CFBD grading could never reach that early copy -- it matches finals by week
+    number. Settled ladders match on the event ticker, which is identical in
+    both files, so without this guard one game would grade twice and be tallied
+    twice, in a record whose whole claim is that it cannot be revised.
+    """
+
+    GID = "KXNCAAFSPREAD-26SEP26OREUSC"
+
+    def setUp(self):
+        self.dir = tempfile.mkdtemp()
+        self.kickoff = datetime.datetime(2026, 9, 26, 23, 0, tzinfo=UTC)
+
+    def _entry(self, graded):
+        pick = {"side": "home", "line": 3.5, "team": "USC", "edge": 2.0,
+                "confidence": "lean", "strategy_version": config.STRATEGY_VERSION}
+        snap = {"at": "2026-09-24T12:00:00+00:00", "tier": "A",
+                "picks": {"master": pick}, "pick": pick, "vegas_home_favored_by": 3.5}
+        entry = {"title": "Oregon vs USC", "home_team": "USC", "away_team": "Oregon",
+                 "kickoff": self.kickoff.isoformat(),
+                 "decision": dict(snap), "final": dict(snap)}
+        if graded:
+            grade_history.apply_results({"games": {self.GID: entry}},
+                                        {self.GID: 10.0})
+        return entry
+
+    def _save(self, week_key, graded=True):
+        grade_history.save_week(
+            {"week_key": week_key, "season": 2026,
+             "games": {self.GID: self._entry(graded)}}, self.dir)
+
+    def test_the_same_game_in_two_files_is_tallied_once(self):
+        self._save("2026-09-19")           # seen early, filed under last week
+        self._save("2026-09-26")           # and again under its own week
+        summary = grade_history.summarize(self.dir)
+        self.assertEqual(summary["graded_games"], 1)
+        headline = next(r for r in summary["records"] if r["key"] == "headline")
+        self.assertEqual((headline["season"]["wins"], headline["season"]["losses"]), (1, 0))
+        self.assertEqual(
+            len([e for e in grade_history.pick_log(self.dir)["entries"]
+                 if e["record"] == "headline"]), 1)
+
+    def test_the_copy_kept_is_the_one_under_its_own_week(self):
+        self._save("2026-09-19")
+        self._save("2026-09-26")
+        weeks_data = grade_history._load_weeks(self.dir)
+        holding = [w["week_key"] for w in weeks_data if self.GID in w["games"]]
+        self.assertEqual(holding, ["2026-09-26"])
+
+    def test_an_early_copy_is_kept_while_it_is_the_only_one(self):
+        """Between a game first appearing on the board and the week rolling
+        over, the early copy is the only place the record can see it."""
+        self._save("2026-09-19", graded=False)
+        weeks_data = grade_history._load_weeks(self.dir)
+        self.assertIn(self.GID, weeks_data[0]["games"])
+
+
+
 if __name__ == "__main__":
     unittest.main()

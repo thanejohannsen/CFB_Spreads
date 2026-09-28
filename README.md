@@ -208,6 +208,14 @@ cannot be revised must not invent the one case it cannot see. Checked against CF
 The page says so too: when the newest played week carries no results at all, a banner names it. A
 stale last-week column otherwise reads exactly like a real one.
 
+One consequence needed guarding. `record()` files a game under the week the *run* happens in, so a
+game the board carries early lands in the previous week's file as well — 27 of them across the first
+three stored weeks. CFBD grading could never reach those copies, because it matches finals by week
+number. A settled ladder is matched on the event ticker, which is the *same ticker in both files*, so
+both copies would grade and both would be tallied. The scoreboard now reads a game from one file
+only: the one its kickoff belongs to, unless that file does not hold it yet, in which case the early
+copy is the only place a live pick can be seen and it stays.
+
 ## Does the Wednesday deadline hurt?
 
 Less than you would think, because liquidity concentrates in exactly the games worth picking.

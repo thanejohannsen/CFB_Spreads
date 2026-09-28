@@ -689,6 +689,44 @@ def _load_weeks(history_dir: str) -> list[dict]:
             if name.endswith(".json"):
                 with open(os.path.join(history_dir, name), encoding="utf-8") as fh:
                     out.append(json.load(fh))
+    return _one_file_per_game(out)
+
+
+def _one_file_per_game(weeks_data: list[dict]) -> list[dict]:
+    """Drop a game from every week file but the one its kickoff belongs to.
+
+    record() files a game under the week the RUN happens in, so a game the board
+    carries early lands in the previous week's file as well -- 27 of them across
+    the first three stored weeks. That was harmless while results came only from
+    CFBD, which matches finals by week number and so could never reach the early
+    copy. Settled ladders are matched on the Kalshi event ticker, which is the
+    SAME ticker in both files, so both copies grade and both would be counted.
+
+    Not one stale copy currently carries a pick -- a game that far from kickoff
+    has no signal to pick on -- so this guards a hazard rather than correcting a
+    live miscount. It is still worth guarding: a record whose entire claim is
+    that it cannot be revised must not be able to count one game twice.
+
+    The early copy is kept while it is the ONLY one. Between the Saturday a game
+    first appears on the board and the week rolling over, that copy is the only
+    place the record can see it, and dropping it would hide a live pick.
+    """
+    present: dict[str, set] = {}
+    for week in weeks_data:
+        for gid in (week.get("games") or {}):
+            present.setdefault(gid, set()).add(week.get("week_key"))
+
+    out = []
+    for week in weeks_data:
+        key = week.get("week_key")
+        games = {}
+        for gid, entry in (week.get("games") or {}).items():
+            kickoff = weeks.parse_ts(entry.get("kickoff"))
+            belongs = weeks.week_key(kickoff) if kickoff else key
+            if belongs != key and belongs in present.get(gid, ()):
+                continue
+            games[gid] = entry
+        out.append({**week, "games": games})
     return out
 
 
