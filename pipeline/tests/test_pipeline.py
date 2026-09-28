@@ -1132,14 +1132,17 @@ class TestExecutionQuotesPublished(unittest.TestCase):
 
 
 class TestAPartialCalendarIsNotTrusted(unittest.TestCase):
-    """The failure this exists to prevent, replayed.
+    """The live failure, replayed against the real endpoints.
 
     One /calendar call on 2026-09-14 came back with two weeks -- 2 and 3,
-    covering Sep 8 to Sep 21 -- and the hard cache kept them forever.  Every
-    later date then fell outside every range and snapped to the nearest week,
-    which is week 3 for the rest of the season, reported with exactly the same
-    confidence as a real answer.  It cost one slate its Vegas lines and another
-    its entire grading run.
+    covering Sep 8 to Sep 21 -- and the hard cache kept them for a fortnight.
+    Every later date then fell outside every range and snapped to the nearest
+    week, which is week 3 for the rest of the season, reported with exactly the
+    same confidence as a real answer. It cost one slate its Vegas lines and
+    another its entire grading run.
+
+    The fixture is the season as CFBD actually served it: a calendar stopping at
+    week 3, and /games knowing every week, seven days apart.
     """
 
     SHORT = [
@@ -1148,12 +1151,9 @@ class TestAPartialCalendarIsNotTrusted(unittest.TestCase):
         {"season": 2026, "seasonType": "regular", "week": 3,
          "firstGameStart": "2026-09-15T00:00:00Z", "lastGameStart": "2026-09-21T23:00:00Z"},
     ]
-    FULL = SHORT + [
-        {"season": 2026, "seasonType": "regular", "week": 4,
-         "firstGameStart": "2026-09-22T00:00:00Z", "lastGameStart": "2026-09-28T23:00:00Z"},
-        {"season": 2026, "seasonType": "regular", "week": 5,
-         "firstGameStart": "2026-09-29T00:00:00Z", "lastGameStart": "2026-10-05T23:00:00Z"},
-    ]
+    # Week 2 is played on Sat Sep 12, and every week after it seven days later.
+    SATURDAYS = {2: "2026-09-12", 3: "2026-09-19", 4: "2026-09-26", 5: "2026-10-03",
+                 6: "2026-10-10", 1: "2026-09-05"}
 
     def setUp(self):
         from pipeline import cfbd
@@ -1168,11 +1168,30 @@ class TestAPartialCalendarIsNotTrusted(unittest.TestCase):
     def tearDown(self):
         self.cfbd._get = self._get
 
-    def _serve(self, payload):
+    def _serve(self, calendar, weeks=None):
+        weeks = self.SATURDAYS if weeks is None else weeks
+
         def fake(path, params):
             self.calls.append(path)
-            return payload if path == "/calendar" else []
+            if path == "/calendar":
+                return calendar
+            if path == "/games":
+                day = weeks.get(params.get("week"))
+                return [] if day is None else [
+                    {"id": 1, "homeTeam": "A", "awayTeam": "B",
+                     "startDate": f"{day}T19:00:00Z", "completed": True,
+                     "homePoints": 21, "awayPoints": 14}]
+            return []
         self.cfbd._get = fake
+
+    def _age_the_calendar(self):
+        """Nine hours on, so the refetch throttle is not what is under test."""
+        cache = self.cfbd.load_cache(self.path)
+        old = datetime.datetime.now(UTC) - datetime.timedelta(hours=9)
+        cache["calendar-2026"]["fetched_at"] = old.isoformat()
+        self.cfbd.save_cache(cache, self.path)
+
+    # -- the ordinary path stays free ------------------------------------
 
     def test_a_covered_date_is_served_from_cache(self):
         """The saving the hard cache was written for has to survive the fix."""
@@ -1180,37 +1199,95 @@ class TestAPartialCalendarIsNotTrusted(unittest.TestCase):
             self.cfbd.week_for_date(2026, datetime.date(2026, 9, 19), self.path), 3)
         self.assertEqual(self.calls, [], "a calendar that covers the date must not refetch")
 
-    def test_a_date_past_the_cache_refetches_and_resolves(self):
-        self._serve(self.FULL)
+    # -- the failure -----------------------------------------------------
+
+    def test_a_date_past_the_calendar_is_resolved_from_the_games(self):
+        """Oct 3 is week 5. Week 3 is the bug, and it is two weeks away, so the
+        board's own week +/- 1 retry could never have reached it either."""
         week, resolved = self.cfbd.week_for_date_checked(
             2026, datetime.date(2026, 10, 3), self.path)
-        self.assertEqual(self.calls, ["/calendar"])
-        self.assertEqual(week, 5, "Oct 3 is week 5, and week 3 is the bug")
-        self.assertTrue(resolved)
+        self.assertEqual(week, 5)
+        self.assertTrue(resolved, "and confirmed against week 5's own games")
+        self.assertIn("/games", self.calls)
 
-    def test_the_refetched_calendar_is_cached_in_turn(self):
-        self._serve(self.FULL)
-        self.cfbd.week_for_date(2026, datetime.date(2026, 10, 3), self.path)
-        self.calls.clear()
-        self.assertEqual(self.cfbd.week_for_date(2026, datetime.date(2026, 10, 3), self.path), 5)
-        self.assertEqual(self.calls, [], "one refetch, not one per call")
+    def test_the_calendar_staying_short_does_not_stop_it(self):
+        """The fix cannot depend on /calendar returning more than it did."""
+        self._age_the_calendar()
+        self.assertEqual(self.cfbd._get.__name__, "fake")
+        week, resolved = self.cfbd.week_for_date_checked(
+            2026, datetime.date(2026, 10, 3), self.path)
+        self.assertEqual(self.calls.count("/calendar"), 1, "asked again, once")
+        self.assertEqual((week, resolved), (5, True), "and answered from the games anyway")
 
-    def test_a_guess_is_reported_as_a_guess(self):
-        """When the refetch brings back the same short calendar there is nothing
-        better to answer with -- but the answer has to say so."""
+    def test_a_longer_calendar_is_used_directly(self):
+        """When CFBD does serve the rest of the season, nothing probes /games."""
+        self._age_the_calendar()
+        self._serve(self.SHORT + [
+            {"season": 2026, "seasonType": "regular", "week": 4,
+             "firstGameStart": "2026-09-22T00:00:00Z", "lastGameStart": "2026-09-28T23:00:00Z"},
+            {"season": 2026, "seasonType": "regular", "week": 5,
+             "firstGameStart": "2026-09-29T00:00:00Z", "lastGameStart": "2026-10-05T23:00:00Z"}])
+        week, resolved = self.cfbd.week_for_date_checked(
+            2026, datetime.date(2026, 10, 3), self.path)
+        self.assertEqual((week, resolved), (5, True))
+        self.assertNotIn("/games", self.calls)
+
+    def test_an_extrapolation_that_lands_wrong_is_corrected_by_the_games(self):
+        """A bye week, or a Week 0, and the arithmetic is off by one. The games
+        say so, and the answer steps to where they are."""
+        shifted = {w: d for w, d in self.SATURDAYS.items()}
+        shifted[5] = "2026-10-10"                  # week 5 is really a week later
+        shifted[4] = "2026-10-03"                  # so Oct 3 is week 4
+        self._serve(self.SHORT, weeks=shifted)
+        week, resolved = self.cfbd.week_for_date_checked(
+            2026, datetime.date(2026, 10, 3), self.path)
+        self.assertEqual((week, resolved), (4, True))
+
+    def test_a_week_in_range_needs_no_probe(self):
+        self.assertEqual(
+            self.cfbd.week_for_date(2026, datetime.date(2026, 9, 12), self.path), 2)
+        self.assertNotIn("/games", self.calls)
+
+    # -- degrading, when nothing can be checked --------------------------
+
+    def test_an_unreachable_cfbd_still_gives_the_nearest_week_as_a_guess(self):
+        def boom(path, params):
+            self.calls.append(path)
+            raise self.cfbd.HttpError("503")
+        self.cfbd._get = boom
         week, resolved = self.cfbd.week_for_date_checked(
             2026, datetime.date(2026, 10, 3), self.path)
         self.assertEqual(week, 3, "still the nearest week; a guess beats no board")
-        self.assertFalse(resolved, "and week_for_date alone cannot tell you that")
+        self.assertFalse(resolved, "but it no longer passes for an answer")
 
-    def test_a_failed_refetch_keeps_the_calendar_it_had(self):
+    def test_a_date_before_the_calendar_is_not_extrapolated_backwards(self):
+        """Pre-season: there is no week to find, so do not spend calls hunting
+        for one. The nearest week, flagged."""
+        week, resolved = self.cfbd.week_for_date_checked(
+            2026, datetime.date(2026, 8, 1), self.path)
+        self.assertEqual((week, resolved), (2, False))
+        self.assertNotIn("/games", self.calls)
+
+    def test_a_failed_refresh_keeps_the_calendar_it_had(self):
         """A CFBD outage must not turn a partial calendar into no calendar --
         that would blank the board for the weeks it does cover."""
+        self._age_the_calendar()
+
         def boom(path, params):
             raise self.cfbd.MissingKey("no key")
         self.cfbd._get = boom
         self.assertEqual(
             self.cfbd.week_for_date(2026, datetime.date(2026, 9, 19), self.path), 3)
+
+    def test_a_short_calendar_is_not_refetched_on_every_call(self):
+        """It stops short every time it is asked, and week_for_date is called
+        once for the board and once per week graded. Refetching per call is five
+        a run -- the free tier gone inside a week."""
+        self._age_the_calendar()
+        for _ in range(5):
+            self.cfbd.week_for_date(2026, datetime.date(2026, 10, 3), self.path)
+        self.assertEqual(self.calls.count("/calendar"), 1,
+                         "asked again once the entry aged out, not once per call")
 
 
 class TestSettledLaddersBracketTheMargin(unittest.TestCase):
@@ -1424,6 +1501,127 @@ class TestAGameIsCountedOnceAcrossWeekFiles(unittest.TestCase):
         self._save("2026-09-19", graded=False)
         weeks_data = grade_history._load_weeks(self.dir)
         self.assertIn(self.GID, weeks_data[0]["games"])
+
+
+
+
+class TestTheSnapshotCacheDoesNotEatItself(unittest.TestCase):
+    """Pruning used to be `sorted(cache.keys())[:-4]` -- alphabetical, across
+    every key in the file, regardless of age.
+
+    That is not the same set and not the same order. With four `finals-` entries
+    present it evicts `calendar-2026` and the week entry the caller has just
+    written, in the same call, so the next run refetches both. On Sep 20 it had
+    already dropped both live week caches while keeping two stale finals. The
+    rule exists to spend fewer API calls and was arranging to spend more.
+    """
+
+    def setUp(self):
+        from pipeline import cfbd
+        self.cfbd = cfbd
+        self.path = os.path.join(tempfile.mkdtemp(), "cache.json")
+
+    def _cache(self, **stamps):
+        return {k: {"schema": self.cfbd.CACHE_SCHEMA, "fetched_at": v, "games": []}
+                for k, v in stamps.items()}
+
+    def test_the_calendar_is_never_pruned(self):
+        """One call a season, and everything else is keyed off it."""
+        cache = self._cache(**{
+            "2026-5": "2026-09-28T13:00", "calendar-2026": "2026-09-14T14:23",
+            "finals-2026-2": "2026-09-28T13:04", "finals-2026-3": "2026-09-28T13:04",
+            "finals-2026-4": "2026-09-28T18:00", "finals-2026-5": "2026-09-28T18:00"})
+        self.cfbd._prune(cache)
+        self.assertIn("calendar-2026", cache)
+
+    def test_the_entry_just_written_is_not_pruned(self):
+        """The exact shape the old rule broke on: the newest week sorts first."""
+        cache = self._cache(**{
+            "2026-5": "2026-09-28T13:00", "calendar-2026": "2026-09-14T14:23",
+            "finals-2026-2": "2026-09-28T13:04", "finals-2026-3": "2026-09-28T13:04",
+            "finals-2026-4": "2026-09-28T18:00", "finals-2026-5": "2026-09-28T18:00"})
+        self.assertEqual(sorted(cache)[:-4], ["2026-5", "calendar-2026"],
+                         "what the old rule would have dropped")
+        self.cfbd._prune(cache)
+        self.assertIn("2026-5", cache)
+
+    def test_weeks_are_dropped_oldest_first(self):
+        cache = self._cache(**{"2026-2": "2026-09-13T00:00", "2026-3": "2026-09-20T00:00",
+                               "2026-4": "2026-09-26T00:00", "2026-5": "2026-09-28T00:00"})
+        self.cfbd._prune(cache, weeks_kept=2)
+        self.assertEqual(sorted(cache), ["2026-4", "2026-5"])
+
+    def test_finals_outlive_the_grading_sweep(self):
+        """grade_recent gives up on a week at 21 days, so six weeks of finals is
+        more than it can ever ask for -- nothing is refetched to grade."""
+        cache = self._cache(**{f"finals-2026-{w}": f"2026-09-{w:02d}T00:00"
+                               for w in range(2, 10)})
+        self.cfbd._prune(cache)
+        self.assertEqual(len([k for k in cache if k.startswith("finals-")]), 6)
+        self.assertNotIn("finals-2026-2", cache, "and the oldest go first")
+
+    def test_writing_a_week_keeps_the_calendar_and_the_finals(self):
+        """End to end through cached_week, which is where the rule runs."""
+        cache = self._cache(**{
+            "calendar-2026": "2026-09-14T14:23", "finals-2026-4": "2026-09-28T13:04"})
+        self.cfbd.save_cache(cache, self.path)
+        got = self.cfbd._get
+        self.cfbd._get = lambda path, params: []
+        try:
+            self.cfbd.cached_week(2026, 5, self.path)
+        finally:
+            self.cfbd._get = got
+        after = self.cfbd.load_cache(self.path)
+        self.assertIn("calendar-2026", after)
+        self.assertIn("finals-2026-4", after)
+
+
+class TestGradingReadsTheGamesTheBoardAlreadyFetched(unittest.TestCase):
+    """cached_week and cached_finals store the output of the SAME fetch_games
+    call under two keys, so a week was fetched twice and the two halves of a run
+    could disagree about it.
+
+    They did: on Sep 28 the board cached 283 completed week-4 games at 13:04:35
+    while grading, seconds later, asked CFBD for week 3 and matched nothing. The
+    finals it needed were already in the file.
+    """
+
+    def setUp(self):
+        from pipeline import cfbd
+        self.cfbd = cfbd
+        self.path = os.path.join(tempfile.mkdtemp(), "cache.json")
+        self.calls = []
+        self._get = cfbd._get
+        cfbd._get = lambda path, params: (self.calls.append(path), [])[1]
+
+    def tearDown(self):
+        self.cfbd._get = self._get
+
+    def _seed(self, fetched_at, completed=True):
+        self.cfbd.save_cache({"2026-4": {
+            "schema": self.cfbd.CACHE_SCHEMA, "fetched_at": fetched_at,
+            "games": [{"home_team": "A", "away_team": "B", "completed": completed,
+                       "home_margin": 7.0, "start_date": "2026-09-26T19:00:00Z"}],
+            "lines": [], "sp": {}}}, self.path)
+
+    def test_a_fresh_board_cache_is_graded_from_without_a_second_fetch(self):
+        self._seed(datetime.datetime.now(UTC).isoformat())
+        games = self.cfbd.cached_finals(2026, 4, self.path)
+        self.assertEqual(len(games), 1)
+        self.assertEqual(self.calls, [], "the games were already in the file")
+
+    def test_a_stale_but_finished_week_is_still_good_enough(self):
+        old = (datetime.datetime.now(UTC) - datetime.timedelta(days=3)).isoformat()
+        self._seed(old, completed=True)
+        self.assertEqual(len(self.cfbd.cached_finals(2026, 4, self.path)), 1)
+        self.assertEqual(self.calls, [], "finished games do not go stale")
+
+    def test_a_stale_week_still_in_progress_is_refetched(self):
+        """A stale copy could be missing the very scores being looked for."""
+        old = (datetime.datetime.now(UTC) - datetime.timedelta(days=3)).isoformat()
+        self._seed(old, completed=False)
+        self.cfbd.cached_finals(2026, 4, self.path)
+        self.assertEqual(self.calls, ["/games"])
 
 
 

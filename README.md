@@ -191,19 +191,29 @@ had none: it asked for week 3, matched nothing, and returned quietly. **Of the 8
 that week, the 73 already played never entered the record** — 113 picks across every lens and lock —
 and on the page that is indistinguishable from a quiet week.
 
-Three things changed, because the bug had three halves:
+**The week is resolved from the games, not from the calendar.** `/calendar` is metadata and has
+already been wrong; the games are the thing being asked about. So when the calendar does not reach
+the date, the week is extrapolated past its last week — they are seven days apart — and then
+*checked* against the dates of the games of the week it lands on, stepping again if they disagree.
+On the live failure that resolves Oct 3 to **week 5** from a calendar ending at week 3, and it costs
+nothing extra: the probe is `cached_week`, which is the call the board is about to make anyway.
+
+The other three halves:
 
 - **The cache is trusted only while it answers the question.** `calendar_weeks(covering=date)`
-  refetches when the cached calendar does not reach the date being asked about. In the healthy case
-  the date is inside the range and this still costs about one call a season.
-- **A guess says it is a guess.** `week_for_date` still falls back to the nearest week — a guess
-  beats no board — but `week_for_date_checked` returns whether the calendar actually covered the
-  date, so a caller can tell the two apart. Grading uses it to retry the neighbouring weeks before
-  believing an empty result.
+  refetches when the cached calendar does not reach the date. Retried no more often than any other
+  entry, though: a calendar that genuinely stops short would otherwise refetch on *every* call —
+  five a run, which is the 1,000-call tier gone inside a week.
+- **A guess says it is a guess.** `week_for_date_checked` returns whether the answer was confirmed
+  by a week's own games or fallen back to the nearest one. Before, the two were indistinguishable.
 - **Grading has a second source that needs no week number at all.** A settled Kalshi ladder brackets
   the final margin: every rung is one inequality about it, and their intersection is a range. The
   stored game id *is* the Kalshi event ticker, so this needs no team matching, no calendar and no
   CFBD key — it is the one grading path that survives all three being wrong.
+
+The two sources are a genuine cross-check, not a fallback that is never exercised. Re-graded from
+CFBD's week-4 finals with settlements switched off, and from settled ladders with CFBD switched off,
+the recovered week produces **the same number in every record**.
 
 A bracket is usually enough. It pins the margin outright about four times in ten (the rungs sit a
 point and a half apart), and where it does not it still decides any pick whose number sits outside
@@ -553,10 +563,19 @@ and refreshed every 8 hours, which holds the monthly count near 180 against the 
 while leaving the Kalshi cadence untouched.
 
 The season calendar is still cached for the season rather than the 8 hours, but it is now refetched
-if it does not cover the date being asked about — one extra call on the run that first reaches past
-it, against a whole week of grading lost to the alternative. Settled Kalshi markets are fetched once
-per grading sweep and only once a week has actually asked for them, so a run with nothing left to
-grade still costs nothing.
+if it does not cover the date being asked about — throttled to the ordinary 8-hour cycle, because a
+calendar that keeps coming back short would otherwise be refetched once per call. Settled Kalshi
+markets are fetched once per grading sweep and only once a week has actually asked for them, so a
+run with nothing left to grade still costs nothing.
+
+**Two leaks were closed here, both of which spent calls the cache exists to save.** Pruning was
+`sorted(cache.keys())[:-4]` — alphabetical, across every key in the file, regardless of age. With
+four `finals-` entries present that evicts `calendar-2026` *and the week entry the caller has just
+written*, in the same call, so the next run refetches both; it had already dropped both live week
+caches once. Pruning now drops only weekly and finals entries, oldest first, and never the calendar.
+And `cached_week` and `cached_finals` were storing the output of the same `fetch_games` call under
+two different keys, so every week was fetched twice — grading now reads the board's copy when it is
+fresh or finished, which is also what stops the two halves of a run disagreeing about a week.
 
 ---
 

@@ -139,6 +139,8 @@ def fetch_sp_ratings(year: int) -> dict[str, float]:
 
 import datetime
 import json
+import math
+import re
 
 CACHE_PATH = "docs/data/cfbd_snapshot.json"
 MAX_AGE_HOURS = 8
@@ -167,6 +169,33 @@ def save_cache(cache: dict, path: str = CACHE_PATH) -> None:
     with open(path, "w", encoding="utf-8") as fh:
         json.dump(cache, fh, separators=(",", ":"), sort_keys=True)
         fh.write("\n")
+
+
+_WEEKLY_KEY = re.compile(r"^\d{4}-\d+$")
+_FINALS_KEY = re.compile(r"^finals-\d{4}-\d+$")
+
+
+def _prune(cache: dict, weeks_kept: int = 4, finals_kept: int = 6) -> None:
+    """Keep the snapshot small, dropping the OLDEST of each kind.
+
+    This was `for stale in sorted(cache.keys())[:-4]`, which prunes
+    alphabetically across every key in the file -- not the same set and not the
+    same order. With four `finals-` entries present it evicts `calendar-2026`
+    AND the week entry the caller has just written, in the same call, so the
+    next run refetches both; on Sep 20 it had already dropped both live week
+    caches while keeping two stale finals. A cache written to spend fewer API
+    calls was arranging to spend more.
+
+    So: only weekly game caches and finals are ever dropped, oldest first, and
+    the calendar -- one call a season, and the thing everything else is keyed
+    off -- is never dropped at all. Finals outlive the 21-day grading sweep by
+    enough weeks that nothing is refetched to grade.
+    """
+    for pattern, keep in ((_WEEKLY_KEY, weeks_kept), (_FINALS_KEY, finals_kept)):
+        matching = [k for k in cache if pattern.match(k)]
+        matching.sort(key=lambda k: (cache.get(k) or {}).get("fetched_at") or "")
+        for stale in matching[:-keep] if keep else matching:
+            cache.pop(stale, None)
 
 
 def _fresh(cache: dict, key: str, max_age_hours: float) -> bool:
@@ -201,6 +230,11 @@ def _covers(weeks: list[dict], target) -> bool:
     return any(w["start"].date() <= target <= w["end"].date() for w in weeks)
 
 
+def _weeks_of(entry: dict) -> list[dict]:
+    return [{"week": w["week"], "start": _parse_dt(w["start"]), "end": _parse_dt(w["end"])}
+            for w in (entry.get("weeks") or [])]
+
+
 def calendar_weeks(year: int, path: str = CACHE_PATH, covering=None) -> list[dict]:
     """Regular-season weeks with their date ranges.
 
@@ -210,34 +244,31 @@ def calendar_weeks(year: int, path: str = CACHE_PATH, covering=None) -> list[dic
     limit.
 
     But a season's calendar not changing is not the same as the API returning
-    all of it. One run on 2026-09-14 got back two weeks -- 2 and 3, covering
-    Sep 8 to Sep 21 -- and caching that permanently meant every later date fell
-    outside every range and snapped to the nearest week, which is week 3 for the
-    rest of the season. That silently mis-resolved the week for two slates,
-    cost a full week of grading, and looked like a CFBD outage rather than a
-    stale cache.
+    all of it. The 2026 entry came back on Sep 14 holding two weeks -- 2 and 3,
+    Sep 8 to Sep 21 -- and was then cached for a fortnight without being asked
+    again, so every later date fell outside every range.
 
     So the cache is trusted only while it answers the question being asked:
-    pass `covering` and a calendar that does not reach that date is refetched
-    once. In the healthy case the date is inside the cached range and this
-    still costs about one call a season.
+    pass `covering` and a calendar that does not reach that date is refetched.
+    Retried no more often than any other entry, though, because a calendar that
+    genuinely stops short would otherwise refetch on EVERY call -- five a run,
+    which is the 1,000-call tier gone in a week. It is asked again, not asked
+    repeatedly, and `week_for_date_checked` no longer depends on the answer.
     """
     cache = load_cache(path)
     key = f"calendar-{year}"
     entry = cache.get(key) or {}
-    if entry.get("schema") == CACHE_SCHEMA and entry.get("weeks"):
-        weeks = [{"week": w["week"], "start": _parse_dt(w["start"]), "end": _parse_dt(w["end"])}
-                 for w in entry["weeks"]]
-        if covering is None or _covers(weeks, covering):
-            return weeks
+    cached = _weeks_of(entry) if entry.get("schema") == CACHE_SCHEMA else []
+    if cached and (covering is None or _covers(cached, covering)
+                   or _fresh(cache, key, MAX_AGE_HOURS)):
+        return cached
 
     try:
         raw = _get("/calendar", {"year": year})
     except (HttpError, MissingKey):
         # A failed refresh must not throw away what we already had; a partial
         # calendar still resolves the weeks it does cover.
-        return [{"week": w["week"], "start": _parse_dt(w["start"]), "end": _parse_dt(w["end"])}
-                for w in (entry.get("weeks") or [])]
+        return cached
 
     weeks = []
     for e in raw:
@@ -251,12 +282,22 @@ def calendar_weeks(year: int, path: str = CACHE_PATH, covering=None) -> list[dic
         weeks.append({"week": int(week), "start": start, "end": end})
     weeks.sort(key=lambda w: w["week"])
 
-    if weeks:
-        cache[key] = {"schema": CACHE_SCHEMA, "fetched_at": _now().isoformat(),
-                      "weeks": [{"week": w["week"], "start": w["start"].isoformat(),
-                                 "end": w["end"].isoformat()} for w in weeks]}
-        save_cache(cache, path)
-    return weeks
+    # Say what came back. A calendar two weeks long is not visibly different
+    # from a complete one anywhere else in the output, and that is precisely
+    # why it went unnoticed for a fortnight.
+    print(f"cfbd: calendar {year}: {len(weeks)} of {len(raw)} entries usable"
+          + (f", weeks {weeks[0]['week']}-{weeks[-1]['week']}, "
+             f"{weeks[0]['start'].date()} to {weeks[-1]['end'].date()}" if weeks else ""))
+
+    # Record the attempt either way, so an endpoint that keeps returning a
+    # short calendar is asked again on the next cache cycle rather than on the
+    # next call.
+    cache[key] = {"schema": CACHE_SCHEMA, "fetched_at": _now().isoformat(),
+                  "weeks": ([{"week": w["week"], "start": w["start"].isoformat(),
+                              "end": w["end"].isoformat()} for w in weeks]
+                            or entry.get("weeks") or [])}
+    save_cache(cache, path)
+    return weeks or cached
 
 
 def week_for_date(year: int, target, path: str = CACHE_PATH) -> Optional[int]:
@@ -273,13 +314,71 @@ def week_for_date(year: int, target, path: str = CACHE_PATH) -> Optional[int]:
     return week
 
 
-def week_for_date_checked(year: int, target, path: str = CACHE_PATH) -> tuple:
-    """As week_for_date, plus whether the calendar actually covered the date.
+def _modal_date(games: list) -> Optional["datetime.date"]:
+    """The date most of a week's games are played on.
 
-    The nearest-week fallback is kept -- a guess beats no board at all -- but it
-    used to be indistinguishable from a real answer, and that is what let a
-    two-week calendar report "week 3" for every date in October with total
-    confidence. Callers that can act on the difference now can.
+    The same question `build_predictions._slate_date` asks of the Kalshi slate,
+    asked of CFBD's answer -- so the two can be compared directly.
+    """
+    import collections
+    dates = [str(g.get("start_date") or "")[:10] for g in games]
+    dates = [d for d in dates if d]
+    if not dates:
+        return None
+    try:
+        return datetime.date.fromisoformat(collections.Counter(dates).most_common(1)[0][0])
+    except ValueError:
+        return None
+
+
+def _weeks_apart(played, target) -> int:
+    """How many CFBD weeks separate a week's own Saturday from `target`.
+
+    A CFBD week runs Tuesday to Monday around its Saturday, so the window is
+    four days before to two days after; shifting by four turns that into a plain
+    floor division, and 0 means the target belongs to this week.
+    """
+    return math.floor(((target - played).days + 4) / 7)
+
+
+def _verify_week(year: int, candidate: int, target, path: str, hops: int = 3) -> tuple:
+    """Confirm a week number against the dates of its own games.
+
+    The calendar is metadata and has already been wrong; the games are the
+    thing being asked about. Each hop costs at most one cached CFBD week -- and
+    on the path that matters it costs nothing, because it is the same week the
+    board is about to ask for anyway.
+    """
+    for _ in range(hops):
+        if candidate < 1:
+            return None, False
+        games, _lines, _sp, _refreshed = cached_week(year, candidate, path)
+        played = _modal_date(games)
+        if played is None:
+            return candidate, False         # nothing came back to check against
+        step = _weeks_apart(played, target)
+        if step == 0:
+            return candidate, True
+        candidate += step
+    return candidate, False
+
+
+def week_for_date_checked(year: int, target, path: str = CACHE_PATH) -> tuple:
+    """As week_for_date, plus whether the answer was confirmed or guessed.
+
+    Three ways to answer, in order of how much they can be trusted:
+
+      1. The calendar covers the date.  The ordinary path, and free.
+      2. It does not, so the week is extrapolated past its last week -- they are
+         seven days apart -- and then CHECKED against the games of the week it
+         lands on, stepping again if they say a different week. This is what
+         survives a calendar that stops short, which is not hypothetical: the
+         cached 2026 calendar ended at week 3 on Sep 21 and every date after it
+         resolved to week 3 with total confidence, costing one slate its Vegas
+         lines and another its entire grading run.
+      3. Nothing could be checked -- no key, no games, CFBD unreachable. Fall
+         back to the nearest week, which still beats no board, and say it is a
+         guess so a caller can treat it as one.
     """
     weeks = calendar_weeks(year, path, covering=target)
     if not weeks or target is None:
@@ -289,10 +388,42 @@ def week_for_date_checked(year: int, target, path: str = CACHE_PATH) -> tuple:
         if w["start"].date() <= target <= w["end"].date():
             return w["week"], True
 
-    # Between two weeks, or past the last one: take the nearest by start date so
-    # a gap in the calendar degrades to the closest week rather than to nothing.
-    # Flagged as a guess, because it is one.
-    return min(weeks, key=lambda w: abs((w["start"].date() - target).days))["week"], False
+    nearest = min(weeks, key=lambda w: abs((w["start"].date() - target).days))
+    last = weeks[-1]
+    if target > last["end"].date():
+        # Past the end of the calendar -- the observed failure. `end` is a real
+        # game start, so whole weeks from it lands on the right one directly.
+        candidate = last["week"] + math.ceil((target - last["end"].date()).days / 7)
+        week, resolved = _verify_week(year, candidate, target, path)
+        if resolved:
+            return week, True
+
+    # Before the calendar begins, or the games could not confirm anything:
+    # the nearest week, flagged as the guess it is.
+    return nearest["week"], False
+
+
+def _shared_games(cache: dict, season: int, week: int,
+                  max_age_hours: float) -> Optional[list]:
+    """The board's copy of this week's games, when it is good enough to grade on.
+
+    `cached_week` and `cached_finals` store the output of the same
+    `fetch_games` call under two different keys, so the same week was being
+    fetched twice and the two halves of a run could disagree about it. They did:
+    the run on Sep 28 cached 283 completed week-4 games for the board at
+    13:04:35 while grading, seconds later, asked CFBD for week 3 and matched
+    nothing -- the finals it needed were already in this file.
+
+    Only a fresh copy will do, or one where every game has finished; a stale one
+    could be missing the very scores being looked for.
+    """
+    shared = cache.get(f"{season}-{week}") or {}
+    games = shared.get("games")
+    if shared.get("schema") != CACHE_SCHEMA or not games:
+        return None
+    if _fresh(cache, f"{season}-{week}", max_age_hours):
+        return games
+    return games if all(g.get("completed") for g in games) else None
 
 
 def cached_finals(season: int, week: int, path: str = CACHE_PATH,
@@ -312,10 +443,12 @@ def cached_finals(season: int, week: int, path: str = CACHE_PATH,
         if entry.get("complete") or _fresh(cache, key, max_age_hours):
             return entry.get("games", [])
 
-    try:
-        games = fetch_games(season, week)
-    except Exception:                                       # noqa: BLE001
-        return entry.get("games", [])
+    games = _shared_games(cache, season, week, max_age_hours)
+    if games is None:
+        try:
+            games = fetch_games(season, week)
+        except Exception:                                   # noqa: BLE001
+            return entry.get("games", [])
 
     cache[key] = {
         "schema": CACHE_SCHEMA, "fetched_at": _now().isoformat(), "games": games,
@@ -351,8 +484,6 @@ def cached_week(season: int, week: int, path: str = CACHE_PATH,
 
     cache[key] = {"schema": CACHE_SCHEMA, "fetched_at": _now().isoformat(),
                   "games": games, "lines": lines, "sp": sp}
-    # Keep the file small: only the most recent few weeks are ever needed.
-    for stale in sorted(cache.keys())[:-4]:
-        cache.pop(stale, None)
+    _prune(cache)
     save_cache(cache, path)
     return games, lines, sp, True
