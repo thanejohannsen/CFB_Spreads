@@ -154,6 +154,32 @@
    },
    "home_team": "Virginia Tech",
    "kickoff": "2026-10-02T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -2.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -1.5,
+    "margin_low": -2.5,
+    "source": "kalshi"
+   },
    "title": "Pittsburgh vs Virginia Tech"
   },
   "KXNCAAFSPREAD-26OCT02PSUNW": {
@@ -310,6 +336,32 @@
    },
    "home_team": "Northwestern",
    "kickoff": "2026-10-02T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 23.5,
+    "margin_low": 20.5,
+    "source": "kalshi"
+   },
    "title": "Penn St. vs Northwestern"
   },
   "KXNCAAFSPREAD-26OCT03ALAMSST": {
