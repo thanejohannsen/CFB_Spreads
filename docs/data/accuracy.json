@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-04T04:37:38.588026+00:00",
+ "generated_at": "2026-10-04T05:22:57.891377+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -355,7 +355,7 @@
    },
    "superseded": 12,
    "open": {
-    "live": 1,
+    "live": 3,
     "pending": 0,
     "awaiting": 0
    },
@@ -383,7 +383,7 @@
    },
    "superseded": 18,
    "open": {
-    "live": 1,
+    "live": 3,
     "pending": 0,
     "awaiting": 0
    },
@@ -575,6 +575,6 @@
   "same_pick": 145,
   "same_pick_total": 159
  },
- "graded_games": 315,
+ "graded_games": 316,
  "ungraded": null
 }
