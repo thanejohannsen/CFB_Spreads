@@ -518,6 +518,32 @@
    },
    "home_team": "Mississippi St.",
    "kickoff": "2026-10-03T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -32.5,
+    "margin_low": -35.5,
+    "source": "kalshi"
+   },
    "title": "Alabama vs Mississippi St."
   },
   "KXNCAAFSPREAD-26OCT03AUBTENN": {
@@ -674,6 +700,32 @@
    },
    "home_team": "Tennessee",
    "kickoff": "2026-10-03T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 10.5,
+    "margin_low": 9.5,
+    "source": "kalshi"
+   },
    "title": "Auburn vs Tennessee"
   },
   "KXNCAAFSPREAD-26OCT03BYUTCU": {
@@ -986,6 +1038,32 @@
    },
    "home_team": "Missouri",
    "kickoff": "2026-10-03T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": 17.5,
+    "source": "kalshi"
+   },
    "title": "Florida vs Missouri"
   },
   "KXNCAAFSPREAD-26OCT03LOUNCST": {
@@ -1142,6 +1220,32 @@
    },
    "home_team": "NC St.",
    "kickoff": "2026-10-03T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 3.5,
+    "margin_low": 2.5,
+    "source": "kalshi"
+   },
    "title": "Louisville vs NC St."
   },
   "KXNCAAFSPREAD-26OCT03MIACLEM": {
@@ -1454,6 +1558,32 @@
    },
    "home_team": "Minnesota",
    "kickoff": "2026-10-03T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 6.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 6.5,
+    "margin_low": 5.5,
+    "source": "kalshi"
+   },
    "title": "Michigan vs Minnesota"
   },
   "KXNCAAFSPREAD-26OCT03NDUNC": {
@@ -1610,6 +1740,32 @@
    },
    "home_team": "North Carolina",
    "kickoff": "2026-10-03T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -11.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -10.5,
+    "margin_low": -11.5,
+    "source": "kalshi"
+   },
    "title": "Notre Dame vs North Carolina"
   },
   "KXNCAAFSPREAD-26OCT03OSUIOWA": {
@@ -1766,6 +1922,32 @@
    },
    "home_team": "Iowa",
    "kickoff": "2026-10-03T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -17.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -16.5,
+    "margin_low": -17.5,
+    "source": "kalshi"
+   },
    "title": "Ohio St. vs Iowa"
   },
   "KXNCAAFSPREAD-26OCT03VANUGA": {
@@ -1922,6 +2104,32 @@
    },
    "home_team": "Georgia",
    "kickoff": "2026-10-03T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 24.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 24.5,
+    "margin_low": 23.5,
+    "source": "kalshi"
+   },
    "title": "Vanderbilt vs Georgia"
   },
   "KXNCAAFSPREAD-26SEP24LIBCCAR": {
