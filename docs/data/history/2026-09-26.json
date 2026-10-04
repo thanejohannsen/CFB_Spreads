@@ -882,6 +882,32 @@
    },
    "home_team": "TCU",
    "kickoff": "2026-10-03T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -6.5,
+    "margin_low": -7.5,
+    "source": "kalshi"
+   },
    "title": "BYU vs TCU"
   },
   "KXNCAAFSPREAD-26OCT03FLAMIZZ": {
@@ -1402,6 +1428,32 @@
    },
    "home_team": "Clemson",
    "kickoff": "2026-10-03T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -27.5,
+    "margin_low": -30.5,
+    "source": "kalshi"
+   },
    "title": "Miami (FL) vs Clemson"
   },
   "KXNCAAFSPREAD-26OCT03MICHMINN": {
