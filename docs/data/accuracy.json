@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-06T19:59:15.511792+00:00",
+ "generated_at": "2026-10-07T00:23:15.260616+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -299,7 +299,7 @@
    },
    "superseded": 3,
    "open": {
-    "live": 4,
+    "live": 2,
     "pending": 0,
     "awaiting": 0
    },
@@ -327,7 +327,7 @@
    },
    "superseded": 1,
    "open": {
-    "live": 4,
+    "live": 2,
     "pending": 0,
     "awaiting": 0
    },
@@ -355,7 +355,7 @@
    },
    "superseded": 12,
    "open": {
-    "live": 11,
+    "live": 10,
     "pending": 0,
     "awaiting": 0
    },
@@ -383,7 +383,7 @@
    },
    "superseded": 18,
    "open": {
-    "live": 11,
+    "live": 10,
     "pending": 0,
     "awaiting": 0
    },
@@ -409,7 +409,7 @@
    },
    "superseded": 0,
    "open": {
-    "live": 3,
+    "live": 1,
     "pending": 0,
     "awaiting": 0
    },
@@ -435,8 +435,8 @@
    },
    "superseded": 0,
    "open": {
-    "live": 34,
-    "pending": 0,
+    "live": 35,
+    "pending": 1,
     "awaiting": 0
    },
    "last_week": {
