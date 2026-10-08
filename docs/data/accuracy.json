@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-08T04:56:25.909908+00:00",
+ "generated_at": "2026-10-08T09:41:03.842848+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -259,10 +259,10 @@
      "pct": null
     },
     "lens_sp_plus": {
-     "wins": 1,
-     "losses": 0,
-     "total": 1,
-     "pct": 1.0
+     "wins": 2,
+     "losses": 1,
+     "total": 3,
+     "pct": 0.6667
     }
    }
   }
@@ -313,10 +313,10 @@
     "pct": null
    },
    "lens_sp_plus": {
-    "wins": 1,
-    "losses": 0,
-    "total": 1,
-    "pct": 1.0
+    "wins": 2,
+    "losses": 1,
+    "total": 3,
+    "pct": 0.6667
    }
   }
  },
@@ -408,7 +408,7 @@
    },
    "superseded": 12,
    "open": {
-    "live": 9,
+    "live": 8,
     "pending": 0,
     "awaiting": 0
    },
@@ -436,7 +436,7 @@
    },
    "superseded": 18,
    "open": {
-    "live": 9,
+    "live": 8,
     "pending": 0,
     "awaiting": 0
    },
@@ -481,22 +481,22 @@
    "tiers": null,
    "versions": null,
    "season": {
-    "wins": 73,
-    "losses": 54,
-    "total": 127,
-    "pct": 0.5748
+    "wins": 74,
+    "losses": 55,
+    "total": 129,
+    "pct": 0.5736
    },
    "superseded": 0,
    "open": {
     "live": 34,
-    "pending": 2,
+    "pending": 0,
     "awaiting": 0
    },
    "last_week": {
-    "wins": 1,
-    "losses": 0,
-    "total": 1,
-    "pct": 1.0
+    "wins": 2,
+    "losses": 1,
+    "total": 3,
+    "pct": 0.6667
    }
   }
  ],
@@ -553,16 +553,16 @@
    "key": "sp_plus",
    "label": "SP+ vs Vegas Spread",
    "season": {
-    "wins": 73,
-    "losses": 54,
-    "total": 127,
-    "pct": 0.5748
+    "wins": 74,
+    "losses": 55,
+    "total": 129,
+    "pct": 0.5736
    },
    "last_week": {
-    "wins": 1,
-    "losses": 0,
-    "total": 1,
-    "pct": 1.0
+    "wins": 2,
+    "losses": 1,
+    "total": 3,
+    "pct": 0.6667
    }
   }
  ],
@@ -623,11 +623,11 @@
   }
  },
  "drift": {
-  "median": 0.32,
-  "samples": 164,
-  "same_pick": 150,
-  "same_pick_total": 164
+  "median": 0.31,
+  "samples": 166,
+  "same_pick": 152,
+  "same_pick_total": 166
  },
- "graded_games": 322,
+ "graded_games": 324,
  "ungraded": null
 }
