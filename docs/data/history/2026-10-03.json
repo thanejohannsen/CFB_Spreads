@@ -10171,6 +10171,32 @@
    },
    "home_team": "Louisville",
    "kickoff": "2026-10-09T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 24.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 24.5,
+    "margin_low": 23.5,
+    "source": "kalshi"
+   },
    "title": "Florida St. vs Louisville"
   },
   "KXNCAAFSPREAD-26OCT09IOWAWASH": {
@@ -10327,6 +10353,32 @@
    },
    "home_team": "Washington",
    "kickoff": "2026-10-10T01:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": -16.5,
+    "margin_low": -19.5,
+    "source": "kalshi"
+   },
    "title": "Iowa vs Washington"
   },
   "KXNCAAFSPREAD-26OCT09ISUBYU": {
