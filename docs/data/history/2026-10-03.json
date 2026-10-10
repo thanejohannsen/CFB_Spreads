@@ -10717,6 +10717,32 @@
    },
    "home_team": "Nebraska",
    "kickoff": "2026-10-10T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": -2.5,
+    "margin_low": -3.5,
+    "source": "kalshi"
+   },
    "title": "Indiana vs Nebraska"
   },
   "KXNCAAFSPREAD-26OCT10LSUUK": {
@@ -11029,6 +11055,32 @@
    },
    "home_team": "Notre Dame",
    "kickoff": "2026-10-10T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 51.5,
+    "margin_low": 48.5,
+    "source": "kalshi"
+   },
    "title": "Stanford vs Notre Dame"
   },
   "KXNCAAFSPREAD-26OCT10TEXOKLA": {
