@@ -10535,6 +10535,32 @@
    },
    "home_team": "BYU",
    "kickoff": "2026-10-10T02:15:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 14.5,
+    "margin_low": 13.5,
+    "source": "kalshi"
+   },
    "title": "Iowa St. vs BYU"
   },
   "KXNCAAFSPREAD-26OCT10INDNEB": {
