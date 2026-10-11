@@ -11237,6 +11237,32 @@
    },
    "home_team": "Oklahoma",
    "kickoff": "2026-10-10T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 3.5,
+    "margin_low": 2.5,
+    "source": "kalshi"
+   },
    "title": "Texas vs Oklahoma"
   },
   "KXNCAAFSPREAD-26OCT10UCLAORE": {
@@ -11393,6 +11419,32 @@
    },
    "home_team": "Oregon",
    "kickoff": "2026-10-10T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -2.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": -1.5,
+    "margin_low": -2.5,
+    "source": "kalshi"
+   },
    "title": "UCLA vs Oregon"
   },
   "KXNCAAFSPREAD-26OCT10UGAALA": {
