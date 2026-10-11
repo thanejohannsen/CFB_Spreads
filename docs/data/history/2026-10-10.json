@@ -9423,17 +9423,17 @@
   "KXNCAAFSPREAD-26OCT13DELMTU": {
    "away_team": "Delaware",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 1618,
+    "dollar_volume": 1633,
     "fraction_traded": 0.077,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 3997,
+    "minutes_before_kickoff": 3945,
     "open_interest": 62,
     "pick": {
      "confidence": "no-signal",
@@ -9498,17 +9498,17 @@
     "vegas_home_favored_by": -1.5
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 1618,
+    "dollar_volume": 1633,
     "fraction_traded": 0.077,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 3997,
+    "minutes_before_kickoff": 3945,
     "open_interest": 62,
     "pick": {
      "confidence": "no-signal",
@@ -9579,7 +9579,7 @@
   "KXNCAAFSPREAD-26OCT13FIUJVST": {
    "away_team": "Florida International",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": 0.39,
     "blended_margin": 3.12,
     "dollar_volume": 547,
@@ -9589,7 +9589,7 @@
     "margin_high": 3.3,
     "margin_low": 2.91,
     "master_margin": 3.09,
-    "minutes_before_kickoff": 4057,
+    "minutes_before_kickoff": 4005,
     "open_interest": 40,
     "pick": {
      "confidence": "no-signal",
@@ -9606,11 +9606,11 @@
     "picks": {
      "kalshi_ml": {
       "confidence": "no-play",
-      "edge": 0.020000000000000018,
-      "estimate": 3.02,
+      "edge": 0.009999999999999787,
+      "estimate": 3.01,
       "line": 3.0,
-      "p_cover": 0.4864773555418806,
-      "p_push": 0.028171555793013503,
+      "p_cover": 0.48617796497729215,
+      "p_push": 0.028207929443619162,
       "reason": "Market and line agree to within 0.0 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
@@ -9620,8 +9620,8 @@
       "edge": 0.1200000000000001,
       "estimate": 3.12,
       "line": 3.0,
-      "p_cover": 0.48929359861240157,
-      "p_push": 0.028170304112088373,
+      "p_cover": 0.4892797821661575,
+      "p_push": 0.02820664598618211,
       "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
@@ -9643,8 +9643,8 @@
       "edge": 4.9,
       "estimate": 7.9,
       "line": 3.0,
-      "p_cover": 0.6215073871687058,
-      "p_push": 0.026129378325282837,
+      "p_cover": 0.6216579766919351,
+      "p_push": 0.026158071187367793,
       "reason": "Estimate Jacksonville St. -7.9; line is Jacksonville St. -3.0. At that number the market gives Jacksonville St. a 62% chance to cover. Edge 4.9 pts. Take Jacksonville St. -3.0.",
       "side": "home",
       "team": "Jacksonville St."
@@ -9654,7 +9654,7 @@
     "vegas_home_favored_by": 3.0
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": 0.39,
     "blended_margin": 3.12,
     "dollar_volume": 547,
@@ -9664,7 +9664,7 @@
     "margin_high": 3.3,
     "margin_low": 2.91,
     "master_margin": 3.09,
-    "minutes_before_kickoff": 4057,
+    "minutes_before_kickoff": 4005,
     "open_interest": 40,
     "pick": {
      "confidence": "no-signal",
@@ -9681,11 +9681,11 @@
     "picks": {
      "kalshi_ml": {
       "confidence": "no-play",
-      "edge": 0.020000000000000018,
-      "estimate": 3.02,
+      "edge": 0.009999999999999787,
+      "estimate": 3.01,
       "line": 3.0,
-      "p_cover": 0.4864773555418806,
-      "p_push": 0.028171555793013503,
+      "p_cover": 0.48617796497729215,
+      "p_push": 0.028207929443619162,
       "reason": "Market and line agree to within 0.0 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
@@ -9695,8 +9695,8 @@
       "edge": 0.1200000000000001,
       "estimate": 3.12,
       "line": 3.0,
-      "p_cover": 0.48929359861240157,
-      "p_push": 0.028170304112088373,
+      "p_cover": 0.4892797821661575,
+      "p_push": 0.02820664598618211,
       "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
@@ -9718,8 +9718,8 @@
       "edge": 4.9,
       "estimate": 7.9,
       "line": 3.0,
-      "p_cover": 0.6215073871687058,
-      "p_push": 0.026129378325282837,
+      "p_cover": 0.6216579766919351,
+      "p_push": 0.026158071187367793,
       "reason": "Estimate Jacksonville St. -7.9; line is Jacksonville St. -3.0. At that number the market gives Jacksonville St. a 62% chance to cover. Edge 4.9 pts. Take Jacksonville St. -3.0.",
       "side": "home",
       "team": "Jacksonville St."
@@ -9735,17 +9735,17 @@
   "KXNCAAFSPREAD-26OCT14KENNMOSU": {
    "away_team": "Kennesaw St.",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 538,
+    "dollar_volume": 632,
     "fraction_traded": 0.0,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 5467,
+    "minutes_before_kickoff": 5415,
     "open_interest": 0,
     "pick": {
      "confidence": "no-signal",
@@ -9810,17 +9810,17 @@
     "vegas_home_favored_by": -3.0
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 538,
+    "dollar_volume": 632,
     "fraction_traded": 0.0,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 5467,
+    "minutes_before_kickoff": 5415,
     "open_interest": 0,
     "pick": {
      "confidence": "no-signal",
@@ -9891,17 +9891,17 @@
   "KXNCAAFSPREAD-26OCT14WKUSHSU": {
    "away_team": "Western Kentucky",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 569,
+    "dollar_volume": 6051,
     "fraction_traded": 0.0,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 5497,
+    "minutes_before_kickoff": 5445,
     "open_interest": 0,
     "pick": {
      "confidence": "no-signal",
@@ -9966,17 +9966,17 @@
     "vegas_home_favored_by": -1.5
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 569,
+    "dollar_volume": 6051,
     "fraction_traded": 0.0,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 5497,
+    "minutes_before_kickoff": 5445,
     "open_interest": 0,
     "pick": {
      "confidence": "no-signal",
@@ -10047,18 +10047,18 @@
   "KXNCAAFSPREAD-26OCT15CSUTXST": {
    "away_team": "Colorado St.",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 643,
-    "fraction_traded": 0.065,
+    "dollar_volume": 719,
+    "fraction_traded": 0.129,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 6937,
-    "open_interest": 118,
+    "minutes_before_kickoff": 6885,
+    "open_interest": 128,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -10122,18 +10122,18 @@
     "vegas_home_favored_by": 11.5
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 643,
-    "fraction_traded": 0.065,
+    "dollar_volume": 719,
+    "fraction_traded": 0.129,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 6937,
-    "open_interest": 118,
+    "minutes_before_kickoff": 6885,
+    "open_interest": 128,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -10203,18 +10203,18 @@
   "KXNCAAFSPREAD-26OCT17ALATENN": {
    "away_team": "Alabama",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 5197,
-    "fraction_traded": 0.065,
+    "dollar_volume": 5450,
+    "fraction_traded": 0.161,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9547,
-    "open_interest": 295,
+    "minutes_before_kickoff": 9495,
+    "open_interest": 684,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -10222,7 +10222,7 @@
      "line": -6.5,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 1 usable strikes of 31.",
+     "reason": "Insufficient market: only 2 usable strikes of 31.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -10246,7 +10246,7 @@
       "line": -6.5,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "reason": "Insufficient market: only 2 usable strikes of 31.",
       "side": null,
       "team": null
      },
@@ -10257,7 +10257,7 @@
       "line": -6.5,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "reason": "Insufficient market: only 2 usable strikes of 31.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -10278,18 +10278,18 @@
     "vegas_home_favored_by": -6.5
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 5197,
-    "fraction_traded": 0.065,
+    "dollar_volume": 5450,
+    "fraction_traded": 0.161,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9547,
-    "open_interest": 295,
+    "minutes_before_kickoff": 9495,
+    "open_interest": 684,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -10297,7 +10297,7 @@
      "line": -6.5,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 1 usable strikes of 31.",
+     "reason": "Insufficient market: only 2 usable strikes of 31.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -10321,7 +10321,7 @@
       "line": -6.5,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "reason": "Insufficient market: only 2 usable strikes of 31.",
       "side": null,
       "team": null
      },
@@ -10332,7 +10332,7 @@
       "line": -6.5,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "reason": "Insufficient market: only 2 usable strikes of 31.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -10359,18 +10359,18 @@
   "KXNCAAFSPREAD-26OCT17AUBUGA": {
    "away_team": "Auburn",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 7001,
-    "fraction_traded": 0.037,
+    "dollar_volume": 7249,
+    "fraction_traded": 0.074,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9547,
-    "open_interest": 160,
+    "minutes_before_kickoff": 9495,
+    "open_interest": 162,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -10434,18 +10434,18 @@
     "vegas_home_favored_by": 18.5
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 7001,
-    "fraction_traded": 0.037,
+    "dollar_volume": 7249,
+    "fraction_traded": 0.074,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9547,
-    "open_interest": 160,
+    "minutes_before_kickoff": 9495,
+    "open_interest": 162,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -10515,18 +10515,18 @@
   "KXNCAAFSPREAD-26OCT17FLATEX": {
    "away_team": "Florida",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 252,
+    "dollar_volume": 266,
     "fraction_traded": 0.125,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9337,
-    "open_interest": 259,
+    "minutes_before_kickoff": 9285,
+    "open_interest": 267,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -10534,7 +10534,7 @@
      "line": 10.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 5 usable strikes of 32.",
+     "reason": "Insufficient market: only 4 usable strikes of 32.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -10558,7 +10558,7 @@
       "line": 10.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 5 usable strikes of 32.",
+      "reason": "Insufficient market: only 4 usable strikes of 32.",
       "side": null,
       "team": null
      },
@@ -10569,7 +10569,7 @@
       "line": 10.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 5 usable strikes of 32.",
+      "reason": "Insufficient market: only 4 usable strikes of 32.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -10590,18 +10590,18 @@
     "vegas_home_favored_by": 10.0
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 252,
+    "dollar_volume": 266,
     "fraction_traded": 0.125,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9337,
-    "open_interest": 259,
+    "minutes_before_kickoff": 9285,
+    "open_interest": 267,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -10609,7 +10609,7 @@
      "line": 10.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 5 usable strikes of 32.",
+     "reason": "Insufficient market: only 4 usable strikes of 32.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -10633,7 +10633,7 @@
       "line": 10.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 5 usable strikes of 32.",
+      "reason": "Insufficient market: only 4 usable strikes of 32.",
       "side": null,
       "team": null
      },
@@ -10644,7 +10644,7 @@
       "line": 10.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 5 usable strikes of 32.",
+      "reason": "Insufficient market: only 4 usable strikes of 32.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -10671,17 +10671,17 @@
   "KXNCAAFSPREAD-26OCT17FSUMIA": {
    "away_team": "Florida St.",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 9861,
+    "dollar_volume": 9833,
     "fraction_traded": 0.042,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9757,
+    "minutes_before_kickoff": 9705,
     "open_interest": 386,
     "pick": {
      "confidence": "no-signal",
@@ -10746,17 +10746,17 @@
     "vegas_home_favored_by": 21.0
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 9861,
+    "dollar_volume": 9833,
     "fraction_traded": 0.042,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9757,
+    "minutes_before_kickoff": 9705,
     "open_interest": 386,
     "pick": {
      "confidence": "no-signal",
@@ -10827,18 +10827,18 @@
   "KXNCAAFSPREAD-26OCT17KUKSU": {
    "away_team": "Kansas",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 311,
+    "dollar_volume": 1038,
     "fraction_traded": 0.065,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9337,
-    "open_interest": 19,
+    "minutes_before_kickoff": 9285,
+    "open_interest": 1231,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -10846,7 +10846,7 @@
      "line": 9.5,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 2 usable strikes of 31.",
+     "reason": "Insufficient market: only 3 usable strikes of 31.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -10870,7 +10870,7 @@
       "line": 9.5,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "reason": "Insufficient market: only 3 usable strikes of 31.",
       "side": null,
       "team": null
      },
@@ -10881,7 +10881,7 @@
       "line": 9.5,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "reason": "Insufficient market: only 3 usable strikes of 31.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -10902,18 +10902,18 @@
     "vegas_home_favored_by": 9.5
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 311,
+    "dollar_volume": 1038,
     "fraction_traded": 0.065,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9337,
-    "open_interest": 19,
+    "minutes_before_kickoff": 9285,
+    "open_interest": 1231,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -10921,7 +10921,7 @@
      "line": 9.5,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 2 usable strikes of 31.",
+     "reason": "Insufficient market: only 3 usable strikes of 31.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -10945,7 +10945,7 @@
       "line": 9.5,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "reason": "Insufficient market: only 3 usable strikes of 31.",
       "side": null,
       "team": null
      },
@@ -10956,7 +10956,7 @@
       "line": 9.5,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "reason": "Insufficient market: only 3 usable strikes of 31.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -10983,7 +10983,7 @@
   "KXNCAAFSPREAD-26OCT17MIZZMISS": {
    "away_team": "Missouri",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 0,
@@ -10993,7 +10993,7 @@
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9547,
+    "minutes_before_kickoff": 9495,
     "open_interest": 0,
     "pick": {
      "confidence": "no-signal",
@@ -11058,7 +11058,7 @@
     "vegas_home_favored_by": 6.0
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 0,
@@ -11068,7 +11068,7 @@
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9547,
+    "minutes_before_kickoff": 9495,
     "open_interest": 0,
     "pick": {
      "confidence": "no-signal",
@@ -11139,18 +11139,18 @@
   "KXNCAAFSPREAD-26OCT17MSSTLSU": {
    "away_team": "Mississippi St.",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 6,
+    "dollar_volume": 31,
     "fraction_traded": 0.031,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9337,
-    "open_interest": 10,
+    "minutes_before_kickoff": 9285,
+    "open_interest": 51,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -11158,7 +11158,7 @@
      "line": 12.5,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 1 usable strikes of 32.",
+     "reason": "Insufficient market: only 2 usable strikes of 32.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -11182,7 +11182,7 @@
       "line": 12.5,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 32.",
+      "reason": "Insufficient market: only 2 usable strikes of 32.",
       "side": null,
       "team": null
      },
@@ -11193,7 +11193,7 @@
       "line": 12.5,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 32.",
+      "reason": "Insufficient market: only 2 usable strikes of 32.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -11214,18 +11214,18 @@
     "vegas_home_favored_by": 12.5
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 6,
+    "dollar_volume": 31,
     "fraction_traded": 0.031,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9337,
-    "open_interest": 10,
+    "minutes_before_kickoff": 9285,
+    "open_interest": 51,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -11233,7 +11233,7 @@
      "line": 12.5,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 1 usable strikes of 32.",
+     "reason": "Insufficient market: only 2 usable strikes of 32.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -11257,7 +11257,7 @@
       "line": 12.5,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 32.",
+      "reason": "Insufficient market: only 2 usable strikes of 32.",
       "side": null,
       "team": null
      },
@@ -11268,7 +11268,7 @@
       "line": 12.5,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 32.",
+      "reason": "Insufficient market: only 2 usable strikes of 32.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -11295,18 +11295,18 @@
   "KXNCAAFSPREAD-26OCT17NDBYU": {
    "away_team": "Notre Dame",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 29186,
+    "dollar_volume": 29701,
     "fraction_traded": 0.125,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9787,
-    "open_interest": 1392,
+    "minutes_before_kickoff": 9735,
+    "open_interest": 1430,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -11370,18 +11370,18 @@
     "vegas_home_favored_by": -12.5
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 29186,
+    "dollar_volume": 29701,
     "fraction_traded": 0.125,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9787,
-    "open_interest": 1392,
+    "minutes_before_kickoff": 9735,
+    "open_interest": 1430,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -11451,18 +11451,18 @@
   "KXNCAAFSPREAD-26OCT17OSUIND": {
    "away_team": "Ohio St.",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 27319,
+    "dollar_volume": 29870,
     "fraction_traded": 0.241,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9337,
-    "open_interest": 2670,
+    "minutes_before_kickoff": 9285,
+    "open_interest": 2931,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -11526,18 +11526,18 @@
     "vegas_home_favored_by": -4.0
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 27319,
+    "dollar_volume": 29870,
     "fraction_traded": 0.241,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9337,
-    "open_interest": 2670,
+    "minutes_before_kickoff": 9285,
+    "open_interest": 2931,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -11607,7 +11607,7 @@
   "KXNCAAFSPREAD-26OCT17PITTBC": {
    "away_team": "Pittsburgh",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 0,
@@ -11617,7 +11617,7 @@
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9337,
+    "minutes_before_kickoff": 9285,
     "open_interest": 0,
     "pick": {
      "confidence": "no-signal",
@@ -11682,7 +11682,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 0,
@@ -11692,7 +11692,7 @@
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9337,
+    "minutes_before_kickoff": 9285,
     "open_interest": 0,
     "pick": {
      "confidence": "no-signal",
@@ -11763,17 +11763,17 @@
   "KXNCAAFSPREAD-26OCT17PSUMICH": {
    "away_team": "Penn St.",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 0,
+    "dollar_volume": 19,
     "fraction_traded": 0.0,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 8617,
+    "minutes_before_kickoff": 8565,
     "open_interest": 0,
     "pick": {
      "confidence": "no-signal",
@@ -11782,7 +11782,7 @@
      "line": 6.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 0 usable strikes of 31.",
+     "reason": "Insufficient market: only 1 usable strikes of 31.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -11806,7 +11806,7 @@
       "line": 6.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
       "side": null,
       "team": null
      },
@@ -11817,7 +11817,7 @@
       "line": 6.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -11838,17 +11838,17 @@
     "vegas_home_favored_by": 6.0
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 0,
+    "dollar_volume": 19,
     "fraction_traded": 0.0,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 8617,
+    "minutes_before_kickoff": 8565,
     "open_interest": 0,
     "pick": {
      "confidence": "no-signal",
@@ -11857,7 +11857,7 @@
      "line": 6.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 0 usable strikes of 31.",
+     "reason": "Insufficient market: only 1 usable strikes of 31.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -11881,7 +11881,7 @@
       "line": 6.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
       "side": null,
       "team": null
      },
@@ -11892,7 +11892,7 @@
       "line": 6.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -11919,18 +11919,18 @@
   "KXNCAAFSPREAD-26OCT17UKOKLA": {
    "away_team": "Kentucky",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 0,
-    "fraction_traded": 0.0,
+    "dollar_volume": 4,
+    "fraction_traded": 0.032,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9787,
-    "open_interest": 0,
+    "minutes_before_kickoff": 9735,
+    "open_interest": 9,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -11994,18 +11994,18 @@
     "vegas_home_favored_by": 6.5
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 0,
-    "fraction_traded": 0.0,
+    "dollar_volume": 4,
+    "fraction_traded": 0.032,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9787,
-    "open_interest": 0,
+    "minutes_before_kickoff": 9735,
+    "open_interest": 9,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -12075,18 +12075,18 @@
   "KXNCAAFSPREAD-26OCT17UNCDUKE": {
    "away_team": "North Carolina",
    "decision": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 1268,
-    "fraction_traded": 0.0,
+    "dollar_volume": 1276,
+    "fraction_traded": 0.034,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9547,
-    "open_interest": 0,
+    "minutes_before_kickoff": 9495,
+    "open_interest": 16,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -12150,18 +12150,18 @@
     "vegas_home_favored_by": 3.0
    },
    "final": {
-    "at": "2026-10-11T04:22:45.566735+00:00",
+    "at": "2026-10-11T05:14:37.804587+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 1268,
-    "fraction_traded": 0.0,
+    "dollar_volume": 1276,
+    "fraction_traded": 0.034,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9547,
-    "open_interest": 0,
+    "minutes_before_kickoff": 9495,
+    "open_interest": 16,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
