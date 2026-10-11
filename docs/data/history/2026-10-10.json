@@ -2467,9 +2467,9 @@
       "final_correct": true
      }
     },
-    "margin_high": -20.5,
-    "margin_low": -21.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Air Force vs Northern Illinois"
   },
@@ -2630,7 +2630,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": -21.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -2649,9 +2649,9 @@
       "final_correct": true
      }
     },
-    "margin_high": -20.5,
-    "margin_low": -23.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Arizona vs West Virginia"
   },
@@ -2812,7 +2812,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 31.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -2831,9 +2831,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 33.5,
-    "margin_low": 30.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Ball St. vs Northwestern"
   },
@@ -2991,6 +2991,32 @@
    },
    "home_team": "Fresno St.",
    "kickoff": "2026-10-10T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": false,
+    "home_margin": -7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Boise St. vs Fresno St."
   },
   "KXNCAAFSPREAD-26OCT10BUFFTOL": {
@@ -3150,7 +3176,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": -15.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -3169,9 +3195,9 @@
       "final_correct": false
      }
     },
-    "margin_high": -14.5,
-    "margin_low": -17.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Buffalo vs Toledo"
   },
@@ -3182,7 +3208,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 6.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -3201,9 +3227,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 9.5,
-    "margin_low": 5.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Central Arkansas vs Abilene Christian"
   },
@@ -3308,9 +3334,9 @@
       "final_correct": true
      }
     },
-    "margin_high": -5.5,
-    "margin_low": -6.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Coastal Carolina vs Marshall"
   },
@@ -3321,7 +3347,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 40.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -3340,9 +3366,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 41.5,
-    "margin_low": 38.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Charlotte vs North Texas"
   },
@@ -3447,9 +3473,9 @@
       "final_correct": true
      }
     },
-    "margin_high": 17.5,
-    "margin_low": 16.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Central Michigan vs Ohio"
   },
@@ -3479,9 +3505,9 @@
       "final_correct": null
      }
     },
-    "margin_high": -13.5,
-    "margin_low": -14.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "UConn vs Temple"
   },
@@ -3492,7 +3518,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": -1.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -3511,9 +3537,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 1.5,
-    "margin_low": -3.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Cal Poly vs Idaho St."
   },
@@ -3693,9 +3719,9 @@
       "final_correct": false
      }
     },
-    "margin_high": 3.5,
-    "margin_low": 2.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Duke vs Georgia Tech"
   },
@@ -3725,9 +3751,9 @@
       "final_correct": null
      }
     },
-    "margin_high": -1.5,
-    "margin_low": -2.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Eastern Michigan vs Akron"
   },
@@ -3992,6 +4018,32 @@
    },
    "home_team": "Arizona St.",
    "kickoff": "2026-10-10T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 18.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Hawai'i vs Arizona St."
   },
   "KXNCAAFSPREAD-26OCT10HOUKSU": {
@@ -4151,7 +4203,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": -19.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -4170,9 +4222,9 @@
       "final_correct": false
      }
     },
-    "margin_high": -17.5,
-    "margin_low": -20.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Houston vs Kansas St."
   },
@@ -4183,7 +4235,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 11.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -4202,9 +4254,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 11.5,
-    "margin_low": 7.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Idaho vs Weber St."
   },
@@ -4365,7 +4417,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": -1.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -4384,9 +4436,9 @@
       "final_correct": false
      }
     },
-    "margin_high": 1.5,
-    "margin_low": -1.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Illinois vs Michigan St."
   },
@@ -4566,9 +4618,9 @@
       "final_correct": null
      }
     },
-    "margin_high": -2.5,
-    "margin_low": -3.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Indiana vs Nebraska"
   },
@@ -4579,7 +4631,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 3.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -4598,9 +4650,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 6.5,
-    "margin_low": 2.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Incarnate Word vs Lamar"
   },
@@ -4780,9 +4832,9 @@
       "final_correct": false
      }
     },
-    "margin_high": -2.5,
-    "margin_low": -3.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "James Madison vs Georgia Southern"
   },
@@ -4793,7 +4845,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 31.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -4812,9 +4864,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 33.5,
-    "margin_low": 30.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Kent St. vs Western Michigan"
   },
@@ -4994,9 +5046,9 @@
       "final_correct": true
      }
     },
-    "margin_high": 17.5,
-    "margin_low": 16.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Kansas vs Utah"
   },
@@ -5157,7 +5209,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 1.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -5176,9 +5228,9 @@
       "final_correct": false
      }
     },
-    "margin_high": 1.5,
-    "margin_low": -1.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "LSU vs Kentucky"
   },
@@ -5339,7 +5391,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 29.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -5358,9 +5410,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 30.5,
-    "margin_low": 27.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Maryland vs Ohio St."
   },
@@ -5521,7 +5573,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 28.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": true,
@@ -5540,9 +5592,9 @@
       "final_correct": false
      }
     },
-    "margin_high": 29.5,
-    "margin_low": 26.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Minnesota vs Purdue"
   },
@@ -5703,7 +5755,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": -35.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": true,
@@ -5722,9 +5774,9 @@
       "final_correct": false
      }
     },
-    "margin_high": -33.5,
-    "margin_low": -36.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Ole Miss vs Vanderbilt"
   },
@@ -5810,7 +5862,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": -1.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -5829,9 +5881,9 @@
       "final_correct": true
      }
     },
-    "margin_high": 1.5,
-    "margin_low": -1.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Miami (OH) vs UMass"
   },
@@ -5842,7 +5894,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 5.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -5861,9 +5913,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 6.5,
-    "margin_low": 2.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Montana vs Northern Arizona"
   },
@@ -6043,9 +6095,9 @@
       "final_correct": false
      }
     },
-    "margin_high": 6.5,
-    "margin_low": 5.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "North Dakota St. vs UNLV"
   },
@@ -6075,9 +6127,9 @@
       "final_correct": null
      }
     },
-    "margin_high": -16.5,
-    "margin_low": -17.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Nevada vs UTEP"
   },
@@ -6107,9 +6159,9 @@
       "final_correct": null
      }
     },
-    "margin_high": -6.5,
-    "margin_low": -7.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Old Dominion vs Appalachian St."
   },
@@ -6120,7 +6172,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 16.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -6139,9 +6191,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 16.5,
-    "margin_low": 14.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Rice vs East Carolina"
   },
@@ -6302,7 +6354,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 28.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -6321,9 +6373,9 @@
       "final_correct": false
      }
     },
-    "margin_high": 30.5,
-    "margin_low": 27.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Sacramento St. vs Bowling Green"
   },
@@ -6484,7 +6536,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": -19.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -6503,9 +6555,9 @@
       "final_correct": false
      }
     },
-    "margin_high": -16.5,
-    "margin_low": -19.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "South Carolina vs Florida"
   },
@@ -6666,7 +6718,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 52.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -6686,8 +6738,8 @@
      }
     },
     "margin_high": null,
-    "margin_low": 50.5,
-    "source": "kalshi"
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "San Diego St. vs Oregon St."
   },
@@ -6730,7 +6782,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": -14.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -6749,9 +6801,9 @@
       "final_correct": null
      }
     },
-    "margin_high": -9.5,
+    "margin_high": null,
     "margin_low": null,
-    "source": "kalshi"
+    "source": "cfbd"
    },
    "title": "Southern University vs Prairie View A&M"
   },
@@ -6912,7 +6964,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 51.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -6931,9 +6983,9 @@
       "final_correct": false
      }
     },
-    "margin_high": 51.5,
-    "margin_low": 48.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Stanford vs Notre Dame"
   },
@@ -7038,9 +7090,9 @@
       "final_correct": false
      }
     },
-    "margin_high": 3.5,
-    "margin_low": 2.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Syracuse vs Virginia"
   },
@@ -7051,7 +7103,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": -8.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -7070,9 +7122,9 @@
       "final_correct": null
      }
     },
-    "margin_high": -6.5,
-    "margin_low": -10.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Tarleton St. vs Austin Peay"
   },
@@ -7252,9 +7304,9 @@
       "final_correct": false
      }
     },
-    "margin_high": -6.5,
-    "margin_low": -7.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Tennessee vs Arkansas"
   },
@@ -7434,9 +7486,9 @@
       "final_correct": false
      }
     },
-    "margin_high": 3.5,
-    "margin_low": 2.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Texas vs Oklahoma"
   },
@@ -7597,7 +7649,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 8.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -7616,9 +7668,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 9.5,
-    "margin_low": 7.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Tulsa vs Navy"
   },
@@ -7798,9 +7850,9 @@
       "final_correct": false
      }
     },
-    "margin_high": 3.5,
-    "margin_low": 2.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Tulane vs Army"
   },
@@ -7961,7 +8013,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 21.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -7980,9 +8032,9 @@
       "final_correct": true
      }
     },
-    "margin_high": 23.5,
-    "margin_low": 20.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Texas A&M vs Missouri"
   },
@@ -7993,7 +8045,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 25.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -8012,9 +8064,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 27.5,
-    "margin_low": 24.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "UAB vs Memphis"
   },
@@ -8194,9 +8246,9 @@
       "final_correct": false
      }
     },
-    "margin_high": 14.5,
-    "margin_low": 13.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "UCF vs Oklahoma St."
   },
@@ -8376,9 +8428,9 @@
       "final_correct": null
      }
     },
-    "margin_high": -1.5,
-    "margin_low": -2.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "UCLA vs Oregon"
   },
@@ -8558,9 +8610,9 @@
       "final_correct": true
      }
     },
-    "margin_high": -2.5,
-    "margin_low": -3.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Georgia vs Alabama"
   },
@@ -8571,7 +8623,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 1.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -8590,9 +8642,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 1.5,
-    "margin_low": -1.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Louisiana vs Louisiana Tech"
   },
@@ -8603,7 +8655,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 9.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -8622,9 +8674,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 9.5,
-    "margin_low": 5.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Northern Colorado vs Eastern Washington"
   },
@@ -8804,9 +8856,9 @@
       "final_correct": false
      }
     },
-    "margin_high": -3.5,
-    "margin_low": -4.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "North Carolina vs Pittsburgh"
   },
@@ -8817,7 +8869,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 7.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -8836,9 +8888,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 7.5,
-    "margin_low": 3.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "North Dakota vs Northern Iowa"
   },
@@ -8999,7 +9051,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": true,
-    "home_margin": null,
+    "home_margin": -8.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -9018,9 +9070,9 @@
       "final_correct": null
      }
     },
-    "margin_high": -7.5,
-    "margin_low": -9.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "USC vs Penn St."
   },
@@ -9031,7 +9083,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 16.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -9050,9 +9102,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 17.5,
-    "margin_low": 13.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Utah Tech vs Portland St."
   },
@@ -9232,9 +9284,9 @@
       "final_correct": false
      }
     },
-    "margin_high": 5.5,
-    "margin_low": 4.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Virginia Tech vs California"
   },
@@ -9395,7 +9447,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": -24.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -9414,9 +9466,9 @@
       "final_correct": false
      }
     },
-    "margin_high": -23.5,
-    "margin_low": -26.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Wake Forest vs NC St."
   },
