@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-17T03:55:53.129516+00:00",
+ "generated_at": "2026-10-17T08:28:14.952623+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -681,6 +681,6 @@
   "same_pick": 194,
   "same_pick_total": 214
  },
- "graded_games": 402,
+ "graded_games": 403,
  "ungraded": null
 }
