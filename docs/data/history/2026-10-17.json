@@ -4774,7 +4774,7 @@
   "KXNCAAFSPREAD-26OCT17LTULM": {
    "away_team": "Louisiana Tech",
    "final": {
-    "at": "2026-10-17T22:54:39.224965+00:00",
+    "at": "2026-10-17T22:54:54.367232+00:00",
     "band": 0.17,
     "blended_margin": -13.81,
     "dollar_volume": 43655,
@@ -5375,7 +5375,7 @@
   "KXNCAAFSPREAD-26OCT17NAVYUTSA": {
    "away_team": "Navy",
    "final": {
-    "at": "2026-10-17T22:54:39.224965+00:00",
+    "at": "2026-10-17T22:54:54.367232+00:00",
     "band": 0.35,
     "blended_margin": 5.68,
     "dollar_volume": 73723,
@@ -5687,10 +5687,10 @@
     "vegas_home_favored_by": 7.0
    },
    "final": {
-    "at": "2026-10-17T22:54:39.224965+00:00",
+    "at": "2026-10-17T22:54:54.367232+00:00",
     "band": 0.16,
     "blended_margin": 6.59,
-    "dollar_volume": 273273,
+    "dollar_volume": 273323,
     "fraction_traded": 1.0,
     "implied_margin": 6.59,
     "kalshi_weight": 0.996,
@@ -6187,7 +6187,7 @@
   "KXNCAAFSPREAD-26OCT17OHIOSAC": {
    "away_team": "Ohio",
    "final": {
-    "at": "2026-10-17T22:54:39.224965+00:00",
+    "at": "2026-10-17T22:54:54.367232+00:00",
     "band": 0.24,
     "blended_margin": -16.63,
     "dollar_volume": 60202,
@@ -7794,7 +7794,7 @@
   "KXNCAAFSPREAD-26OCT17UNMHAW": {
    "away_team": "New Mexico",
    "final": {
-    "at": "2026-10-17T22:54:39.224965+00:00",
+    "at": "2026-10-17T22:54:54.367232+00:00",
     "band": 0.11,
     "blended_margin": -14.11,
     "dollar_volume": 60504,
@@ -7875,7 +7875,7 @@
   "KXNCAAFSPREAD-26OCT17UTAHCOLO": {
    "away_team": "Utah",
    "final": {
-    "at": "2026-10-17T22:54:39.224965+00:00",
+    "at": "2026-10-17T22:54:54.367232+00:00",
     "band": 0.33,
     "blended_margin": -14.64,
     "dollar_volume": 114834,
@@ -8138,7 +8138,7 @@
   "KXNCAAFSPREAD-26OCT17WAKECAL": {
    "away_team": "Wake Forest",
    "final": {
-    "at": "2026-10-17T22:54:39.224965+00:00",
+    "at": "2026-10-17T22:54:54.367232+00:00",
     "band": 0.29,
     "blended_margin": -10.33,
     "dollar_volume": 35356,
