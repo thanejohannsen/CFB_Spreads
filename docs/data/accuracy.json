@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-17T03:15:21.778925+00:00",
+ "generated_at": "2026-10-17T03:55:53.129516+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -312,10 +312,10 @@
      "pct": 0.0
     },
     "lens_sp_plus": {
-     "wins": 0,
+     "wins": 2,
      "losses": 5,
-     "total": 5,
-     "pct": 0.0
+     "total": 7,
+     "pct": 0.2857
     }
    }
   }
@@ -366,10 +366,10 @@
     "pct": 0.0
    },
    "lens_sp_plus": {
-    "wins": 0,
+    "wins": 2,
     "losses": 5,
-    "total": 5,
-    "pct": 0.0
+    "total": 7,
+    "pct": 0.2857
    }
   }
  },
@@ -405,7 +405,7 @@
    },
    "superseded": 3,
    "open": {
-    "live": 3,
+    "live": 2,
     "pending": 0,
     "awaiting": 0
    },
@@ -534,22 +534,22 @@
    "tiers": null,
    "versions": null,
    "season": {
-    "wins": 88,
+    "wins": 90,
     "losses": 78,
-    "total": 166,
-    "pct": 0.5301
+    "total": 168,
+    "pct": 0.5357
    },
    "superseded": 0,
    "open": {
     "live": 0,
-    "pending": 27,
+    "pending": 25,
     "awaiting": 0
    },
    "last_week": {
-    "wins": 0,
+    "wins": 2,
     "losses": 5,
-    "total": 5,
-    "pct": 0.0
+    "total": 7,
+    "pct": 0.2857
    }
   }
  ],
@@ -606,16 +606,16 @@
    "key": "sp_plus",
    "label": "SP+ vs Vegas Spread",
    "season": {
-    "wins": 88,
+    "wins": 90,
     "losses": 78,
-    "total": 166,
-    "pct": 0.5301
+    "total": 168,
+    "pct": 0.5357
    },
    "last_week": {
-    "wins": 0,
+    "wins": 2,
     "losses": 5,
-    "total": 5,
-    "pct": 0.0
+    "total": 7,
+    "pct": 0.2857
    }
   }
  ],
@@ -676,11 +676,11 @@
   }
  },
  "drift": {
-  "median": 0.31,
-  "samples": 213,
-  "same_pick": 193,
-  "same_pick_total": 213
+  "median": 0.32,
+  "samples": 214,
+  "same_pick": 194,
+  "same_pick_total": 214
  },
- "graded_games": 400,
+ "graded_games": 402,
  "ungraded": null
 }
