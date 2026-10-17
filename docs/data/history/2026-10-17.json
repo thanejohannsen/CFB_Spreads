@@ -1450,9 +1450,9 @@
       "final_correct": true
      }
     },
-    "margin_high": -2.5,
-    "margin_low": -3.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Appalachian St. vs Coastal Carolina"
   },
@@ -1739,9 +1739,9 @@
       "final_correct": false
      }
     },
-    "margin_high": 14.5,
-    "margin_low": 13.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Memphis vs Tulane"
   },
@@ -1902,7 +1902,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": -12.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -1921,9 +1921,9 @@
       "final_correct": true
      }
     },
-    "margin_high": -11.5,
-    "margin_low": -13.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Washington vs Purdue"
   },
@@ -1931,6 +1931,32 @@
    "away_team": "Akron",
    "home_team": "Miami (OH)",
    "kickoff": "2026-10-17T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 20.5,
+    "margin_low": 17.5,
+    "source": "kalshi"
+   },
    "title": "Akron vs Miami (OH)"
   },
   "KXNCAAFSPREAD-26OCT17ALATENN": {
@@ -2093,6 +2119,32 @@
    "away_team": "Alcorn St.",
    "home_team": "Prairie View A&M",
    "kickoff": "2026-10-17T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 3.5,
+    "margin_low": -1.5,
+    "source": "kalshi"
+   },
    "title": "Alcorn St. vs Prairie View A&M"
   },
   "KXNCAAFSPREAD-26OCT17ARKVAN": {
@@ -2798,6 +2850,32 @@
    },
    "home_team": "Bowling Green",
    "kickoff": "2026-10-17T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 1.5,
+    "margin_low": -1.5,
+    "source": "kalshi"
+   },
    "title": "Ball St. vs Bowling Green"
   },
   "KXNCAAFSPREAD-26OCT17CHARTEM": {
@@ -2954,12 +3032,64 @@
    },
    "home_team": "Temple",
    "kickoff": "2026-10-17T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": true,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": true
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": true
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": -6.5,
+    "margin_low": -9.5,
+    "source": "kalshi"
+   },
    "title": "Charlotte vs Temple"
   },
   "KXNCAAFSPREAD-26OCT17CHSOCLEM": {
    "away_team": "Charleston Southern",
    "home_team": "Clemson",
    "kickoff": "2026-10-17T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 38.5,
+    "margin_low": 35.5,
+    "source": "kalshi"
+   },
    "title": "Charleston Southern vs Clemson"
   },
   "KXNCAAFSPREAD-26OCT17CINWVU": {
@@ -3116,6 +3246,32 @@
    },
    "home_team": "West Virginia",
    "kickoff": "2026-10-17T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 3.5,
+    "margin_low": 2.5,
+    "source": "kalshi"
+   },
    "title": "Cincinnati vs West Virginia"
   },
   "KXNCAAFSPREAD-26OCT17ELONSTAN": {
@@ -3353,6 +3509,32 @@
    },
    "home_team": "Army",
    "kickoff": "2026-10-17T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": false,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 32.5,
+    "margin_low": 29.5,
+    "source": "kalshi"
+   },
    "title": "Florida Atlantic vs Army"
   },
   "KXNCAAFSPREAD-26OCT17FLATEX": {
@@ -3509,6 +3691,32 @@
    },
    "home_team": "Texas",
    "kickoff": "2026-10-17T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": -2.5,
+    "margin_low": -3.5,
+    "source": "kalshi"
+   },
    "title": "Florida vs Texas"
   },
   "KXNCAAFSPREAD-26OCT17FRESSDSU": {
@@ -3977,6 +4185,32 @@
    },
    "home_team": "James Madison",
    "kickoff": "2026-10-17T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 27.5,
+    "margin_low": 24.5,
+    "source": "kalshi"
+   },
    "title": "Georgia St. vs James Madison"
   },
   "KXNCAAFSPREAD-26OCT17GTVT": {
@@ -4133,13 +4367,71 @@
    },
    "home_team": "Virginia Tech",
    "kickoff": "2026-10-17T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": true
+     }
+    },
+    "margin_high": 10.5,
+    "margin_low": 9.5,
+    "source": "kalshi"
+   },
    "title": "Georgia Tech vs Virginia Tech"
   },
   "KXNCAAFSPREAD-26OCT17IDHOMONT": {
    "away_team": "Idaho",
    "home_team": "Montana",
    "kickoff": "2026-10-17T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -6.5,
+    "margin_low": -10.5,
+    "source": "kalshi"
+   },
    "title": "Idaho vs Montana"
+  },
+  "KXNCAAFSPREAD-26OCT17KENTUSF": {
+   "away_team": "Kent St.",
+   "home_team": "South Florida",
+   "kickoff": "2026-10-17T23:00:00+00:00",
+   "title": "Kent St. vs South Florida"
   },
   "KXNCAAFSPREAD-26OCT17KUKSU": {
    "away_team": "Kansas",
@@ -4295,6 +4587,32 @@
    },
    "home_team": "Kansas St.",
    "kickoff": "2026-10-17T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 11.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 11.5,
+    "margin_low": 10.5,
+    "source": "kalshi"
+   },
    "title": "Kansas vs Kansas St."
   },
   "KXNCAAFSPREAD-26OCT17LOUSYR": {
@@ -4456,24 +4774,24 @@
   "KXNCAAFSPREAD-26OCT17LTULM": {
    "away_team": "Louisiana Tech",
    "final": {
-    "at": "2026-10-17T20:49:52.830900+00:00",
+    "at": "2026-10-17T22:54:39.224965+00:00",
     "band": 0.17,
     "blended_margin": -13.81,
-    "dollar_volume": 37254,
-    "fraction_traded": 0.452,
+    "dollar_volume": 43655,
+    "fraction_traded": 0.548,
     "implied_margin": -13.8,
     "kalshi_weight": 0.996,
     "margin_high": -13.71,
     "margin_low": -13.89,
     "master_margin": -13.81,
-    "minutes_before_kickoff": 190,
-    "open_interest": 73629,
+    "minutes_before_kickoff": 65,
+    "open_interest": 87447,
     "pick": {
      "confidence": "lean",
      "edge": 1.69252,
      "estimate": -13.80748,
      "line": -15.5,
-     "p_cover": 0.5470753702221808,
+     "p_cover": 0.5475295835026542,
      "p_push": 0.0,
      "reason": "Estimate Louisiana Tech -13.8; line is Louisiana Tech -15.5. At that number the market gives Louisiana-Monroe a 55% chance to cover. Edge 1.7 pts. Blend: 100% kalshi spread. Take Louisiana-Monroe +15.5.",
      "side": "home",
@@ -4497,7 +4815,7 @@
       "edge": 1.6999999999999993,
       "estimate": -13.8,
       "line": -15.5,
-      "p_cover": 0.5472821774627556,
+      "p_cover": 0.5477383618363593,
       "p_push": 0.0,
       "reason": "Estimate Louisiana Tech -13.8; line is Louisiana Tech -15.5. At that number the market gives Louisiana-Monroe a 55% chance to cover. Edge 1.7 pts. Take Louisiana-Monroe +15.5.",
       "side": "home",
@@ -4508,7 +4826,7 @@
       "edge": 1.69252,
       "estimate": -13.80748,
       "line": -15.5,
-      "p_cover": 0.5470753702221808,
+      "p_cover": 0.5475295835026542,
       "p_push": 0.0,
       "reason": "Estimate Louisiana Tech -13.8; line is Louisiana Tech -15.5. At that number the market gives Louisiana-Monroe a 55% chance to cover. Edge 1.7 pts. Blend: 100% kalshi spread. Take Louisiana-Monroe +15.5.",
       "side": "home",
@@ -4520,7 +4838,7 @@
       "edge": -4.5,
       "estimate": -20.0,
       "line": -15.5,
-      "p_cover": 0.6229609735861528,
+      "p_cover": 0.6241051397702893,
       "p_push": 0.0,
       "reason": "Estimate Louisiana Tech -20.0; line is Louisiana Tech -15.5. At that number the market gives Louisiana Tech a 62% chance to cover. Edge 4.5 pts. Take Louisiana Tech -15.5.",
       "side": "away",
@@ -4688,6 +5006,32 @@
    },
    "home_team": "Buffalo",
    "kickoff": "2026-10-17T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": null
+     }
+    },
+    "margin_high": 7.5,
+    "margin_low": 6.5,
+    "source": "kalshi"
+   },
    "title": "UMass vs Buffalo"
   },
   "KXNCAAFSPREAD-26OCT17MIZZMISS": {
@@ -5000,7 +5344,114 @@
    },
    "home_team": "LSU",
    "kickoff": "2026-10-17T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 33.5,
+    "margin_low": 30.5,
+    "source": "kalshi"
+   },
    "title": "Mississippi St. vs LSU"
+  },
+  "KXNCAAFSPREAD-26OCT17NAVYUTSA": {
+   "away_team": "Navy",
+   "final": {
+    "at": "2026-10-17T22:54:39.224965+00:00",
+    "band": 0.35,
+    "blended_margin": 5.68,
+    "dollar_volume": 73723,
+    "fraction_traded": 0.645,
+    "implied_margin": 5.66,
+    "kalshi_weight": 0.987,
+    "margin_high": 5.85,
+    "margin_low": 5.5,
+    "master_margin": 5.68,
+    "minutes_before_kickoff": 65,
+    "open_interest": 162197,
+    "pick": {
+     "confidence": "lean",
+     "edge": -1.322178,
+     "estimate": 5.677822,
+     "line": 7.0,
+     "p_cover": 0.5243090626498507,
+     "p_push": 0.02940114361944424,
+     "reason": "Estimate UTSA -5.7; line is UTSA -7.0. At that number the market gives Navy a 52% chance to cover. Edge 1.3 pts. Blend: 100% kalshi spread. Take Navy +7.0.",
+     "side": "away",
+     "strategy_version": "v2",
+     "team": "Navy"
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 7.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "lean",
+      "edge": -1.3399999999999999,
+      "estimate": 5.66,
+      "line": 7.0,
+      "p_cover": 0.5248351418589816,
+      "p_push": 0.029396272860275408,
+      "reason": "Estimate UTSA -5.7; line is UTSA -7.0. At that number the market gives Navy a 52% chance to cover. Edge 1.3 pts. Take Navy +7.0.",
+      "side": "away",
+      "team": "Navy"
+     },
+     "master": {
+      "confidence": "lean",
+      "edge": -1.322178,
+      "estimate": 5.677822,
+      "line": 7.0,
+      "p_cover": 0.5243090626498507,
+      "p_push": 0.02940114361944424,
+      "reason": "Estimate UTSA -5.7; line is UTSA -7.0. At that number the market gives Navy a 52% chance to cover. Edge 1.3 pts. Blend: 100% kalshi spread. Take Navy +7.0.",
+      "side": "away",
+      "strategy_version": "v2",
+      "team": "Navy"
+     },
+     "sp_plus": {
+      "confidence": "strong",
+      "edge": -3.5,
+      "estimate": 3.5,
+      "line": 7.0,
+      "p_cover": 0.5878489075362475,
+      "p_push": 0.028348709058395483,
+      "reason": "Estimate UTSA -3.5; line is UTSA -7.0. At that number the market gives Navy a 59% chance to cover. Edge 3.5 pts. Take Navy +7.0.",
+      "side": "away",
+      "team": "Navy"
+     }
+    },
+    "tier": "A",
+    "vegas_home_favored_by": 7.0
+   },
+   "home_team": "UTSA",
+   "kickoff": "2026-10-18T00:00:00+00:00",
+   "title": "Navy vs UTSA"
   },
   "KXNCAAFSPREAD-26OCT17NDBYU": {
    "away_team": "Notre Dame",
@@ -5236,25 +5687,25 @@
     "vegas_home_favored_by": 7.0
    },
    "final": {
-    "at": "2026-10-17T20:49:52.830900+00:00",
+    "at": "2026-10-17T22:54:39.224965+00:00",
     "band": 0.16,
     "blended_margin": 6.59,
-    "dollar_volume": 236691,
+    "dollar_volume": 273273,
     "fraction_traded": 1.0,
     "implied_margin": 6.59,
     "kalshi_weight": 0.996,
     "margin_high": 6.66,
     "margin_low": 6.5,
     "master_margin": 6.66,
-    "minutes_before_kickoff": 370,
-    "open_interest": 162225,
+    "minutes_before_kickoff": 245,
+    "open_interest": 189582,
     "pick": {
      "confidence": "no-play",
      "edge": -0.33850400000000036,
      "estimate": 6.661496,
      "line": 7.0,
-     "p_cover": 0.49523154125973157,
-     "p_push": 0.029507325280526575,
+     "p_cover": 0.4952142493042724,
+     "p_push": 0.029614186453995828,
      "reason": "Market and line agree to within 0.3 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
      "side": null,
      "strategy_version": "v2",
@@ -5263,11 +5714,11 @@
     "picks": {
      "kalshi_ml": {
       "confidence": "no-play",
-      "edge": -0.03000000000000025,
-      "estimate": 6.97,
+      "edge": -0.04999999999999982,
+      "estimate": 6.95,
       "line": 7.0,
-      "p_cover": 0.48612554993976864,
-      "p_push": 0.0295190156984505,
+      "p_cover": 0.48666751464340463,
+      "p_push": 0.029625838029135876,
       "reason": "Market and line agree to within 0.0 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
@@ -5277,8 +5728,8 @@
       "edge": -0.41000000000000014,
       "estimate": 6.59,
       "line": 7.0,
-      "p_cover": 0.4973425332066189,
-      "p_push": 0.029501824373440344,
+      "p_cover": 0.4973328959775871,
+      "p_push": 0.029608625555257784,
       "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
@@ -5288,8 +5739,8 @@
       "edge": -0.33850400000000036,
       "estimate": 6.661496,
       "line": 7.0,
-      "p_cover": 0.49523154125973157,
-      "p_push": 0.029507325280526575,
+      "p_cover": 0.4952142493042724,
+      "p_push": 0.029614186453995828,
       "reason": "Market and line agree to within 0.3 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "strategy_version": "v2",
@@ -5300,8 +5751,8 @@
       "edge": -0.40000000000000036,
       "estimate": 6.6,
       "line": 7.0,
-      "p_cover": 0.4970472656402981,
-      "p_push": 0.029502656899176194,
+      "p_cover": 0.49703655767925203,
+      "p_push": 0.029609467159687763,
       "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
@@ -5705,7 +6156,114 @@
    },
    "home_team": "Michigan St.",
    "kickoff": "2026-10-17T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": false
+     }
+    },
+    "margin_high": -2.5,
+    "margin_low": -3.5,
+    "source": "kalshi"
+   },
    "title": "Northwestern vs Michigan St."
+  },
+  "KXNCAAFSPREAD-26OCT17OHIOSAC": {
+   "away_team": "Ohio",
+   "final": {
+    "at": "2026-10-17T22:54:39.224965+00:00",
+    "band": 0.24,
+    "blended_margin": -16.63,
+    "dollar_volume": 60202,
+    "fraction_traded": 0.516,
+    "implied_margin": -16.63,
+    "kalshi_weight": 0.994,
+    "margin_high": -16.5,
+    "margin_low": -16.74,
+    "master_margin": -16.62,
+    "minutes_before_kickoff": 185,
+    "open_interest": 116476,
+    "pick": {
+     "confidence": "lean",
+     "edge": -1.122880999999996,
+     "estimate": -16.622880999999996,
+     "line": -15.5,
+     "p_cover": 0.5307376318834652,
+     "p_push": 0.0,
+     "reason": "Estimate Ohio -16.6; line is Ohio -15.5. At that number the market gives Ohio a 53% chance to cover. Edge 1.1 pts. Blend: 100% kalshi spread. Take Ohio -15.5.",
+     "side": "away",
+     "strategy_version": "v2",
+     "team": "Ohio"
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": -15.5,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "lean",
+      "edge": -1.129999999999999,
+      "estimate": -16.63,
+      "line": -15.5,
+      "p_cover": 0.5309320106491705,
+      "p_push": 0.0,
+      "reason": "Estimate Ohio -16.6; line is Ohio -15.5. At that number the market gives Ohio a 53% chance to cover. Edge 1.1 pts. Take Ohio -15.5.",
+      "side": "away",
+      "team": "Ohio"
+     },
+     "master": {
+      "confidence": "lean",
+      "edge": -1.122880999999996,
+      "estimate": -16.622880999999996,
+      "line": -15.5,
+      "p_cover": 0.5307376318834652,
+      "p_push": 0.0,
+      "reason": "Estimate Ohio -16.6; line is Ohio -15.5. At that number the market gives Ohio a 53% chance to cover. Edge 1.1 pts. Blend: 100% kalshi spread. Take Ohio -15.5.",
+      "side": "away",
+      "strategy_version": "v2",
+      "team": "Ohio"
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -15.5,
+      "line": -15.5,
+      "p_cover": 0.5,
+      "p_push": 0.0,
+      "reason": "Market and line agree to within 0.0 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "B",
+    "vegas_home_favored_by": -15.5
+   },
+   "home_team": "Sacramento St.",
+   "kickoff": "2026-10-18T02:00:00+00:00",
+   "title": "Ohio vs Sacramento St."
   },
   "KXNCAAFSPREAD-26OCT17OKSTHOU": {
    "away_team": "Oklahoma St.",
@@ -5942,6 +6500,32 @@
    },
    "home_team": "Indiana",
    "kickoff": "2026-10-17T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -4.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": -3.5,
+    "margin_low": -4.5,
+    "source": "kalshi"
+   },
    "title": "Ohio St. vs Indiana"
   },
   "KXNCAAFSPREAD-26OCT17PITTBC": {
@@ -6098,6 +6682,32 @@
    },
    "home_team": "Boston College",
    "kickoff": "2026-10-17T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 6.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 6.5,
+    "margin_low": 5.5,
+    "source": "kalshi"
+   },
    "title": "Pittsburgh vs Boston College"
   },
   "KXNCAAFSPREAD-26OCT17PSUMICH": {
@@ -6410,6 +7020,32 @@
    },
    "home_team": "Maryland",
    "kickoff": "2026-10-17T16:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": null
+     }
+    },
+    "margin_high": -6.5,
+    "margin_low": -7.5,
+    "source": "kalshi"
+   },
    "title": "Rutgers vs Maryland"
   },
   "KXNCAAFSPREAD-26OCT17TCUBAY": {
@@ -7127,29 +7763,55 @@
    },
    "home_team": "Air Force",
    "kickoff": "2026-10-17T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": false,
+    "home_margin": 10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": true,
+      "final_correct": false
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": false
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 10.5,
+    "margin_low": 9.5,
+    "source": "kalshi"
+   },
    "title": "UNLV vs Air Force"
   },
   "KXNCAAFSPREAD-26OCT17UNMHAW": {
    "away_team": "New Mexico",
    "final": {
-    "at": "2026-10-17T20:49:52.830900+00:00",
+    "at": "2026-10-17T22:54:39.224965+00:00",
     "band": 0.11,
-    "blended_margin": -14.09,
-    "dollar_volume": 56425,
+    "blended_margin": -14.11,
+    "dollar_volume": 60504,
     "fraction_traded": 0.645,
-    "implied_margin": -14.09,
+    "implied_margin": -14.11,
     "kalshi_weight": 0.996,
-    "margin_high": -14.03,
-    "margin_low": -14.15,
-    "master_margin": -14.09,
-    "minutes_before_kickoff": 340,
-    "open_interest": 116237,
+    "margin_high": -14.05,
+    "margin_low": -14.17,
+    "master_margin": -14.11,
+    "minutes_before_kickoff": 215,
+    "open_interest": 124350,
     "pick": {
      "confidence": "no-play",
-     "edge": 0.4081960000000002,
-     "estimate": -14.091804,
+     "edge": 0.3882840000000005,
+     "estimate": -14.111716,
      "line": -14.5,
-     "p_cover": 0.5117438060137152,
+     "p_cover": 0.5111261514090075,
      "p_push": 0.0,
      "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
      "side": null,
@@ -7170,10 +7832,10 @@
      },
      "kalshi_spread": {
       "confidence": "no-play",
-      "edge": 0.41000000000000014,
-      "estimate": -14.09,
+      "edge": 0.39000000000000057,
+      "estimate": -14.11,
       "line": -14.5,
-      "p_cover": 0.5117956879081391,
+      "p_cover": 0.5111753064881273,
       "p_push": 0.0,
       "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
@@ -7181,10 +7843,10 @@
      },
      "master": {
       "confidence": "no-play",
-      "edge": 0.4081960000000002,
-      "estimate": -14.091804,
+      "edge": 0.3882840000000005,
+      "estimate": -14.111716,
       "line": -14.5,
-      "p_cover": 0.5117438060137152,
+      "p_cover": 0.5111261514090075,
       "p_push": 0.0,
       "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
@@ -7196,7 +7858,7 @@
       "edge": -8.2,
       "estimate": -22.7,
       "line": -14.5,
-      "p_cover": 0.7198726813877436,
+      "p_cover": 0.719105410514604,
       "p_push": 0.0,
       "reason": "Estimate New Mexico -22.7; line is New Mexico -14.5. At that number the market gives New Mexico a 72% chance to cover. Edge 8.2 pts. Take New Mexico -14.5.",
       "side": "away",
@@ -7213,24 +7875,24 @@
   "KXNCAAFSPREAD-26OCT17UTAHCOLO": {
    "away_team": "Utah",
    "final": {
-    "at": "2026-10-17T20:49:52.830900+00:00",
+    "at": "2026-10-17T22:54:39.224965+00:00",
     "band": 0.33,
     "blended_margin": -14.64,
-    "dollar_volume": 87445,
-    "fraction_traded": 0.875,
+    "dollar_volume": 114834,
+    "fraction_traded": 0.906,
     "implied_margin": -14.64,
     "kalshi_weight": 0.988,
     "margin_high": -14.5,
     "margin_low": -14.83,
     "master_margin": -14.64,
-    "minutes_before_kickoff": 325,
-    "open_interest": 162311,
+    "minutes_before_kickoff": 200,
+    "open_interest": 214646,
     "pick": {
      "confidence": "no-play",
      "edge": -0.13829199999999986,
      "estimate": -14.638292,
      "line": -14.5,
-     "p_cover": 0.5039807719803009,
+     "p_cover": 0.5039922846586125,
      "p_push": 0.0,
      "reason": "Line sits inside the market's own 0.3pt uncertainty band (-14.8 to -14.5); no edge worth acting on.",
      "side": null,
@@ -7254,7 +7916,7 @@
       "edge": -0.14000000000000057,
       "estimate": -14.64,
       "line": -14.5,
-      "p_cover": 0.5040299350980444,
+      "p_cover": 0.5040415899473273,
       "p_push": 0.0,
       "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
@@ -7265,7 +7927,7 @@
       "edge": -0.13829199999999986,
       "estimate": -14.638292,
       "line": -14.5,
-      "p_cover": 0.5039807719803009,
+      "p_cover": 0.5039922846586125,
       "p_push": 0.0,
       "reason": "Line sits inside the market's own 0.3pt uncertainty band (-14.8 to -14.5); no edge worth acting on.",
       "side": null,
@@ -7277,7 +7939,7 @@
       "edge": -8.899999999999999,
       "estimate": -23.4,
       "line": -14.5,
-      "p_cover": 0.7359020785888326,
+      "p_cover": 0.736477701498387,
       "p_push": 0.0,
       "reason": "Estimate Utah -23.4; line is Utah -14.5. At that number the market gives Utah a 74% chance to cover. Edge 8.9 pts. Take Utah -14.5.",
       "side": "away",
@@ -7445,7 +8107,114 @@
    },
    "home_team": "SMU",
    "kickoff": "2026-10-17T16:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": null
+     }
+    },
+    "margin_high": 10.5,
+    "margin_low": 9.5,
+    "source": "kalshi"
+   },
    "title": "Virginia vs SMU"
+  },
+  "KXNCAAFSPREAD-26OCT17WAKECAL": {
+   "away_team": "Wake Forest",
+   "final": {
+    "at": "2026-10-17T22:54:39.224965+00:00",
+    "band": 0.29,
+    "blended_margin": -10.33,
+    "dollar_volume": 35356,
+    "fraction_traded": 0.774,
+    "implied_margin": -10.34,
+    "kalshi_weight": 0.991,
+    "margin_high": -10.21,
+    "margin_low": -10.5,
+    "master_margin": -10.34,
+    "minutes_before_kickoff": 215,
+    "open_interest": 67840,
+    "pick": {
+     "confidence": "no-play",
+     "edge": -0.3368380000000002,
+     "estimate": -10.336838,
+     "line": -10.0,
+     "p_cover": 0.49518244929817856,
+     "p_push": 0.02950684979055973,
+     "reason": "Market and line agree to within 0.3 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": -10.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": -0.33999999999999986,
+      "estimate": -10.34,
+      "line": -10.0,
+      "p_cover": 0.49527580547027494,
+      "p_push": 0.02950662978533436,
+      "reason": "Market and line agree to within 0.3 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-play",
+      "edge": -0.3368380000000002,
+      "estimate": -10.336838,
+      "line": -10.0,
+      "p_cover": 0.49518244929817856,
+      "p_push": 0.02950684979055973,
+      "reason": "Market and line agree to within 0.3 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": -0.5,
+      "estimate": -10.5,
+      "line": -10.0,
+      "p_cover": 0.5,
+      "p_push": 0.02949281805737869,
+      "reason": "Market and line agree to within 0.5 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "A",
+    "vegas_home_favored_by": -10.0
+   },
+   "home_team": "California",
+   "kickoff": "2026-10-18T02:30:00+00:00",
+   "title": "Wake Forest vs California"
   },
   "KXNCAAFSPREAD-26OCT17WISUCLA": {
    "away_team": "Wisconsin",
@@ -7682,6 +8451,32 @@
    },
    "home_team": "Central Michigan",
    "kickoff": "2026-10-17T17:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": -6.5,
+    "margin_low": -7.5,
+    "source": "kalshi"
+   },
    "title": "Western Michigan vs Central Michigan"
   },
   "KXNCAAFSPREAD-26OCT17WSUORST": {
