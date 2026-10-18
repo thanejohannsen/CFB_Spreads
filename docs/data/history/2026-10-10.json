@@ -11082,6 +11082,32 @@
    },
    "home_team": "Miami (FL)",
    "kickoff": "2026-10-17T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 9.5,
+    "margin_low": 7.5,
+    "source": "kalshi"
+   },
    "title": "Florida St. vs Miami (FL)"
   },
   "KXNCAAFSPREAD-26OCT17KUKSU": {
@@ -11784,6 +11810,32 @@
    },
    "home_team": "BYU",
    "kickoff": "2026-10-17T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 4.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 4.5,
+    "margin_low": 3.5,
+    "source": "kalshi"
+   },
    "title": "Notre Dame vs BYU"
   },
   "KXNCAAFSPREAD-26OCT17OSUIND": {
@@ -12486,6 +12538,32 @@
    },
    "home_team": "Oklahoma",
    "kickoff": "2026-10-17T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -7.5,
+    "margin_low": -9.5,
+    "source": "kalshi"
+   },
    "title": "Kentucky vs Oklahoma"
   },
   "KXNCAAFSPREAD-26OCT17UNCDUKE": {
