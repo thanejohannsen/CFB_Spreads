@@ -9883,6 +9883,32 @@
    },
    "home_team": "Delaware",
    "kickoff": "2026-10-20T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 23.5,
+    "margin_low": 20.5,
+    "source": "kalshi"
+   },
    "title": "Missouri St. vs Delaware"
   },
   "KXNCAAFSPREAD-26OCT20MTUFIU": {
@@ -10039,6 +10065,32 @@
    },
    "home_team": "Florida International",
    "kickoff": "2026-10-20T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -2.5,
+    "margin_low": -3.5,
+    "source": "kalshi"
+   },
    "title": "Middle Tennessee vs Florida International"
   },
   "KXNCAAFSPREAD-26OCT20USAMRSH": {
@@ -10195,6 +10247,32 @@
    },
    "home_team": "Marshall",
    "kickoff": "2026-10-20T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 7.5,
+    "margin_low": 6.5,
+    "source": "kalshi"
+   },
    "title": "South Alabama vs Marshall"
   },
   "KXNCAAFSPREAD-26OCT21NMSUSHSU": {
