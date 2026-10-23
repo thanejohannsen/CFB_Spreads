@@ -10611,6 +10611,32 @@
    },
    "home_team": "Kennesaw St.",
    "kickoff": "2026-10-22T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -27.5,
+    "margin_low": -30.5,
+    "source": "kalshi"
+   },
    "title": "Liberty vs Kennesaw St."
   },
   "KXNCAAFSPREAD-26OCT24INDMICH": {
