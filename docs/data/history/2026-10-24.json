@@ -3878,24 +3878,24 @@
     "vegas_home_favored_by": 6.5
    },
    "final": {
-    "at": "2026-10-24T22:55:28.202905+00:00",
+    "at": "2026-10-24T23:32:35.663940+00:00",
     "band": 0.13,
     "blended_margin": 6.73,
-    "dollar_volume": 399185,
+    "dollar_volume": 440315,
     "fraction_traded": 1.0,
     "implied_margin": 6.73,
     "kalshi_weight": 0.996,
     "margin_high": 6.79,
     "margin_low": 6.66,
-    "master_margin": 6.73,
-    "minutes_before_kickoff": 200,
-    "open_interest": 307552,
+    "master_margin": 6.74,
+    "minutes_before_kickoff": 162,
+    "open_interest": 346108,
     "pick": {
      "confidence": "no-play",
-     "edge": 0.22898800000000108,
-     "estimate": 6.728988000000001,
+     "edge": 0.23894400000000005,
+     "estimate": 6.738944,
      "line": 6.5,
-     "p_cover": 0.5065727777691477,
+     "p_cover": 0.5068444696469986,
      "p_push": 0.0,
      "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
      "side": null,
@@ -3905,10 +3905,10 @@
     "picks": {
      "kalshi_ml": {
       "confidence": "no-play",
-      "edge": 0.2699999999999996,
-      "estimate": 6.77,
+      "edge": 0.28000000000000025,
+      "estimate": 6.78,
       "line": 6.5,
-      "p_cover": 0.5077497951935123,
+      "p_cover": 0.5080203178577875,
       "p_push": 0.0,
       "reason": "Market and line agree to within 0.3 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
@@ -3919,7 +3919,7 @@
       "edge": 0.23000000000000043,
       "estimate": 6.73,
       "line": 6.5,
-      "p_cover": 0.5066018224339057,
+      "p_cover": 0.5065883020398105,
       "p_push": 0.0,
       "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
@@ -3927,10 +3927,10 @@
      },
      "master": {
       "confidence": "no-play",
-      "edge": 0.22898800000000108,
-      "estimate": 6.728988000000001,
+      "edge": 0.23894400000000005,
+      "estimate": 6.738944,
       "line": 6.5,
-      "p_cover": 0.5065727777691477,
+      "p_cover": 0.5068444696469986,
       "p_push": 0.0,
       "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
@@ -3942,7 +3942,7 @@
       "edge": 1.0999999999999996,
       "estimate": 7.6,
       "line": 6.5,
-      "p_cover": 0.531533859303791,
+      "p_cover": 0.5314694420155998,
       "p_push": 0.0,
       "reason": "Estimate Utah -7.6; line is Utah -6.5. At that number the market gives Utah a 53% chance to cover. Edge 1.1 pts. Take Utah -6.5.",
       "side": "home",
@@ -4788,6 +4788,12 @@
    },
    "title": "LSU vs Auburn"
   },
+  "KXNCAAFSPREAD-26OCT24MCNSIW": {
+   "away_team": "McNeese",
+   "home_team": "Incarnate Word",
+   "kickoff": "2026-10-24T21:00:00+00:00",
+   "title": "McNeese vs Incarnate Word"
+  },
   "KXNCAAFSPREAD-26OCT24MISSTEX": {
    "away_team": "Ole Miss",
    "decision": {
@@ -5285,25 +5291,25 @@
     "vegas_home_favored_by": 4.5
    },
    "final": {
-    "at": "2026-10-24T22:55:28.202905+00:00",
+    "at": "2026-10-24T23:32:35.663940+00:00",
     "band": 0.42,
     "blended_margin": 4.32,
-    "dollar_volume": 66199,
+    "dollar_volume": 75564,
     "fraction_traded": 0.759,
     "implied_margin": 4.31,
     "kalshi_weight": 0.981,
     "margin_high": 4.5,
     "margin_low": 4.08,
-    "master_margin": 4.58,
-    "minutes_before_kickoff": 185,
-    "open_interest": 67938,
+    "master_margin": 4.57,
+    "minutes_before_kickoff": 147,
+    "open_interest": 77272,
     "pick": {
      "confidence": "no-play",
-     "edge": -0.42393699999999956,
-     "estimate": 4.576063,
+     "edge": -0.43379600000000007,
+     "estimate": 4.566204,
      "line": 5.0,
-     "p_cover": 0.497675202744429,
-     "p_push": 0.03053431643428517,
+     "p_cover": 0.49797535016201866,
+     "p_push": 0.030551130435618468,
      "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
      "side": null,
      "strategy_version": "v2",
@@ -5312,11 +5318,11 @@
     "picks": {
      "kalshi_ml": {
       "confidence": "no-play",
-      "edge": -0.2400000000000002,
-      "estimate": 4.76,
+      "edge": -0.25,
+      "estimate": 4.75,
       "line": 5.0,
-      "p_cover": 0.49205394538374003,
-      "p_push": 0.030548238479280176,
+      "p_cover": 0.4923550574031593,
+      "p_push": 0.03056548249457891,
       "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
@@ -5326,19 +5332,19 @@
       "edge": -0.6900000000000004,
       "estimate": 4.31,
       "line": 5.0,
-      "p_cover": 0.5058069600332915,
-      "p_push": 0.030500564379403294,
+      "p_cover": 0.5058103476389879,
+      "p_push": 0.030518284790134298,
       "reason": "Market and line agree to within 0.7 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
      },
      "master": {
       "confidence": "no-play",
-      "edge": -0.42393699999999956,
-      "estimate": 4.576063,
+      "edge": -0.43379600000000007,
+      "estimate": 4.566204,
       "line": 5.0,
-      "p_cover": 0.497675202744429,
-      "p_push": 0.03053431643428517,
+      "p_cover": 0.49797535016201866,
+      "p_push": 0.030551130435618468,
       "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "strategy_version": "v2",
@@ -5349,8 +5355,8 @@
       "edge": -1.4,
       "estimate": 3.6,
       "line": 5.0,
-      "p_cover": 0.5274801701369952,
-      "p_push": 0.030332320371742827,
+      "p_cover": 0.5274961703506406,
+      "p_push": 0.030349747570951047,
       "reason": "Estimate New Mexico -3.6; line is New Mexico -5.0. At that number the market gives North Dakota St. a 53% chance to cover. Edge 1.4 pts. Take North Dakota St. +5.0.",
       "side": "away",
       "team": "North Dakota St."
@@ -5707,6 +5713,12 @@
    },
    "title": "Oregon vs Illinois"
   },
+  "KXNCAAFSPREAD-26OCT24PEAYUNA": {
+   "away_team": "Austin Peay",
+   "home_team": "North Alabama",
+   "kickoff": "2026-10-24T23:00:00+00:00",
+   "title": "Austin Peay vs North Alabama"
+  },
   "KXNCAAFSPREAD-26OCT24PITTMIA": {
    "away_team": "Pittsburgh",
    "decision": {
@@ -5888,6 +5900,18 @@
     "source": "kalshi"
    },
    "title": "Pittsburgh vs Miami (FL)"
+  },
+  "KXNCAAFSPREAD-26OCT24PRSTIDST": {
+   "away_team": "Portland St.",
+   "home_team": "Idaho St.",
+   "kickoff": "2026-10-24T22:00:00+00:00",
+   "title": "Portland St. vs Idaho St."
+  },
+  "KXNCAAFSPREAD-26OCT24PVETAM": {
+   "away_team": "Prairie View A&M",
+   "home_team": "East Texas A&M",
+   "kickoff": "2026-10-24T23:00:00+00:00",
+   "title": "Prairie View A&M vs East Texas A&M"
   },
   "KXNCAAFSPREAD-26OCT24RICEFAU": {
    "away_team": "Rice",
@@ -6677,6 +6701,12 @@
    "home_team": "Nevada",
    "kickoff": "2026-10-24T21:00:00+00:00",
    "title": "San Jose St. vs Nevada"
+  },
+  "KXNCAAFSPREAD-26OCT24SUUIDHO": {
+   "away_team": "Southern Utah",
+   "home_team": "Idaho",
+   "kickoff": "2026-10-24T21:00:00+00:00",
+   "title": "Southern Utah vs Idaho"
   },
   "KXNCAAFSPREAD-26OCT24SYRUNC": {
    "away_team": "Syracuse",
@@ -7490,6 +7520,12 @@
    "kickoff": "2026-10-24T20:00:00+00:00",
    "title": "Louisiana-Monroe vs Troy"
   },
+  "KXNCAAFSPREAD-26OCT24UNCOUCD": {
+   "away_team": "Northern Colorado",
+   "home_team": "UC Davis",
+   "kickoff": "2026-10-24T23:00:00+00:00",
+   "title": "Northern Colorado vs UC Davis"
+  },
   "KXNCAAFSPREAD-26OCT24UNTNAVY": {
    "away_team": "North Texas",
    "decision": {
@@ -7958,6 +7994,18 @@
    "kickoff": "2026-10-24T23:30:00+00:00",
    "title": "Utah St. vs Texas St."
   },
+  "KXNCAAFSPREAD-26OCT24UTMWIU": {
+   "away_team": "Tennessee-Martin",
+   "home_team": "Western Illinois",
+   "kickoff": "2026-10-24T19:00:00+00:00",
+   "title": "Tennessee-Martin vs Western Illinois"
+  },
+  "KXNCAAFSPREAD-26OCT24UTRGVCARK": {
+   "away_team": "UT Rio Grande Valley",
+   "home_team": "Central Arkansas",
+   "kickoff": "2026-10-24T21:00:00+00:00",
+   "title": "UT Rio Grande Valley vs Central Arkansas"
+  },
   "KXNCAAFSPREAD-26OCT24UTSATULN": {
    "away_team": "UTSA",
    "decision": {
@@ -8113,6 +8161,12 @@
    "home_team": "Tulane",
    "kickoff": "2026-10-25T00:00:00+00:00",
    "title": "UTSA vs Tulane"
+  },
+  "KXNCAAFSPREAD-26OCT24UTUCP": {
+   "away_team": "Utah Tech",
+   "home_team": "Cal Poly",
+   "kickoff": "2026-10-24T21:00:00+00:00",
+   "title": "Utah Tech vs Cal Poly"
   },
   "KXNCAAFSPREAD-26OCT24VANUK": {
    "away_team": "Vanderbilt",
@@ -8789,6 +8843,318 @@
     "source": "kalshi"
    },
    "title": "West Virginia vs TCU"
+  },
+  "KXNCAAFSPREAD-26OCT27DELWKU": {
+   "away_team": "Delaware",
+   "decision": {
+    "at": "2026-10-24T23:32:35.663940+00:00",
+    "band": 1.0,
+    "blended_margin": -2.05,
+    "dollar_volume": 5051,
+    "fraction_traded": 0.069,
+    "implied_margin": -2.05,
+    "kalshi_weight": 1.0,
+    "margin_high": -1.5,
+    "margin_low": -2.5,
+    "master_margin": -1.75,
+    "minutes_before_kickoff": 4047,
+    "open_interest": 1840,
+    "pick": {
+     "confidence": "no-play",
+     "edge": 0.0,
+     "estimate": -1.75,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "No Vegas line available - enter one to grade this game.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -1.59,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -2.05,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -1.75,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 4.2,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "C",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-10-24T23:32:35.663940+00:00",
+    "band": 1.0,
+    "blended_margin": -2.05,
+    "dollar_volume": 5051,
+    "fraction_traded": 0.069,
+    "implied_margin": -2.05,
+    "kalshi_weight": 1.0,
+    "margin_high": -1.5,
+    "margin_low": -2.5,
+    "master_margin": -1.75,
+    "minutes_before_kickoff": 4047,
+    "open_interest": 1840,
+    "pick": {
+     "confidence": "no-play",
+     "edge": 0.0,
+     "estimate": -1.75,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "No Vegas line available - enter one to grade this game.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -1.59,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -2.05,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -1.75,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 4.2,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "C",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "Western Kentucky",
+   "kickoff": "2026-10-27T19:00:00+00:00",
+   "title": "Delaware vs Western Kentucky"
+  },
+  "KXNCAAFSPREAD-26OCT31ARIZTTU": {
+   "away_team": "Arizona",
+   "decision": {
+    "at": "2026-10-24T23:32:35.663940+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 44,
+    "fraction_traded": 0.065,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 9807,
+    "open_interest": 81,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 0 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 8.7,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-10-24T23:32:35.663940+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 44,
+    "fraction_traded": 0.065,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 9807,
+    "open_interest": 81,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 0 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 8.7,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "Texas Tech",
+   "kickoff": "2026-10-31T19:00:00+00:00",
+   "title": "Arizona vs Texas Tech"
   }
  },
  "season": 2026,
