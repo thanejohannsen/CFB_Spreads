@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-24T04:08:45.439949+00:00",
+ "generated_at": "2026-10-24T09:02:45.533861+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -328,17 +328,17 @@
     "pct": null
    },
    "final": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    },
    "records": {
     "headline": {
-     "wins": 0,
+     "wins": 1,
      "losses": 0,
-     "total": 0,
-     "pct": null
+     "total": 1,
+     "pct": 1.0
     },
     "thursday_all": {
      "wins": 0,
@@ -347,15 +347,15 @@
      "pct": null
     },
     "lens_kalshi_ml": {
-     "wins": 1,
+     "wins": 2,
      "losses": 0,
-     "total": 1,
+     "total": 2,
      "pct": 1.0
     },
     "lens_kalshi_ml_final": {
-     "wins": 1,
+     "wins": 2,
      "losses": 0,
-     "total": 1,
+     "total": 2,
      "pct": 1.0
     },
     "lens_kalshi_spread": {
@@ -365,10 +365,10 @@
      "pct": null
     },
     "lens_sp_plus": {
-     "wins": 3,
-     "losses": 5,
-     "total": 8,
-     "pct": 0.375
+     "wins": 4,
+     "losses": 7,
+     "total": 11,
+     "pct": 0.3636
     }
    }
   }
@@ -382,17 +382,17 @@
    "pct": null
   },
   "final": {
-   "wins": 0,
+   "wins": 1,
    "losses": 0,
-   "total": 0,
-   "pct": null
+   "total": 1,
+   "pct": 1.0
   },
   "records": {
    "headline": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    },
    "thursday_all": {
     "wins": 0,
@@ -401,15 +401,15 @@
     "pct": null
    },
    "lens_kalshi_ml": {
-    "wins": 1,
+    "wins": 2,
     "losses": 0,
-    "total": 1,
+    "total": 2,
     "pct": 1.0
    },
    "lens_kalshi_ml_final": {
-    "wins": 1,
+    "wins": 2,
     "losses": 0,
-    "total": 1,
+    "total": 2,
     "pct": 1.0
    },
    "lens_kalshi_spread": {
@@ -419,10 +419,10 @@
     "pct": null
    },
    "lens_sp_plus": {
-    "wins": 3,
-    "losses": 5,
-    "total": 8,
-    "pct": 0.375
+    "wins": 4,
+    "losses": 7,
+    "total": 11,
+    "pct": 0.3636
    }
   }
  },
@@ -434,10 +434,10 @@
    "pct": 0.8
   },
   "final": {
-   "wins": 15,
+   "wins": 16,
    "losses": 15,
-   "total": 30,
-   "pct": 0.5
+   "total": 31,
+   "pct": 0.5161
   }
  },
  "records": [
@@ -451,22 +451,22 @@
     "v2"
    ],
    "season": {
-    "wins": 14,
+    "wins": 15,
     "losses": 13,
-    "total": 27,
-    "pct": 0.5185
+    "total": 28,
+    "pct": 0.5357
    },
    "superseded": 3,
    "open": {
     "live": 0,
-    "pending": 1,
+    "pending": 0,
     "awaiting": 0
    },
    "last_week": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    }
   },
   {
@@ -507,21 +507,21 @@
     "v2"
    ],
    "season": {
-    "wins": 20,
+    "wins": 21,
     "losses": 12,
-    "total": 32,
-    "pct": 0.625
+    "total": 33,
+    "pct": 0.6364
    },
    "superseded": 12,
    "open": {
     "live": 0,
-    "pending": 1,
+    "pending": 0,
     "awaiting": 0
    },
    "last_week": {
-    "wins": 1,
+    "wins": 2,
     "losses": 0,
-    "total": 1,
+    "total": 2,
     "pct": 1.0
    }
   },
@@ -535,21 +535,21 @@
     "v2"
    ],
    "season": {
-    "wins": 19,
+    "wins": 20,
     "losses": 27,
-    "total": 46,
-    "pct": 0.413
+    "total": 47,
+    "pct": 0.4255
    },
    "superseded": 18,
    "open": {
-    "live": 1,
-    "pending": 1,
+    "live": 0,
+    "pending": 0,
     "awaiting": 0
    },
    "last_week": {
-    "wins": 1,
+    "wins": 2,
     "losses": 0,
-    "total": 1,
+    "total": 2,
     "pct": 1.0
    }
   },
@@ -587,22 +587,22 @@
    "tiers": null,
    "versions": null,
    "season": {
-    "wins": 102,
-    "losses": 99,
-    "total": 201,
-    "pct": 0.5075
+    "wins": 103,
+    "losses": 101,
+    "total": 204,
+    "pct": 0.5049
    },
    "superseded": 0,
    "open": {
     "live": 0,
-    "pending": 35,
+    "pending": 32,
     "awaiting": 0
    },
    "last_week": {
-    "wins": 3,
-    "losses": 5,
-    "total": 8,
-    "pct": 0.375
+    "wins": 4,
+    "losses": 7,
+    "total": 11,
+    "pct": 0.3636
    }
   }
  ],
@@ -643,15 +643,15 @@
    "key": "kalshi_ml",
    "label": "Kalshi ML vs Spread",
    "season": {
-    "wins": 28,
+    "wins": 29,
     "losses": 16,
-    "total": 44,
-    "pct": 0.6364
+    "total": 45,
+    "pct": 0.6444
    },
    "last_week": {
-    "wins": 1,
+    "wins": 2,
     "losses": 0,
-    "total": 1,
+    "total": 2,
     "pct": 1.0
    }
   },
@@ -659,16 +659,16 @@
    "key": "sp_plus",
    "label": "SP+ vs Vegas Spread",
    "season": {
-    "wins": 102,
-    "losses": 99,
-    "total": 201,
-    "pct": 0.5075
+    "wins": 103,
+    "losses": 101,
+    "total": 204,
+    "pct": 0.5049
    },
    "last_week": {
-    "wins": 3,
-    "losses": 5,
-    "total": 8,
-    "pct": 0.375
+    "wins": 4,
+    "losses": 7,
+    "total": 11,
+    "pct": 0.3636
    }
   }
  ],
@@ -730,10 +730,10 @@
  },
  "drift": {
   "median": 0.33,
-  "samples": 254,
-  "same_pick": 229,
-  "same_pick_total": 254
+  "samples": 257,
+  "same_pick": 231,
+  "same_pick_total": 257
  },
- "graded_games": 475,
+ "graded_games": 478,
  "ungraded": null
 }
