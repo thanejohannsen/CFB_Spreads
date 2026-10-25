@@ -2691,6 +2691,32 @@
    },
    "home_team": "Georgia Tech",
    "kickoff": "2026-10-24T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": -20.5,
+    "margin_low": -23.5,
+    "source": "kalshi"
+   },
    "title": "Boston College vs Georgia Tech"
   },
   "KXNCAAFSPREAD-26OCT24BGSUBUFF": {
@@ -3029,6 +3055,32 @@
    },
    "home_team": "Washington St.",
    "kickoff": "2026-10-24T22:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -21.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": -20.5,
+    "margin_low": -21.5,
+    "source": "kalshi"
+   },
    "title": "Boise St. vs Washington St."
   },
   "KXNCAAFSPREAD-26OCT24BYUUCF": {
@@ -3185,6 +3237,32 @@
    },
    "home_team": "UCF",
    "kickoff": "2026-10-24T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 9.5,
+    "margin_low": 7.5,
+    "source": "kalshi"
+   },
    "title": "BYU vs UCF"
   },
   "KXNCAAFSPREAD-26OCT24CALSMU": {
@@ -3523,12 +3601,64 @@
    },
    "home_team": "Oklahoma St.",
    "kickoff": "2026-10-24T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 33.5,
+    "margin_low": 30.5,
+    "source": "kalshi"
+   },
    "title": "Colorado vs Oklahoma St."
   },
   "KXNCAAFSPREAD-26OCT24EMUOHIO": {
    "away_team": "Eastern Michigan",
    "home_team": "Ohio",
    "kickoff": "2026-10-24T20:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 4.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 4.5,
+    "margin_low": 3.5,
+    "source": "kalshi"
+   },
    "title": "Eastern Michigan vs Ohio"
   },
   "KXNCAAFSPREAD-26OCT24GASTARST": {
@@ -3610,6 +3740,32 @@
    },
    "home_team": "Arkansas St.",
    "kickoff": "2026-10-24T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 6.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": true
+     }
+    },
+    "margin_high": 6.5,
+    "margin_low": 5.5,
+    "source": "kalshi"
+   },
    "title": "Georgia St. vs Arkansas St."
   },
   "KXNCAAFSPREAD-26OCT24HAWNIU": {
@@ -3798,6 +3954,32 @@
    "away_team": "Houston Christian",
    "home_team": "Lamar",
    "kickoff": "2026-10-24T20:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 26.5,
+    "margin_low": 22.5,
+    "source": "kalshi"
+   },
    "title": "Houston Christian vs Lamar"
   },
   "KXNCAAFSPREAD-26OCT24HOUUTAH": {
@@ -4292,6 +4474,32 @@
    },
    "home_team": "Minnesota",
    "kickoff": "2026-10-24T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": null
+     }
+    },
+    "margin_high": 3.5,
+    "margin_low": 2.5,
+    "source": "kalshi"
+   },
    "title": "Iowa vs Minnesota"
   },
   "KXNCAAFSPREAD-26OCT24ISUARIZ": {
@@ -4448,6 +4656,32 @@
    },
    "home_team": "Arizona",
    "kickoff": "2026-10-24T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 36.5,
+    "margin_low": 33.5,
+    "source": "kalshi"
+   },
    "title": "Iowa St. vs Arizona"
   },
   "KXNCAAFSPREAD-26OCT24KSUASU": {
@@ -4604,6 +4838,32 @@
    },
    "home_team": "Arizona St.",
    "kickoff": "2026-10-24T19:45:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": true,
+    "home_margin": 11.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": true
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": true
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 11.5,
+    "margin_low": 10.5,
+    "source": "kalshi"
+   },
    "title": "Kansas St. vs Arizona St."
   },
   "KXNCAAFSPREAD-26OCT24LSUAUB": {
@@ -4792,6 +5052,32 @@
    "away_team": "McNeese",
    "home_team": "Incarnate Word",
    "kickoff": "2026-10-24T21:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 33.5,
+    "margin_low": 29.5,
+    "source": "kalshi"
+   },
    "title": "McNeese vs Incarnate Word"
   },
   "KXNCAAFSPREAD-26OCT24MISSTEX": {
@@ -5211,6 +5497,32 @@
    },
    "home_team": "UCLA",
    "kickoff": "2026-10-24T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": true
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 20.5,
+    "margin_low": 17.5,
+    "source": "kalshi"
+   },
    "title": "Michigan St. vs UCLA"
   },
   "KXNCAAFSPREAD-26OCT24NDSUUNM": {
@@ -5373,6 +5685,32 @@
    "away_team": "Old Dominion",
    "home_team": "Louisiana Tech",
    "kickoff": "2026-10-24T21:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 27.5,
+    "margin_low": 24.5,
+    "source": "kalshi"
+   },
    "title": "Old Dominion vs Louisiana Tech"
   },
   "KXNCAAFSPREAD-26OCT24OKLAMSST": {
@@ -5529,6 +5867,32 @@
    },
    "home_team": "Mississippi St.",
    "kickoff": "2026-10-24T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": -7.5,
+    "margin_low": -9.5,
+    "source": "kalshi"
+   },
    "title": "Oklahoma vs Mississippi St."
   },
   "KXNCAAFSPREAD-26OCT24OREILL": {
@@ -5717,6 +6081,32 @@
    "away_team": "Austin Peay",
    "home_team": "North Alabama",
    "kickoff": "2026-10-24T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -5.5,
+    "margin_low": -9.5,
+    "source": "kalshi"
+   },
    "title": "Austin Peay vs North Alabama"
   },
   "KXNCAAFSPREAD-26OCT24PITTMIA": {
@@ -5905,12 +6295,64 @@
    "away_team": "Portland St.",
    "home_team": "Idaho St.",
    "kickoff": "2026-10-24T22:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 32.5,
+    "margin_low": 28.5,
+    "source": "kalshi"
+   },
    "title": "Portland St. vs Idaho St."
   },
   "KXNCAAFSPREAD-26OCT24PVETAM": {
    "away_team": "Prairie View A&M",
    "home_team": "East Texas A&M",
    "kickoff": "2026-10-24T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -8.5,
+    "margin_low": -12.5,
+    "source": "kalshi"
+   },
    "title": "Prairie View A&M vs East Texas A&M"
   },
   "KXNCAAFSPREAD-26OCT24RICEFAU": {
@@ -6613,12 +7055,64 @@
    },
    "home_team": "Colorado St.",
    "kickoff": "2026-10-24T22:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 7.5,
+    "margin_low": 6.5,
+    "source": "kalshi"
+   },
    "title": "San Diego St. vs Colorado St."
   },
   "KXNCAAFSPREAD-26OCT24SELASFA": {
    "away_team": "Southeastern Louisiana",
    "home_team": "Stephen F. Austin",
    "kickoff": "2026-10-24T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 24.5,
+    "margin_low": 20.5,
+    "source": "kalshi"
+   },
    "title": "Southeastern Louisiana vs Stephen F. Austin"
   },
   "KXNCAAFSPREAD-26OCT24SJSUNEV": {
@@ -6700,12 +7194,64 @@
    },
    "home_team": "Nevada",
    "kickoff": "2026-10-24T21:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": true
+     }
+    },
+    "margin_high": 16.5,
+    "margin_low": 14.5,
+    "source": "kalshi"
+   },
    "title": "San Jose St. vs Nevada"
   },
   "KXNCAAFSPREAD-26OCT24SUUIDHO": {
    "away_team": "Southern Utah",
    "home_team": "Idaho",
    "kickoff": "2026-10-24T21:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 3.5,
+    "margin_low": -1.5,
+    "source": "kalshi"
+   },
    "title": "Southern Utah vs Idaho"
   },
   "KXNCAAFSPREAD-26OCT24SYRUNC": {
@@ -6862,6 +7408,32 @@
    },
    "home_team": "North Carolina",
    "kickoff": "2026-10-24T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 1.5,
+    "margin_low": -1.5,
+    "source": "kalshi"
+   },
    "title": "Syracuse vs North Carolina"
   },
   "KXNCAAFSPREAD-26OCT24TENNSCAR": {
@@ -7018,6 +7590,32 @@
    },
    "home_team": "South Carolina",
    "kickoff": "2026-10-24T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 3.5,
+    "margin_low": 2.5,
+    "source": "kalshi"
+   },
    "title": "Tennessee vs South Carolina"
   },
   "KXNCAAFSPREAD-26OCT24TTUCIN": {
@@ -7356,12 +7954,64 @@
    },
    "home_team": "Alabama",
    "kickoff": "2026-10-24T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 11.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 11.5,
+    "margin_low": 10.5,
+    "source": "kalshi"
+   },
    "title": "Texas A&M vs Alabama"
   },
   "KXNCAAFSPREAD-26OCT24ULLUSM": {
    "away_team": "Louisiana",
    "home_team": "Southern Miss",
    "kickoff": "2026-10-24T21:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 4.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 4.5,
+    "margin_low": 3.5,
+    "source": "kalshi"
+   },
    "title": "Louisiana vs Southern Miss"
   },
   "KXNCAAFSPREAD-26OCT24ULMTROY": {
@@ -7518,12 +8168,64 @@
    },
    "home_team": "Troy",
    "kickoff": "2026-10-24T20:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": -4.5,
+    "margin_low": null,
+    "source": "kalshi"
+   },
    "title": "Louisiana-Monroe vs Troy"
   },
   "KXNCAAFSPREAD-26OCT24UNCOUCD": {
    "away_team": "Northern Colorado",
    "home_team": "UC Davis",
    "kickoff": "2026-10-24T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 30.5,
+    "margin_low": 26.5,
+    "source": "kalshi"
+   },
    "title": "Northern Colorado vs UC Davis"
   },
   "KXNCAAFSPREAD-26OCT24UNTNAVY": {
@@ -7680,6 +8382,32 @@
    },
    "home_team": "Navy",
    "kickoff": "2026-10-24T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": -9.5,
+    "margin_low": -10.5,
+    "source": "kalshi"
+   },
    "title": "North Texas vs Navy"
   },
   "KXNCAAFSPREAD-26OCT24USCWIS": {
@@ -7836,6 +8564,32 @@
    },
    "home_team": "Wisconsin",
    "kickoff": "2026-10-24T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 17.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 17.5,
+    "margin_low": 16.5,
+    "source": "kalshi"
+   },
    "title": "USC vs Wisconsin"
   },
   "KXNCAAFSPREAD-26OCT24USUTXST": {
@@ -7992,18 +8746,96 @@
    },
    "home_team": "Texas St.",
    "kickoff": "2026-10-24T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 3.5,
+    "margin_low": 2.5,
+    "source": "kalshi"
+   },
    "title": "Utah St. vs Texas St."
   },
   "KXNCAAFSPREAD-26OCT24UTMWIU": {
    "away_team": "Tennessee-Martin",
    "home_team": "Western Illinois",
    "kickoff": "2026-10-24T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": 26.5,
+    "source": "kalshi"
+   },
    "title": "Tennessee-Martin vs Western Illinois"
   },
   "KXNCAAFSPREAD-26OCT24UTRGVCARK": {
    "away_team": "UT Rio Grande Valley",
    "home_team": "Central Arkansas",
    "kickoff": "2026-10-24T21:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 1.5,
+    "margin_low": -3.5,
+    "source": "kalshi"
+   },
    "title": "UT Rio Grande Valley vs Central Arkansas"
   },
   "KXNCAAFSPREAD-26OCT24UTSATULN": {
@@ -8166,6 +8998,32 @@
    "away_team": "Utah Tech",
    "home_team": "Cal Poly",
    "kickoff": "2026-10-24T21:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -12.5,
+    "margin_low": null,
+    "source": "kalshi"
+   },
    "title": "Utah Tech vs Cal Poly"
   },
   "KXNCAAFSPREAD-26OCT24VANUK": {
@@ -8322,6 +9180,32 @@
    },
    "home_team": "Kentucky",
    "kickoff": "2026-10-24T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 17.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 17.5,
+    "margin_low": 16.5,
+    "source": "kalshi"
+   },
    "title": "Vanderbilt vs Kentucky"
   },
   "KXNCAAFSPREAD-26OCT24VTCLEM": {
@@ -8478,6 +9362,32 @@
    },
    "home_team": "Clemson",
    "kickoff": "2026-10-24T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -4.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": -3.5,
+    "margin_low": -4.5,
+    "source": "kalshi"
+   },
    "title": "Virginia Tech vs Clemson"
   },
   "KXNCAAFSPREAD-26OCT24WMUTOL": {
@@ -8847,22 +9757,22 @@
   "KXNCAAFSPREAD-26OCT27DELWKU": {
    "away_team": "Delaware",
    "decision": {
-    "at": "2026-10-24T23:32:35.663940+00:00",
-    "band": 1.0,
-    "blended_margin": -2.05,
-    "dollar_volume": 5051,
+    "at": "2026-10-25T03:29:10.132780+00:00",
+    "band": 1.26,
+    "blended_margin": -1.95,
+    "dollar_volume": 5244,
     "fraction_traded": 0.069,
-    "implied_margin": -2.05,
+    "implied_margin": -1.95,
     "kalshi_weight": 1.0,
-    "margin_high": -1.5,
-    "margin_low": -2.5,
-    "master_margin": -1.75,
-    "minutes_before_kickoff": 4047,
-    "open_interest": 1840,
+    "margin_high": -0.99,
+    "margin_low": -2.24,
+    "master_margin": -1.41,
+    "minutes_before_kickoff": 3811,
+    "open_interest": 1749,
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
-     "estimate": -1.75,
+     "estimate": -1.41,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -8875,7 +9785,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -1.59,
+      "estimate": -1.32,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -8886,7 +9796,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -2.05,
+      "estimate": -1.95,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -8897,7 +9807,7 @@
      "master": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -1.75,
+      "estimate": -1.41,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -8922,22 +9832,22 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-10-24T23:32:35.663940+00:00",
-    "band": 1.0,
-    "blended_margin": -2.05,
-    "dollar_volume": 5051,
+    "at": "2026-10-25T03:29:10.132780+00:00",
+    "band": 1.26,
+    "blended_margin": -1.95,
+    "dollar_volume": 5244,
     "fraction_traded": 0.069,
-    "implied_margin": -2.05,
+    "implied_margin": -1.95,
     "kalshi_weight": 1.0,
-    "margin_high": -1.5,
-    "margin_low": -2.5,
-    "master_margin": -1.75,
-    "minutes_before_kickoff": 4047,
-    "open_interest": 1840,
+    "margin_high": -0.99,
+    "margin_low": -2.24,
+    "master_margin": -1.41,
+    "minutes_before_kickoff": 3811,
+    "open_interest": 1749,
     "pick": {
      "confidence": "no-play",
      "edge": 0.0,
-     "estimate": -1.75,
+     "estimate": -1.41,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -8950,7 +9860,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -1.59,
+      "estimate": -1.32,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -8961,7 +9871,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -2.05,
+      "estimate": -1.95,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -8972,7 +9882,7 @@
      "master": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": -1.75,
+      "estimate": -1.41,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -9000,10 +9910,478 @@
    "kickoff": "2026-10-27T19:00:00+00:00",
    "title": "Delaware vs Western Kentucky"
   },
+  "KXNCAAFSPREAD-26OCT27SHSUMOSU": {
+   "away_team": "Sam Houston",
+   "decision": {
+    "at": "2026-10-25T03:29:10.132780+00:00",
+    "band": 1.36,
+    "blended_margin": 5.94,
+    "dollar_volume": 1019,
+    "fraction_traded": 0.129,
+    "implied_margin": 5.94,
+    "kalshi_weight": 1.0,
+    "margin_high": 6.5,
+    "margin_low": 5.14,
+    "master_margin": 5.9,
+    "minutes_before_kickoff": 3811,
+    "open_interest": 100,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": 5.9,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 100 open interest.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 5.88,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 5.94,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": 5.9,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 100 open interest.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 2.8,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-10-25T03:29:10.132780+00:00",
+    "band": 1.36,
+    "blended_margin": 5.94,
+    "dollar_volume": 1019,
+    "fraction_traded": 0.129,
+    "implied_margin": 5.94,
+    "kalshi_weight": 1.0,
+    "margin_high": 6.5,
+    "margin_low": 5.14,
+    "master_margin": 5.9,
+    "minutes_before_kickoff": 3811,
+    "open_interest": 100,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": 5.9,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 100 open interest.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 5.88,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 5.94,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": 5.9,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 100 open interest.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 2.8,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "Missouri St.",
+   "kickoff": "2026-10-27T19:00:00+00:00",
+   "title": "Sam Houston vs Missouri St."
+  },
+  "KXNCAAFSPREAD-26OCT28JVSTNMSU": {
+   "away_team": "Jacksonville St.",
+   "decision": {
+    "at": "2026-10-25T03:29:10.132780+00:00",
+    "band": 0.43,
+    "blended_margin": -2.9,
+    "dollar_volume": 813,
+    "fraction_traded": 0.103,
+    "implied_margin": -2.9,
+    "kalshi_weight": 1.0,
+    "margin_high": -2.71,
+    "margin_low": -3.14,
+    "master_margin": -2.84,
+    "minutes_before_kickoff": 5251,
+    "open_interest": 309,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": -2.84,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 309 open interest.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -2.41,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -2.9,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": -2.84,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 309 open interest.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -11.5,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-10-25T03:29:10.132780+00:00",
+    "band": 0.43,
+    "blended_margin": -2.9,
+    "dollar_volume": 813,
+    "fraction_traded": 0.103,
+    "implied_margin": -2.9,
+    "kalshi_weight": 1.0,
+    "margin_high": -2.71,
+    "margin_low": -3.14,
+    "master_margin": -2.84,
+    "minutes_before_kickoff": 5251,
+    "open_interest": 309,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": -2.84,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 309 open interest.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -2.41,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -2.9,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": -2.84,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 309 open interest.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -11.5,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "New Mexico St.",
+   "kickoff": "2026-10-28T19:00:00+00:00",
+   "title": "Jacksonville St. vs New Mexico St."
+  },
+  "KXNCAAFSPREAD-26OCT28KENNMTU": {
+   "away_team": "Kennesaw St.",
+   "decision": {
+    "at": "2026-10-25T03:29:10.132780+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 751,
+    "fraction_traded": 0.069,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 5251,
+    "open_interest": 376,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 7 usable strikes of 29.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 7 usable strikes of 29.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 7 usable strikes of 29.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -4.0,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-10-25T03:29:10.132780+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 751,
+    "fraction_traded": 0.069,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 5251,
+    "open_interest": 376,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 7 usable strikes of 29.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 7 usable strikes of 29.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 7 usable strikes of 29.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -4.0,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "Middle Tennessee",
+   "kickoff": "2026-10-28T19:00:00+00:00",
+   "title": "Kennesaw St. vs Middle Tennessee"
+  },
   "KXNCAAFSPREAD-26OCT31ARIZTTU": {
    "away_team": "Arizona",
    "decision": {
-    "at": "2026-10-24T23:32:35.663940+00:00",
+    "at": "2026-10-25T03:29:10.132780+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 44,
@@ -9013,7 +10391,7 @@
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9807,
+    "minutes_before_kickoff": 9571,
     "open_interest": 81,
     "pick": {
      "confidence": "no-signal",
@@ -9078,7 +10456,7 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-10-24T23:32:35.663940+00:00",
+    "at": "2026-10-25T03:29:10.132780+00:00",
     "band": null,
     "blended_margin": null,
     "dollar_volume": 44,
@@ -9088,7 +10466,7 @@
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 9807,
+    "minutes_before_kickoff": 9571,
     "open_interest": 81,
     "pick": {
      "confidence": "no-signal",
@@ -9155,6 +10533,474 @@
    "home_team": "Texas Tech",
    "kickoff": "2026-10-31T19:00:00+00:00",
    "title": "Arizona vs Texas Tech"
+  },
+  "KXNCAAFSPREAD-26OCT31FLAUGA": {
+   "away_team": "Florida",
+   "decision": {
+    "at": "2026-10-25T03:29:10.132780+00:00",
+    "band": 4.27,
+    "blended_margin": 10.34,
+    "dollar_volume": 29368,
+    "fraction_traded": 0.065,
+    "implied_margin": 10.34,
+    "kalshi_weight": 1.0,
+    "margin_high": 14.18,
+    "margin_low": 9.92,
+    "master_margin": 10.76,
+    "minutes_before_kickoff": 9571,
+    "open_interest": 392,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": 10.76,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: 4.3pt uncertainty band; only 392 open interest.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 10.77,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 10.34,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": 10.76,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: 4.3pt uncertainty band; only 392 open interest.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 19.8,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-10-25T03:29:10.132780+00:00",
+    "band": 4.27,
+    "blended_margin": 10.34,
+    "dollar_volume": 29368,
+    "fraction_traded": 0.065,
+    "implied_margin": 10.34,
+    "kalshi_weight": 1.0,
+    "margin_high": 14.18,
+    "margin_low": 9.92,
+    "master_margin": 10.76,
+    "minutes_before_kickoff": 9571,
+    "open_interest": 392,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": 10.76,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: 4.3pt uncertainty band; only 392 open interest.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 10.77,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 10.34,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": 10.76,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: 4.3pt uncertainty band; only 392 open interest.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 19.8,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "Georgia",
+   "kickoff": "2026-10-31T19:00:00+00:00",
+   "title": "Florida vs Georgia"
+  },
+  "KXNCAAFSPREAD-26OCT31MIZZARK": {
+   "away_team": "Missouri",
+   "decision": {
+    "at": "2026-10-25T03:29:10.132780+00:00",
+    "band": 4.99,
+    "blended_margin": -10.23,
+    "dollar_volume": 19,
+    "fraction_traded": 0.032,
+    "implied_margin": -10.23,
+    "kalshi_weight": 1.0,
+    "margin_high": -9.23,
+    "margin_low": -14.22,
+    "master_margin": -10.23,
+    "minutes_before_kickoff": 9571,
+    "open_interest": 49,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": -10.23,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: 5.0pt uncertainty band; only 49 open interest.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -10.23,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": -10.23,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: 5.0pt uncertainty band; only 49 open interest.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -12.8,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-10-25T03:29:10.132780+00:00",
+    "band": 4.99,
+    "blended_margin": -10.23,
+    "dollar_volume": 19,
+    "fraction_traded": 0.032,
+    "implied_margin": -10.23,
+    "kalshi_weight": 1.0,
+    "margin_high": -9.23,
+    "margin_low": -14.22,
+    "master_margin": -10.23,
+    "minutes_before_kickoff": 9571,
+    "open_interest": 49,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": -10.23,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: 5.0pt uncertainty band; only 49 open interest.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -10.23,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": -10.23,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: 5.0pt uncertainty band; only 49 open interest.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": -12.8,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "Arkansas",
+   "kickoff": "2026-10-31T19:00:00+00:00",
+   "title": "Missouri vs Arkansas"
+  },
+  "KXNCAAFSPREAD-26OCT31WASHNEB": {
+   "away_team": "Washington",
+   "decision": {
+    "at": "2026-10-25T03:29:10.132780+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 27,
+    "fraction_traded": 0.032,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 9571,
+    "open_interest": 35,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 3 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 3 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 3 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 9.9,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-10-25T03:29:10.132780+00:00",
+    "band": null,
+    "blended_margin": null,
+    "dollar_volume": 27,
+    "fraction_traded": 0.032,
+    "implied_margin": null,
+    "kalshi_weight": 1.0,
+    "margin_high": null,
+    "margin_low": null,
+    "master_margin": null,
+    "minutes_before_kickoff": 9571,
+    "open_interest": 35,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": null,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: only 3 usable strikes of 31.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: no comparable moneyline.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 3 usable strikes of 31.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": null,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: only 3 usable strikes of 31.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 9.9,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "Nebraska",
+   "kickoff": "2026-10-31T19:00:00+00:00",
+   "title": "Washington vs Nebraska"
   }
  },
  "season": 2026,
