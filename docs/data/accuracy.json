@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-25T03:29:14.734981+00:00",
+ "generated_at": "2026-10-25T04:10:56.448584+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -365,10 +365,10 @@
      "pct": null
     },
     "lens_sp_plus": {
-     "wins": 16,
+     "wins": 18,
      "losses": 22,
-     "total": 38,
-     "pct": 0.4211
+     "total": 40,
+     "pct": 0.45
     }
    }
   }
@@ -419,10 +419,10 @@
     "pct": null
    },
    "lens_sp_plus": {
-    "wins": 16,
+    "wins": 18,
     "losses": 22,
-    "total": 38,
-    "pct": 0.4211
+    "total": 40,
+    "pct": 0.45
    }
   }
  },
@@ -514,7 +514,7 @@
    },
    "superseded": 12,
    "open": {
-    "live": 0,
+    "live": 1,
     "pending": 0,
     "awaiting": 0
    },
@@ -542,7 +542,7 @@
    },
    "superseded": 18,
    "open": {
-    "live": 0,
+    "live": 1,
     "pending": 0,
     "awaiting": 0
    },
@@ -587,22 +587,22 @@
    "tiers": null,
    "versions": null,
    "season": {
-    "wins": 115,
+    "wins": 117,
     "losses": 116,
-    "total": 231,
-    "pct": 0.4978
+    "total": 233,
+    "pct": 0.5021
    },
    "superseded": 0,
    "open": {
-    "live": 0,
-    "pending": 4,
-    "awaiting": 0
+    "live": 12,
+    "pending": 0,
+    "awaiting": 2
    },
    "last_week": {
-    "wins": 16,
+    "wins": 18,
     "losses": 22,
-    "total": 38,
-    "pct": 0.4211
+    "total": 40,
+    "pct": 0.45
    }
   }
  ],
@@ -659,16 +659,16 @@
    "key": "sp_plus",
    "label": "SP+ vs Vegas Spread",
    "season": {
-    "wins": 115,
+    "wins": 117,
     "losses": 116,
-    "total": 231,
-    "pct": 0.4978
+    "total": 233,
+    "pct": 0.5021
    },
    "last_week": {
-    "wins": 16,
+    "wins": 18,
     "losses": 22,
-    "total": 38,
-    "pct": 0.4211
+    "total": 40,
+    "pct": 0.45
    }
   }
  ],
@@ -730,10 +730,10 @@
  },
  "drift": {
   "median": 0.33,
-  "samples": 290,
-  "same_pick": 263,
-  "same_pick_total": 290
+  "samples": 292,
+  "same_pick": 265,
+  "same_pick_total": 292
  },
- "graded_games": 529,
+ "graded_games": 531,
  "ungraded": null
 }
