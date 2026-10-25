@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-25T04:10:56.448584+00:00",
+ "generated_at": "2026-10-25T09:18:59.865576+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -365,10 +365,10 @@
      "pct": null
     },
     "lens_sp_plus": {
-     "wins": 18,
+     "wins": 20,
      "losses": 22,
-     "total": 40,
-     "pct": 0.45
+     "total": 42,
+     "pct": 0.4762
     }
    }
   }
@@ -419,10 +419,10 @@
     "pct": null
    },
    "lens_sp_plus": {
-    "wins": 18,
+    "wins": 20,
     "losses": 22,
-    "total": 40,
-    "pct": 0.45
+    "total": 42,
+    "pct": 0.4762
    }
   }
  },
@@ -514,7 +514,7 @@
    },
    "superseded": 12,
    "open": {
-    "live": 1,
+    "live": 2,
     "pending": 0,
     "awaiting": 0
    },
@@ -542,7 +542,7 @@
    },
    "superseded": 18,
    "open": {
-    "live": 1,
+    "live": 2,
     "pending": 0,
     "awaiting": 0
    },
@@ -587,22 +587,22 @@
    "tiers": null,
    "versions": null,
    "season": {
-    "wins": 117,
+    "wins": 119,
     "losses": 116,
-    "total": 233,
-    "pct": 0.5021
+    "total": 235,
+    "pct": 0.5064
    },
    "superseded": 0,
    "open": {
-    "live": 12,
+    "live": 17,
     "pending": 0,
-    "awaiting": 2
+    "awaiting": 0
    },
    "last_week": {
-    "wins": 18,
+    "wins": 20,
     "losses": 22,
-    "total": 40,
-    "pct": 0.45
+    "total": 42,
+    "pct": 0.4762
    }
   }
  ],
@@ -659,16 +659,16 @@
    "key": "sp_plus",
    "label": "SP+ vs Vegas Spread",
    "season": {
-    "wins": 117,
+    "wins": 119,
     "losses": 116,
-    "total": 233,
-    "pct": 0.5021
+    "total": 235,
+    "pct": 0.5064
    },
    "last_week": {
-    "wins": 18,
+    "wins": 20,
     "losses": 22,
-    "total": 40,
-    "pct": 0.45
+    "total": 42,
+    "pct": 0.4762
    }
   }
  ],
@@ -730,10 +730,10 @@
  },
  "drift": {
   "median": 0.33,
-  "samples": 292,
-  "same_pick": 265,
-  "same_pick_total": 292
+  "samples": 294,
+  "same_pick": 267,
+  "same_pick_total": 294
  },
- "graded_games": 531,
+ "graded_games": 533,
  "ungraded": null
 }
