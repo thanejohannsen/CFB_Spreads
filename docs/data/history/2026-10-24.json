@@ -4139,7 +4139,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": 8.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -4158,9 +4158,9 @@
       "final_correct": true
      }
     },
-    "margin_high": 9.5,
-    "margin_low": 7.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Houston vs Utah"
   },
@@ -5282,9 +5282,9 @@
       "final_correct": true
      }
     },
-    "margin_high": 7.5,
-    "margin_low": 6.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Ole Miss vs Texas"
   },
@@ -5753,9 +5753,9 @@
       "final_correct": null
      }
     },
-    "margin_high": 5.5,
-    "margin_low": 4.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "North Dakota St. vs New Mexico"
   },
@@ -9073,7 +9073,7 @@
    "result": {
     "decision_correct": null,
     "final_correct": null,
-    "home_margin": null,
+    "home_margin": -23.0,
     "lenses": {
      "kalshi_ml": {
       "decision_correct": null,
@@ -9092,9 +9092,9 @@
       "final_correct": true
      }
     },
-    "margin_high": -20.5,
-    "margin_low": -23.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "UTSA vs Tulane"
   },
@@ -10012,6 +10012,32 @@
    },
    "home_team": "Western Kentucky",
    "kickoff": "2026-10-27T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": false,
+      "final_correct": false
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": -13.5,
+    "margin_low": -14.5,
+    "source": "kalshi"
+   },
    "title": "Delaware vs Western Kentucky"
   },
   "KXNCAAFSPREAD-26OCT27SHSUMOSU": {
@@ -10168,6 +10194,32 @@
    },
    "home_team": "Missouri St.",
    "kickoff": "2026-10-28T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 21.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 21.5,
+    "margin_low": 20.5,
+    "source": "kalshi"
+   },
    "title": "Sam Houston vs Missouri St."
   },
   "KXNCAAFSPREAD-26OCT28JVSTNMSU": {
