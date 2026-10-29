@@ -10376,6 +10376,32 @@
    },
    "home_team": "New Mexico St.",
    "kickoff": "2026-10-29T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": -23.5,
+    "margin_low": -26.5,
+    "source": "kalshi"
+   },
    "title": "Jacksonville St. vs New Mexico St."
   },
   "KXNCAAFSPREAD-26OCT28KENNMTU": {
@@ -10532,6 +10558,32 @@
    },
    "home_team": "Middle Tennessee",
    "kickoff": "2026-10-28T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": -14.5,
+    "margin_low": -16.5,
+    "source": "kalshi"
+   },
    "title": "Kennesaw St. vs Middle Tennessee"
   },
   "KXNCAAFSPREAD-26OCT29FAUUNT": {
