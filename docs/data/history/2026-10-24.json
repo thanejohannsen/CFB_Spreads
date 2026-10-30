@@ -10740,6 +10740,32 @@
    },
    "home_team": "North Texas",
    "kickoff": "2026-10-29T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 7.5,
+    "margin_low": 6.5,
+    "source": "kalshi"
+   },
    "title": "Florida Atlantic vs North Texas"
   },
   "KXNCAAFSPREAD-26OCT29TROYJMU": {
@@ -10896,6 +10922,32 @@
    },
    "home_team": "James Madison",
    "kickoff": "2026-10-29T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": -2.5,
+    "margin_low": -3.5,
+    "source": "kalshi"
+   },
    "title": "Troy vs James Madison"
   },
   "KXNCAAFSPREAD-26OCT30BAYUCF": {
