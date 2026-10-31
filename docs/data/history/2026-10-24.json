@@ -11104,6 +11104,32 @@
    },
    "home_team": "UCF",
    "kickoff": "2026-10-30T23:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": -29.5,
+    "margin_low": -32.5,
+    "source": "kalshi"
+   },
    "title": "Baylor vs UCF"
   },
   "KXNCAAFSPREAD-26OCT30KENTSAC": {
@@ -11260,6 +11286,32 @@
    },
    "home_team": "Sacramento St.",
    "kickoff": "2026-10-31T02:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": 17.5,
+    "source": "kalshi"
+   },
    "title": "Kent St. vs Sacramento St."
   },
   "KXNCAAFSPREAD-26OCT31ARIZTTU": {
