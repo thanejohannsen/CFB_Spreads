@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-01T02:27:28.645467+00:00",
+ "generated_at": "2026-11-01T04:46:00.875423+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -381,16 +381,16 @@
     "pct": 0.6667
    },
    "final": {
-    "wins": 1,
+    "wins": 2,
     "losses": 0,
-    "total": 1,
+    "total": 2,
     "pct": 1.0
    },
    "records": {
     "headline": {
-     "wins": 1,
+     "wins": 2,
      "losses": 0,
-     "total": 1,
+     "total": 2,
      "pct": 1.0
     },
     "thursday_all": {
@@ -406,10 +406,10 @@
      "pct": 0.5
     },
     "lens_kalshi_ml_final": {
-     "wins": 1,
+     "wins": 2,
      "losses": 1,
-     "total": 2,
-     "pct": 0.5
+     "total": 3,
+     "pct": 0.6667
     },
     "lens_kalshi_spread": {
      "wins": 3,
@@ -418,10 +418,10 @@
      "pct": 0.75
     },
     "lens_sp_plus": {
-     "wins": 19,
-     "losses": 11,
-     "total": 30,
-     "pct": 0.6333
+     "wins": 21,
+     "losses": 15,
+     "total": 36,
+     "pct": 0.5833
     }
    }
   }
@@ -435,16 +435,16 @@
    "pct": 0.6667
   },
   "final": {
-   "wins": 1,
+   "wins": 2,
    "losses": 0,
-   "total": 1,
+   "total": 2,
    "pct": 1.0
   },
   "records": {
    "headline": {
-    "wins": 1,
+    "wins": 2,
     "losses": 0,
-    "total": 1,
+    "total": 2,
     "pct": 1.0
    },
    "thursday_all": {
@@ -460,10 +460,10 @@
     "pct": 0.5
    },
    "lens_kalshi_ml_final": {
-    "wins": 1,
+    "wins": 2,
     "losses": 1,
-    "total": 2,
-    "pct": 0.5
+    "total": 3,
+    "pct": 0.6667
    },
    "lens_kalshi_spread": {
     "wins": 3,
@@ -472,10 +472,10 @@
     "pct": 0.75
    },
    "lens_sp_plus": {
-    "wins": 19,
-    "losses": 11,
-    "total": 30,
-    "pct": 0.6333
+    "wins": 21,
+    "losses": 15,
+    "total": 36,
+    "pct": 0.5833
    }
   }
  },
@@ -487,10 +487,10 @@
    "pct": 0.75
   },
   "final": {
-   "wins": 18,
+   "wins": 19,
    "losses": 15,
-   "total": 33,
-   "pct": 0.5455
+   "total": 34,
+   "pct": 0.5588
   }
  },
  "records": [
@@ -504,21 +504,21 @@
     "v2"
    ],
    "season": {
-    "wins": 17,
+    "wins": 18,
     "losses": 13,
-    "total": 30,
-    "pct": 0.5667
+    "total": 31,
+    "pct": 0.5806
    },
    "superseded": 3,
    "open": {
     "live": 0,
-    "pending": 1,
+    "pending": 0,
     "awaiting": 0
    },
    "last_week": {
-    "wins": 1,
+    "wins": 2,
     "losses": 0,
-    "total": 1,
+    "total": 2,
     "pct": 1.0
    }
   },
@@ -588,22 +588,22 @@
     "v2"
    ],
    "season": {
-    "wins": 21,
+    "wins": 22,
     "losses": 28,
-    "total": 49,
-    "pct": 0.4286
+    "total": 50,
+    "pct": 0.44
    },
    "superseded": 18,
    "open": {
     "live": 0,
-    "pending": 2,
+    "pending": 1,
     "awaiting": 0
    },
    "last_week": {
-    "wins": 1,
+    "wins": 2,
     "losses": 1,
-    "total": 2,
-    "pct": 0.5
+    "total": 3,
+    "pct": 0.6667
    }
   },
   {
@@ -640,22 +640,22 @@
    "tiers": null,
    "versions": null,
    "season": {
-    "wins": 138,
-    "losses": 127,
-    "total": 265,
-    "pct": 0.5208
+    "wins": 140,
+    "losses": 131,
+    "total": 271,
+    "pct": 0.5166
    },
    "superseded": 0,
    "open": {
     "live": 0,
-    "pending": 8,
+    "pending": 2,
     "awaiting": 0
    },
    "last_week": {
-    "wins": 19,
-    "losses": 11,
-    "total": 30,
-    "pct": 0.6333
+    "wins": 21,
+    "losses": 15,
+    "total": 36,
+    "pct": 0.5833
    }
   }
  ],
@@ -712,16 +712,16 @@
    "key": "sp_plus",
    "label": "SP+ vs Vegas Spread",
    "season": {
-    "wins": 138,
-    "losses": 127,
-    "total": 265,
-    "pct": 0.5208
+    "wins": 140,
+    "losses": 131,
+    "total": 271,
+    "pct": 0.5166
    },
    "last_week": {
-    "wins": 19,
-    "losses": 11,
-    "total": 30,
-    "pct": 0.6333
+    "wins": 21,
+    "losses": 15,
+    "total": 36,
+    "pct": 0.5833
    }
   }
  ],
@@ -783,10 +783,10 @@
  },
  "drift": {
   "median": 0.32,
-  "samples": 329,
-  "same_pick": 300,
-  "same_pick_total": 329
+  "samples": 336,
+  "same_pick": 307,
+  "same_pick_total": 336
  },
- "graded_games": 587,
+ "graded_games": 599,
  "ungraded": null
 }
