@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-01T05:31:32.855060+00:00",
+ "generated_at": "2026-11-01T12:46:12.241490+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -407,9 +407,9 @@
     },
     "lens_kalshi_ml_final": {
      "wins": 2,
-     "losses": 1,
-     "total": 3,
-     "pct": 0.6667
+     "losses": 2,
+     "total": 4,
+     "pct": 0.5
     },
     "lens_kalshi_spread": {
      "wins": 3,
@@ -418,10 +418,10 @@
      "pct": 0.75
     },
     "lens_sp_plus": {
-     "wins": 21,
-     "losses": 15,
-     "total": 36,
-     "pct": 0.5833
+     "wins": 22,
+     "losses": 16,
+     "total": 38,
+     "pct": 0.5789
     }
    }
   }
@@ -461,9 +461,9 @@
    },
    "lens_kalshi_ml_final": {
     "wins": 2,
-    "losses": 1,
-    "total": 3,
-    "pct": 0.6667
+    "losses": 2,
+    "total": 4,
+    "pct": 0.5
    },
    "lens_kalshi_spread": {
     "wins": 3,
@@ -472,10 +472,10 @@
     "pct": 0.75
    },
    "lens_sp_plus": {
-    "wins": 21,
-    "losses": 15,
-    "total": 36,
-    "pct": 0.5833
+    "wins": 22,
+    "losses": 16,
+    "total": 38,
+    "pct": 0.5789
    }
   }
  },
@@ -567,7 +567,7 @@
    },
    "superseded": 12,
    "open": {
-    "live": 0,
+    "live": 2,
     "pending": 0,
     "awaiting": 0
    },
@@ -589,21 +589,21 @@
    ],
    "season": {
     "wins": 22,
-    "losses": 28,
-    "total": 50,
-    "pct": 0.44
+    "losses": 29,
+    "total": 51,
+    "pct": 0.4314
    },
    "superseded": 18,
    "open": {
-    "live": 0,
-    "pending": 1,
+    "live": 2,
+    "pending": 0,
     "awaiting": 0
    },
    "last_week": {
     "wins": 2,
-    "losses": 1,
-    "total": 3,
-    "pct": 0.6667
+    "losses": 2,
+    "total": 4,
+    "pct": 0.5
    }
   },
   {
@@ -621,7 +621,7 @@
    },
    "superseded": 0,
    "open": {
-    "live": 0,
+    "live": 5,
     "pending": 0,
     "awaiting": 0
    },
@@ -640,22 +640,22 @@
    "tiers": null,
    "versions": null,
    "season": {
-    "wins": 140,
-    "losses": 131,
-    "total": 271,
-    "pct": 0.5166
+    "wins": 141,
+    "losses": 132,
+    "total": 273,
+    "pct": 0.5165
    },
    "superseded": 0,
    "open": {
-    "live": 0,
-    "pending": 2,
+    "live": 14,
+    "pending": 0,
     "awaiting": 0
    },
    "last_week": {
-    "wins": 21,
-    "losses": 15,
-    "total": 36,
-    "pct": 0.5833
+    "wins": 22,
+    "losses": 16,
+    "total": 38,
+    "pct": 0.5789
    }
   }
  ],
@@ -712,16 +712,16 @@
    "key": "sp_plus",
    "label": "SP+ vs Vegas Spread",
    "season": {
-    "wins": 140,
-    "losses": 131,
-    "total": 271,
-    "pct": 0.5166
+    "wins": 141,
+    "losses": 132,
+    "total": 273,
+    "pct": 0.5165
    },
    "last_week": {
-    "wins": 21,
-    "losses": 15,
-    "total": 36,
-    "pct": 0.5833
+    "wins": 22,
+    "losses": 16,
+    "total": 38,
+    "pct": 0.5789
    }
   }
  ],
@@ -783,10 +783,10 @@
  },
  "drift": {
   "median": 0.32,
-  "samples": 336,
-  "same_pick": 307,
-  "same_pick_total": 336
+  "samples": 339,
+  "same_pick": 310,
+  "same_pick_total": 339
  },
- "graded_games": 599,
+ "graded_games": 602,
  "ungraded": null
 }
