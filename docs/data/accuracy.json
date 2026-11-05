@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-05T05:32:24.640715+00:00",
+ "generated_at": "2026-11-05T10:01:28.365205+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -428,29 +428,29 @@
   {
    "week_key": "2026-11-07",
    "decision": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    },
    "final": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    },
    "records": {
     "headline": {
-     "wins": 0,
+     "wins": 1,
      "losses": 0,
-     "total": 0,
-     "pct": null
+     "total": 1,
+     "pct": 1.0
     },
     "thursday_all": {
-     "wins": 0,
+     "wins": 1,
      "losses": 0,
-     "total": 0,
-     "pct": null
+     "total": 1,
+     "pct": 1.0
     },
     "lens_kalshi_ml": {
      "wins": 0,
@@ -465,15 +465,15 @@
      "pct": null
     },
     "lens_kalshi_spread": {
-     "wins": 0,
+     "wins": 1,
      "losses": 0,
-     "total": 0,
-     "pct": null
+     "total": 1,
+     "pct": 1.0
     },
     "lens_sp_plus": {
      "wins": 0,
-     "losses": 2,
-     "total": 2,
+     "losses": 4,
+     "total": 4,
      "pct": 0.0
     }
    }
@@ -482,29 +482,29 @@
  "last_week": {
   "week_key": "2026-11-07",
   "decision": {
-   "wins": 0,
+   "wins": 1,
    "losses": 0,
-   "total": 0,
-   "pct": null
+   "total": 1,
+   "pct": 1.0
   },
   "final": {
-   "wins": 0,
+   "wins": 1,
    "losses": 0,
-   "total": 0,
-   "pct": null
+   "total": 1,
+   "pct": 1.0
   },
   "records": {
    "headline": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    },
    "thursday_all": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    },
    "lens_kalshi_ml": {
     "wins": 0,
@@ -519,31 +519,31 @@
     "pct": null
    },
    "lens_kalshi_spread": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    },
    "lens_sp_plus": {
     "wins": 0,
-    "losses": 2,
-    "total": 2,
+    "losses": 4,
+    "total": 4,
     "pct": 0.0
    }
   }
  },
  "season": {
   "decision": {
-   "wins": 6,
+   "wins": 7,
    "losses": 2,
-   "total": 8,
-   "pct": 0.75
+   "total": 9,
+   "pct": 0.7778
   },
   "final": {
-   "wins": 19,
+   "wins": 20,
    "losses": 15,
-   "total": 34,
-   "pct": 0.5588
+   "total": 35,
+   "pct": 0.5714
   }
  },
  "records": [
@@ -557,22 +557,22 @@
     "v2"
    ],
    "season": {
-    "wins": 18,
+    "wins": 19,
     "losses": 13,
-    "total": 31,
-    "pct": 0.5806
+    "total": 32,
+    "pct": 0.5938
    },
    "superseded": 3,
    "open": {
     "live": 0,
-    "pending": 1,
+    "pending": 0,
     "awaiting": 0
    },
    "last_week": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    }
   },
   {
@@ -585,22 +585,22 @@
     "v2"
    ],
    "season": {
-    "wins": 5,
+    "wins": 6,
     "losses": 2,
-    "total": 7,
-    "pct": 0.7143
+    "total": 8,
+    "pct": 0.75
    },
    "superseded": 1,
    "open": {
     "live": 0,
-    "pending": 1,
+    "pending": 0,
     "awaiting": 0
    },
    "last_week": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    }
   },
   {
@@ -667,22 +667,22 @@
    "tiers": null,
    "versions": null,
    "season": {
-    "wins": 7,
+    "wins": 8,
     "losses": 3,
-    "total": 10,
-    "pct": 0.7
+    "total": 11,
+    "pct": 0.7273
    },
    "superseded": 0,
    "open": {
     "live": 0,
-    "pending": 1,
+    "pending": 0,
     "awaiting": 0
    },
    "last_week": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    }
   },
   {
@@ -694,20 +694,20 @@
    "versions": null,
    "season": {
     "wins": 141,
-    "losses": 134,
-    "total": 275,
-    "pct": 0.5127
+    "losses": 136,
+    "total": 277,
+    "pct": 0.509
    },
    "superseded": 0,
    "open": {
     "live": 35,
-    "pending": 2,
+    "pending": 0,
     "awaiting": 0
    },
    "last_week": {
     "wins": 0,
-    "losses": 2,
-    "total": 2,
+    "losses": 4,
+    "total": 4,
     "pct": 0.0
    }
   }
@@ -717,32 +717,32 @@
    "key": "master",
    "label": "Master",
    "season": {
-    "wins": 6,
+    "wins": 7,
     "losses": 2,
-    "total": 8,
-    "pct": 0.75
+    "total": 9,
+    "pct": 0.7778
    },
    "last_week": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    }
   },
   {
    "key": "kalshi_spread",
    "label": "Kalshi Spread vs Vegas Spread",
    "season": {
-    "wins": 7,
+    "wins": 8,
     "losses": 3,
-    "total": 10,
-    "pct": 0.7
+    "total": 11,
+    "pct": 0.7273
    },
    "last_week": {
-    "wins": 0,
+    "wins": 1,
     "losses": 0,
-    "total": 0,
-    "pct": null
+    "total": 1,
+    "pct": 1.0
    }
   },
   {
@@ -766,14 +766,14 @@
    "label": "SP+ vs Vegas Spread",
    "season": {
     "wins": 141,
-    "losses": 134,
-    "total": 275,
-    "pct": 0.5127
+    "losses": 136,
+    "total": 277,
+    "pct": 0.509
    },
    "last_week": {
     "wins": 0,
-    "losses": 2,
-    "total": 2,
+    "losses": 4,
+    "total": 4,
     "pct": 0.0
    }
   }
@@ -790,10 +790,10 @@
    "pct": 1.0
   },
   "B": {
-   "wins": 1,
+   "wins": 2,
    "losses": 2,
-   "total": 3,
-   "pct": 0.3333
+   "total": 4,
+   "pct": 0.5
   },
   "C": {
    "wins": 1,
@@ -822,10 +822,10 @@
    "pct": null
   },
   "1-3pts": {
-   "wins": 6,
+   "wins": 7,
    "losses": 2,
-   "total": 8,
-   "pct": 0.75
+   "total": 9,
+   "pct": 0.7778
   },
   ">3pts": {
    "wins": 0,
@@ -835,11 +835,11 @@
   }
  },
  "drift": {
-  "median": 0.32,
-  "samples": 341,
-  "same_pick": 312,
-  "same_pick_total": 341
+  "median": 0.31,
+  "samples": 344,
+  "same_pick": 315,
+  "same_pick_total": 344
  },
- "graded_games": 604,
+ "graded_games": 607,
  "ungraded": null
 }
