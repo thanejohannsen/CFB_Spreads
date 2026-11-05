@@ -518,6 +518,32 @@
    },
    "home_team": "UMass",
    "kickoff": "2026-11-04T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 1.5,
+    "margin_low": -1.5,
+    "source": "kalshi"
+   },
    "title": "Ball St. vs UMass"
   },
   "KXNCAAFSPREAD-26NOV04CMUEMU": {
@@ -674,6 +700,32 @@
    },
    "home_team": "Eastern Michigan",
    "kickoff": "2026-11-04T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -25.5,
+    "margin_low": -28.5,
+    "source": "kalshi"
+   },
    "title": "Central Michigan vs Eastern Michigan"
   },
   "KXNCAAFSPREAD-26NOV04TOLSAC": {
@@ -830,6 +882,32 @@
    },
    "home_team": "Sacramento St.",
    "kickoff": "2026-11-04T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -2.5,
+    "margin_low": -5.5,
+    "source": "kalshi"
+   },
    "title": "Toledo vs Sacramento St."
   },
   "KXNCAAFSPREAD-26NOV05JMUUSM": {
