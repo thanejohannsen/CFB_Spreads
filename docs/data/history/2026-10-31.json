@@ -1064,6 +1064,32 @@
    },
    "home_team": "Southern Miss",
    "kickoff": "2026-11-05T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -30.5,
+    "margin_low": -33.5,
+    "source": "kalshi"
+   },
    "title": "James Madison vs Southern Miss"
   },
   "KXNCAAFSPREAD-26NOV05UTSAFAU": {
@@ -1220,6 +1246,32 @@
    },
    "home_team": "Florida Atlantic",
    "kickoff": "2026-11-05T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 32.5,
+    "margin_low": 29.5,
+    "source": "kalshi"
+   },
    "title": "UTSA vs Florida Atlantic"
   },
   "KXNCAAFSPREAD-26NOV06VTSMU": {
