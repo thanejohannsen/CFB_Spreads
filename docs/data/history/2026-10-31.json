@@ -1428,6 +1428,32 @@
    },
    "home_team": "SMU",
    "kickoff": "2026-11-06T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 23.5,
+    "margin_low": 21.5,
+    "source": "kalshi"
+   },
    "title": "Virginia Tech vs SMU"
   },
   "KXNCAAFSPREAD-26NOV07ALALSU": {
