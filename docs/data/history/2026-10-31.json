@@ -1610,6 +1610,32 @@
    },
    "home_team": "LSU",
    "kickoff": "2026-11-07T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -17.5,
+    "margin_low": -20.5,
+    "source": "kalshi"
+   },
    "title": "Alabama vs LSU"
   },
   "KXNCAAFSPREAD-26NOV07BYUUTAH": {
@@ -1766,6 +1792,32 @@
    },
    "home_team": "Utah",
    "kickoff": "2026-11-07T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 9.5,
+    "margin_low": 7.5,
+    "source": "kalshi"
+   },
    "title": "BYU vs Utah"
   },
   "KXNCAAFSPREAD-26NOV07UKTENN": {
