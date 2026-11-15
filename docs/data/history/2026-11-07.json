@@ -12282,6 +12282,32 @@
    },
    "home_team": "Arkansas",
    "kickoff": "2026-11-14T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": 26.5,
+    "source": "kalshi"
+   },
    "title": "South Carolina vs Arkansas"
   },
   "KXNCAAFSPREAD-26NOV14TENNTXAM": {
@@ -12438,6 +12464,32 @@
    },
    "home_team": "Texas A&M",
    "kickoff": "2026-11-14T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -14.5,
+    "margin_low": -16.5,
+    "source": "kalshi"
+   },
    "title": "Tennessee vs Texas A&M"
   },
   "KXNCAAFSPREAD-26NOV14TEXLSU": {
@@ -12594,6 +12646,32 @@
    },
    "home_team": "LSU",
    "kickoff": "2026-11-14T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 1.5,
+    "margin_low": -1.5,
+    "source": "kalshi"
+   },
    "title": "Texas vs LSU"
   },
   "KXNCAAFSPREAD-26NOV14USCIND": {
@@ -12750,6 +12828,32 @@
    },
    "home_team": "Indiana",
    "kickoff": "2026-11-14T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 14.5,
+    "margin_low": 13.5,
+    "source": "kalshi"
+   },
    "title": "USC vs Indiana"
   },
   "KXNCAAFSPREAD-26NOV14WAKESMU": {
@@ -12906,6 +13010,32 @@
    },
    "home_team": "SMU",
    "kickoff": "2026-11-14T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -41.5,
+    "margin_low": -44.5,
+    "source": "kalshi"
+   },
    "title": "Wake Forest vs SMU"
   }
  },
