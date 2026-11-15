@@ -2188,7 +2188,45 @@
    },
    "home_team": "Vanderbilt",
    "kickoff": "2026-11-14T17:45:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -15.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": false,
+      "final_correct": true
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Alabama vs Vanderbilt"
+  },
+  "KXNCAAFSPREAD-26NOV14APPMRSH": {
+   "away_team": "Appalachian St.",
+   "home_team": "Marshall",
+   "kickoff": "2026-11-14T23:00:00+00:00",
+   "title": "Appalachian St. vs Marshall"
+  },
+  "KXNCAAFSPREAD-26NOV14ASUUCF": {
+   "away_team": "Arizona St.",
+   "home_team": "UCF",
+   "kickoff": "2026-11-14T22:30:00+00:00",
+   "title": "Arizona St. vs UCF"
   },
   "KXNCAAFSPREAD-26NOV14AUBMSST": {
    "away_team": "Auburn",
@@ -2581,6 +2619,32 @@
    },
    "home_team": "Notre Dame",
    "kickoff": "2026-11-14T20:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 34.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Boston College vs Notre Dame"
   },
   "KXNCAAFSPREAD-26NOV14CALUVA": {
@@ -2737,12 +2801,64 @@
    },
    "home_team": "Virginia",
    "kickoff": "2026-11-14T20:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 29.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": true,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "California vs Virginia"
   },
   "KXNCAAFSPREAD-26NOV14CINISU": {
    "away_team": "Cincinnati",
    "home_team": "Iowa St.",
    "kickoff": "2026-11-14T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 28.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Cincinnati vs Iowa St."
   },
   "KXNCAAFSPREAD-26NOV14CSUWSU": {
@@ -2823,79 +2939,79 @@
     "vegas_home_favored_by": 9.5
    },
    "final": {
-    "at": "2026-11-14T20:28:11.079645+00:00",
-    "band": 0.36,
-    "blended_margin": 7.68,
-    "dollar_volume": 85461,
+    "at": "2026-11-15T00:08:41.478162+00:00",
+    "band": 0.3,
+    "blended_margin": 7.64,
+    "dollar_volume": 227496,
     "fraction_traded": 0.677,
-    "implied_margin": 7.65,
-    "kalshi_weight": 0.986,
-    "margin_high": 7.86,
+    "implied_margin": 7.64,
+    "kalshi_weight": 0.99,
+    "margin_high": 7.8,
     "margin_low": 7.5,
-    "master_margin": 8.25,
-    "minutes_before_kickoff": 422,
-    "open_interest": 133535,
+    "master_margin": 8.12,
+    "minutes_before_kickoff": 201,
+    "open_interest": 408841,
     "pick": {
-     "confidence": "lean",
-     "edge": -1.2517119999999995,
-     "estimate": 8.248288,
-     "line": 9.5,
-     "p_cover": 0.5367661344474919,
+     "confidence": "no-play",
+     "edge": -0.37620000000000076,
+     "estimate": 8.1238,
+     "line": 8.5,
+     "p_cover": 0.5109581018273439,
      "p_push": 0.0,
-     "reason": "Estimate Washington St. -8.2; line is Washington St. -9.5. At that number the market gives Colorado St. a 54% chance to cover. Edge 1.3 pts. Blend: 60% kalshi spread / 40% kalshi ml. Take Colorado St. +9.5.",
-     "side": "away",
+     "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
      "strategy_version": "v2",
-     "team": "Colorado St."
+     "team": null
     },
     "picks": {
      "kalshi_ml": {
       "confidence": "no-play",
-      "edge": -0.39000000000000057,
-      "estimate": 9.11,
-      "line": 9.5,
-      "p_cover": 0.5114740435069532,
+      "edge": 0.6999999999999993,
+      "estimate": 9.2,
+      "line": 8.5,
+      "p_cover": 0.5203818406854153,
       "p_push": 0.0,
-      "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "reason": "Market and line agree to within 0.7 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
      },
      "kalshi_spread": {
-      "confidence": "lean",
-      "edge": -1.8499999999999996,
-      "estimate": 7.65,
-      "line": 9.5,
-      "p_cover": 0.5542236283977678,
+      "confidence": "no-play",
+      "edge": -0.8600000000000003,
+      "estimate": 7.64,
+      "line": 8.5,
+      "p_cover": 0.5250334820786149,
       "p_push": 0.0,
-      "reason": "Estimate Washington St. -7.7; line is Washington St. -9.5. At that number the market gives Colorado St. a 55% chance to cover. Edge 1.8 pts. Take Colorado St. +9.5.",
-      "side": "away",
-      "team": "Colorado St."
+      "reason": "Market and line agree to within 0.9 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
+      "team": null
      },
      "master": {
-      "confidence": "lean",
-      "edge": -1.2517119999999995,
-      "estimate": 8.248288,
-      "line": 9.5,
-      "p_cover": 0.5367661344474919,
+      "confidence": "no-play",
+      "edge": -0.37620000000000076,
+      "estimate": 8.1238,
+      "line": 8.5,
+      "p_cover": 0.5109581018273439,
       "p_push": 0.0,
-      "reason": "Estimate Washington St. -8.2; line is Washington St. -9.5. At that number the market gives Colorado St. a 54% chance to cover. Edge 1.3 pts. Blend: 60% kalshi spread / 40% kalshi ml. Take Colorado St. +9.5.",
-      "side": "away",
+      "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
       "strategy_version": "v2",
-      "team": "Colorado St."
+      "team": null
      },
      "sp_plus": {
       "confidence": "strong",
-      "edge": -10.5,
+      "edge": -9.5,
       "estimate": -1.0,
-      "line": 9.5,
-      "p_cover": 0.7748466126399005,
+      "line": 8.5,
+      "p_cover": 0.7515798967648278,
       "p_push": 0.0,
-      "reason": "Estimate Colorado St. -1.0; line is Washington St. -9.5. At that number the market gives Colorado St. a 77% chance to cover. Edge 10.5 pts. Take Colorado St. +9.5.",
+      "reason": "Estimate Colorado St. -1.0; line is Washington St. -8.5. At that number the market gives Colorado St. a 75% chance to cover. Edge 9.5 pts. Take Colorado St. +8.5.",
       "side": "away",
       "team": "Colorado St."
      }
     },
     "tier": "A",
-    "vegas_home_favored_by": 9.5
+    "vegas_home_favored_by": 8.5
    },
    "home_team": "Washington St.",
    "kickoff": "2026-11-15T03:30:00+00:00",
@@ -3055,6 +3171,32 @@
    },
    "home_team": "Miami (FL)",
    "kickoff": "2026-11-14T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 11.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Duke vs Miami (FL)"
   },
   "KXNCAAFSPREAD-26NOV14ECUCHAR": {
@@ -3211,7 +3353,39 @@
    },
    "home_team": "Charlotte",
    "kickoff": "2026-11-14T18:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -1.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "East Carolina vs Charlotte"
+  },
+  "KXNCAAFSPREAD-26NOV14ETAMLAM": {
+   "away_team": "East Texas A&M",
+   "home_team": "Lamar",
+   "kickoff": "2026-11-14T21:00:00+00:00",
+   "title": "East Texas A&M vs Lamar"
   },
   "KXNCAAFSPREAD-26NOV14FAUTLSA": {
    "away_team": "Florida Atlantic",
@@ -3366,7 +3540,7 @@
     "vegas_home_favored_by": 6.0
    },
    "home_team": "Tulsa",
-   "kickoff": "2026-11-14T20:30:00+00:00",
+   "kickoff": "2026-11-15T00:15:00+00:00",
    "title": "Florida Atlantic vs Tulsa"
   },
   "KXNCAAFSPREAD-26NOV14FIUDEL": {
@@ -3523,6 +3697,32 @@
    },
    "home_team": "Delaware",
    "kickoff": "2026-11-14T20:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 8.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Florida International vs Delaware"
   },
   "KXNCAAFSPREAD-26NOV14FLAUK": {
@@ -3991,6 +4191,32 @@
    },
    "home_team": "Georgia St.",
    "kickoff": "2026-11-14T20:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -17.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Georgia Southern vs Georgia St."
   },
   "KXNCAAFSPREAD-26NOV14GTCLEM": {
@@ -4147,6 +4373,32 @@
    },
    "home_team": "Clemson",
    "kickoff": "2026-11-14T17:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Georgia Tech vs Clemson"
   },
   "KXNCAAFSPREAD-26NOV14JMUCONN": {
@@ -4303,7 +4555,65 @@
    },
    "home_team": "UConn",
    "kickoff": "2026-11-14T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 24.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "James Madison vs UConn"
+  },
+  "KXNCAAFSPREAD-26NOV14JVSTWKU": {
+   "away_team": "Jacksonville St.",
+   "home_team": "Western Kentucky",
+   "kickoff": "2026-11-14T20:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
+   "title": "Jacksonville St. vs Western Kentucky"
   },
   "KXNCAAFSPREAD-26NOV14KENNSHSU": {
    "away_team": "Kennesaw St.",
@@ -4459,6 +4769,32 @@
    },
    "home_team": "Sam Houston",
    "kickoff": "2026-11-14T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -19.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Kennesaw St. vs Sam Houston"
   },
   "KXNCAAFSPREAD-26NOV14KSUTCU": {
@@ -4540,6 +4876,32 @@
    },
    "home_team": "TCU",
    "kickoff": "2026-11-14T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": true
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Kansas St. vs TCU"
   },
   "KXNCAAFSPREAD-26NOV14KUWVU": {
@@ -4696,6 +5058,32 @@
    },
    "home_team": "West Virginia",
    "kickoff": "2026-11-14T20:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -23.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Kansas vs West Virginia"
   },
   "KXNCAAFSPREAD-26NOV14LOUUNC": {
@@ -4933,6 +5321,32 @@
    },
    "home_team": "Oregon",
    "kickoff": "2026-11-14T20:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 24.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Michigan vs Oregon"
   },
   "KXNCAAFSPREAD-26NOV14MINNPSU": {
@@ -5094,101 +5508,26 @@
   "KXNCAAFSPREAD-26NOV14MISSOKLA": {
    "away_team": "Ole Miss",
    "decision": {
-    "at": "2026-11-12T14:44:22.839219+00:00",
-    "band": 0.54,
-    "blended_margin": 0.35,
-    "dollar_volume": 35738,
-    "fraction_traded": 0.552,
-    "implied_margin": 0.31,
-    "kalshi_weight": 0.968,
-    "margin_high": 0.57,
-    "margin_low": 0.03,
-    "master_margin": 0.23,
-    "minutes_before_kickoff": 3271,
-    "open_interest": 33570,
-    "pick": {
-     "confidence": "lean",
-     "edge": -1.273746,
-     "estimate": 0.22625399999999993,
-     "line": 1.5,
-     "p_cover": 0.5375429210169865,
-     "p_push": 0.0,
-     "reason": "Estimate Oklahoma -0.2; line is Oklahoma -1.5. At that number the market gives Ole Miss a 54% chance to cover. Edge 1.3 pts. Blend: 28% kalshi spread / 72% kalshi ml. Take Ole Miss +1.5.",
-     "side": "away",
-     "strategy_version": "v2",
-     "team": "Ole Miss"
-    },
-    "picks": {
-     "kalshi_ml": {
-      "confidence": "lean",
-      "edge": -1.33,
-      "estimate": 0.17,
-      "line": 1.5,
-      "p_cover": 0.5391943178579184,
-      "p_push": 0.0,
-      "reason": "Estimate Oklahoma -0.2; line is Oklahoma -1.5. At that number the market gives Ole Miss a 54% chance to cover. Edge 1.3 pts. Take Ole Miss +1.5.",
-      "side": "away",
-      "team": "Ole Miss"
-     },
-     "kalshi_spread": {
-      "confidence": "lean",
-      "edge": -1.19,
-      "estimate": 0.31,
-      "line": 1.5,
-      "p_cover": 0.5350829510106423,
-      "p_push": 0.0,
-      "reason": "Estimate Oklahoma -0.3; line is Oklahoma -1.5. At that number the market gives Ole Miss a 54% chance to cover. Edge 1.2 pts. Take Ole Miss +1.5.",
-      "side": "away",
-      "team": "Ole Miss"
-     },
-     "master": {
-      "confidence": "lean",
-      "edge": -1.273746,
-      "estimate": 0.22625399999999993,
-      "line": 1.5,
-      "p_cover": 0.5375429210169865,
-      "p_push": 0.0,
-      "reason": "Estimate Oklahoma -0.2; line is Oklahoma -1.5. At that number the market gives Ole Miss a 54% chance to cover. Edge 1.3 pts. Blend: 28% kalshi spread / 72% kalshi ml. Take Ole Miss +1.5.",
-      "side": "away",
-      "strategy_version": "v2",
-      "team": "Ole Miss"
-     },
-     "sp_plus": {
-      "confidence": "strong",
-      "edge": -4.7,
-      "estimate": -3.2,
-      "line": 1.5,
-      "p_cover": 0.6353328310370239,
-      "p_push": 0.0,
-      "reason": "Estimate Ole Miss -3.2; line is Oklahoma -1.5. At that number the market gives Ole Miss a 64% chance to cover. Edge 4.7 pts. Take Ole Miss +1.5.",
-      "side": "away",
-      "team": "Ole Miss"
-     }
-    },
-    "tier": "B",
-    "vegas_home_favored_by": 1.5
-   },
-   "final": {
-    "at": "2026-11-14T05:52:12.565371+00:00",
-    "band": 0.18,
-    "blended_margin": 2.6,
-    "dollar_volume": 241558,
-    "fraction_traded": 0.69,
-    "implied_margin": 2.6,
+    "at": "2026-11-15T00:08:41.478162+00:00",
+    "band": 0.15,
+    "blended_margin": 2.86,
+    "dollar_volume": 294898,
+    "fraction_traded": 0.966,
+    "implied_margin": 2.86,
     "kalshi_weight": 0.996,
-    "margin_high": 2.68,
-    "margin_low": 2.5,
-    "master_margin": 2.5,
-    "minutes_before_kickoff": 923,
-    "open_interest": 162417,
+    "margin_high": 2.94,
+    "margin_low": 2.79,
+    "master_margin": 2.81,
+    "minutes_before_kickoff": 1071,
+    "open_interest": 187441,
     "pick": {
      "confidence": "no-play",
-     "edge": -0.49780000000000024,
-     "estimate": 2.5021999999999998,
+     "edge": -0.1891639999999999,
+     "estimate": 2.810836,
      "line": 3.0,
-     "p_cover": 0.49993532920581674,
-     "p_push": 0.02936221654330079,
-     "reason": "Market and line agree to within 0.5 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "p_cover": 0.49059340204484214,
+     "p_push": 0.030252623964482195,
+     "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -5196,34 +5535,34 @@
     "picks": {
      "kalshi_ml": {
       "confidence": "no-play",
-      "edge": -0.7799999999999998,
-      "estimate": 2.22,
+      "edge": -0.6699999999999999,
+      "estimate": 2.33,
       "line": 3.0,
-      "p_cover": 0.5082300849969179,
-      "p_push": 0.02932569234442045,
-      "reason": "Market and line agree to within 0.8 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "p_cover": 0.5051450086409256,
+      "p_push": 0.03020692072882869,
+      "reason": "Market and line agree to within 0.7 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
      },
      "kalshi_spread": {
       "confidence": "no-play",
-      "edge": -0.3999999999999999,
-      "estimate": 2.6,
+      "edge": -0.14000000000000012,
+      "estimate": 2.86,
       "line": 3.0,
-      "p_cover": 0.4970604522978045,
-      "p_push": 0.02937111935476755,
-      "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "p_cover": 0.4891060273450629,
+      "p_push": 0.030254416171065834,
+      "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
      },
      "master": {
       "confidence": "no-play",
-      "edge": -0.49780000000000024,
-      "estimate": 2.5021999999999998,
+      "edge": -0.1891639999999999,
+      "estimate": 2.810836,
       "line": 3.0,
-      "p_cover": 0.49993532920581674,
-      "p_push": 0.02936221654330079,
-      "reason": "Market and line agree to within 0.5 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "p_cover": 0.49059340204484214,
+      "p_push": 0.030252623964482195,
+      "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -5233,9 +5572,84 @@
       "edge": -6.2,
       "estimate": -3.2,
       "line": 3.0,
-      "p_cover": 0.6615534486281507,
-      "p_push": 0.025806993460664507,
-      "reason": "Estimate Ole Miss -3.2; line is Oklahoma -3.0. At that number the market gives Ole Miss a 66% chance to cover. Edge 6.2 pts. Take Ole Miss +3.0.",
+      "p_cover": 0.6659804539417582,
+      "p_push": 0.026368539462611196,
+      "reason": "Estimate Ole Miss -3.2; line is Oklahoma -3.0. At that number the market gives Ole Miss a 67% chance to cover. Edge 6.2 pts. Take Ole Miss +3.0.",
+      "side": "away",
+      "team": "Ole Miss"
+     }
+    },
+    "tier": "A",
+    "vegas_home_favored_by": 3.0
+   },
+   "final": {
+    "at": "2026-11-15T00:08:41.478162+00:00",
+    "band": 0.15,
+    "blended_margin": 2.86,
+    "dollar_volume": 294898,
+    "fraction_traded": 0.966,
+    "implied_margin": 2.86,
+    "kalshi_weight": 0.996,
+    "margin_high": 2.94,
+    "margin_low": 2.79,
+    "master_margin": 2.81,
+    "minutes_before_kickoff": 1071,
+    "open_interest": 187441,
+    "pick": {
+     "confidence": "no-play",
+     "edge": -0.1891639999999999,
+     "estimate": 2.810836,
+     "line": 3.0,
+     "p_cover": 0.49059340204484214,
+     "p_push": 0.030252623964482195,
+     "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-play",
+      "edge": -0.6699999999999999,
+      "estimate": 2.33,
+      "line": 3.0,
+      "p_cover": 0.5051450086409256,
+      "p_push": 0.03020692072882869,
+      "reason": "Market and line agree to within 0.7 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": -0.14000000000000012,
+      "estimate": 2.86,
+      "line": 3.0,
+      "p_cover": 0.4891060273450629,
+      "p_push": 0.030254416171065834,
+      "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-play",
+      "edge": -0.1891639999999999,
+      "estimate": 2.810836,
+      "line": 3.0,
+      "p_cover": 0.49059340204484214,
+      "p_push": 0.030252623964482195,
+      "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "strong",
+      "edge": -6.2,
+      "estimate": -3.2,
+      "line": 3.0,
+      "p_cover": 0.6659804539417582,
+      "p_push": 0.026368539462611196,
+      "reason": "Estimate Ole Miss -3.2; line is Oklahoma -3.0. At that number the market gives Ole Miss a 67% chance to cover. Edge 6.2 pts. Take Ole Miss +3.0.",
       "side": "away",
       "team": "Ole Miss"
      }
@@ -5244,7 +5658,7 @@
     "vegas_home_favored_by": 3.0
    },
    "home_team": "Oklahoma",
-   "kickoff": "2026-11-14T19:00:00+00:00",
+   "kickoff": "2026-11-15T18:00:00+00:00",
    "title": "Ole Miss vs Oklahoma"
   },
   "KXNCAAFSPREAD-26NOV14MIZZUGA": {
@@ -5401,7 +5815,114 @@
    },
    "home_team": "Georgia",
    "kickoff": "2026-11-14T20:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 27.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Missouri vs Georgia"
+  },
+  "KXNCAAFSPREAD-26NOV14NDSUHAW": {
+   "away_team": "North Dakota St.",
+   "final": {
+    "at": "2026-11-15T00:08:41.478162+00:00",
+    "band": 0.1,
+    "blended_margin": -6.92,
+    "dollar_volume": 140599,
+    "fraction_traded": 0.625,
+    "implied_margin": -6.92,
+    "kalshi_weight": 0.996,
+    "margin_high": -6.87,
+    "margin_low": -6.97,
+    "master_margin": -7.07,
+    "minutes_before_kickoff": 231,
+    "open_interest": 113725,
+    "pick": {
+     "confidence": "no-play",
+     "edge": -0.06969199999999987,
+     "estimate": -7.069692,
+     "line": -7.0,
+     "p_cover": 0.4871217015627264,
+     "p_push": 0.029925256463798178,
+     "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-play",
+      "edge": -0.6799999999999997,
+      "estimate": -7.68,
+      "line": -7.0,
+      "p_cover": 0.5053880401504773,
+      "p_push": 0.029876276952784497,
+      "reason": "Market and line agree to within 0.7 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": 0.08000000000000007,
+      "estimate": -6.92,
+      "line": -7.0,
+      "p_cover": 0.48743006876473627,
+      "p_push": 0.029925091104769375,
+      "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-play",
+      "edge": -0.06969199999999987,
+      "estimate": -7.069692,
+      "line": -7.0,
+      "p_cover": 0.4871217015627264,
+      "p_push": 0.029925256463798178,
+      "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "strong",
+      "edge": -11.5,
+      "estimate": -18.5,
+      "line": -7.0,
+      "p_cover": 0.7887033947465396,
+      "p_push": 0.019265520317375495,
+      "reason": "Estimate North Dakota St. -18.5; line is North Dakota St. -7.0. At that number the market gives North Dakota St. a 79% chance to cover. Edge 11.5 pts. Take North Dakota St. -7.0.",
+      "side": "away",
+      "team": "North Dakota St."
+     }
+    },
+    "tier": "A",
+    "vegas_home_favored_by": -7.0
+   },
+   "home_team": "Hawai'i",
+   "kickoff": "2026-11-15T04:00:00+00:00",
+   "title": "North Dakota St. vs Hawai'i"
   },
   "KXNCAAFSPREAD-26NOV14NEBRUTG": {
    "away_team": "Nebraska",
@@ -5557,6 +6078,32 @@
    },
    "home_team": "Rutgers",
    "kickoff": "2026-11-14T17:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -31.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Nebraska vs Rutgers"
   },
   "KXNCAAFSPREAD-26NOV14NEVNIU": {
@@ -5713,6 +6260,32 @@
    },
    "home_team": "Northern Illinois",
    "kickoff": "2026-11-14T20:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -21.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Nevada vs Northern Illinois"
   },
   "KXNCAAFSPREAD-26NOV14NMSUMOSU": {
@@ -5869,6 +6442,32 @@
    },
    "home_team": "Missouri St.",
    "kickoff": "2026-11-14T20:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 6.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "New Mexico St. vs Missouri St."
   },
   "KXNCAAFSPREAD-26NOV14NWOSU": {
@@ -6025,6 +6624,32 @@
    },
    "home_team": "Ohio St.",
    "kickoff": "2026-11-14T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 9.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Northwestern vs Ohio St."
   },
   "KXNCAAFSPREAD-26NOV14ORSTBSU": {
@@ -6961,6 +7586,32 @@
    },
    "home_team": "NC St.",
    "kickoff": "2026-11-14T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Syracuse vs NC St."
   },
   "KXNCAAFSPREAD-26NOV14TENNTXAM": {
@@ -7117,6 +7768,32 @@
    },
    "home_team": "Texas A&M",
    "kickoff": "2026-11-14T20:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -15.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Tennessee vs Texas A&M"
   },
   "KXNCAAFSPREAD-26NOV14TEXLSU": {
@@ -7275,6 +7952,12 @@
    "kickoff": "2026-11-15T00:30:00+00:00",
    "title": "Texas vs LSU"
   },
+  "KXNCAAFSPREAD-26NOV14TROYUSA": {
+   "away_team": "Troy",
+   "home_team": "South Alabama",
+   "kickoff": "2026-11-15T00:00:00+00:00",
+   "title": "Troy vs South Alabama"
+  },
   "KXNCAAFSPREAD-26NOV14TTUOKST": {
    "away_team": "Texas Tech",
    "decision": {
@@ -7353,26 +8036,26 @@
     "vegas_home_favored_by": 3.5
    },
    "final": {
-    "at": "2026-11-14T20:28:11.079645+00:00",
-    "band": 0.17,
-    "blended_margin": 3.41,
-    "dollar_volume": 274928,
-    "fraction_traded": 0.897,
-    "implied_margin": 3.41,
+    "at": "2026-11-15T00:08:41.478162+00:00",
+    "band": 0.2,
+    "blended_margin": 3.59,
+    "dollar_volume": 476978,
+    "fraction_traded": 0.966,
+    "implied_margin": 3.59,
     "kalshi_weight": 0.996,
-    "margin_high": 3.5,
-    "margin_low": 3.33,
-    "master_margin": 3.47,
-    "minutes_before_kickoff": 362,
-    "open_interest": 149395,
+    "margin_high": 3.7,
+    "margin_low": 3.5,
+    "master_margin": 3.69,
+    "minutes_before_kickoff": 141,
+    "open_interest": 235663,
     "pick": {
      "confidence": "no-play",
-     "edge": -0.02986799999999956,
-     "estimate": 3.4701320000000004,
+     "edge": 0.1891639999999999,
+     "estimate": 3.689164,
      "line": 3.5,
-     "p_cover": 0.5008705379260545,
+     "p_cover": 0.5055228706522177,
      "p_push": 0.0,
-     "reason": "Line sits inside the market's own 0.2pt uncertainty band (+3.3 to +3.5); no edge worth acting on.",
+     "reason": "Line sits inside the market's own 0.2pt uncertainty band (+3.5 to +3.7); no edge worth acting on.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -7380,21 +8063,21 @@
     "picks": {
      "kalshi_ml": {
       "confidence": "no-play",
-      "edge": 0.16000000000000014,
-      "estimate": 3.66,
+      "edge": 0.5099999999999998,
+      "estimate": 4.01,
       "line": 3.5,
-      "p_cover": 0.5046632573411419,
+      "p_cover": 0.5148862686795842,
       "p_push": 0.0,
-      "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "reason": "Market and line agree to within 0.5 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
      },
      "kalshi_spread": {
       "confidence": "no-play",
-      "edge": -0.08999999999999986,
-      "estimate": 3.41,
+      "edge": 0.08999999999999986,
+      "estimate": 3.59,
       "line": 3.5,
-      "p_cover": 0.5026231342474524,
+      "p_cover": 0.5026277410014196,
       "p_push": 0.0,
       "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
@@ -7402,12 +8085,12 @@
      },
      "master": {
       "confidence": "no-play",
-      "edge": -0.02986799999999956,
-      "estimate": 3.4701320000000004,
+      "edge": 0.1891639999999999,
+      "estimate": 3.689164,
       "line": 3.5,
-      "p_cover": 0.5008705379260545,
+      "p_cover": 0.5055228706522177,
       "p_push": 0.0,
-      "reason": "Line sits inside the market's own 0.2pt uncertainty band (+3.3 to +3.5); no edge worth acting on.",
+      "reason": "Line sits inside the market's own 0.2pt uncertainty band (+3.5 to +3.7); no edge worth acting on.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -7417,7 +8100,7 @@
       "edge": -3.6,
       "estimate": -0.1,
       "line": 3.5,
-      "p_cover": 0.6034127358161097,
+      "p_cover": 0.6035891149023922,
       "p_push": 0.0,
       "reason": "Estimate Texas Tech -0.1; line is Oklahoma St. -3.5. At that number the market gives Texas Tech a 60% chance to cover. Edge 3.6 pts. Take Texas Tech +3.5.",
       "side": "away",
@@ -7584,13 +8267,39 @@
     "vegas_home_favored_by": 2.5
    },
    "home_team": "Rice",
-   "kickoff": "2026-11-14T19:00:00+00:00",
+   "kickoff": "2026-11-14T21:30:00+00:00",
    "title": "Tulane vs Rice"
   },
   "KXNCAAFSPREAD-26NOV14UABTEM": {
    "away_team": "UAB",
    "home_team": "Temple",
    "kickoff": "2026-11-14T18:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -26.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "UAB vs Temple"
   },
   "KXNCAAFSPREAD-26NOV14UNLVUNM": {
@@ -7827,26 +8536,26 @@
     "vegas_home_favored_by": -2.5
    },
    "final": {
-    "at": "2026-11-10T22:53:51.217779+00:00",
-    "band": 1.0,
-    "blended_margin": -2.12,
-    "dollar_volume": 3465,
-    "fraction_traded": 0.154,
-    "implied_margin": -2.08,
-    "kalshi_weight": 0.9,
-    "margin_high": -1.5,
-    "margin_low": -2.5,
-    "master_margin": -1.65,
-    "minutes_before_kickoff": 5946,
-    "open_interest": 2593,
+    "at": "2026-11-15T00:08:41.478162+00:00",
+    "band": 0.2,
+    "blended_margin": -2.61,
+    "dollar_volume": 42070,
+    "fraction_traded": 0.5,
+    "implied_margin": -2.61,
+    "kalshi_weight": 0.996,
+    "margin_high": -2.5,
+    "margin_low": -2.7,
+    "master_margin": -2.38,
+    "minutes_before_kickoff": 111,
+    "open_interest": 45712,
     "pick": {
      "confidence": "no-play",
-     "edge": 0.8482180000000001,
-     "estimate": -1.6517819999999999,
-     "line": -2.5,
-     "p_cover": 0.5242046944380675,
-     "p_push": 0.0,
-     "reason": "Line sits inside the market's own 1.0pt uncertainty band (-2.5 to -1.5); no edge worth acting on.",
+     "edge": -0.3783279999999998,
+     "estimate": -2.3783279999999998,
+     "line": -2.0,
+     "p_cover": 0.4966063040709129,
+     "p_push": 0.027872958148324967,
+     "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -7854,52 +8563,52 @@
     "picks": {
      "kalshi_ml": {
       "confidence": "no-play",
-      "edge": 0.9199999999999999,
-      "estimate": -1.58,
-      "line": -2.5,
-      "p_cover": 0.5262494420058984,
-      "p_push": 0.0,
-      "reason": "Market and line agree to within 0.9 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "edge": 0.3799999999999999,
+      "estimate": -1.62,
+      "line": -2.0,
+      "p_cover": 0.49665293837376856,
+      "p_push": 0.02787284827025638,
+      "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
      },
      "kalshi_spread": {
       "confidence": "no-play",
-      "edge": 0.41999999999999993,
-      "estimate": -2.08,
-      "line": -2.5,
-      "p_cover": 0.511992168190004,
-      "p_push": 0.0,
-      "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "edge": -0.6099999999999999,
+      "estimate": -2.61,
+      "line": -2.0,
+      "p_cover": 0.5030681471440572,
+      "p_push": 0.027853125192455364,
+      "reason": "Market and line agree to within 0.6 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
      },
      "master": {
       "confidence": "no-play",
-      "edge": 0.8482180000000001,
-      "estimate": -1.6517819999999999,
-      "line": -2.5,
-      "p_cover": 0.5242046944380675,
-      "p_push": 0.0,
-      "reason": "Line sits inside the market's own 1.0pt uncertainty band (-2.5 to -1.5); no edge worth acting on.",
+      "edge": -0.3783279999999998,
+      "estimate": -2.3783279999999998,
+      "line": -2.0,
+      "p_cover": 0.4966063040709129,
+      "p_push": 0.027872958148324967,
+      "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "strategy_version": "v2",
       "team": null
      },
      "sp_plus": {
-      "confidence": "lean",
-      "edge": 1.2,
+      "confidence": "no-play",
+      "edge": 0.7,
       "estimate": -1.3,
-      "line": -2.5,
-      "p_cover": 0.5342163472465185,
-      "p_push": 0.0,
-      "reason": "Estimate North Texas -1.3; line is North Texas -2.5. At that number the market gives UTSA a 53% chance to cover. Edge 1.2 pts. Take UTSA +2.5.",
-      "side": "home",
-      "team": "UTSA"
+      "line": -2.0,
+      "p_cover": 0.5055782879126562,
+      "p_push": 0.027842920156424755,
+      "reason": "Market and line agree to within 0.7 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "side": null,
+      "team": null
      }
     },
-    "tier": "C",
-    "vegas_home_favored_by": -2.5
+    "tier": "B",
+    "vegas_home_favored_by": -2.0
    },
    "home_team": "UTSA",
    "kickoff": "2026-11-15T02:00:00+00:00",
@@ -8059,7 +8768,39 @@
    },
    "home_team": "Indiana",
    "kickoff": "2026-11-14T20:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "USC vs Indiana"
+  },
+  "KXNCAAFSPREAD-26NOV14USMLT": {
+   "away_team": "Southern Miss",
+   "home_team": "Louisiana Tech",
+   "kickoff": "2026-11-14T22:00:00+00:00",
+   "title": "Southern Miss vs Louisiana Tech"
   },
   "KXNCAAFSPREAD-26NOV14USUSDSU": {
    "away_team": "Utah St.",
@@ -8139,26 +8880,26 @@
     "vegas_home_favored_by": -2.5
    },
    "final": {
-    "at": "2026-11-13T06:03:58.068780+00:00",
-    "band": 0.15,
-    "blended_margin": -2.92,
-    "dollar_volume": 9708,
-    "fraction_traded": 0.31,
-    "implied_margin": -2.93,
+    "at": "2026-11-15T00:08:41.478162+00:00",
+    "band": 0.11,
+    "blended_margin": -3.14,
+    "dollar_volume": 161532,
+    "fraction_traded": 0.448,
+    "implied_margin": -3.14,
     "kalshi_weight": 0.996,
-    "margin_high": -2.85,
-    "margin_low": -3.0,
-    "master_margin": -2.93,
-    "minutes_before_kickoff": 2666,
-    "open_interest": 17795,
+    "margin_high": -3.1,
+    "margin_low": -3.2,
+    "master_margin": -3.06,
+    "minutes_before_kickoff": 141,
+    "open_interest": 253460,
     "pick": {
      "confidence": "no-play",
-     "edge": -0.42810799999999993,
-     "estimate": -2.928108,
-     "line": -2.5,
-     "p_cover": 0.5125140619509225,
-     "p_push": 0.0,
-     "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+     "edge": -0.05973600000000001,
+     "estimate": -3.059736,
+     "line": -3.0,
+     "p_cover": 0.4866693094105381,
+     "p_push": 0.030276381656221096,
+     "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -8166,52 +8907,52 @@
     "picks": {
      "kalshi_ml": {
       "confidence": "no-play",
-      "edge": -0.43999999999999995,
-      "estimate": -2.94,
-      "line": -2.5,
-      "p_cover": 0.5128615267432259,
-      "p_push": 0.0,
-      "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "edge": 0.16999999999999993,
+      "estimate": -2.83,
+      "line": -3.0,
+      "p_cover": 0.49000693959901737,
+      "p_push": 0.030273570502966474,
+      "reason": "Market and line agree to within 0.2 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
      },
      "kalshi_spread": {
       "confidence": "no-play",
-      "edge": -0.43000000000000016,
-      "estimate": -2.93,
-      "line": -2.5,
-      "p_cover": 0.5125693439145466,
-      "p_push": 0.0,
-      "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "edge": -0.14000000000000012,
+      "estimate": -3.14,
+      "line": -3.0,
+      "p_cover": 0.48909875548486936,
+      "p_push": 0.03027460252190317,
+      "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
      },
      "master": {
       "confidence": "no-play",
-      "edge": -0.42810799999999993,
-      "estimate": -2.928108,
-      "line": -2.5,
-      "p_cover": 0.5125140619509225,
-      "p_push": 0.0,
-      "reason": "Market and line agree to within 0.4 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
+      "edge": -0.05973600000000001,
+      "estimate": -3.059736,
+      "line": -3.0,
+      "p_cover": 0.4866693094105381,
+      "p_push": 0.030276381656221096,
+      "reason": "Market and line agree to within 0.1 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "strategy_version": "v2",
       "team": null
      },
      "sp_plus": {
       "confidence": "lean",
-      "edge": 1.3,
+      "edge": 1.8,
       "estimate": -1.2,
-      "line": -2.5,
-      "p_cover": 0.5379353078413283,
-      "p_push": 0.0,
-      "reason": "Estimate Utah St. -1.2; line is Utah St. -2.5. At that number the market gives San Diego St. a 54% chance to cover. Edge 1.3 pts. Take San Diego St. +2.5.",
+      "line": -3.0,
+      "p_cover": 0.5392906698195593,
+      "p_push": 0.029920019775034334,
+      "reason": "Estimate Utah St. -1.2; line is Utah St. -3.0. At that number the market gives San Diego St. a 54% chance to cover. Edge 1.8 pts. Take San Diego St. +3.0.",
       "side": "home",
       "team": "San Diego St."
      }
     },
     "tier": "B",
-    "vegas_home_favored_by": -2.5
+    "vegas_home_favored_by": -3.0
    },
    "home_team": "San Diego St.",
    "kickoff": "2026-11-15T02:30:00+00:00",
@@ -8295,79 +9036,79 @@
     "vegas_home_favored_by": -2.5
    },
    "final": {
-    "at": "2026-11-14T20:28:11.079645+00:00",
-    "band": 0.63,
-    "blended_margin": -0.04,
-    "dollar_volume": 393104,
+    "at": "2026-11-15T00:08:41.478162+00:00",
+    "band": 1.27,
+    "blended_margin": -0.45,
+    "dollar_volume": 636549,
     "fraction_traded": 0.923,
-    "implied_margin": -0.0,
-    "kalshi_weight": 0.958,
+    "implied_margin": -0.26,
+    "kalshi_weight": 0.848,
     "margin_high": 0.32,
-    "margin_low": -0.32,
-    "master_margin": -0.14,
-    "minutes_before_kickoff": 422,
-    "open_interest": 365876,
+    "margin_low": -0.96,
+    "master_margin": -0.34,
+    "minutes_before_kickoff": 201,
+    "open_interest": 486713,
     "pick": {
-     "confidence": "no-play",
-     "edge": 0.858864,
-     "estimate": -0.14113600000000004,
-     "line": -1.0,
-     "p_cover": 0.5104855157377938,
-     "p_push": 0.029141175116943807,
-     "reason": "Market and line agree to within 0.9 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
-     "side": null,
+     "confidence": "lean",
+     "edge": 1.155492,
+     "estimate": -0.344508,
+     "line": -1.5,
+     "p_cover": 0.5339509276274093,
+     "p_push": 0.0,
+     "reason": "Estimate Utah -0.3; line is Utah -1.5. At that number the market gives Arizona a 53% chance to cover. Edge 1.2 pts. Blend: 7% kalshi spread / 93% kalshi ml. Take Arizona +1.5.",
+     "side": "home",
      "strategy_version": "v2",
-     "team": null
+     "team": "Arizona"
     },
     "picks": {
      "kalshi_ml": {
-      "confidence": "no-play",
-      "edge": 0.83,
-      "estimate": -0.17,
-      "line": -1.0,
-      "p_cover": 0.5096423673559101,
-      "p_push": 0.029146019952774438,
-      "reason": "Market and line agree to within 0.8 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
-      "side": null,
-      "team": null
+      "confidence": "lean",
+      "edge": 1.16,
+      "estimate": -0.34,
+      "line": -1.5,
+      "p_cover": 0.5340829728091261,
+      "p_push": 0.0,
+      "reason": "Estimate Utah -0.3; line is Utah -1.5. At that number the market gives Arizona a 53% chance to cover. Edge 1.2 pts. Take Arizona +1.5.",
+      "side": "home",
+      "team": "Arizona"
      },
      "kalshi_spread": {
       "confidence": "lean",
-      "edge": 1.0,
-      "estimate": -0.0,
-      "line": -1.0,
-      "p_cover": 0.5146073011548595,
-      "p_push": 0.029115119201237993,
-      "reason": "Estimate a pick'em; line is Utah -1.0. At that number the market gives Arizona a 51% chance to cover. Edge 1.0 pts. Take Arizona +1.0.",
+      "edge": 1.24,
+      "estimate": -0.26,
+      "line": -1.5,
+      "p_cover": 0.5364254653678203,
+      "p_push": 0.0,
+      "reason": "Estimate Utah -0.3; line is Utah -1.5. At that number the market gives Arizona a 54% chance to cover. Edge 1.2 pts. Take Arizona +1.5.",
       "side": "home",
       "team": "Arizona"
      },
      "master": {
-      "confidence": "no-play",
-      "edge": 0.858864,
-      "estimate": -0.14113600000000004,
-      "line": -1.0,
-      "p_cover": 0.5104855157377938,
-      "p_push": 0.029141175116943807,
-      "reason": "Market and line agree to within 0.9 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
-      "side": null,
+      "confidence": "lean",
+      "edge": 1.155492,
+      "estimate": -0.344508,
+      "line": -1.5,
+      "p_cover": 0.5339509276274093,
+      "p_push": 0.0,
+      "reason": "Estimate Utah -0.3; line is Utah -1.5. At that number the market gives Arizona a 53% chance to cover. Edge 1.2 pts. Blend: 7% kalshi spread / 93% kalshi ml. Take Arizona +1.5.",
+      "side": "home",
       "strategy_version": "v2",
-      "team": null
+      "team": "Arizona"
      },
      "sp_plus": {
       "confidence": "solid",
-      "edge": -2.6,
+      "edge": -2.1,
       "estimate": -3.6,
-      "line": -1.0,
-      "p_cover": 0.5610618198135118,
-      "p_push": 0.028550795779328453,
-      "reason": "Estimate Utah -3.6; line is Utah -1.0. At that number the market gives Utah a 56% chance to cover. Edge 2.6 pts. Take Utah -1.0.",
+      "line": -1.5,
+      "p_cover": 0.5614850084916008,
+      "p_push": 0.0,
+      "reason": "Estimate Utah -3.6; line is Utah -1.5. At that number the market gives Utah a 56% chance to cover. Edge 2.1 pts. Take Utah -1.5.",
       "side": "away",
       "team": "Utah"
      }
     },
-    "tier": "B",
-    "vegas_home_favored_by": -1.0
+    "tier": "C",
+    "vegas_home_favored_by": -1.5
    },
    "home_team": "Arizona",
    "kickoff": "2026-11-15T03:30:00+00:00",
@@ -8527,6 +9268,32 @@
    },
    "home_team": "SMU",
    "kickoff": "2026-11-14T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -42.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": true,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Wake Forest vs SMU"
   },
   "KXNCAAFSPREAD-26NOV14WASHMSU": {
@@ -8839,6 +9606,32 @@
    },
    "home_team": "Maryland",
    "kickoff": "2026-11-14T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
+   },
    "title": "Wisconsin vs Maryland"
   },
   "KXNCAAFSPREAD-26NOV14WYOUTEP": {
@@ -8919,61 +9712,61 @@
     "vegas_home_favored_by": -7.5
    },
    "final": {
-    "at": "2026-11-14T20:28:11.079645+00:00",
-    "band": 0.12,
-    "blended_margin": -6.98,
-    "dollar_volume": 78967,
-    "fraction_traded": 0.516,
-    "implied_margin": -6.98,
+    "at": "2026-11-15T00:08:41.478162+00:00",
+    "band": 0.11,
+    "blended_margin": -7.02,
+    "dollar_volume": 385785,
+    "fraction_traded": 0.581,
+    "implied_margin": -7.02,
     "kalshi_weight": 0.996,
-    "margin_high": -6.92,
-    "margin_low": -7.04,
-    "master_margin": -7.14,
-    "minutes_before_kickoff": 392,
-    "open_interest": 104654,
+    "margin_high": -6.97,
+    "margin_low": -7.08,
+    "master_margin": -7.22,
+    "minutes_before_kickoff": 171,
+    "open_interest": 467547,
     "pick": {
      "confidence": "no-play",
-     "edge": -0.13938399999999973,
-     "estimate": -7.139384,
+     "edge": -0.21903200000000034,
+     "estimate": -7.219032,
      "line": -7.0,
-     "p_cover": 0.48882811228183587,
-     "p_push": 0.030972947280658802,
-     "reason": "Line sits inside the market's own 0.1pt uncertainty band (-7.0 to -6.9); no edge worth acting on.",
+     "p_cover": 0.49158928873353525,
+     "p_push": 0.029923506653267984,
+     "reason": "Line sits inside the market's own 0.1pt uncertainty band (-7.1 to -7.0); no edge worth acting on.",
      "side": null,
      "strategy_version": "v2",
      "team": null
     },
     "picks": {
      "kalshi_ml": {
-      "confidence": "no-play",
-      "edge": -0.8200000000000003,
-      "estimate": -7.82,
+      "confidence": "lean",
+      "edge": -1.0999999999999996,
+      "estimate": -8.1,
       "line": -7.0,
-      "p_cover": 0.5099139543308124,
-      "p_push": 0.03089548457470387,
-      "reason": "Market and line agree to within 0.8 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
-      "side": null,
-      "team": null
+      "p_cover": 0.5179548302309478,
+      "p_push": 0.029799311598379064,
+      "reason": "Estimate Wyoming -8.1; line is Wyoming -7.0. At that number the market gives Wyoming a 52% chance to cover. Edge 1.1 pts. Take Wyoming -7.0.",
+      "side": "away",
+      "team": "Wyoming"
      },
      "kalshi_spread": {
       "confidence": "no-play",
-      "edge": 0.019999999999999574,
-      "estimate": -6.98,
+      "edge": -0.019999999999999574,
+      "estimate": -7.02,
       "line": -7.0,
-      "p_cover": 0.485131504235955,
-      "p_push": 0.0309752084576434,
+      "p_cover": 0.48563391215790686,
+      "p_push": 0.029928606068709285,
       "reason": "Market and line agree to within 0.0 pts. Anything under 1 pt is inside the vig, so there is nothing to bet here.",
       "side": null,
       "team": null
      },
      "master": {
       "confidence": "no-play",
-      "edge": -0.13938399999999973,
-      "estimate": -7.139384,
+      "edge": -0.21903200000000034,
+      "estimate": -7.219032,
       "line": -7.0,
-      "p_cover": 0.48882811228183587,
-      "p_push": 0.030972947280658802,
-      "reason": "Line sits inside the market's own 0.1pt uncertainty band (-7.0 to -6.9); no edge worth acting on.",
+      "p_cover": 0.49158928873353525,
+      "p_push": 0.029923506653267984,
+      "reason": "Line sits inside the market's own 0.1pt uncertainty band (-7.1 to -7.0); no edge worth acting on.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -8983,9 +9776,9 @@
       "edge": -11.8,
       "estimate": -18.8,
       "line": -7.0,
-      "p_cover": 0.8022679155817478,
-      "p_push": 0.018927893348776537,
-      "reason": "Estimate Wyoming -18.8; line is Wyoming -7.0. At that number the market gives Wyoming a 80% chance to cover. Edge 11.8 pts. Take Wyoming -7.0.",
+      "p_cover": 0.7946488786599244,
+      "p_push": 0.018853355404089583,
+      "reason": "Estimate Wyoming -18.8; line is Wyoming -7.0. At that number the market gives Wyoming a 79% chance to cover. Edge 11.8 pts. Take Wyoming -7.0.",
       "side": "away",
       "team": "Wyoming"
      }
