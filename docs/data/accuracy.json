@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-15T18:31:31.566170+00:00",
+ "generated_at": "2026-11-16T00:47:15.122642+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -525,9 +525,9 @@
     },
     "lens_sp_plus": {
      "wins": 20,
-     "losses": 17,
-     "total": 37,
-     "pct": 0.5405
+     "losses": 18,
+     "total": 38,
+     "pct": 0.5263
     }
    }
   }
@@ -579,9 +579,9 @@
    },
    "lens_sp_plus": {
     "wins": 20,
-    "losses": 17,
-    "total": 37,
-    "pct": 0.5405
+    "losses": 18,
+    "total": 38,
+    "pct": 0.5263
    }
   }
  },
@@ -617,7 +617,7 @@
    },
    "superseded": 3,
    "open": {
-    "live": 2,
+    "live": 5,
     "pending": 0,
     "awaiting": 0
    },
@@ -645,7 +645,7 @@
    },
    "superseded": 1,
    "open": {
-    "live": 2,
+    "live": 5,
     "pending": 0,
     "awaiting": 0
    },
@@ -673,7 +673,7 @@
    },
    "superseded": 12,
    "open": {
-    "live": 8,
+    "live": 10,
     "pending": 0,
     "awaiting": 0
    },
@@ -701,7 +701,7 @@
    },
    "superseded": 18,
    "open": {
-    "live": 8,
+    "live": 10,
     "pending": 0,
     "awaiting": 0
    },
@@ -727,7 +727,7 @@
    },
    "superseded": 0,
    "open": {
-    "live": 5,
+    "live": 8,
     "pending": 0,
     "awaiting": 0
    },
@@ -747,21 +747,21 @@
    "versions": null,
    "season": {
     "wins": 176,
-    "losses": 173,
-    "total": 349,
-    "pct": 0.5043
+    "losses": 174,
+    "total": 350,
+    "pct": 0.5029
    },
    "superseded": 0,
    "open": {
-    "live": 25,
+    "live": 33,
     "pending": 0,
-    "awaiting": 1
+    "awaiting": 0
    },
    "last_week": {
     "wins": 20,
-    "losses": 17,
-    "total": 37,
-    "pct": 0.5405
+    "losses": 18,
+    "total": 38,
+    "pct": 0.5263
    }
   }
  ],
@@ -819,15 +819,15 @@
    "label": "SP+ vs Vegas Spread",
    "season": {
     "wins": 176,
-    "losses": 173,
-    "total": 349,
-    "pct": 0.5043
+    "losses": 174,
+    "total": 350,
+    "pct": 0.5029
    },
    "last_week": {
     "wins": 20,
-    "losses": 17,
-    "total": 37,
-    "pct": 0.5405
+    "losses": 18,
+    "total": 38,
+    "pct": 0.5263
    }
   }
  ],
@@ -889,10 +889,10 @@
  },
  "drift": {
   "median": 0.31,
-  "samples": 430,
-  "same_pick": 395,
-  "same_pick_total": 430
+  "samples": 431,
+  "same_pick": 396,
+  "same_pick_total": 431
  },
- "graded_games": 740,
+ "graded_games": 741,
  "ungraded": null
 }
