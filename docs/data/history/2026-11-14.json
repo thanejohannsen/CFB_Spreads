@@ -6031,9 +6031,9 @@
       "final_correct": false
      }
     },
-    "margin_high": 7.5,
-    "margin_low": 6.5,
-    "source": "kalshi"
+    "margin_high": null,
+    "margin_low": null,
+    "source": "cfbd"
    },
    "title": "Ole Miss vs Oklahoma"
   },
@@ -6726,6 +6726,32 @@
    "away_team": "Nicholls St.",
    "home_team": "Incarnate Word",
    "kickoff": "2026-11-14T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 20.5,
+    "margin_low": 16.5,
+    "source": "kalshi"
+   },
    "title": "Nicholls St. vs Incarnate Word"
   },
   "KXNCAAFSPREAD-26NOV14NMSUMOSU": {
