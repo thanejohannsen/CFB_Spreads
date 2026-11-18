@@ -10858,6 +10858,32 @@
    },
    "home_team": "Ohio",
    "kickoff": "2026-11-18T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": false,
+      "final_correct": false
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 7.5,
+    "margin_low": 6.5,
+    "source": "kalshi"
+   },
    "title": "Ball St. vs Ohio"
   },
   "KXNCAAFSPREAD-26NOV17EMUWMU": {
@@ -11014,6 +11040,32 @@
    },
    "home_team": "Western Michigan",
    "kickoff": "2026-11-17T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 7.5,
+    "margin_low": 6.5,
+    "source": "kalshi"
+   },
    "title": "Eastern Michigan vs Western Michigan"
   },
   "KXNCAAFSPREAD-26NOV17MOHKENT": {
@@ -11170,6 +11222,32 @@
    },
    "home_team": "Kent St.",
    "kickoff": "2026-11-18T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -17.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": -16.5,
+    "margin_low": -17.5,
+    "source": "kalshi"
+   },
    "title": "Miami (OH) vs Kent St."
   },
   "KXNCAAFSPREAD-26NOV18AKRMASS": {
