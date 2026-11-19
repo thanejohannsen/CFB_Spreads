@@ -11404,6 +11404,32 @@
    },
    "home_team": "UMass",
    "kickoff": "2026-11-19T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 1.5,
+    "margin_low": -1.5,
+    "source": "kalshi"
+   },
    "title": "Akron vs UMass"
   },
   "KXNCAAFSPREAD-26NOV18CMUBUFF": {
@@ -11560,6 +11586,32 @@
    },
    "home_team": "Buffalo",
    "kickoff": "2026-11-19T00:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 20.5,
+    "margin_low": 17.5,
+    "source": "kalshi"
+   },
    "title": "Central Michigan vs Buffalo"
   },
   "KXNCAAFSPREAD-26NOV20CLEMDUKE": {

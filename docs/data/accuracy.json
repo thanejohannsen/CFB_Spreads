@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-19T02:17:51.095042+00:00",
+ "generated_at": "2026-11-19T06:19:31.150169+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -577,10 +577,10 @@
      "pct": null
     },
     "lens_sp_plus": {
-     "wins": 1,
-     "losses": 2,
-     "total": 3,
-     "pct": 0.3333
+     "wins": 2,
+     "losses": 3,
+     "total": 5,
+     "pct": 0.4
     }
    }
   }
@@ -631,10 +631,10 @@
     "pct": null
    },
    "lens_sp_plus": {
-    "wins": 1,
-    "losses": 2,
-    "total": 3,
-    "pct": 0.3333
+    "wins": 2,
+    "losses": 3,
+    "total": 5,
+    "pct": 0.4
    }
   }
  },
@@ -670,7 +670,7 @@
    },
    "superseded": 3,
    "open": {
-    "live": 3,
+    "live": 2,
     "pending": 0,
     "awaiting": 0
    },
@@ -698,7 +698,7 @@
    },
    "superseded": 1,
    "open": {
-    "live": 3,
+    "live": 2,
     "pending": 0,
     "awaiting": 0
    },
@@ -726,7 +726,7 @@
    },
    "superseded": 12,
    "open": {
-    "live": 10,
+    "live": 6,
     "pending": 0,
     "awaiting": 0
    },
@@ -754,7 +754,7 @@
    },
    "superseded": 18,
    "open": {
-    "live": 10,
+    "live": 6,
     "pending": 0,
     "awaiting": 0
    },
@@ -780,7 +780,7 @@
    },
    "superseded": 0,
    "open": {
-    "live": 3,
+    "live": 2,
     "pending": 0,
     "awaiting": 0
    },
@@ -799,22 +799,22 @@
    "tiers": null,
    "versions": null,
    "season": {
-    "wins": 177,
-    "losses": 176,
-    "total": 353,
+    "wins": 178,
+    "losses": 177,
+    "total": 355,
     "pct": 0.5014
    },
    "superseded": 0,
    "open": {
     "live": 37,
-    "pending": 2,
+    "pending": 0,
     "awaiting": 0
    },
    "last_week": {
-    "wins": 1,
-    "losses": 2,
-    "total": 3,
-    "pct": 0.3333
+    "wins": 2,
+    "losses": 3,
+    "total": 5,
+    "pct": 0.4
    }
   }
  ],
@@ -871,16 +871,16 @@
    "key": "sp_plus",
    "label": "SP+ vs Vegas Spread",
    "season": {
-    "wins": 177,
-    "losses": 176,
-    "total": 353,
+    "wins": 178,
+    "losses": 177,
+    "total": 355,
     "pct": 0.5014
    },
    "last_week": {
-    "wins": 1,
-    "losses": 2,
-    "total": 3,
-    "pct": 0.3333
+    "wins": 2,
+    "losses": 3,
+    "total": 5,
+    "pct": 0.4
    }
   }
  ],
@@ -942,10 +942,10 @@
  },
  "drift": {
   "median": 0.3,
-  "samples": 434,
-  "same_pick": 399,
-  "same_pick_total": 434
+  "samples": 436,
+  "same_pick": 401,
+  "same_pick_total": 436
  },
- "graded_games": 745,
+ "graded_games": 747,
  "ungraded": null
 }
