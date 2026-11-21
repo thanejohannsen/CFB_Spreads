@@ -11768,6 +11768,32 @@
    },
    "home_team": "Duke",
    "kickoff": "2026-11-21T00:30:00+00:00",
+   "result": {
+    "decision_correct": false,
+    "final_correct": false,
+    "home_margin": -10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": false,
+      "final_correct": false
+     },
+     "kalshi_spread": {
+      "decision_correct": false,
+      "final_correct": false
+     },
+     "master": {
+      "decision_correct": false,
+      "final_correct": false
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": -9.5,
+    "margin_low": -10.5,
+    "source": "kalshi"
+   },
    "title": "Clemson vs Duke"
   },
   "KXNCAAFSPREAD-26NOV20ISUUCF": {
@@ -11924,6 +11950,32 @@
    },
    "home_team": "UCF",
    "kickoff": "2026-11-20T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": true,
+      "final_correct": true
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 31.5,
+    "margin_low": 28.5,
+    "source": "kalshi"
+   },
    "title": "Iowa St. vs UCF"
   },
   "KXNCAAFSPREAD-26NOV20OREMSU": {
@@ -12080,6 +12132,32 @@
    },
    "home_team": "Michigan St.",
    "kickoff": "2026-11-21T01:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": true,
+      "final_correct": true
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": -36.5,
+    "margin_low": -39.5,
+    "source": "kalshi"
+   },
    "title": "Oregon vs Michigan St."
   },
   "KXNCAAFSPREAD-26NOV20UNMWYO": {
@@ -12236,6 +12314,32 @@
    },
    "home_team": "Wyoming",
    "kickoff": "2026-11-21T02:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": true,
+      "final_correct": true
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": -6.5,
+    "margin_low": -7.5,
+    "source": "kalshi"
+   },
    "title": "New Mexico vs Wyoming"
   },
   "KXNCAAFSPREAD-26NOV21ARKTEX": {
