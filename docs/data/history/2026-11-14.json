@@ -12652,6 +12652,32 @@
    },
    "home_team": "Kansas",
    "kickoff": "2026-11-21T05:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -2.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": -1.5,
+    "margin_low": -2.5,
+    "source": "kalshi"
+   },
    "title": "BYU vs Kansas"
   },
   "KXNCAAFSPREAD-26NOV21CCARULL": {
@@ -13120,6 +13146,32 @@
    },
    "home_team": "Cincinnati",
    "kickoff": "2026-11-21T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 7.5,
+    "margin_low": 6.5,
+    "source": "kalshi"
+   },
    "title": "Colorado vs Cincinnati"
   },
   "KXNCAAFSPREAD-26NOV21CSUFRES": {
@@ -14680,6 +14732,32 @@
    },
    "home_team": "Minnesota",
    "kickoff": "2026-11-21T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 3.5,
+    "margin_low": 2.5,
+    "source": "kalshi"
+   },
    "title": "Northwestern vs Minnesota"
   },
   "KXNCAAFSPREAD-26NOV21OKSTASU": {
@@ -14992,6 +15070,32 @@
    },
    "home_team": "Nebraska",
    "kickoff": "2026-11-21T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": true,
+      "final_correct": true
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 3.5,
+    "margin_low": 2.5,
+    "source": "kalshi"
+   },
    "title": "Ohio St. vs Nebraska"
   },
   "KXNCAAFSPREAD-26NOV21RUTGPSU": {
@@ -15616,6 +15720,32 @@
    },
    "home_team": "Boston College",
    "kickoff": "2026-11-21T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 13.5,
+    "margin_low": 11.5,
+    "source": "kalshi"
+   },
    "title": "Syracuse vs Boston College"
   },
   "KXNCAAFSPREAD-26NOV21TTUBAY": {
@@ -16396,6 +16526,32 @@
    },
    "home_team": "Virginia",
    "kickoff": "2026-11-21T17:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 19.5,
+    "margin_low": 16.5,
+    "source": "kalshi"
+   },
    "title": "North Carolina vs Virginia"
   },
   "KXNCAAFSPREAD-26NOV21UTAHTCU": {
@@ -16708,6 +16864,32 @@
    },
    "home_team": "Florida",
    "kickoff": "2026-11-21T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 7.5,
+    "margin_low": 6.5,
+    "source": "kalshi"
+   },
    "title": "Vanderbilt vs Florida"
   },
   "KXNCAAFSPREAD-26NOV21WAKEGT": {
@@ -16864,6 +17046,32 @@
    },
    "home_team": "Georgia Tech",
    "kickoff": "2026-11-21T05:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -21.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -20.5,
+    "margin_low": -21.5,
+    "source": "kalshi"
+   },
    "title": "Wake Forest vs Georgia Tech"
   },
   "KXNCAAFSPREAD-26NOV21WISPUR": {
@@ -17020,6 +17228,32 @@
    },
    "home_team": "Purdue",
    "kickoff": "2026-11-21T17:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": false,
+      "final_correct": false
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": -29.5,
+    "margin_low": -32.5,
+    "source": "kalshi"
+   },
    "title": "Wisconsin vs Purdue"
   },
   "KXNCAAFSPREAD-26NOV21WSUTXST": {
