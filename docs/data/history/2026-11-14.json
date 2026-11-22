@@ -13770,6 +13770,32 @@
    },
    "home_team": "Nevada",
    "kickoff": "2026-11-22T03:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 9.5,
+    "margin_low": 7.5,
+    "source": "kalshi"
+   },
    "title": "Hawai'i vs Nevada"
   },
   "KXNCAAFSPREAD-26NOV21INDWASH": {
@@ -15200,6 +15226,32 @@
    },
    "home_team": "Arizona St.",
    "kickoff": "2026-11-22T03:15:00+00:00",
+   "result": {
+    "decision_correct": true,
+    "final_correct": true,
+    "home_margin": -3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": true,
+      "final_correct": true
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": true,
+      "final_correct": true
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": -2.5,
+    "margin_low": -3.5,
+    "source": "kalshi"
+   },
    "title": "Oklahoma St. vs Arizona St."
   },
   "KXNCAAFSPREAD-26NOV21OSUNEB": {
