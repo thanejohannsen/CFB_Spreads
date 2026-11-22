@@ -2252,6 +2252,32 @@
    },
    "home_team": "Kansas St.",
    "kickoff": "2026-11-22T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": true
+     }
+    },
+    "margin_high": -6.5,
+    "margin_low": -7.5,
+    "source": "kalshi"
+   },
    "title": "Arizona vs Kansas St."
   },
   "KXNCAAFSPREAD-26NOV21ARKTEX": {
@@ -2590,6 +2616,32 @@
    },
    "home_team": "Louisiana Tech",
    "kickoff": "2026-11-22T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 47.5,
+    "margin_low": 44.5,
+    "source": "kalshi"
+   },
    "title": "Arkansas St. vs Louisiana Tech"
   },
   "KXNCAAFSPREAD-26NOV21BYUKU": {
@@ -3206,6 +3258,32 @@
    "away_team": "Colorado St.",
    "home_team": "Fresno St.",
    "kickoff": "2026-11-22T00:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 7.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 7.5,
+    "margin_low": 6.5,
+    "source": "kalshi"
+   },
    "title": "Colorado St. vs Fresno St."
   },
   "KXNCAAFSPREAD-26NOV21DELNMSU": {
@@ -4096,6 +4174,32 @@
    "away_team": "Idaho",
    "home_team": "Idaho St.",
    "kickoff": "2026-11-21T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 14.5,
+    "margin_low": 10.5,
+    "source": "kalshi"
+   },
    "title": "Idaho vs Idaho St."
   },
   "KXNCAAFSPREAD-26NOV21INDWASH": {
@@ -4466,6 +4570,32 @@
    "away_team": "Lamar",
    "home_team": "McNeese",
    "kickoff": "2026-11-22T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 1.5,
+    "margin_low": -3.5,
+    "source": "kalshi"
+   },
    "title": "Lamar vs McNeese"
   },
   "KXNCAAFSPREAD-26NOV21LSUTENN": {
@@ -4804,6 +4934,32 @@
    },
    "home_team": "USC",
    "kickoff": "2026-11-21T23:15:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 14.5,
+    "margin_low": 13.5,
+    "source": "kalshi"
+   },
    "title": "Maryland vs USC"
   },
   "KXNCAAFSPREAD-26NOV21MEMNAVY": {
@@ -6229,6 +6385,32 @@
    "away_team": "Pittsburgh",
    "home_team": "Louisville",
    "kickoff": "2026-11-22T00:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 33.5,
+    "margin_low": 30.5,
+    "source": "kalshi"
+   },
    "title": "Pittsburgh vs Louisville"
   },
   "KXNCAAFSPREAD-26NOV21RUTGPSU": {
@@ -6573,6 +6755,32 @@
    },
    "home_team": "Notre Dame",
    "kickoff": "2026-11-22T00:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 21.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 21.5,
+    "margin_low": 20.5,
+    "source": "kalshi"
+   },
    "title": "SMU vs Notre Dame"
   },
   "KXNCAAFSPREAD-26NOV21STANCAL": {
@@ -6654,12 +6862,64 @@
    },
    "home_team": "California",
    "kickoff": "2026-11-22T00:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": false
+     }
+    },
+    "margin_high": -14.5,
+    "margin_low": -16.5,
+    "source": "kalshi"
+   },
    "title": "Stanford vs California"
   },
   "KXNCAAFSPREAD-26NOV21STETUSD": {
    "away_team": "Stetson",
    "home_team": "San Diego",
    "kickoff": "2026-11-22T01:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 40.5,
+    "margin_low": 36.5,
+    "source": "kalshi"
+   },
    "title": "Stetson vs San Diego"
   },
   "KXNCAAFSPREAD-26NOV21SYRBC": {
@@ -7651,6 +7911,32 @@
    },
    "home_team": "South Carolina",
    "kickoff": "2026-11-22T00:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": true
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": -27.5,
+    "margin_low": -30.5,
+    "source": "kalshi"
+   },
    "title": "Georgia vs South Carolina"
   },
   "KXNCAAFSPREAD-26NOV21UKMIZZ": {
@@ -7732,6 +8018,32 @@
    },
    "home_team": "Missouri",
    "kickoff": "2026-11-22T00:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 14.5,
+    "margin_low": 13.5,
+    "source": "kalshi"
+   },
    "title": "Kentucky vs Missouri"
   },
   "KXNCAAFSPREAD-26NOV21ULMAPP": {
@@ -7952,6 +8264,32 @@
    },
    "home_team": "San Jose St.",
    "kickoff": "2026-11-22T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -2.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -1.5,
+    "margin_low": -2.5,
+    "source": "kalshi"
+   },
    "title": "UNLV vs San Jose St."
   },
   "KXNCAAFSPREAD-26NOV21UNTTULN": {
@@ -8172,6 +8510,32 @@
    "away_team": "South Florida",
    "home_team": "Florida Atlantic",
    "kickoff": "2026-11-21T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 22.5,
+    "margin_low": 19.5,
+    "source": "kalshi"
+   },
    "title": "South Florida vs Florida Atlantic"
   },
   "KXNCAAFSPREAD-26NOV21USUORST": {
@@ -8409,6 +8773,32 @@
    },
    "home_team": "TCU",
    "kickoff": "2026-11-22T02:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -21.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": true,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": -20.5,
+    "margin_low": -21.5,
+    "source": "kalshi"
+   },
    "title": "Utah vs TCU"
   },
   "KXNCAAFSPREAD-26NOV21UTRGVHCU": {
@@ -8447,6 +8837,32 @@
    "away_team": "UTSA",
    "home_team": "UAB",
    "kickoff": "2026-11-22T01:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -2.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -1.5,
+    "margin_low": -2.5,
+    "source": "kalshi"
+   },
    "title": "UTSA vs UAB"
   },
   "KXNCAAFSPREAD-26NOV21VANFLA": {
@@ -8635,6 +9051,32 @@
    "away_team": "Virginia Tech",
    "home_team": "Miami (FL)",
    "kickoff": "2026-11-22T00:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 9.5,
+    "margin_low": 7.5,
+    "source": "kalshi"
+   },
    "title": "Virginia Tech vs Miami (FL)"
   },
   "KXNCAAFSPREAD-26NOV21WAKEGT": {
@@ -9144,27 +9586,53 @@
    },
    "home_team": "Texas St.",
    "kickoff": "2026-11-21T23:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 30.5,
+    "margin_low": 27.5,
+    "source": "kalshi"
+   },
    "title": "Washington St. vs Texas St."
   },
   "KXNCAAFSPREAD-26NOV24KENTEMU": {
    "away_team": "Kent St.",
    "decision": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
+    "at": "2026-11-22T06:07:42.763531+00:00",
     "band": 1.11,
-    "blended_margin": 4.96,
-    "dollar_volume": 1774,
+    "blended_margin": 4.92,
+    "dollar_volume": 1954,
     "fraction_traded": 0.103,
-    "implied_margin": 4.96,
+    "implied_margin": 4.92,
     "kalshi_weight": 1.0,
     "margin_high": 5.21,
     "margin_low": 4.09,
-    "master_margin": 5.03,
-    "minutes_before_kickoff": 3929,
+    "master_margin": 4.98,
+    "minutes_before_kickoff": 3652,
     "open_interest": 204,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
-     "estimate": 5.03,
+     "estimate": 4.98,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -9177,7 +9645,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 5.08,
+      "estimate": 5.02,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -9188,7 +9656,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 4.96,
+      "estimate": 4.92,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -9199,7 +9667,7 @@
      "master": {
       "confidence": "no-signal",
       "edge": 0.0,
-      "estimate": 5.03,
+      "estimate": 4.98,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -9224,22 +9692,22 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
+    "at": "2026-11-22T06:07:42.763531+00:00",
     "band": 1.11,
-    "blended_margin": 4.96,
-    "dollar_volume": 1774,
+    "blended_margin": 4.92,
+    "dollar_volume": 1954,
     "fraction_traded": 0.103,
-    "implied_margin": 4.96,
+    "implied_margin": 4.92,
     "kalshi_weight": 1.0,
     "margin_high": 5.21,
     "margin_low": 4.09,
-    "master_margin": 5.03,
-    "minutes_before_kickoff": 3929,
+    "master_margin": 4.98,
+    "minutes_before_kickoff": 3652,
     "open_interest": 204,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
-     "estimate": 5.03,
+     "estimate": 4.98,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
@@ -9252,7 +9720,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 5.08,
+      "estimate": 5.02,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -9263,7 +9731,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 4.96,
+      "estimate": 4.92,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -9274,7 +9742,7 @@
      "master": {
       "confidence": "no-signal",
       "edge": 0.0,
-      "estimate": 5.03,
+      "estimate": 4.98,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -9302,21 +9770,177 @@
    "kickoff": "2026-11-24T19:00:00+00:00",
    "title": "Kent St. vs Eastern Michigan"
   },
+  "KXNCAAFSPREAD-26NOV24MOHWMU": {
+   "away_team": "Miami (OH)",
+   "decision": {
+    "at": "2026-11-22T06:07:42.763531+00:00",
+    "band": 3.97,
+    "blended_margin": 7.5,
+    "dollar_volume": 2115,
+    "fraction_traded": 0.032,
+    "implied_margin": 7.5,
+    "kalshi_weight": 1.0,
+    "margin_high": 9.5,
+    "margin_low": 5.53,
+    "master_margin": 8.11,
+    "minutes_before_kickoff": 3652,
+    "open_interest": 23,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": 8.11,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: 4.0pt uncertainty band; only 23 open interest.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 8.15,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 7.5,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": 8.11,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: 4.0pt uncertainty band; only 23 open interest.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 6.8,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "final": {
+    "at": "2026-11-22T06:07:42.763531+00:00",
+    "band": 3.97,
+    "blended_margin": 7.5,
+    "dollar_volume": 2115,
+    "fraction_traded": 0.032,
+    "implied_margin": 7.5,
+    "kalshi_weight": 1.0,
+    "margin_high": 9.5,
+    "margin_low": 5.53,
+    "master_margin": 8.11,
+    "minutes_before_kickoff": 3652,
+    "open_interest": 23,
+    "pick": {
+     "confidence": "no-signal",
+     "edge": 0.0,
+     "estimate": 8.11,
+     "line": 0.0,
+     "p_cover": null,
+     "p_push": 0.0,
+     "reason": "Insufficient market: 4.0pt uncertainty band; only 23 open interest.",
+     "side": null,
+     "strategy_version": "v2",
+     "team": null
+    },
+    "picks": {
+     "kalshi_ml": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 8.15,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "kalshi_spread": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 7.5,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     },
+     "master": {
+      "confidence": "no-signal",
+      "edge": 0.0,
+      "estimate": 8.11,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "Insufficient market: 4.0pt uncertainty band; only 23 open interest.",
+      "side": null,
+      "strategy_version": "v2",
+      "team": null
+     },
+     "sp_plus": {
+      "confidence": "no-play",
+      "edge": 0.0,
+      "estimate": 6.8,
+      "line": 0.0,
+      "p_cover": null,
+      "p_push": 0.0,
+      "reason": "No Vegas line available - enter one to grade this game.",
+      "side": null,
+      "team": null
+     }
+    },
+    "tier": "D",
+    "vegas_home_favored_by": null
+   },
+   "home_team": "Western Michigan",
+   "kickoff": "2026-11-24T19:00:00+00:00",
+   "title": "Miami (OH) vs Western Michigan"
+  },
   "KXNCAAFSPREAD-26NOV26TCUTTU": {
    "away_team": "TCU",
    "decision": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
+    "at": "2026-11-22T06:07:42.763531+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 5083,
+    "dollar_volume": 11119,
     "fraction_traded": 0.355,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 6809,
-    "open_interest": 1847,
+    "minutes_before_kickoff": 6532,
+    "open_interest": 1888,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -9324,7 +9948,7 @@
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 2 usable strikes of 31.",
+     "reason": "Insufficient market: only 3 usable strikes of 31.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -9348,7 +9972,7 @@
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "reason": "Insufficient market: only 3 usable strikes of 31.",
       "side": null,
       "team": null
      },
@@ -9359,7 +9983,7 @@
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "reason": "Insufficient market: only 3 usable strikes of 31.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -9380,18 +10004,18 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
+    "at": "2026-11-22T06:07:42.763531+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 5083,
+    "dollar_volume": 11119,
     "fraction_traded": 0.355,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 6809,
-    "open_interest": 1847,
+    "minutes_before_kickoff": 6532,
+    "open_interest": 1888,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
@@ -9399,7 +10023,7 @@
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 2 usable strikes of 31.",
+     "reason": "Insufficient market: only 3 usable strikes of 31.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -9423,7 +10047,7 @@
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "reason": "Insufficient market: only 3 usable strikes of 31.",
       "side": null,
       "team": null
      },
@@ -9434,7 +10058,7 @@
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 2 usable strikes of 31.",
+      "reason": "Insufficient market: only 3 usable strikes of 31.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -9461,17 +10085,17 @@
   "KXNCAAFSPREAD-26NOV27BUFFAKR": {
    "away_team": "Buffalo",
    "decision": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
+    "at": "2026-11-22T06:07:42.763531+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 306,
+    "dollar_volume": 318,
     "fraction_traded": 0.032,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 8249,
+    "minutes_before_kickoff": 7972,
     "open_interest": 37,
     "pick": {
      "confidence": "no-signal",
@@ -9480,7 +10104,7 @@
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 5 usable strikes of 31.",
+     "reason": "Insufficient market: only 1 usable strikes of 31.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -9504,7 +10128,7 @@
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 5 usable strikes of 31.",
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
       "side": null,
       "team": null
      },
@@ -9515,7 +10139,7 @@
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 5 usable strikes of 31.",
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -9536,17 +10160,17 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
+    "at": "2026-11-22T06:07:42.763531+00:00",
     "band": null,
     "blended_margin": null,
-    "dollar_volume": 306,
+    "dollar_volume": 318,
     "fraction_traded": 0.032,
     "implied_margin": null,
     "kalshi_weight": 1.0,
     "margin_high": null,
     "margin_low": null,
     "master_margin": null,
-    "minutes_before_kickoff": 8249,
+    "minutes_before_kickoff": 7972,
     "open_interest": 37,
     "pick": {
      "confidence": "no-signal",
@@ -9555,7 +10179,7 @@
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 5 usable strikes of 31.",
+     "reason": "Insufficient market: only 1 usable strikes of 31.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -9579,7 +10203,7 @@
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 5 usable strikes of 31.",
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
       "side": null,
       "team": null
      },
@@ -9590,7 +10214,7 @@
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 5 usable strikes of 31.",
+      "reason": "Insufficient market: only 1 usable strikes of 31.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -9617,61 +10241,61 @@
   "KXNCAAFSPREAD-26NOV27MSSTMISS": {
    "away_team": "Mississippi St.",
    "decision": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
-    "band": null,
-    "blended_margin": null,
-    "dollar_volume": 2731,
+    "at": "2026-11-22T06:07:42.763531+00:00",
+    "band": 3.57,
+    "blended_margin": 19.29,
+    "dollar_volume": 6026,
     "fraction_traded": 0.037,
-    "implied_margin": null,
+    "implied_margin": 19.29,
     "kalshi_weight": 1.0,
-    "margin_high": null,
-    "margin_low": null,
-    "master_margin": null,
-    "minutes_before_kickoff": 8249,
+    "margin_high": 22.52,
+    "margin_low": 18.95,
+    "master_margin": 20.14,
+    "minutes_before_kickoff": 7972,
     "open_interest": 739,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
-     "estimate": null,
+     "estimate": 20.14,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 4 usable strikes of 27.",
+     "reason": "Insufficient market: 3.6pt uncertainty band.",
      "side": null,
      "strategy_version": "v2",
      "team": null
     },
     "picks": {
      "kalshi_ml": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 20.21,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no comparable moneyline.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "kalshi_spread": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 19.29,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 4 usable strikes of 27.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "master": {
       "confidence": "no-signal",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 20.14,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 4 usable strikes of 27.",
+      "reason": "Insufficient market: 3.6pt uncertainty band.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -9692,61 +10316,61 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
-    "band": null,
-    "blended_margin": null,
-    "dollar_volume": 2731,
+    "at": "2026-11-22T06:07:42.763531+00:00",
+    "band": 3.57,
+    "blended_margin": 19.29,
+    "dollar_volume": 6026,
     "fraction_traded": 0.037,
-    "implied_margin": null,
+    "implied_margin": 19.29,
     "kalshi_weight": 1.0,
-    "margin_high": null,
-    "margin_low": null,
-    "master_margin": null,
-    "minutes_before_kickoff": 8249,
+    "margin_high": 22.52,
+    "margin_low": 18.95,
+    "master_margin": 20.14,
+    "minutes_before_kickoff": 7972,
     "open_interest": 739,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
-     "estimate": null,
+     "estimate": 20.14,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 4 usable strikes of 27.",
+     "reason": "Insufficient market: 3.6pt uncertainty band.",
      "side": null,
      "strategy_version": "v2",
      "team": null
     },
     "picks": {
      "kalshi_ml": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 20.21,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no comparable moneyline.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "kalshi_spread": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 19.29,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 4 usable strikes of 27.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "master": {
       "confidence": "no-signal",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 20.14,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 4 usable strikes of 27.",
+      "reason": "Insufficient market: 3.6pt uncertainty band.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -9773,26 +10397,26 @@
   "KXNCAAFSPREAD-26NOV27NEBIOWA": {
    "away_team": "Nebraska",
    "decision": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
-    "band": 0.61,
-    "blended_margin": 6.5,
-    "dollar_volume": 7628,
-    "fraction_traded": 0.129,
-    "implied_margin": 6.5,
+    "at": "2026-11-22T06:07:42.763531+00:00",
+    "band": 2.35,
+    "blended_margin": 6.19,
+    "dollar_volume": 10735,
+    "fraction_traded": 0.161,
+    "implied_margin": 6.19,
     "kalshi_weight": 1.0,
-    "margin_high": 6.76,
-    "margin_low": 6.15,
-    "master_margin": 6.34,
-    "minutes_before_kickoff": 8249,
-    "open_interest": 1119,
+    "margin_high": 6.5,
+    "margin_low": 4.15,
+    "master_margin": 6.4,
+    "minutes_before_kickoff": 7972,
+    "open_interest": 1712,
     "pick": {
-     "confidence": "no-play",
+     "confidence": "no-signal",
      "edge": 0.0,
-     "estimate": 6.34,
+     "estimate": 6.4,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "No Vegas line available - enter one to grade this game.",
+     "reason": "Insufficient market: 2.4pt uncertainty band.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -9801,7 +10425,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 6.16,
+      "estimate": 6.41,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -9812,7 +10436,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 6.5,
+      "estimate": 6.19,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -9821,13 +10445,13 @@
       "team": null
      },
      "master": {
-      "confidence": "no-play",
+      "confidence": "no-signal",
       "edge": 0.0,
-      "estimate": 6.34,
+      "estimate": 6.4,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "No Vegas line available - enter one to grade this game.",
+      "reason": "Insufficient market: 2.4pt uncertainty band.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -9844,30 +10468,30 @@
       "team": null
      }
     },
-    "tier": "C",
+    "tier": "D",
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
-    "band": 0.61,
-    "blended_margin": 6.5,
-    "dollar_volume": 7628,
-    "fraction_traded": 0.129,
-    "implied_margin": 6.5,
+    "at": "2026-11-22T06:07:42.763531+00:00",
+    "band": 2.35,
+    "blended_margin": 6.19,
+    "dollar_volume": 10735,
+    "fraction_traded": 0.161,
+    "implied_margin": 6.19,
     "kalshi_weight": 1.0,
-    "margin_high": 6.76,
-    "margin_low": 6.15,
-    "master_margin": 6.34,
-    "minutes_before_kickoff": 8249,
-    "open_interest": 1119,
+    "margin_high": 6.5,
+    "margin_low": 4.15,
+    "master_margin": 6.4,
+    "minutes_before_kickoff": 7972,
+    "open_interest": 1712,
     "pick": {
-     "confidence": "no-play",
+     "confidence": "no-signal",
      "edge": 0.0,
-     "estimate": 6.34,
+     "estimate": 6.4,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "No Vegas line available - enter one to grade this game.",
+     "reason": "Insufficient market: 2.4pt uncertainty band.",
      "side": null,
      "strategy_version": "v2",
      "team": null
@@ -9876,7 +10500,7 @@
      "kalshi_ml": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 6.16,
+      "estimate": 6.41,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -9887,7 +10511,7 @@
      "kalshi_spread": {
       "confidence": "no-play",
       "edge": 0.0,
-      "estimate": 6.5,
+      "estimate": 6.19,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
@@ -9896,13 +10520,13 @@
       "team": null
      },
      "master": {
-      "confidence": "no-play",
+      "confidence": "no-signal",
       "edge": 0.0,
-      "estimate": 6.34,
+      "estimate": 6.4,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "No Vegas line available - enter one to grade this game.",
+      "reason": "Insufficient market: 2.4pt uncertainty band.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -9919,7 +10543,7 @@
       "team": null
      }
     },
-    "tier": "C",
+    "tier": "D",
     "vegas_home_favored_by": null
    },
    "home_team": "Iowa",
@@ -9929,61 +10553,61 @@
   "KXNCAAFSPREAD-26NOV27TEXTXAM": {
    "away_team": "Texas",
    "decision": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
-    "band": null,
-    "blended_margin": null,
-    "dollar_volume": 23488,
-    "fraction_traded": 0.29,
-    "implied_margin": null,
+    "at": "2026-11-22T06:07:42.763531+00:00",
+    "band": 0.32,
+    "blended_margin": -7.26,
+    "dollar_volume": 32954,
+    "fraction_traded": 0.323,
+    "implied_margin": -7.26,
     "kalshi_weight": 1.0,
-    "margin_high": null,
-    "margin_low": null,
-    "master_margin": null,
-    "minutes_before_kickoff": 8249,
-    "open_interest": 1264,
+    "margin_high": -7.06,
+    "margin_low": -7.38,
+    "master_margin": -8.29,
+    "minutes_before_kickoff": 7972,
+    "open_interest": 5479,
     "pick": {
-     "confidence": "no-signal",
+     "confidence": "no-play",
      "edge": 0.0,
-     "estimate": null,
+     "estimate": -8.29,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 1 usable strikes of 31.",
+     "reason": "No Vegas line available - enter one to grade this game.",
      "side": null,
      "strategy_version": "v2",
      "team": null
     },
     "picks": {
      "kalshi_ml": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -10.72,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no comparable moneyline.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "kalshi_spread": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -7.26,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "master": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -8.29,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -10000,65 +10624,65 @@
       "team": null
      }
     },
-    "tier": "D",
+    "tier": "B",
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
-    "band": null,
-    "blended_margin": null,
-    "dollar_volume": 23488,
-    "fraction_traded": 0.29,
-    "implied_margin": null,
+    "at": "2026-11-22T06:07:42.763531+00:00",
+    "band": 0.32,
+    "blended_margin": -7.26,
+    "dollar_volume": 32954,
+    "fraction_traded": 0.323,
+    "implied_margin": -7.26,
     "kalshi_weight": 1.0,
-    "margin_high": null,
-    "margin_low": null,
-    "master_margin": null,
-    "minutes_before_kickoff": 8249,
-    "open_interest": 1264,
+    "margin_high": -7.06,
+    "margin_low": -7.38,
+    "master_margin": -8.29,
+    "minutes_before_kickoff": 7972,
+    "open_interest": 5479,
     "pick": {
-     "confidence": "no-signal",
+     "confidence": "no-play",
      "edge": 0.0,
-     "estimate": null,
+     "estimate": -8.29,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 1 usable strikes of 31.",
+     "reason": "No Vegas line available - enter one to grade this game.",
      "side": null,
      "strategy_version": "v2",
      "team": null
     },
     "picks": {
      "kalshi_ml": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -10.72,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no comparable moneyline.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "kalshi_spread": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -7.26,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "master": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -8.29,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 31.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -10075,7 +10699,7 @@
       "team": null
      }
     },
-    "tier": "D",
+    "tier": "B",
     "vegas_home_favored_by": null
    },
    "home_team": "Texas A&M",
@@ -10085,61 +10709,61 @@
   "KXNCAAFSPREAD-26NOV28MICHOSU": {
    "away_team": "Michigan",
    "decision": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
-    "band": null,
-    "blended_margin": null,
-    "dollar_volume": 11313,
-    "fraction_traded": 0.194,
-    "implied_margin": null,
+    "at": "2026-11-22T06:07:42.763531+00:00",
+    "band": 6.9,
+    "blended_margin": 10.35,
+    "dollar_volume": 14471,
+    "fraction_traded": 0.29,
+    "implied_margin": 10.35,
     "kalshi_weight": 1.0,
-    "margin_high": null,
-    "margin_low": null,
-    "master_margin": null,
-    "minutes_before_kickoff": 9689,
-    "open_interest": 743,
+    "margin_high": 13.5,
+    "margin_low": 6.6,
+    "master_margin": 9.63,
+    "minutes_before_kickoff": 9412,
+    "open_interest": 891,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
-     "estimate": null,
+     "estimate": 9.63,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 0 usable strikes of 31.",
+     "reason": "Insufficient market: 6.9pt uncertainty band.",
      "side": null,
      "strategy_version": "v2",
      "team": null
     },
     "picks": {
      "kalshi_ml": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 9.63,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no comparable moneyline.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "kalshi_spread": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 10.35,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "master": {
       "confidence": "no-signal",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 9.63,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "reason": "Insufficient market: 6.9pt uncertainty band.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -10160,61 +10784,61 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
-    "band": null,
-    "blended_margin": null,
-    "dollar_volume": 11313,
-    "fraction_traded": 0.194,
-    "implied_margin": null,
+    "at": "2026-11-22T06:07:42.763531+00:00",
+    "band": 6.9,
+    "blended_margin": 10.35,
+    "dollar_volume": 14471,
+    "fraction_traded": 0.29,
+    "implied_margin": 10.35,
     "kalshi_weight": 1.0,
-    "margin_high": null,
-    "margin_low": null,
-    "master_margin": null,
-    "minutes_before_kickoff": 9689,
-    "open_interest": 743,
+    "margin_high": 13.5,
+    "margin_low": 6.6,
+    "master_margin": 9.63,
+    "minutes_before_kickoff": 9412,
+    "open_interest": 891,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
-     "estimate": null,
+     "estimate": 9.63,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 0 usable strikes of 31.",
+     "reason": "Insufficient market: 6.9pt uncertainty band.",
      "side": null,
      "strategy_version": "v2",
      "team": null
     },
     "picks": {
      "kalshi_ml": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 9.63,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no comparable moneyline.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "kalshi_spread": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 10.35,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "master": {
       "confidence": "no-signal",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": 9.63,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 0 usable strikes of 31.",
+      "reason": "Insufficient market: 6.9pt uncertainty band.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -10241,61 +10865,61 @@
   "KXNCAAFSPREAD-26NOV28NDSYR": {
    "away_team": "Notre Dame",
    "decision": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
-    "band": null,
-    "blended_margin": null,
-    "dollar_volume": 693,
-    "fraction_traded": 0.04,
-    "implied_margin": null,
+    "at": "2026-11-22T06:07:42.763531+00:00",
+    "band": 0.74,
+    "blended_margin": -22.4,
+    "dollar_volume": 1266,
+    "fraction_traded": 0.08,
+    "implied_margin": -22.4,
     "kalshi_weight": 1.0,
-    "margin_high": null,
-    "margin_low": null,
-    "master_margin": null,
-    "minutes_before_kickoff": 9689,
-    "open_interest": 288,
+    "margin_high": -22.07,
+    "margin_low": -22.81,
+    "master_margin": -22.57,
+    "minutes_before_kickoff": 9412,
+    "open_interest": 303,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
-     "estimate": null,
+     "estimate": -22.57,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 1 usable strikes of 25.",
+     "reason": "Insufficient market: only 303 open interest.",
      "side": null,
      "strategy_version": "v2",
      "team": null
     },
     "picks": {
      "kalshi_ml": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -25.52,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no comparable moneyline.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "kalshi_spread": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -22.4,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 25.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "master": {
       "confidence": "no-signal",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -22.57,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 25.",
+      "reason": "Insufficient market: only 303 open interest.",
       "side": null,
       "strategy_version": "v2",
       "team": null
@@ -10316,61 +10940,61 @@
     "vegas_home_favored_by": null
    },
    "final": {
-    "at": "2026-11-22T01:31:24.967137+00:00",
-    "band": null,
-    "blended_margin": null,
-    "dollar_volume": 693,
-    "fraction_traded": 0.04,
-    "implied_margin": null,
+    "at": "2026-11-22T06:07:42.763531+00:00",
+    "band": 0.74,
+    "blended_margin": -22.4,
+    "dollar_volume": 1266,
+    "fraction_traded": 0.08,
+    "implied_margin": -22.4,
     "kalshi_weight": 1.0,
-    "margin_high": null,
-    "margin_low": null,
-    "master_margin": null,
-    "minutes_before_kickoff": 9689,
-    "open_interest": 288,
+    "margin_high": -22.07,
+    "margin_low": -22.81,
+    "master_margin": -22.57,
+    "minutes_before_kickoff": 9412,
+    "open_interest": 303,
     "pick": {
      "confidence": "no-signal",
      "edge": 0.0,
-     "estimate": null,
+     "estimate": -22.57,
      "line": 0.0,
      "p_cover": null,
      "p_push": 0.0,
-     "reason": "Insufficient market: only 1 usable strikes of 25.",
+     "reason": "Insufficient market: only 303 open interest.",
      "side": null,
      "strategy_version": "v2",
      "team": null
     },
     "picks": {
      "kalshi_ml": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -25.52,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: no comparable moneyline.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "kalshi_spread": {
-      "confidence": "no-signal",
+      "confidence": "no-play",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -22.4,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 25.",
+      "reason": "No Vegas line available - enter one to grade this game.",
       "side": null,
       "team": null
      },
      "master": {
       "confidence": "no-signal",
       "edge": 0.0,
-      "estimate": null,
+      "estimate": -22.57,
       "line": 0.0,
       "p_cover": null,
       "p_push": 0.0,
-      "reason": "Insufficient market: only 1 usable strikes of 25.",
+      "reason": "Insufficient market: only 303 open interest.",
       "side": null,
       "strategy_version": "v2",
       "team": null
