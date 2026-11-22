@@ -12496,6 +12496,32 @@
    },
    "home_team": "Texas",
    "kickoff": "2026-11-21T20:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 44.5,
+    "margin_low": 41.5,
+    "source": "kalshi"
+   },
    "title": "Arkansas vs Texas"
   },
   "KXNCAAFSPREAD-26NOV21BYUKU": {
@@ -12834,6 +12860,32 @@
    },
    "home_team": "Louisiana",
    "kickoff": "2026-11-21T20:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 14.5,
+    "margin_low": 13.5,
+    "source": "kalshi"
+   },
    "title": "Coastal Carolina vs Louisiana"
   },
   "KXNCAAFSPREAD-26NOV21CHARTLSA": {
@@ -12990,6 +13042,32 @@
    },
    "home_team": "Tulsa",
    "kickoff": "2026-11-21T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 30.5,
+    "margin_low": 27.5,
+    "source": "kalshi"
+   },
    "title": "Charlotte vs Tulsa"
   },
   "KXNCAAFSPREAD-26NOV21COLOCIN": {
@@ -13484,6 +13562,32 @@
    },
    "home_team": "Troy",
    "kickoff": "2026-11-21T21:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -36.5,
+    "margin_low": null,
+    "source": "kalshi"
+   },
    "title": "Georgia Southern vs Troy"
   },
   "KXNCAAFSPREAD-26NOV21HAWNEV": {
@@ -13796,6 +13900,32 @@
    },
    "home_team": "Washington",
    "kickoff": "2026-11-21T20:30:00+00:00",
+   "result": {
+    "decision_correct": true,
+    "final_correct": true,
+    "home_margin": 3.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": true,
+      "final_correct": true
+     },
+     "master": {
+      "decision_correct": true,
+      "final_correct": true
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 3.5,
+    "margin_low": 2.5,
+    "source": "kalshi"
+   },
    "title": "Indiana vs Washington"
   },
   "KXNCAAFSPREAD-26NOV21IOWAILL": {
@@ -13952,6 +14082,32 @@
    },
    "home_team": "Illinois",
    "kickoff": "2026-11-21T19:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -17.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -16.5,
+    "margin_low": -17.5,
+    "source": "kalshi"
+   },
    "title": "Iowa vs Illinois"
   },
   "KXNCAAFSPREAD-26NOV21LSUTENN": {
@@ -14108,6 +14264,32 @@
    },
    "home_team": "Tennessee",
    "kickoff": "2026-11-21T20:30:00+00:00",
+   "result": {
+    "decision_correct": false,
+    "final_correct": false,
+    "home_margin": 14.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": false,
+      "final_correct": false
+     },
+     "kalshi_spread": {
+      "decision_correct": false,
+      "final_correct": false
+     },
+     "master": {
+      "decision_correct": false,
+      "final_correct": false
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 14.5,
+    "margin_low": 13.5,
+    "source": "kalshi"
+   },
    "title": "LSU vs Tennessee"
   },
   "KXNCAAFSPREAD-26NOV21MDUSC": {
@@ -14420,6 +14602,32 @@
    },
    "home_team": "Florida St.",
    "kickoff": "2026-11-21T20:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -17.5,
+    "margin_low": -20.5,
+    "source": "kalshi"
+   },
    "title": "NC St. vs Florida St."
   },
   "KXNCAAFSPREAD-26NOV21NIUNDSU": {
@@ -14576,6 +14784,32 @@
    },
    "home_team": "North Dakota St.",
    "kickoff": "2026-11-21T21:00:00+00:00",
+   "result": {
+    "decision_correct": false,
+    "final_correct": false,
+    "home_margin": 6.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": false,
+      "final_correct": false
+     },
+     "kalshi_spread": {
+      "decision_correct": false,
+      "final_correct": false
+     },
+     "master": {
+      "decision_correct": false,
+      "final_correct": false
+     },
+     "sp_plus": {
+      "decision_correct": false,
+      "final_correct": false
+     }
+    },
+    "margin_high": 6.5,
+    "margin_low": 5.5,
+    "source": "kalshi"
+   },
    "title": "Northern Illinois vs North Dakota St."
   },
   "KXNCAAFSPREAD-26NOV21NWMINN": {
@@ -15252,6 +15486,32 @@
    },
    "home_team": "Penn St.",
    "kickoff": "2026-11-21T20:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": null,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": true,
+      "final_correct": true
+     }
+    },
+    "margin_high": 1.5,
+    "margin_low": null,
+    "source": "kalshi"
+   },
    "title": "Rutgers vs Penn St."
   },
   "KXNCAAFSPREAD-26NOV21SMUND": {
@@ -15902,6 +16162,32 @@
    },
    "home_team": "Baylor",
    "kickoff": "2026-11-21T05:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -9.5,
+    "margin_low": -10.5,
+    "source": "kalshi"
+   },
    "title": "Texas Tech vs Baylor"
   },
   "KXNCAAFSPREAD-26NOV21UCLAMICH": {
@@ -16058,6 +16344,32 @@
    },
    "home_team": "Michigan",
    "kickoff": "2026-11-21T20:30:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": 2.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": true,
+      "final_correct": true
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": 2.5,
+    "margin_low": 1.5,
+    "source": "kalshi"
+   },
    "title": "UCLA vs Michigan"
   },
   "KXNCAAFSPREAD-26NOV21UGASCAR": {
