@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-26T20:59:23.166951+00:00",
+ "generated_at": "2026-11-27T01:59:56.364707+00:00",
  "weeks": [
   {
    "week_key": "2026-09-12",
@@ -723,7 +723,7 @@
    },
    "superseded": 3,
    "open": {
-    "live": 0,
+    "live": 1,
     "pending": 0,
     "awaiting": 0
    },
@@ -807,7 +807,7 @@
    },
    "superseded": 18,
    "open": {
-    "live": 7,
+    "live": 6,
     "pending": 0,
     "awaiting": 0
    },
