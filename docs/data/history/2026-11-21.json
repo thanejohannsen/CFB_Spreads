@@ -10964,6 +10964,32 @@
    },
    "home_team": "Texas A&M",
    "kickoff": "2026-11-27T19:00:00+00:00",
+   "result": {
+    "decision_correct": null,
+    "final_correct": null,
+    "home_margin": -10.0,
+    "lenses": {
+     "kalshi_ml": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "kalshi_spread": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "master": {
+      "decision_correct": null,
+      "final_correct": null
+     },
+     "sp_plus": {
+      "decision_correct": null,
+      "final_correct": null
+     }
+    },
+    "margin_high": -9.5,
+    "margin_low": -10.5,
+    "source": "kalshi"
+   },
    "title": "Texas vs Texas A&M"
   },
   "KXNCAAFSPREAD-26NOV28MICHOSU": {
